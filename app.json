@@ -1,0 +1,12 @@
+{
+    "id": "com.somfy.tahoma",
+    "name": {
+        "en": "Somfy TaHoma"
+    },
+    "version": "0.0.1",
+    "compatibility": "1.x",
+    "author": {
+        "name": "Lennart Kuijs",
+        "email": "mail@lennartkuijs.nl"
+    }
+}
