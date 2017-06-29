@@ -30,11 +30,29 @@
 			function save() {
 				var username = $('#username').val();
 				var password = $('#password').val();
+				var response = $('#response');
 
-				Homey.set('username', username);
-				Homey.set('password', password);
+				//Homey.set('username', username);
+				//Homey.set('password', password);
 
 				//todo -> check login credentials
+				Homey.api('POST', '/login/', {
+						"username": username,
+						"password": password
+					}, function(err, result) {
+						if (err) {
+							return console.log(err);
+						}
+
+						if (result) {
+							response.css({color: 'green'});
+							response.html(__('settings.success'));
+						} else {
+							response.css({color: 'red'});
+							response.html(__('settings.failure'));
+						}
+						console.log(result);
+				});
 			}
 		</script>
 	</head>
@@ -44,6 +62,7 @@
 
 		<fieldset>
 			<legend data-i18n="settings.logintitle"></legend>
+			<span id="response"></span>
 	        <div class="field row">
 	            <label for="username" data-i18n="settings.username"></label>
 	            <input id="username" type="text" value=""/>
@@ -52,7 +71,6 @@
 	            <label for="password" data-i18n="settings.password"></label>
 	            <input id="password" type="password" value=""/>
 	        </div>
-	        <span id="response"></span>
     	</fieldset>
 
     <button class="left" style="display:block" onclick="save()" data-i18n="settings.save" ></button>
