@@ -8,10 +8,11 @@ module.exports = [
 		method: 'POST',
 		path: '/login/',
 		fn: function(callback, args) {
-
-			Homey.log(args);
 			taHoma.login(args.body.username, args.body.password, function(err, result) {
-				Homey.log('Successfully logged in.');
+				Homey.log(err, result);
+				taHoma.setup(function(err, result) {
+
+				});
 				callback(null, result);
 			});
 
