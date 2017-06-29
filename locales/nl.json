@@ -1,0 +1,8 @@
+{
+	"settings": {
+		"title": "TaHoma instellingen",
+		"intro": "Om TaHoma aan te sturen vanuit Homey, moet Homey toestemming krijgen middels een gebruikersnaam en wachtwoord.",
+		"authorize": "Verbinding maken met TaHoma",
+		"revoke": "Verbinding met TaHoma verbreken"
+	}
+}
