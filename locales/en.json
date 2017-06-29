@@ -5,6 +5,8 @@
 		"logintitle": "TaHoma login credentials",
 		"username": "Username",
 		"password": "Password",
-		"save": "Save credentials"
+		"save": "Save credentials",
+		"success": "Successfully logged in.",
+		"failure": "Failed to log in."
 	}
 }

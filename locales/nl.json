@@ -5,6 +5,8 @@
 		"logintitle": "TaHoma login gegevens",
 		"username": "Gebruikersnaam",
 		"password": "Wachtwoord",
-		"save": "Login gegevens opslaan"
+		"save": "Login gegevens opslaan",
+		"success": "Inloggen succesvol.",
+		"failure": "Inloggen niet gelukt."
 	}
 }
