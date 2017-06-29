@@ -1,7 +1,8 @@
 {
     "id": "com.somfy.tahoma",
     "name": {
-        "en": "Somfy TaHoma"
+        "en": "Somfy TaHoma",
+        "nl": "Somfy TaHoma"
     },
     "version": "0.0.1",
     "compatibility": "1.x",
