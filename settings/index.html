@@ -44,12 +44,12 @@
 							return console.log(err);
 						}
 
-						if (result) {
+						if (result.success) {
 							response.css({color: 'green'});
 							response.html(__('settings.success'));
 						} else {
 							response.css({color: 'red'});
-							response.html(__('settings.failure'));
+							response.html(__('settings.failure') + '<br/>' + result.error);
 						}
 						console.log(result);
 				});
