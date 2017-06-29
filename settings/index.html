@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" href="/manager/webserver/assets/css/font.awesome.css">
+		<script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
+
+		<script type="text/javascript">
+			function onHomeyReady() {
+				Homey.ready();
+
+				$('#introText').hide();
+
+				// Hide all div containers with buttons
+				$('#auth').hide();
+				$('#revoke').hide();
+
+				// Disable all buttons
+				$('#auth_button').prop('disabled', true);
+				$('#revoke_button').prop('disabled', true);
+				
+				// Hide error message
+				$('#error_message').hide();
+			}
+		</script>
+	</head>
+	<body>
+		<h1 data-i18n="settings.title"></h1>
+		<p id="introText" data-i18n="settings.intro"></p>
+
+		<div id="revoke">
+			<button id='revoke_button' class="left" onclick="revokeAccessToken()" data-i18n="settings.revoke"></button>
+		</div>
+		<div id="auth">
+			<button id='auth_button' class="left" onclick="popup(authorizationUrl)" data-i18n="settings.authorize"></button>
+		</div>
+	</body>
+</html>
