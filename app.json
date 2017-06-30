@@ -9,5 +9,39 @@
     "author": {
         "name": "Lennart Kuijs",
         "email": "mail@lennartkuijs.nl"
-    }
+    },
+    "drivers": [
+        {
+            "id": "io_vertical_exterior_blind",
+            "name": {
+                "en": "Exterior vertical blind",
+                "nl": "Verticale buitenzonwering"
+            },
+            "images": {
+                "large": "/drivers/io_vertical_exterior_blind/assets/images/large.png",
+                "small": "/drivers/io_vertical_exterior_blind/assets/images/small.png"
+            },
+            "class": "windowcoverings",
+            "capabilities": [
+                "onoff",
+                "windowcoverings_state"
+            ],
+            "pair": [
+                {
+                    "id": "start"
+                },
+                {
+                    "id": "list_my_devices",
+                    "template": "list_devices",
+                    "navigation": {
+                        "next": "add_my_devices"
+                    }
+                },
+                {
+                    "id": "add_my_devices",
+                    "template": "add_devices"
+                }
+            ]
+        }
+    ]
 }
