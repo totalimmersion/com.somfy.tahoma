@@ -4,6 +4,12 @@ var taHoma = require('../../lib/tahoma');
 
 var devices = {};
 
+var windowcoveringsStateMap = {
+	up: 'open',
+	idle: null,
+	down: 'close'
+};
+
 var verticalExteriorBlind = {
 
 	init: function( devices_data, callback ) {
@@ -27,41 +33,28 @@ var verticalExteriorBlind = {
 	},
 
 	pair: function(socket) {
-		socket.on('start', function( data, callback ) {
-
-			// fire the callback (you can only do this once)
-			// ( err, result )
-			callback( null, 'Started!' );
-
-			// send a message to the front-end, even after the callback has fired
-			setTimeout(function(){
-				socket.emit("hello", "Hello to you!", function( err, result ){
-					console.log( result ); // result is `Hi!`
-				});
-			}, 2000);
-
-		});
-
 		socket.on('list_devices', function(data, callback) {
 			taHoma.setup(function(err, data) {
-				var blinds = filterForBlinds(data.devices);
-
-				var homeyDevices = new Array();
-
-				blinds.forEach(function(blind) {
-					var device_data = {
-						name: blind.label,
-						data: {
-							id: blind.oid,
-							deviceURL: blind.deviceURL
+				if (data && data.devices) {
+					var blinds = new Array();
+					for (var i=0; i<data.devices.length; i++) {
+						var device = data.devices[i];
+						if (device.controllableName == 'io:VerticalExteriorAwningIOComponent') {
+							var device_data = {
+								name: device.label,
+								data: {
+									id: device.oid,
+									deviceURL: device.deviceURL
+								}
+							};
+							blinds.push(device_data);
 						}
-					};
-					homeyDevices.push(device_data);
-				});
+					}
 
-				console.log(homeyDevices);
+					console.log(blinds);
 
-				callback(null, homeyDevices);
+					callback(null, blinds);
+				}
 			});
 
 		});
@@ -72,16 +65,6 @@ var verticalExteriorBlind = {
 	},
 
 	capabilities: {
-		onoff: {
-			get: function(device_data, callback) {
-				callback(null, true);
-			},
-
-			set: function(device_data, onoff, callback) {
-				callback(null, true);
-			}
-		},
-
 		windowcoverings_state: {
 			get: function(device_data, callback) {
 				var state = 10;
@@ -89,8 +72,14 @@ var verticalExteriorBlind = {
 			},
 
 			set: function(device_data, state, callback) {
-				var state = 25;
-				callback(null, state);
+				var action = {
+					name: windowcoveringsStateMap[state],
+					parameters: []
+				};
+
+				taHoma.executeDeviceAction(device_data.deviceURL, action, function(err, result) {
+					callback(null, state);
+				});
 			}
 		}
 	}
