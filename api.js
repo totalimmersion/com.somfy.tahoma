@@ -9,21 +9,11 @@ module.exports = [
 		path: '/login/',
 		fn: function(callback, args) {
 			taHoma.login(args.body.username, args.body.password, function(err, result) {
-				Homey.log(err, result);
-				taHoma.setup(function(err, result) {
-
-				});
+				//Homey.log(err, result);
+				Homey.manager('settings').set('username', args.body.username);
+				Homey.manager('settings').set('password', args.body.password);
 				callback(null, result);
 			});
-
-			/*Homey.app.login(data => {
-				Homey.log('Logging in...');
-				callback(null, data);
-			}).then(response => {
-				Homey.manager('settings').set('username', data.username);
-				Homey.manager('settings').set('password', data.password)
-			});*/
 		}
-
 	}
 ];
