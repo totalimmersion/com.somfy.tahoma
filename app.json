@@ -28,9 +28,6 @@
             ],
             "pair": [
                 {
-                    "id": "start"
-                },
-                {
                     "id": "list_my_devices",
                     "template": "list_devices",
                     "navigation": {

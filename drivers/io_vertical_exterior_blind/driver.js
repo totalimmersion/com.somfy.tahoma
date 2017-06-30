@@ -1,5 +1,7 @@
 "use strict";
 
+var taHoma = require('../../lib/tahoma');
+
 var devices = {};
 
 var verticalExteriorBlind = {
@@ -41,10 +43,27 @@ var verticalExteriorBlind = {
 		});
 
 		socket.on('list_devices', function(data, callback) {
-			var device_data = {
-				id: "id123",
-				name: "Name here"
-			};
+			taHoma.setup(function(err, data) {
+				var blinds = filterForBlinds(data.devices);
+
+				var homeyDevices = new Array();
+
+				blinds.forEach(function(blind) {
+					var device_data = {
+						name: blind.label,
+						data: {
+							id: blind.oid,
+							deviceURL: blind.deviceURL
+						}
+					};
+					homeyDevices.push(device_data);
+				});
+
+				console.log(homeyDevices);
+
+				callback(null, homeyDevices);
+			});
+
 		});
 
 		socket.on('disconnect', function() {
@@ -78,6 +97,19 @@ var verticalExteriorBlind = {
 };
 
 module.exports = verticalExteriorBlind;
+
+// a helper method to filter vertical exterior blinds from the list of TaHoma devices
+function filterForBlinds(devices) {
+	var blinds = new Array();
+
+	devices.forEach(function(device) {
+		if (device.controllableName == 'io:VerticalExteriorAwningIOComponent') {
+			blinds.push(device);
+		}
+	});
+
+	return blinds;
+}
 
 // a helper method to get a device from the devices list by it's device_data object
 function getDeviceByData(device_data) {
