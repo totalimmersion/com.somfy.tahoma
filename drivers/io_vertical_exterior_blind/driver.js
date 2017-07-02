@@ -72,14 +72,21 @@ var verticalExteriorBlind = {
 			},
 
 			set: function(device_data, state, callback) {
-				var action = {
-					name: windowcoveringsStateMap[state],
-					parameters: []
-				};
+				if (state == 'idle') {
+					//to be implemented
+				} else {
+					var action = {
+						name: windowcoveringsStateMap[state],
+						parameters: []
+					};
 
-				taHoma.executeDeviceAction(device_data.deviceURL, action, function(err, result) {
-					callback(null, state);
-				});
+					taHoma.executeDeviceAction(device_data.deviceURL, action, function(err, result) {
+						var device = getDeviceByData(device_data);
+						device.executionId = result.execId;
+						console.log('Execution id: ', device.executionId);
+						callback(null, state);
+					});
+				}
 			}
 		}
 	}
