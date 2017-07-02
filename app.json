@@ -39,5 +39,23 @@
                 }
             ]
         }
-    ]
+    ],
+    "flow": {
+        "actions": [
+            {
+                "id": "activate_scenario",
+                "title": {
+                    "en": "Play scenario",
+                    "nl": "Scenario afspelen"
+                },
+                "args": [
+                    {
+                        "name": "scenario",
+                        "type": "autocomplete"
+                    }
+                ]
+                
+            }
+        ]
+    }
 }
