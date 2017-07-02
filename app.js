@@ -4,7 +4,7 @@ const Log = require('homey-log').Log;
 
 function init() {
 	
-	Homey.log("Hello world!");
+	Homey.log(`${Homey.manifest.id} running...`);
 	
 }
 
