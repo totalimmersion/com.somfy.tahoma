@@ -14,8 +14,30 @@ class LightSensor extends Driver {
 			measure_luminance: {
 				get: function(device_data, callback) {
 					//retrieve luminance
-					var device = _self.getDeviceByData(device_data);
-					callback(null, device.state.measure_luminance);
+					try {
+						var device = _self.getDeviceByData(device_data);
+						callback(null, device.state.measure_luminance);
+					} catch(e) {
+						console.log(e.message);
+						callback(e);
+					}
+				},
+
+				set: function(device_data, luminance, callback) {
+					var sensor = _self.getDeviceByData(device_data);
+					if(sensor instanceof Error) {
+						return callback(sensor);
+					}
+
+					var oldLuminance = sensor.state.measure_luminance;
+					sensor.state.measure_luminance = luminance;
+					if (oldLuminance != sensor.state.measure_luminance) {
+						module.exports.realtime(device_data, 'measure_luminance', sensor.state.measure_luminance);
+					}
+
+					console.log('Luminance was set: ', sensor.state.measure_luminance);
+
+					callback(null, sensor.state.measure_luminance);
 				}
 			}
 		}
@@ -33,14 +55,14 @@ class LightSensor extends Driver {
 								name: device.label,
 								data: {
 									id: device.oid,
-									deviceURL: device.deviceURL
+									deviceURL: device.deviceURL,
+									label: device.label
 								}
 							};
 							lightSensors.push(device_data);
 						}
 					}
 
-					console.log(lightSensors)
 					callback(null, lightSensors);
 				}
 			});

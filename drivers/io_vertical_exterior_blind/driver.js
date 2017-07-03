@@ -19,16 +19,26 @@ class VerticalExteriorBlind extends Driver {
 		this.capabilities = {
 			windowcoverings_state: {
 				get: function(device_data, callback) {
-					var device = _self.getDeviceByData(device_data);
-					callback(null, device.state.windowcoverings_state);
+					try {
+						var device = _self.getDeviceByData(device_data);
+						callback(null, device.state.windowcoverings_state);
+					} catch(e) {
+						console.log(e.message);
+						callback(e);
+					}
 				},
 
 				set: function(device_data, state, callback) {
+					var device = _self.getDeviceByData(device_data);
+					if(device instanceof Error) {
+						return callback(device);
+					}
+
 					if (state == 'idle') {
-						var device = _self.getDeviceByData(device_data);
 						if (device.executionId) {
 							taHoma.cancelExecution(device.executionId, function(err, result) {
 								if (!err) {
+									device.state.windowcoverings_state = state;
 									callback(null, state);
 								}
 							});
@@ -41,8 +51,8 @@ class VerticalExteriorBlind extends Driver {
 
 						taHoma.executeDeviceAction(device_data.deviceURL, action, function(err, result) {
 							if (!err) {
-								var device = _self.getDeviceByData(device_data);
 								device.executionId = result.execId;
+								device.state.windowcoverings_state = state;
 								callback(null, state);
 							}
 						});
