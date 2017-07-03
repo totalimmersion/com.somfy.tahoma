@@ -9,6 +9,7 @@ var windowcoveringsStateMap = {
 	down: 'close'
 };
 
+//Driver for a io:VerticalExteriorAwningIOComponent device
 class VerticalExteriorBlind extends Driver {
 
 	constructor() {
