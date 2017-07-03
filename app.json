@@ -56,8 +56,8 @@
                 "nl": "Sunis zonsensor io"
             },
             "images": {
-                "large": "/drivers/io_vertical_exterior_blind/assets/images/large.png",
-                "small": "/drivers/io_vertical_exterior_blind/assets/images/small.png"
+                "large": "/drivers/io_light_sensor/assets/images/large.png",
+                "small": "/drivers/io_light_sensor/assets/images/small.png"
             },
             "class": "sensor",
             "capabilities": [
