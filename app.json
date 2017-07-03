@@ -61,8 +61,7 @@
             },
             "class": "sensor",
             "capabilities": [
-                "measure_luminance",
-                "measure_battery"
+                "measure_luminance"
             ],
             "pair": [
                 {
