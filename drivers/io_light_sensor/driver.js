@@ -33,6 +33,36 @@ class LightSensor extends Driver {
 					sensor.state.measure_luminance = luminance;
 					if (oldLuminance != sensor.state.measure_luminance) {
 						module.exports.realtime(device_data, 'measure_luminance', sensor.state.measure_luminance);
+
+						var tokens = {
+							'luminance': sensor.state.measure_luminance
+						};
+
+						var state  = {
+							'measure_luminance': sensor.state.measure_luminance
+						}
+
+						//trigger flows
+						Homey.manager('flow').triggerDevice('change_luminance_more_than', tokens, state, device_data, function(err, result) {
+							console.log('triggerDevice', 'change_luminance_more_than');
+							if (err) {
+								return Homey.error(err);
+							}
+						});
+
+						Homey.manager('flow').triggerDevice('change_luminance_less_than', tokens, state, device_data, function(err, result) {
+							console.log('triggerDevice', 'change_luminance_less_than');
+							if (err) {
+								return Homey.error(err);
+							}
+						});
+
+						Homey.manager('flow').triggerDevice('change_luminance_between', tokens, state, device_data, function(err, result) {
+							console.log('triggerDevice', 'change_luminance_between');
+							if (err) {
+								return Homey.error(err);
+							}
+						});
 					}
 
 					callback(null, sensor.state.measure_luminance);

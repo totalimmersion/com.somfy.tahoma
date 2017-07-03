@@ -79,6 +79,160 @@
         }
     ],
     "flow": {
+        "triggers": [
+            {
+                "id": "change_luminance_more_than",
+                "title": {
+                    "en": "The luminance is more than",
+                    "nl": "De lichtsterkte is meer dan"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_light_sensor"
+                    },
+                    {
+                        "name": "luminance",
+                        "type": "number",
+                        "placeholder": {
+                            "en": "in Lux",
+                            "nl": "in Lux"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "change_luminance_less_than",
+                "title": {
+                    "en": "The luminance is less than",
+                    "nl": "De lichtsterkte is minder dan"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_light_sensor"
+                    },
+                    {
+                        "name": "luminance",
+                        "type": "number",
+                        "placeholder": {
+                            "en": "in Lux",
+                            "nl": "in Lux"
+                        }
+                    }
+                ]
+            },
+                        {
+                "id": "change_luminance_between",
+                "title": {
+                    "en": "The luminance is between",
+                    "nl": "De lichtsterkte is tussen"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_light_sensor"
+                    },
+                    {
+                        "name": "luminance_from",
+                        "type": "number",
+                        "placeholder": {
+                            "en": "in Lux",
+                            "nl": "in Lux"
+                        }
+                    },
+                                        {
+                        "name": "luminance_to",
+                        "type": "number",
+                        "placeholder": {
+                            "en": "in Lux",
+                            "nl": "in Lux"
+                        }
+                    }
+                ]
+            }
+        ],
+        "conditions": [
+            {
+                "id": "has_luminance_more_than",
+                "title": {
+                    "en": "The luminance !{{is|isn't}} more than",
+                    "nl": "De lichtsterkte !{{is|is niet}} meer dan"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_light_sensor"
+                    },
+                    {
+                        "name": "luminance",
+                        "type": "number",
+                        "placeholder": {
+                            "en": "in Lux",
+                            "nl": "in Lux"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "has_luminance_less_than",
+                "title": {
+                    "en": "The luminance !{{is|isn't}} less than",
+                    "nl": "De lichtsterkte !{{is|is niet}} minder dan"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_light_sensor"
+                    },
+                    {
+                        "name": "luminance",
+                        "type": "number",
+                        "placeholder": {
+                            "en": "in Lux",
+                            "nl": "in Lux"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "has_luminance_between",
+                "title": {
+                    "en": "The luminance !{{is|isn't}} between",
+                    "nl": "De lichtsterkte !{{is|is niet}} tussen"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_light_sensor"
+                    },
+                    {
+                        "name": "luminance_from",
+                        "type": "number",
+                        "placeholder": {
+                            "en": "in Lux",
+                            "nl": "in Lux"
+                        }
+                    },
+                                        {
+                        "name": "luminance_to",
+                        "type": "number",
+                        "min": 50,
+                        "max": 100000,
+                        "placeholder": {
+                            "en": "in Lux",
+                            "nl": "in Lux"
+                        }
+                    }
+                ]
+            }
+        ],
         "actions": [
             {
                 "id": "activate_scenario",
