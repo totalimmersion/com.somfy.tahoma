@@ -15,11 +15,12 @@ class VerticalExteriorBlind extends Driver {
 	constructor() {
 		super();
 		var _self = this;
+
 		this.capabilities = {
 			windowcoverings_state: {
 				get: function(device_data, callback) {
-					var state = 10;
-					callback(null, state);
+					var device = _self.getDeviceByData(device_data);
+					callback(null, device.state.windowcoverings_state);
 				},
 
 				set: function(device_data, state, callback) {
