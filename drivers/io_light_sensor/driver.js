@@ -35,8 +35,6 @@ class LightSensor extends Driver {
 						module.exports.realtime(device_data, 'measure_luminance', sensor.state.measure_luminance);
 					}
 
-					console.log('Luminance was set: ', sensor.state.measure_luminance);
-
 					callback(null, sensor.state.measure_luminance);
 				}
 			}
