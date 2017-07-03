@@ -4,12 +4,22 @@
         "en": "Somfy TaHoma",
         "nl": "Somfy TaHoma"
     },
+    "description": {
+        "en": "Somfy TaHoma for Homey",
+        "nl": "Somfy TaHoma voor Homey"
+    },
     "version": "0.0.1",
     "compatibility": "1.x",
     "author": {
-        "name": "Lennart Kuijs",
-        "email": "mail@lennartkuijs.nl"
+        "name": "Total Immersion"
     },
+    "images": {
+        "small": "assets/images/small.png",
+        "large": "assets/images/large.png"
+    },
+    "category": [
+        "appliances"
+    ],
     "drivers": [
         {
             "id": "io_vertical_exterior_blind",
