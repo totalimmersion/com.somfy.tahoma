@@ -24,8 +24,8 @@
         {
             "id": "io_vertical_exterior_blind",
             "name": {
-                "en": "Exterior vertical blind",
-                "nl": "Verticale buitenzonwering"
+                "en": "Exterior vertical blind (io)",
+                "nl": "Verticale buitenzonwering (io)"
             },
             "images": {
                 "large": "/drivers/io_vertical_exterior_blind/assets/images/large.png",
@@ -34,6 +34,34 @@
             "class": "windowcoverings",
             "capabilities": [
                 "windowcoverings_state"
+            ],
+            "pair": [
+                {
+                    "id": "list_my_devices",
+                    "template": "list_devices",
+                    "navigation": {
+                        "next": "add_my_devices"
+                    }
+                },
+                {
+                    "id": "add_my_devices",
+                    "template": "add_devices"
+                }
+            ]
+        },
+        {
+            "id": "io_light_sensor",
+            "name": {
+                "en": "Sunis sun sensor io",
+                "nl": "Sunis zonsensor io"
+            },
+            "images": {
+                "large": "/drivers/io_vertical_exterior_blind/assets/images/large.png",
+                "small": "/drivers/io_vertical_exterior_blind/assets/images/small.png"
+            },
+            "class": "sensor",
+            "capabilities": [
+                "measure_luminance"
             ],
             "pair": [
                 {
