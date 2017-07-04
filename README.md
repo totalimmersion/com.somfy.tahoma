@@ -1,7 +1,7 @@
-### Somfy TaHoma app for Homey
+## Somfy TaHoma app for Homey
 With this app it's possible to connect your Somfy TaHoma box to Homey and control your TaHoma senarios and IO homecontrol devices / sensors from Homey.
 
-## Supported devices / services with most common parameters:
+### Supported devices / services with most common parameters:
 * IO vertical exterior blinds
 * Sunis wirefree IO sensor
 * TaHoma scenarios
