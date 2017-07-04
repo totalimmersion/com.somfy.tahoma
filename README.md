@@ -8,16 +8,16 @@ With this app it's possible to connect your Somfy TaHoma box to Homey and contro
 
 ##### Flow triggers for the light sensor:
 
-Luminance changed:
+Luminance changed:  
 ![](http://imgur.com/WrK7VKA.png)
 
-Luminance is more than:
+Luminance is more than:  
 ![](http://imgur.com/5YUb18N.png)
 
-Luminance is less than:
+Luminance is less than:  
 ![](http://imgur.com/2pZLWmm.png)
 
-Luminance is between:
+Luminance is between:  
 ![](http://imgur.com/Qk5dLwq.png)
 
 ##### Suggestions or problems?
