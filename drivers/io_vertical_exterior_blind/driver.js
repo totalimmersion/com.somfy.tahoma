@@ -65,6 +65,9 @@ class VerticalExteriorBlind extends Driver {
 	pair(socket) {
 		socket.on('list_devices', function(data, callback) {
 			taHoma.setup(function(err, data) {
+				if (err) {
+					return callback(err);
+				}
 				if (data && data.devices) {
 					var blinds = new Array();
 					for (var i=0; i<data.devices.length; i++) {
