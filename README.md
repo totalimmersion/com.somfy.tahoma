@@ -1,23 +1,23 @@
-### Somfy TaHoma app for Homey
+## Somfy TaHoma app for Homey
 With this app it's possible to connect your Somfy TaHoma box to Homey and control your TaHoma senarios and IO homecontrol devices / sensors from Homey.
 
-## Supported devices / services with most common parameters:
+### Supported devices / services with most common parameters:
 * IO vertical exterior blinds
 * Sunis wirefree IO sensor
 * TaHoma scenarios
 
 ##### Flow triggers for the light sensor:
 
-Luminance changed:
+Luminance changed:  
 ![](http://imgur.com/WrK7VKA.png)
 
-Luminance is more than:
+Luminance is more than:  
 ![](http://imgur.com/5YUb18N.png)
 
-Luminance is less than:
+Luminance is less than:  
 ![](http://imgur.com/2pZLWmm.png)
 
-Luminance is between:
+Luminance is between:  
 ![](http://imgur.com/Qk5dLwq.png)
 
 ##### Suggestions or problems?
