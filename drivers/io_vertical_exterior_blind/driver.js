@@ -35,35 +35,32 @@ class VerticalExteriorBlind extends Driver {
 					}
 
 					var oldWindowCoveringsState = device.state.windowcoverings_state;
-
-					if (state == 'idle') {
-						if (device.executionId) {
-							taHoma.cancelExecution(device.executionId, function(err, result) {
-								if (!err) {
-									device.state.windowcoverings_state = state;
-									if (oldWindowCoveringsState != device.state.windowcoverings_state) {
+					if (oldWindowCoveringsState != state) {
+						if (state == 'idle') {
+							if (device.executionId) {
+								taHoma.cancelExecution(device.executionId, function(err, result) {
+									if (!err) {
+										device.state.windowcoverings_state = state;
 										module.exports.realtime(device_data, 'windowcoverings_state', device.state.windowcoverings_state);
+										callback(null, state);
 									}
+								});
+							}
+						} else {
+							var action = {
+								name: windowcoveringsStateMap[state],
+								parameters: []
+							};
+
+							taHoma.executeDeviceAction(device_data.label, device_data.deviceURL, action, function(err, result) {
+								if (!err) {
+									device.executionId = result.execId;
+									device.state.windowcoverings_state = state;
+									module.exports.realtime(device_data, 'windowcoverings_state', device.state.windowcoverings_state);
 									callback(null, state);
 								}
 							});
 						}
-					} else {
-						var action = {
-							name: windowcoveringsStateMap[state],
-							parameters: []
-						};
-
-						taHoma.executeDeviceAction(device_data.deviceURL, action, function(err, result) {
-							if (!err) {
-								device.executionId = result.execId;
-								device.state.windowcoverings_state = state;
-								if (oldWindowCoveringsState != device.state.windowcoverings_state) {
-									module.exports.realtime(device_data, 'windowcoverings_state', device.state.windowcoverings_state);
-								}
-								callback(null, state);
-							}
-						});
 					}
 				}
 			}
@@ -85,7 +82,8 @@ class VerticalExteriorBlind extends Driver {
 								name: device.label,
 								data: {
 									id: device.oid,
-									deviceURL: device.deviceURL
+									deviceURL: device.deviceURL,
+									label: device.label
 								}
 							};
 							blinds.push(device_data);
