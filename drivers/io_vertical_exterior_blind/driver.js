@@ -40,9 +40,10 @@ class VerticalExteriorBlind extends Driver {
 							if (device.executionId) {
 								taHoma.cancelExecution(device.executionId, function(err, result) {
 									if (!err) {
-										device.state.windowcoverings_state = state;
-										module.exports.realtime(device_data, 'windowcoverings_state', device.state.windowcoverings_state);
-										callback(null, state);
+										//let's set the state to open, because Tahoma, doesn't have an idle state. If a blind isn't closed for 100%, the state will remain open.
+										device.state.windowcoverings_state = 'up';
+										//module.exports.realtime(device_data, 'windowcoverings_state', device.state.windowcoverings_state);
+										callback(null, device.state.windowcoverings_state);
 									}
 								});
 							}
