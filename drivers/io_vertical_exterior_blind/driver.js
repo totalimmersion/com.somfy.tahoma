@@ -34,11 +34,16 @@ class VerticalExteriorBlind extends Driver {
 						return callback(device);
 					}
 
+					var oldWindowCoveringsState = device.state.windowcoverings_state;
+
 					if (state == 'idle') {
 						if (device.executionId) {
 							taHoma.cancelExecution(device.executionId, function(err, result) {
 								if (!err) {
 									device.state.windowcoverings_state = state;
+									if (oldWindowCoveringsState != device.state.windowcoverings_state) {
+										module.exports.realtime(device_data, 'windowcoverings_state', device.state.windowcoverings_state);
+									}
 									callback(null, state);
 								}
 							});
@@ -53,6 +58,9 @@ class VerticalExteriorBlind extends Driver {
 							if (!err) {
 								device.executionId = result.execId;
 								device.state.windowcoverings_state = state;
+								if (oldWindowCoveringsState != device.state.windowcoverings_state) {
+									module.exports.realtime(device_data, 'windowcoverings_state', device.state.windowcoverings_state);
+								}
 								callback(null, state);
 							}
 						});
