@@ -44,21 +44,18 @@ class LightSensor extends Driver {
 
 						//trigger flows
 						Homey.manager('flow').triggerDevice('change_luminance_more_than', tokens, state, device_data, function(err, result) {
-							console.log('triggerDevice', 'change_luminance_more_than');
 							if (err) {
 								return Homey.error(err);
 							}
 						});
 
 						Homey.manager('flow').triggerDevice('change_luminance_less_than', tokens, state, device_data, function(err, result) {
-							console.log('triggerDevice', 'change_luminance_less_than');
 							if (err) {
 								return Homey.error(err);
 							}
 						});
 
 						Homey.manager('flow').triggerDevice('change_luminance_between', tokens, state, device_data, function(err, result) {
-							console.log('triggerDevice', 'change_luminance_between');
 							if (err) {
 								return Homey.error(err);
 							}
