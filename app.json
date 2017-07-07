@@ -8,7 +8,7 @@
         "en": "Somfy TaHoma for Homey",
         "nl": "Somfy TaHoma voor Homey"
     },
-    "version": "0.0.1",
+    "version": "1.0.0",
     "compatibility": "1.x",
     "author": {
         "name": "Total Immersion"
