@@ -34,5 +34,8 @@ If you like this app and would like to support its development, consider buying 
 
 ### Changelog:
 
+#### 1.0.1  
+* Because of a difference in blind states between TaHoma and Homey, sometimes it wasn't possible to open halfway close blinds after a sync with TaHoma cloud or a cloud sync would open the blinds when the user had closed the blinds half way. This is now fixed.
+
 #### 1.0  
 * First release with support for IO vertical exterior blinds and Sunis IO wirefree sensor
