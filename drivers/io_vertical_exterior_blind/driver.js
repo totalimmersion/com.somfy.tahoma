@@ -51,14 +51,18 @@ class VerticalExteriorBlind extends Driver {
 								parameters: []
 							};
 
-							taHoma.executeDeviceAction(device_data.label, device_data.deviceURL, action, function(err, result) {
-								if (!err) {
-									device.executionId = result.execId;
-									device.state.windowcoverings_state = state;
-									module.exports.realtime(device_data, 'windowcoverings_state', device.state.windowcoverings_state);
-									callback(null, state);
-								}
-							});
+							if (!fromCloudSync) {
+								taHoma.executeDeviceAction(device_data.label, device_data.deviceURL, action, function(err, result) {
+									if (!err) {
+										device.executionId = result.execId;
+										device.state.windowcoverings_state = state;
+										module.exports.realtime(device_data, 'windowcoverings_state', device.state.windowcoverings_state);
+										callback(null, state);
+									}
+								});
+							} else {
+								device.state.windowcoverings_state = state;
+							}
 						}
 					}
 				}
