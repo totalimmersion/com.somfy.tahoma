@@ -34,6 +34,9 @@ If you like this app and would like to support its development, consider buying 
 
 ### Changelog:
 
+#### 1.0.3
+* Fixed an issue that would crash the app, if there was an error response from TaHoma.
+
 #### 1.0.2
 * A user defined action (which is in progress), can no longer be overwritten by another action through cloud sync.
 * Fixed an issue that would crash the app, if the response from the TaHoma API was in the wrong format.
