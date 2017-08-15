@@ -30,8 +30,8 @@
         "climate"
     ],
     "tags": {
-        "en": ["Somfy TaHoma", "io-homecontrol", "io", "Sunis Wirefree", "sunsensor", "exterior blinds", "screens"],
-        "nl": ["Somfy TaHoma", "io-homecontrol", "io", "Sunis Wirefree", "sunsensor", "zonwering", "screens"]
+        "en": ["Somfy TaHoma", "io-homecontrol", "io", "Sunis Wirefree", "lightsensor", "Thermis WireFree", "temperature sensor","exterior blinds", "screens"],
+        "nl": ["Somfy TaHoma", "io-homecontrol", "io", "Sunis Wirefree", "lichtsensor", "Thermis WireFree", "temperatuur sensor", "zonwering", "screens"]
     },
     "drivers": [
         {
@@ -75,6 +75,34 @@
             "class": "sensor",
             "capabilities": [
                 "measure_luminance"
+            ],
+            "pair": [
+                {
+                    "id": "list_my_devices",
+                    "template": "list_devices",
+                    "navigation": {
+                        "next": "add_my_devices"
+                    }
+                },
+                {
+                    "id": "add_my_devices",
+                    "template": "add_devices"
+                }
+            ]
+        },
+        {
+            "id": "io_temperature_sensor",
+            "name": {
+                "en": "Thermis WireFree sensor io",
+                "nl": "Thermis WireFree sensor io"
+            },
+            "images": {
+                "large": "/drivers/io_temperature_sensor/assets/images/large.png",
+                "small": "/drivers/io_temperature_sensor/assets/images/small.png"
+            },
+            "class": "sensor",
+            "capabilities": [
+                "measure_temperature"
             ],
             "pair": [
                 {
@@ -137,7 +165,7 @@
                     }
                 ]
             },
-                        {
+            {
                 "id": "change_luminance_between",
                 "title": {
                     "en": "The luminance is between",
@@ -163,6 +191,80 @@
                         "placeholder": {
                             "en": "in Lux",
                             "nl": "in Lux"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "change_temperature_more_than",
+                "title": {
+                    "en": "The temperature is more than",
+                    "nl": "De temperatuur is meer dan"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_temperature_sensor"
+                    },
+                    {
+                        "name": "temperature",
+                        "type": "number",
+                        "placeholder": {
+                            "en": "in C",
+                            "nl": "in C"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "change_temperature_less_than",
+                "title": {
+                    "en": "The temperature is less than",
+                    "nl": "De temperatuur is minder dan"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_temperature_sensor"
+                    },
+                    {
+                        "name": "temperature",
+                        "type": "number",
+                        "placeholder": {
+                            "en": "in C",
+                            "nl": "in C"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "change_temperature_between",
+                "title": {
+                    "en": "The temperature is between",
+                    "nl": "De temperatuur is tussen"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_temperature_sensor"
+                    },
+                    {
+                        "name": "temperature_from",
+                        "type": "number",
+                        "placeholder": {
+                            "en": "in C",
+                            "nl": "in C"
+                        }
+                    },
+                                        {
+                        "name": "temperature_to",
+                        "type": "number",
+                        "placeholder": {
+                            "en": "in C",
+                            "nl": "in C"
                         }
                     }
                 ]
@@ -236,11 +338,83 @@
                                         {
                         "name": "luminance_to",
                         "type": "number",
-                        "min": 50,
-                        "max": 100000,
                         "placeholder": {
                             "en": "in Lux",
                             "nl": "in Lux"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "has_temperature_more_than",
+                "title": {
+                    "en": "The temperature !{{is|isn't}} more than",
+                    "nl": "De temperatuur !{{is|is niet}} meer dan"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_temperature_sensor"
+                    },
+                    {
+                        "name": "temperature",
+                        "type": "number",
+                        "placeholder": {
+                            "en": "in C",
+                            "nl": "in C"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "has_temperature_less_than",
+                "title": {
+                    "en": "The temperature !{{is|isn't}} less than",
+                    "nl": "De temperatuur !{{is|is niet}} minder dan"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_temperature_sensor"
+                    },
+                    {
+                        "name": "temperature",
+                        "type": "number",
+                        "placeholder": {
+                            "en": "in C",
+                            "nl": "in C"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "has_temperature_between",
+                "title": {
+                    "en": "The temperature !{{is|isn't}} between",
+                    "nl": "De temperatuur !{{is|is niet}} tussen"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_temperature_sensor"
+                    },
+                    {
+                        "name": "temperature_from",
+                        "type": "number",
+                        "placeholder": {
+                            "en": "in C",
+                            "nl": "in C"
+                        }
+                    },
+                                        {
+                        "name": "temperature_to",
+                        "type": "number",
+                        "placeholder": {
+                            "en": "in C",
+                            "nl": "in C"
                         }
                     }
                 ]
