@@ -4,7 +4,7 @@ const Driver = require('../../lib/Driver');
 var taHoma = require('../../lib/tahoma');
 
 //Driver for a io:TemperatureIOSystemSensor device
-var TemperatureSensor extends Driver {
+class TemperatureSensor extends Driver {
 
 	constructor() {
 		super();
