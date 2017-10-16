@@ -23,13 +23,12 @@ class LightSensorDevice extends Device {
 		this.log('device deleted');
 	}
 
-	onCapabilityMeasureLuminance(value, opts, callback) {
+	onCapabilityMeasureLuminance(value, opts) {
 		var deviceData = this.getData();
 
 		var oldLuminance = this.getState().measure_luminance;
 		if (oldLuminance != value) {
 			this.setCapabilityValue('measure_luminance', value);
-			module.exports.realtime(deviceData, 'measure_luminance', value);
 
 			var tokens = {
 				'luminance': value
@@ -57,27 +56,9 @@ class LightSensorDevice extends Device {
 				.trigger(tokens, state)
 				.catch(this.error)
 				.then(this.log);
-
-			/*Homey.manager('flow').triggerDevice('change_luminance_more_than', tokens, state, device_data, function(err, result) {
-				if (err) {
-					return Homey.error(err);
-				}
-			});
-
-			Homey.manager('flow').triggerDevice('change_luminance_less_than', tokens, state, device_data, function(err, result) {
-				if (err) {
-					return Homey.error(err);
-				}
-			});
-
-			Homey.manager('flow').triggerDevice('change_luminance_between', tokens, state, device_data, function(err, result) {
-				if (err) {
-					return Homey.error(err);
-				}
-			});*/
 		}
 
-		callback(null, value);
+		return Promise.resolve();
 	}
 }
 

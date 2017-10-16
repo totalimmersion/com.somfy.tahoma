@@ -23,13 +23,12 @@ class TemperatureSensorDevice extends Device {
 		this.log('device deleted');
 	}
 
-	onCapabilityMeasureTemperature(value, opts, callback) {
+	onCapabilityMeasureTemperature(value, opts) {
 		var deviceData = this.getData();
 
 		var oldTemperature = this.getState().measure_temperature;
 		if (oldTemperature != value) {
 			this.setCapabilityValue('measure_temperature', value);
-			module.exports.realtime(deviceData, 'measure_temperature', value);
 
 			var tokens = {
 				'temperature': value
@@ -57,27 +56,9 @@ class TemperatureSensorDevice extends Device {
 				.trigger(tokens, state)
 				.catch(this.error)
 				.then(this.log);
-
-			/*Homey.manager('flow').triggerDevice('change_temperature_more_than', tokens, state, device_data, function(err, result) {
-				if (err) {
-					return Homey.error(err);
-				}
-			});
-
-			Homey.manager('flow').triggerDevice('change_temperature_less_than', tokens, state, device_data, function(err, result) {
-				if (err) {
-					return Homey.error(err);
-				}
-			});
-
-			Homey.manager('flow').triggerDevice('change_temperature_between', tokens, state, device_data, function(err, result) {
-				if (err) {
-					return Homey.error(err);
-				}
-			});*/
 		}
 
-		callback(null, value);
+		return Promise.resolve();
 	}
 }
 
