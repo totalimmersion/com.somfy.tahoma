@@ -11,6 +11,8 @@ class TemperatureSensorDevice extends Device {
 		this.log('device init');
         this.log('name:', this.getName());
         this.log('class:', this.getClass());
+
+        this.registerCapabilityListener('measure_temperature', this.onCapabilityMeasureTemperature.bind(this));
 	}
 
 	onAdded() {
@@ -19,6 +21,63 @@ class TemperatureSensorDevice extends Device {
 
 	onDeleted() {
 		this.log('device deleted');
+	}
+
+	onCapabilityMeasureTemperature(value, opts, callback) {
+		var deviceData = this.getData();
+
+		var oldTemperature = this.getState().measure_temperature;
+		if (oldTemperature != value) {
+			this.setCapabilityValue('measure_temperature', value);
+			module.exports.realtime(deviceData, 'measure_temperature', value);
+
+			var tokens = {
+				'temperature': value
+			};
+
+			var state  = {
+				'measure_temperature': value
+			}
+
+			//trigger flows
+			new Homey.FlowCardTrigger('change_temperature_more_than')
+				.register()
+				.trigger(tokens, state)
+				.catch(this.error)
+				.then(this.log);
+
+			new Homey.FlowCardTrigger('change_temperature_less_than')
+				.register()
+				.trigger(tokens, state)
+				.catch(this.error)
+				.then(this.log);
+
+			new Homey.FlowCardTrigger('change_temperature_between')
+				.register()
+				.trigger(tokens, state)
+				.catch(this.error)
+				.then(this.log);
+
+			/*Homey.manager('flow').triggerDevice('change_temperature_more_than', tokens, state, device_data, function(err, result) {
+				if (err) {
+					return Homey.error(err);
+				}
+			});
+
+			Homey.manager('flow').triggerDevice('change_temperature_less_than', tokens, state, device_data, function(err, result) {
+				if (err) {
+					return Homey.error(err);
+				}
+			});
+
+			Homey.manager('flow').triggerDevice('change_temperature_between', tokens, state, device_data, function(err, result) {
+				if (err) {
+					return Homey.error(err);
+				}
+			});*/
+		}
+
+		callback(null, value);
 	}
 }
 
