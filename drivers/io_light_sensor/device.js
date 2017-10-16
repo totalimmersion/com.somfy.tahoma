@@ -1,7 +1,7 @@
 "use strict";
 
 const Homey = require('homey');
-const Driver = require('../../lib/Device');
+const Device = require('../../lib/Device');
 const taHoma = require('../../lib/tahoma');
 
 //Device for a io:LightIOSystemSensor device
