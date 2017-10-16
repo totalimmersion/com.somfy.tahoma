@@ -24,8 +24,7 @@ class LightSensorDevice extends Device {
 	}
 
 	onCapabilityMeasureLuminance(value, opts, callback) {
-		var _this = this;
-		//var deviceData = this.getData();
+		var deviceData = this.getData();
 
 		var oldLuminance = this.getState().measure_luminance;
 		if (oldLuminance != value) {
