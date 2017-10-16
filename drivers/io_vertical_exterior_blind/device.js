@@ -33,7 +33,6 @@ class VerticalExteriorBlindDevice extends Device {
 		var _this = this;
 		var deviceData = this.getData();
 		var oldWindowCoveringsState = this.getState().windowcoverings_state;
-		this.log(value, oldWindowCoveringsState, this.getData());
 		if (oldWindowCoveringsState != value) {
 			if (value == 'idle' && this.getStoreValue('executionId')) {
 				taHoma.cancelExecution(this.getStoreValue('executionId'), function(err, result) {
