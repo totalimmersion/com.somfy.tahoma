@@ -1,10 +1,11 @@
 "use strict";
 
+const Homey = require('homey');
 const Driver = require('../../lib/Driver');
-var taHoma = require('../../lib/tahoma');
+const taHoma = require('../../lib/tahoma');
 
 //Driver for a io:LightIOSystemSensor device
-class LightSensor extends Driver {
+class LightSensorDriver extends Driver {
 
 	constructor() {
 		super();
@@ -103,4 +104,4 @@ class LightSensor extends Driver {
 	}
 }
 
-module.exports = new LightSensor();
+module.exports = LightSensorDriver;

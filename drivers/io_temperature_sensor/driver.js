@@ -1,10 +1,11 @@
 "use strict";
 
+const Homey = require('homey');
 const Driver = require('../../lib/Driver');
-var taHoma = require('../../lib/tahoma');
+const taHoma = require('../../lib/tahoma');
 
 //Driver for a io:TemperatureIOSystemSensor device
-class TemperatureSensor extends Driver {
+class TemperatureSensorDriver extends Driver {
 
 	constructor() {
 		super();
@@ -104,4 +105,4 @@ class TemperatureSensor extends Driver {
 
 }
 
-module.exports = new TemperatureSensor();
+module.exports = TemperatureSensorDriver;

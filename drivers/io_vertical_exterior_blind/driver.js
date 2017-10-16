@@ -1,7 +1,8 @@
 "use strict";
 
+const Homey = require('homey');
 const Driver = require('../../lib/Driver');
-var taHoma = require('../../lib/tahoma');
+const taHoma = require('../../lib/tahoma');
 
 var windowcoveringsStateMap = {
 	up: 'open',
@@ -10,7 +11,7 @@ var windowcoveringsStateMap = {
 };
 
 //Driver for a io:VerticalExteriorAwningIOComponent device
-class VerticalExteriorBlind extends Driver {
+class VerticalExteriorBlindDriver extends Driver {
 
 	constructor() {
 		super();
@@ -70,7 +71,7 @@ class VerticalExteriorBlind extends Driver {
 		}
 	}
 
-	pair(socket) {
+	onPair(socket) {
 		socket.on('list_devices', function(data, callback) {
 			taHoma.setup(function(err, data) {
 				if (err) {
@@ -105,4 +106,4 @@ class VerticalExteriorBlind extends Driver {
 	}
 }
 
-module.exports = new VerticalExteriorBlind();
+module.exports = VerticalExteriorBlindDriver;
