@@ -39,7 +39,7 @@ class VerticalExteriorBlindDevice extends Device {
 				taHoma.cancelExecution(this.getStoreValue('executionId'), function(err, result) {
 					if (!err) {
 						//let's set the state to open, because Tahoma, doesn't have an idle state. If a blind isn't closed for 100%, the state will remain open.
-						_this.setCapabilityValue('windowcoverings_state', value)
+						_this.setCapabilityValue('windowcoverings_state', value);
 						callback(null, value);
 					}
 				});
@@ -52,8 +52,8 @@ class VerticalExteriorBlindDevice extends Device {
 				if (!opts.fromCloudSync) {
 					taHoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action, function(err, result) {
 						if (!err) {
-							_this.setStoreValue('executionId', result.execId)
-							_this.setCapabilityValue('windowcoverings_state', value)
+							_this.setStoreValue('executionId', result.execId);
+							_this.setCapabilityValue('windowcoverings_state', value);
 							module.exports.realtime(deviceData, 'windowcoverings_state', value);
 							callback(null, value);
 						}
