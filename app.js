@@ -1,14 +1,15 @@
 "use strict";
 
-const flowManager = require('./lib/flow');
+const Homey = require('homey');
 const syncManager = require('./lib/sync');
 
-function init() {
-	
-	Homey.log(`${Homey.manifest.id} running...`);
+class App extends Homey.App {
 
-	flowManager.init();
-	syncManager.init();
+	onInit() {		
+		this.log(`${Homey.app.manifest.id} running...`);
+
+		syncManager.init();
+	}
 }
 
-module.exports.init = init;
+module.exports = App;

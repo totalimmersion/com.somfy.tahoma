@@ -1,5 +1,6 @@
 'use strict';
 
+const Homey = require('homey');
 var taHoma = require('./lib/tahoma');
 
 module.exports = [
