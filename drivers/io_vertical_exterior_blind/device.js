@@ -39,7 +39,9 @@ class VerticalExteriorBlindDevice extends Device {
 					if (!err) {
 						//let's set the state to open, because Tahoma, doesn't have an idle state. If a blind isn't closed for 100%, the state will remain open.
 						_this.setCapabilityValue('windowcoverings_state', value);
-						callback(null, value);
+						if (callback) {
+							callback(null, value);
+						}
 					}
 				});
 			} else if(!(oldWindowCoveringsState == 'idle' && opts.fromCloudSync == true)) {
@@ -53,7 +55,9 @@ class VerticalExteriorBlindDevice extends Device {
 						if (!err) {
 							_this.setStoreValue('executionId', result.execId);
 							_this.setCapabilityValue('windowcoverings_state', value);
-							callback(null, value);
+							if (callback) {
+								callback(null, value);
+							}
 						}
 					});
 				} else {
