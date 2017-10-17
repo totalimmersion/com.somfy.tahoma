@@ -18,8 +18,6 @@ class VerticalExteriorBlindDriver extends Driver {
 		new Homey.FlowCardAction('activate_scenario')
 			.register()
 			.registerRunListener((args, state) => {
-
-				console.log(args);
 				return taHoma.executeScenario(args.scenario.oid)
 					.then(data => {
 						return Promise.resolve(true);
