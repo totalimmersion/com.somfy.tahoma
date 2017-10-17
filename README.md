@@ -21,6 +21,9 @@ If you like this app and would like to support its development, consider buying 
 
 ### Changelog:
 
+#### 1.2
+* App is now compatible with SDK 2.
+
 #### 1.1
 * Added support for the Somfy Thermis WireFree IO sensor.
 
