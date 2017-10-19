@@ -61,11 +61,10 @@ class VerticalExteriorBlindDevice extends Device {
 						}
 					});
 				} else {
-					device.state.windowcoverings_state = state;
+					_this.setCapabilityValue('windowcoverings_state', value);
 				}
 			}
 		}
-
 	}
 }
 
