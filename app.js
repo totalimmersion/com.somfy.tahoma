@@ -46,7 +46,7 @@ class App extends Homey.App {
 						return Promise.resolve(scenarios);
 					})
 					.catch(function (error) {
-						console.log(error.message);
+						console.log(error.message, error.stack);
 					});
 			});
 	}
