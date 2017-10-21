@@ -21,6 +21,9 @@ If you like this app and would like to support its development, consider buying 
 
 ### Changelog:
 
+#### 1.2.1
+* Fixed an issue that would prohibt TaHoma scenarios to be used.
+
 #### 1.2
 * App is now compatible with SDK 2.
 
