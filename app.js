@@ -1,6 +1,7 @@
 "use strict";
 
 const Homey = require('homey');
+const taHoma = require('./lib/tahoma');
 const syncManager = require('./lib/sync');
 
 class App extends Homey.App {
