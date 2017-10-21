@@ -23,6 +23,7 @@ If you like this app and would like to support its development, consider buying 
 
 #### 1.2.1
 * Fixed an issue that would prohibt TaHoma scenarios to be used.
+* Fixed an issue where the temperature of the Thermis wouldn’t be processed anymore.
 
 #### 1.2
 * App is now compatible with SDK 2.
