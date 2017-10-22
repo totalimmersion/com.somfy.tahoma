@@ -3,9 +3,12 @@
 	<head>
 		<link rel="stylesheet" href="/manager/webserver/assets/css/font.awesome.css">
 		<script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
+		<script type="text/javascript" src="/homey.js" data-origin="settings"></script>
 
 		<script type="text/javascript">
-			function onHomeyReady() {
+			function onHomeyReady(Homey) {
+				var saveButton = $('#saveButton');
+
 				Homey.ready();
 
 				Homey.get('username', function(err, username){
@@ -25,33 +28,29 @@
 					console.log('password: ', password);
 					$('#password').val(password);
 				});
-			}
 
-			function save() {
-				var username = $('#username').val();
-				var password = $('#password').val();
-				var response = $('#response');
+				saveButton.on('click', function() {
+					var username = $('#username').val();
+					var password = $('#password').val();
+					var response = $('#response');
 
-				//Homey.set('username', username);
-				//Homey.set('password', password);
+					Homey.api('POST', '/login/', {
+							"username": username,
+							"password": password
+						}, function(err, result) {
+							if (err) {
+								return console.log(err);
+							}
 
-				//todo -> check login credentials
-				Homey.api('POST', '/login/', {
-						"username": username,
-						"password": password
-					}, function(err, result) {
-						if (err) {
-							return console.log(err);
-						}
-
-						if (result.success) {
-							response.css({color: 'green'});
-							response.html(__('settings.success'));
-						} else {
-							response.css({color: 'red'});
-							response.html(__('settings.failure') + '<br/>' + result.error);
-						}
-						console.log(result);
+							if (result.success) {
+								response.css({color: 'green'});
+								response.html(__('settings.success'));
+							} else {
+								response.css({color: 'red'});
+								response.html(__('settings.failure') + '<br/>' + result.error);
+							}
+							console.log(result);
+					});
 				});
 			}
 		</script>
@@ -73,7 +72,7 @@
 	        </div>
     	</fieldset>
 
-    <button class="left" style="display:block" onclick="save()" data-i18n="settings.save" ></button>
+    <button id="saveButton" class="left" style="display:block" data-i18n="settings.save" ></button>
 
 	</body>
 </html>
