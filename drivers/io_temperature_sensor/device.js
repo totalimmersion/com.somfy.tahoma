@@ -30,32 +30,21 @@ class TemperatureSensorDevice extends Device {
 		if (oldTemperature != value) {
 			this.setCapabilityValue('measure_temperature', value);
 
-			var tokens = {
+			let device = this;
+			let tokens = {
 				'temperature': value
 			};
 
-			var state  = {
+			let state  = {
 				'measure_temperature': value
 			}
 
 			//trigger flows
-			new Homey.FlowCardTrigger('change_temperature_more_than')
-				.register()
-				.trigger(tokens, state)
-				.catch(this.error)
-				.then(this.log);
-
-			new Homey.FlowCardTrigger('change_temperature_less_than')
-				.register()
-				.trigger(tokens, state)
-				.catch(this.error)
-				.then(this.log);
-
-			new Homey.FlowCardTrigger('change_temperature_between')
-				.register()
-				.trigger(tokens, state)
-				.catch(this.error)
-				.then(this.log);
+			let driver = this.getDriver();
+			driver
+				.triggerTemperatureMoreThan(device, tokens, state)
+				.triggerTemperatureLessThan(device, tokens, state)
+				.triggerTemperatureBetween(device, tokens, state);
 		}
 
 		return Promise.resolve();

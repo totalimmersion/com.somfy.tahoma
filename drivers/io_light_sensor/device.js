@@ -30,32 +30,21 @@ class LightSensorDevice extends Device {
 		if (oldLuminance != value) {
 			this.setCapabilityValue('measure_luminance', value);
 
-			var tokens = {
+			let device = this;
+			let tokens = {
 				'luminance': value
 			};
 
-			var state  = {
+			let state  = {
 				'measure_luminance': value
 			}
 
 			//trigger flows
-			new Homey.FlowCardTrigger('change_luminance_more_than')
-				.register()
-				.trigger(tokens, state)
-				.catch(this.error)
-				.then(this.log);
-
-			new Homey.FlowCardTrigger('change_luminance_less_than')
-				.register()
-				.trigger(tokens, state)
-				.catch(this.error)
-				.then(this.log);
-
-			new Homey.FlowCardTrigger('change_luminance_between')
-				.register()
-				.trigger(tokens, state)
-				.catch(this.error)
-				.then(this.log);
+			let driver = this.getDriver();
+			driver
+				.triggerLuminanceMoreThan(device, tokens, state)
+				.triggerLuminanceLessThan(device, tokens, state)
+				.triggerLuminanceBetween(device, tokens, state);
 		}
 
 		return Promise.resolve();
