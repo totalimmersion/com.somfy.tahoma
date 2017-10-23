@@ -50,8 +50,7 @@ class TemperatureSensorDriver extends Driver {
 		});
 	}
 
-	_onPairListDevices(state, data, callback) {
-
+	_onPairListDevices(data, callback) {
 		taHoma.setup(function(err, data) {
 			if (err) {
 				return callback(err);
