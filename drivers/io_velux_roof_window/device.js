@@ -14,19 +14,9 @@ const windowcoveringsStateMap = {
 class RoofWindowDevice extends Device {
 
 	onInit() {
-		this.log('device init');
-        this.log('name:', this.getName());
-        this.log('class:', this.getClass());
+		super.onInit();
 
         this.registerCapabilityListener('windowcoverings_state', this.onCapabilityWindowcoveringsState.bind(this));
-	}
-
-	onAdded() {
-		this.log('device added');
-	}
-
-	onDeleted() {
-		this.log('device deleted');
 	}
 
 	onCapabilityWindowcoveringsState(value, opts, callback) {
