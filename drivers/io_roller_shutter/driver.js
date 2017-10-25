@@ -19,7 +19,7 @@ class RollerShutterDriver extends Driver {
 				return callback(err);
 			}
 			if (data && data.devices) {
-				var blinds = new Array();
+				var rollerShutters = new Array();
 				for (var i=0; i<data.devices.length; i++) {
 					var device = data.devices[i];
 					if (device.controllableName == 'io:RollerShutterGenericIOComponent') {
@@ -31,11 +31,11 @@ class RollerShutterDriver extends Driver {
 								label: device.label
 							}
 						};
-						blinds.push(device_data);
+						rollerShutters.push(device_data);
 					}
 				}
 
-				callback(null, blinds);
+				callback(null, rollerShutters);
 			}
 		});
 
