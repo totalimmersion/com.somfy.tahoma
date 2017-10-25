@@ -63,15 +63,43 @@
                 }
             ]
         },
-                {
+        {
             "id": "io_roller_shutter",
             "name": {
                 "en": "Roller shutter(io)",
                 "nl": "Rolluik (io)"
             },
             "images": {
-                "large": "/drivers/io_vertical_exterior_blind/assets/images/large.png",
-                "small": "/drivers/io_vertical_exterior_blind/assets/images/small.png"
+                "large": "/drivers/io_roller_shutter/assets/images/large.png",
+                "small": "/drivers/io_roller_shutter/assets/images/small.png"
+            },
+            "class": "windowcoverings",
+            "capabilities": [
+                "windowcoverings_state"
+            ],
+            "pair": [
+                {
+                    "id": "list_my_devices",
+                    "template": "list_devices",
+                    "navigation": {
+                        "next": "add_my_devices"
+                    }
+                },
+                {
+                    "id": "add_my_devices",
+                    "template": "add_devices"
+                }
+            ]
+        },
+        {
+            "id": "io_velux_roof_window",
+            "name": {
+                "en": "Velux roof window",
+                "nl": "Velux dakraam"
+            },
+            "images": {
+                "large": "/drivers/io_velux_roof_window/assets/images/large.png",
+                "small": "/drivers/io_velux_roof_window/assets/images/small.png"
             },
             "class": "windowcoverings",
             "capabilities": [
