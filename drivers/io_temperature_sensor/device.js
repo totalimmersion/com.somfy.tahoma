@@ -39,6 +39,25 @@ class TemperatureSensorDevice extends Device {
 
 		return Promise.resolve();
 	}
+
+	sync() {
+		const range = 15 * 60 * 1000; //range of 15 minutes
+		const to = Date.now();
+		const from = to - range;
+		const kelvinOffset = 273.15;
+		
+		taHoma.getDeviceStateHistory(this.getDeviceUrl(), 'core:TemperatureState', from, to)
+			.then(data => {
+				//process result
+				if (data.historyValues && data.historyValues.length > 0) {
+					var mostRecentMeasurement = data.historyValues[data.historyValues.length - 1];
+					this.triggerCapabilityListener('measure_temperature', mostRecentMeasurement.value - kelvinOffset);
+				}		
+			})
+			.catch(error => {
+				console.log(error.message, error.stack);
+			});
+	}
 }
 
 module.exports = TemperatureSensorDevice;
