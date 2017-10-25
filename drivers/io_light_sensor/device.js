@@ -40,7 +40,21 @@ class LightSensorDevice extends Device {
 		return Promise.resolve();
 	}
 
-	sync() {		
+	sync(data) {
+		let device;
+
+		for (let i=0; i<data.length; i++) {
+			if (this.getData().id == data[i].oid) {
+				device = data[i];
+				continue;
+			}
+		}
+
+		if (!device) {
+			this.setUnavailable(null);
+			return;
+		}
+		
 		const range = 15 * 60 * 1000; //range of 15 minutes
 		const to = Date.now();
 		const from = to - range;
