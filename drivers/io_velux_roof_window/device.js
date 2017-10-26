@@ -2,7 +2,7 @@
 
 const Homey = require('homey');
 const Device = require('../../lib/Device');
-const taHoma = require('../../lib/tahoma');
+const Tahoma = require('../../lib/Tahoma');
 
 const windowcoveringsStateMap = {
 	up: 'open',
@@ -25,7 +25,7 @@ class RoofWindowDevice extends Device {
 		var oldWindowCoveringsState = this.getState().windowcoverings_state;
 		if (oldWindowCoveringsState != value) {
 			if (value == 'idle' && this.getStoreValue('executionId')) {
-				taHoma.cancelExecution(this.getStoreValue('executionId'), function(err, result) {
+				Tahoma.cancelExecution(this.getStoreValue('executionId'), function(err, result) {
 					if (!err) {
 						//let's set the state to open, because Tahoma, doesn't have an idle state. If a blind isn't closed for 100%, the state will remain open.
 						_this.setCapabilityValue('windowcoverings_state', value);
@@ -41,7 +41,7 @@ class RoofWindowDevice extends Device {
 				};
 
 				if (!opts.fromCloudSync) {
-					taHoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action, function(err, result) {
+					Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action, function(err, result) {
 						if (!err) {
 							_this.setStoreValue('executionId', result.execId);
 							_this.setCapabilityValue('windowcoverings_state', value);

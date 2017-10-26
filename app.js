@@ -1,7 +1,7 @@
 "use strict";
 
 const Homey = require('homey');
-const taHoma = require('./lib/tahoma');
+const Tahoma = require('./lib/Tahoma');
 const syncManager = require('./lib/sync');
 
 class App extends Homey.App {
@@ -18,14 +18,14 @@ class App extends Homey.App {
 		new Homey.FlowCardAction('activate_scenario')
 			.register()
 			.registerRunListener((args, state) => {
-				return taHoma.executeScenario(args.scenario.oid)
+				return Tahoma.executeScenario(args.scenario.oid)
 					.then(data => {
 						return Promise.resolve();
 					});
 			})
 			.getArgument('scenario')
 			.registerAutocompleteListener((query, args) => {
-				return taHoma.getActionGroups()
+				return Tahoma.getActionGroups()
 					.then(function (data) {
 						var scenarios = new Array();
 

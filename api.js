@@ -1,7 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
-var taHoma = require('./lib/tahoma');
+var Tahoma = require('./lib/Tahoma');
 
 module.exports = [
 	{
@@ -9,7 +9,7 @@ module.exports = [
 		method: 'POST',
 		path: '/login/',
 		fn: function(args, callback) {
-			taHoma.login(args.body.username, args.body.password)
+			Tahoma.login(args.body.username, args.body.password)
 			.then(result => {
 				Homey.ManagerSettings.set('username', args.body.username);
 				Homey.ManagerSettings.set('password', args.body.password);

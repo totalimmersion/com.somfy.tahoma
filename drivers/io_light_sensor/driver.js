@@ -2,7 +2,6 @@
 
 const Homey = require('homey');
 const Driver = require('../../lib/Driver');
-const taHoma = require('../../lib/tahoma');
 
 //Driver for a io:LightIOSystemSensor device
 class LightSensorDriver extends Driver {

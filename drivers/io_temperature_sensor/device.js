@@ -2,7 +2,7 @@
 
 const Homey = require('homey');
 const Device = require('../../lib/Device');
-const taHoma = require('../../lib/tahoma');
+const Tahoma = require('../../lib/Tahoma');
 
 //Device for a io:TemperatureIOSystemSensor device
 class TemperatureSensorDevice extends Device {
@@ -60,7 +60,7 @@ class TemperatureSensorDevice extends Device {
 		const from = to - range;
 		const kelvinOffset = 273.15;
 		
-		taHoma.getDeviceStateHistory(this.getDeviceUrl(), 'core:TemperatureState', from, to)
+		Tahoma.getDeviceStateHistory(this.getDeviceUrl(), 'core:TemperatureState', from, to)
 			.then(data => {
 				//process result
 				if (data.historyValues && data.historyValues.length > 0) {

@@ -2,7 +2,7 @@
 
 const Homey = require('homey');
 const Device = require('../../lib/Device');
-const taHoma = require('../../lib/tahoma');
+const Tahoma = require('../../lib/Tahoma');
 
 //Device for a io:LightIOSystemSensor device
 class LightSensorDevice extends Device {
@@ -59,7 +59,7 @@ class LightSensorDevice extends Device {
 		const to = Date.now();
 		const from = to - range;
 		
-		taHoma.getDeviceStateHistory(this.getDeviceUrl(), 'core:LuminanceState', from, to)
+		Tahoma.getDeviceStateHistory(this.getDeviceUrl(), 'core:LuminanceState', from, to)
 			.then(data => {
 				//process result
 				if (data.historyValues && data.historyValues.length > 0) {
