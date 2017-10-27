@@ -31,8 +31,8 @@
         "climate"
     ],
     "tags": {
-        "en": ["Somfy TaHoma", "io-homecontrol", "io", "Sunis Wirefree", "lightsensor", "Thermis WireFree", "temperature sensor","exterior blinds", "screens"],
-        "nl": ["Somfy TaHoma", "io-homecontrol", "io", "Sunis Wirefree", "lichtsensor", "Thermis WireFree", "temperatuur sensor", "zonwering", "screens"]
+        "en": ["Somfy TaHoma", "io-homecontrol", "io", "Sunis Wirefree", "lightsensor", "Thermis WireFree", "temperature sensor","exterior blinds", "screens", "Velux", "roof window"],
+        "nl": ["Somfy TaHoma", "io-homecontrol", "io", "Sunis Wirefree", "lichtsensor", "Thermis WireFree", "temperatuur sensor", "zonwering", "screens", "Velux", "dakraam"]
     },
     "drivers": [
         {
