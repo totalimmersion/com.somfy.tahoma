@@ -11,7 +11,7 @@ With this app it's possible to connect your Somfy TaHoma box to Homey and contro
 * TaHoma scenarios
 
 ### Suggestions or problems?
-Do you have a suggestions for (or a problem with) this app that you would like implemented?  
+Do you have a suggestion for (or a problem with) this app that you would like implemented?  
 Please go to the github page and create an issue or pull request with your suggestion/problem.
 
 If you like this app and would like to support its development, consider buying me a cup of coffee.
