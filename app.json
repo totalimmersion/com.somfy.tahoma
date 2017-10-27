@@ -9,7 +9,7 @@
         "en": "Somfy TaHoma for Homey",
         "nl": "Somfy TaHoma voor Homey"
     },
-    "version": "1.2.1",
+    "version": "1.3.0",
     "compatibility": "1.x >=1.5.0",
     "author": {
         "name": "Immersion Apps"
@@ -31,8 +31,8 @@
         "climate"
     ],
     "tags": {
-        "en": ["Somfy TaHoma", "io-homecontrol", "io", "Sunis Wirefree", "lightsensor", "Thermis WireFree", "temperature sensor","exterior blinds", "screens"],
-        "nl": ["Somfy TaHoma", "io-homecontrol", "io", "Sunis Wirefree", "lichtsensor", "Thermis WireFree", "temperatuur sensor", "zonwering", "screens"]
+        "en": ["Somfy TaHoma", "io-homecontrol", "io", "Sunis Wirefree", "lightsensor", "Thermis WireFree", "temperature sensor","exterior blinds", "screens", "Velux", "roof window"],
+        "nl": ["Somfy TaHoma", "io-homecontrol", "io", "Sunis Wirefree", "lichtsensor", "Thermis WireFree", "temperatuur sensor", "zonwering", "screens", "Velux", "dakraam"]
     },
     "drivers": [
         {
@@ -64,10 +64,94 @@
             ]
         },
         {
+            "id": "io_roller_shutter",
+            "name": {
+                "en": "Roller shutter(io)",
+                "nl": "Rolluik (io)"
+            },
+            "images": {
+                "large": "/drivers/io_roller_shutter/assets/images/large.png",
+                "small": "/drivers/io_roller_shutter/assets/images/small.png"
+            },
+            "class": "windowcoverings",
+            "capabilities": [
+                "windowcoverings_state"
+            ],
+            "pair": [
+                {
+                    "id": "list_my_devices",
+                    "template": "list_devices",
+                    "navigation": {
+                        "next": "add_my_devices"
+                    }
+                },
+                {
+                    "id": "add_my_devices",
+                    "template": "add_devices"
+                }
+            ]
+        },
+        {
+            "id": "io_velux_roof_window",
+            "name": {
+                "en": "Velux roof window (io)",
+                "nl": "Velux dakraam (io)"
+            },
+            "images": {
+                "large": "/drivers/io_velux_roof_window/assets/images/large.png",
+                "small": "/drivers/io_velux_roof_window/assets/images/small.png"
+            },
+            "class": "windowcoverings",
+            "capabilities": [
+                "windowcoverings_state"
+            ],
+            "pair": [
+                {
+                    "id": "list_my_devices",
+                    "template": "list_devices",
+                    "navigation": {
+                        "next": "add_my_devices"
+                    }
+                },
+                {
+                    "id": "add_my_devices",
+                    "template": "add_devices"
+                }
+            ]
+        },
+        {
+            "id": "io_velux_interior_blind",
+            "name": {
+                "en": "Velux interior blind (io)",
+                "nl": "Velux binnenzonwering (io)"
+            },
+            "images": {
+                "large": "/drivers/io_velux_interior_blind/assets/images/large.png",
+                "small": "/drivers/io_velux_interior_blind/assets/images/small.png"
+            },
+            "class": "windowcoverings",
+            "capabilities": [
+                "windowcoverings_state"
+            ],
+            "pair": [
+                {
+                    "id": "list_my_devices",
+                    "template": "list_devices",
+                    "navigation": {
+                        "next": "add_my_devices"
+                    }
+                },
+                {
+                    "id": "add_my_devices",
+                    "template": "add_devices"
+                }
+            ]
+        },
+        {
             "id": "io_light_sensor",
             "name": {
-                "en": "Sunis sun sensor io",
-                "nl": "Sunis zonsensor io"
+                "en": "Sunis sun sensor (io)",
+                "nl": "Sunis zonsensor (io)"
             },
             "images": {
                 "large": "/drivers/io_light_sensor/assets/images/large.png",
@@ -94,8 +178,8 @@
         {
             "id": "io_temperature_sensor",
             "name": {
-                "en": "Thermis WireFree sensor io",
-                "nl": "Thermis WireFree sensor io"
+                "en": "Thermis WireFree sensor (io)",
+                "nl": "Thermis WireFree sensor (io)"
             },
             "images": {
                 "large": "/drivers/io_temperature_sensor/assets/images/large.png",

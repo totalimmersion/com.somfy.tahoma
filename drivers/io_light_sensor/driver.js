@@ -2,12 +2,13 @@
 
 const Homey = require('homey');
 const Driver = require('../../lib/Driver');
-const taHoma = require('../../lib/tahoma');
 
 //Driver for a io:LightIOSystemSensor device
 class LightSensorDriver extends Driver {
 
 	onInit() {
+		this.deviceType = 'io:LightIOSystemSensor';
+		
 		/*** LUMINANCE TRIGGERS ***/
 		this._triggerLuminanceMoreThan = new Homey.FlowCardTriggerDevice('change_luminance_more_than').register();
 		this._triggerLuminanceMoreThan.registerRunListener((args, state) => {
@@ -47,33 +48,6 @@ class LightSensorDriver extends Driver {
 			let device = args.device;
 			let conditionMet = device.getState().measure_luminance > args.luminance_from && device.getState().measure_luminance < args.luminance_to;
 			return Promise.resolve(conditionMet);
-		});
-	}
-
-	_onPairListDevices(data, callback) {
-		taHoma.setup(function(err, data) {
-			if (err) {
-				return callback(err);
-			}
-			if (data && data.devices) {
-				var lightSensors = new Array();
-				for (var i=0; i<data.devices.length; i++) {
-					var device = data.devices[i];
-					if (device.controllableName == 'io:LightIOSystemSensor') {
-						var device_data = {
-							name: device.label,
-							data: {
-								id: device.oid,
-								deviceURL: device.deviceURL,
-								label: device.label
-							}
-						};
-						lightSensors.push(device_data);
-					}
-				}
-
-				callback(null, lightSensors);
-			}
 		});
 	}
 

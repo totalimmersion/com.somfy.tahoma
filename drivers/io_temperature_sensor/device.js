@@ -2,25 +2,15 @@
 
 const Homey = require('homey');
 const Device = require('../../lib/Device');
-const taHoma = require('../../lib/tahoma');
+const Tahoma = require('../../lib/Tahoma');
 
 //Device for a io:TemperatureIOSystemSensor device
 class TemperatureSensorDevice extends Device {
 
 	onInit() {
-		this.log('device init');
-        this.log('name:', this.getName());
-        this.log('class:', this.getClass());
+		super.onInit();
 
         this.registerCapabilityListener('measure_temperature', this.onCapabilityMeasureTemperature.bind(this));
-	}
-
-	onAdded() {
-		this.log('device added');
-	}
-
-	onDeleted() {
-		this.log('device deleted');
 	}
 
 	onCapabilityMeasureTemperature(value, opts) {
@@ -48,6 +38,39 @@ class TemperatureSensorDevice extends Device {
 		}
 
 		return Promise.resolve();
+	}
+
+	sync(data) {
+		let device;
+
+		for (let i=0; i<data.length; i++) {
+			if (this.getData().id == data[i].oid) {
+				device = data[i];
+				continue;
+			}
+		}
+
+		if (!device) {
+			this.setUnavailable(null);
+			return;
+		}
+		
+		const range = 15 * 60 * 1000; //range of 15 minutes
+		const to = Date.now();
+		const from = to - range;
+		const kelvinOffset = 273.15;
+		
+		Tahoma.getDeviceStateHistory(this.getDeviceUrl(), 'core:TemperatureState', from, to)
+			.then(data => {
+				//process result
+				if (data.historyValues && data.historyValues.length > 0) {
+					var mostRecentMeasurement = data.historyValues[data.historyValues.length - 1];
+					this.triggerCapabilityListener('measure_temperature', mostRecentMeasurement.value - kelvinOffset);
+				}		
+			})
+			.catch(error => {
+				console.log(error.message, error.stack);
+			});
 	}
 }
 
