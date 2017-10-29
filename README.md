@@ -30,7 +30,7 @@ If you like this app and would like to support its development, consider buying 
 * Added support for Velux IO blinds.
 
 #### 1.2.1
-* Fixed an issue that would prohibt TaHoma scenarios to be used.
+* Fixed an issue that would prohibit TaHoma scenarios to be used.
 * Fixed an issue where the temperature of the Thermis wouldn’t be processed anymore.
 * Fixed an issue where the settings screen would not be visible.
 * Fixed an issue where flow triggers wouldn't trigger.
