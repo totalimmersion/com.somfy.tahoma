@@ -4,9 +4,9 @@ const Homey = require('homey');
 const WindowCoveringsDevice = require('../../lib/WindowCoveringsDevice');
 
 //Device for a io:HorizontalAwningIOComponent
-class HorizontalBlindDevice extends WindowCoveringsDevice {
+class HorizontalAwningDevice extends WindowCoveringsDevice {
 
 }
 
 
-module.exports = HorizontalBlindDevice;
+module.exports = HorizontalAwningDevice;

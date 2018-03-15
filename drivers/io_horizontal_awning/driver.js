@@ -4,7 +4,7 @@ const Homey = require('homey');
 const Driver = require('../../lib/Driver');
 
 //Driver for a io:HorizontalAwningIOComponent device
-class HorizontalBlindDriver extends Driver {
+class HorizontalAwningDriver extends Driver {
 
 	onInit() {
 		this.deviceType = 'io:HorizontalAwningIOComponent';
@@ -12,4 +12,4 @@ class HorizontalBlindDriver extends Driver {
 
 }
 
-module.exports = HorizontalBlindDriver;
+module.exports = HorizontalAwningDriver;

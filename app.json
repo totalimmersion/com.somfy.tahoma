@@ -64,14 +64,14 @@
             ]
         },
         {
-            "id": "io_horizontal_blind",
+            "id": "io_horizontal_awning",
             "name": {
-                "en": "Exterior horizontal blind (io)",
-                "nl": "Horizontal buitenzonwering (io)"
+                "en": "Exterior horizontal awning (io)",
+                "nl": "Horizontale buitenzonwering (io)"
             },
             "images": {
-                "large": "/drivers/io_horizontal_blind/assets/images/large.png",
-                "small": "/drivers/io_horizontal_blind/assets/images/small.png"
+                "large": "/drivers/io_horizontal_awning/assets/images/large.png",
+                "small": "/drivers/io_horizontal_awning/assets/images/small.png"
             },
             "class": "windowcoverings",
             "capabilities": [
