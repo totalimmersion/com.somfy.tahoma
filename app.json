@@ -64,6 +64,34 @@
             ]
         },
         {
+            "id": "io_horizontal_blind",
+            "name": {
+                "en": "Exterior horizontal blind (io)",
+                "nl": "Horizontal buitenzonwering (io)"
+            },
+            "images": {
+                "large": "/drivers/io_horizontal_blind/assets/images/large.png",
+                "small": "/drivers/io_horizontal_blind/assets/images/small.png"
+            },
+            "class": "windowcoverings",
+            "capabilities": [
+                "windowcoverings_state"
+            ],
+            "pair": [
+                {
+                    "id": "list_my_devices",
+                    "template": "list_devices",
+                    "navigation": {
+                        "next": "add_my_devices"
+                    }
+                },
+                {
+                    "id": "add_my_devices",
+                    "template": "add_devices"
+                }
+            ]
+        },
+        {
             "id": "io_roller_shutter",
             "name": {
                 "en": "Roller shutter(io)",
@@ -518,7 +546,7 @@
                         "type": "autocomplete"
                     }
                 ]
-                
+
             }
         ]
     }
