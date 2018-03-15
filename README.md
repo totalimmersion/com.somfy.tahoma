@@ -24,6 +24,9 @@ If you like this app and would like to support its development, consider buying 
 
 ### Changelog:
 
+#### 1.3.1
+* Added support for IO horizontal awnings.
+
 #### 1.3
 * Added support for IO roller shutters.
 * Added support for Velux IO roof windows.
