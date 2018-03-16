@@ -4,6 +4,7 @@ With this app it's possible to connect your Somfy TaHoma box to Homey and contro
 ### Supported devices / services with most common parameters:
 * IO vertical exterior blinds
 * IO roller shutters
+* IO horizontal awnings
 * Velux IO roof windows
 * Velux IO blinds
 * Sunis wirefree IO sensor
