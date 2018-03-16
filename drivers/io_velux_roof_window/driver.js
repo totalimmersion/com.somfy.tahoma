@@ -7,7 +7,7 @@ const Driver = require('../../lib/Driver');
 class RoofWindowDriver extends Driver {
 
 	onInit() {
-		this.deviceType = 'io:WindowOpenerVeluxIOComponent';
+		this.deviceType = ['io:WindowOpenerVeluxIOComponent'];
 	}
 
 }

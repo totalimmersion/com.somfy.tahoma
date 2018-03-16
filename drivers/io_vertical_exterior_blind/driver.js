@@ -7,7 +7,7 @@ const Driver = require('../../lib/Driver');
 class VerticalExteriorBlindDriver extends Driver {
 
 	onInit() {
-		this.deviceType = 'io:VerticalExteriorAwningIOComponent';
+		this.deviceType = ['io:VerticalExteriorAwningIOComponent'];
 	}
 
 }

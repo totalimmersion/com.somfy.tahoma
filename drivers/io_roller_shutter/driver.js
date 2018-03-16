@@ -7,7 +7,7 @@ const Driver = require('../../lib/Driver');
 class RollerShutterDriver extends Driver {
 
 	onInit() {
-		this.deviceType = 'io:RollerShutterGenericIOComponent';
+		this.deviceType = ['io:RollerShutterGenericIOComponent', 'io:RollerShutterWithLowSpeedManagementIOComponent'];
 	}
 
 }

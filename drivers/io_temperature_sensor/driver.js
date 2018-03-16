@@ -7,7 +7,7 @@ const Driver = require('../../lib/Driver');
 class TemperatureSensorDriver extends Driver {
 
 	onInit() {
-		this.deviceType = 'io:TemperatureIOSystemSensor';
+		this.deviceType = ['io:TemperatureIOSystemSensor'];
 		
 		/*** TEMPERATURE TRIGGERS ***/
 		this._triggerTemperatureMoreThan = new Homey.FlowCardTriggerDevice('change_temperature_more_than').register();
