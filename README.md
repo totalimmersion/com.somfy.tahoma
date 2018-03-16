@@ -25,6 +25,9 @@ If you like this app and would like to support its development, consider buying 
 
 ### Changelog:
 
+#### 1.3.2
+* The roller shutters device supports low speed management motors as well.
+
 #### 1.3.1
 * Added support for IO horizontal awnings.
 
