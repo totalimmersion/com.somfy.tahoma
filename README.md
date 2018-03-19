@@ -5,6 +5,7 @@ With this app it's possible to connect your Somfy TaHoma box to Homey and contro
 * IO vertical exterior blinds
 * IO roller shutters
 * IO horizontal awnings
+* IO exterior venetian blinds
 * Velux IO roof windows
 * Velux IO blinds
 * Sunis wirefree IO sensor
@@ -26,6 +27,7 @@ If you like this app and would like to support its development, consider buying 
 ### Changelog:
 
 #### 1.3.2
+* Added support for IO exterior venetian blinds.
 * The roller shutters device supports low speed management motors as well.
 
 #### 1.3.1
