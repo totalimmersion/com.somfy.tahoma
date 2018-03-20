@@ -168,3 +168,12 @@ typings/
 /node_modules/.bin/esdoc
 /node_modules/.bin/esparse
 /node_modules/.bin/acorn
+/node_modules/babylon
+/node_modules/marked
+/node_modules/taffydb
+/node_modules/escape-string-regexp
+/node_modules/klaw
+/node_modules/graceful-fs
+/node_modules/minimist
+/node_modules/.bin/babylon
+/node_modules/.bin/marked
