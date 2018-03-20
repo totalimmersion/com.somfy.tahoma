@@ -19,5 +19,8 @@
   "dependencies": {
     "homey-log": "^1.0.3",
     "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.5.5"
   }
 }
