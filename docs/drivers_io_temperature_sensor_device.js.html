@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>App - Documentation</title>
+    <title>drivers/io_temperature_sensor/device.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,314 +29,98 @@
 
 <div id="main">
     
-    <h1 class="page-title">App</h1>
-    
-
-    
-
-
-
-
-<section>
-
-<header>
-    
-        <h2>
-        App
-        </h2>
-        
-            <div class="class-description"><p>This class is the starting point of the app and initializes the neccessary services, listeners, etc.</p></div>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
-
-    
-    <h2>Constructor</h2>
-    
-
-    <h4 class="name" id="App"><span class="type-signature"></span>new App<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line11">line 11</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li>Homey.App</li>
-    </ul>
-
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="addScenarioActionListeners"><span class="type-signature"></span>addScenarioActionListeners<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Adds a listener for flowcard scenario actions</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line26">line 26</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="onInit"><span class="type-signature"></span>onInit<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Initializes the app</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line16">line 16</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <h1 class="page-title">drivers/io_temperature_sensor/device.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+
+const Homey = require('homey');
+const Device = require('../../lib/Device');
+const Tahoma = require('../../lib/Tahoma');
+
+/**
+ * Device class for the temperature sensor with the io:TemperatureIOSystemSensor controllable name in TaHoma
+ * @extends {Device}
+ */
+class TemperatureSensorDevice extends Device {
+
+	onInit() {
+		super.onInit();
+
+        this.registerCapabilityListener('measure_temperature', this.onCapabilityMeasureTemperature.bind(this));
+	}
+
+	onCapabilityMeasureTemperature(value, opts) {
+		var deviceData = this.getData();
+
+		var oldTemperature = this.getState().measure_temperature;
+		if (oldTemperature != value) {
+			this.setCapabilityValue('measure_temperature', value);
+
+			let device = this;
+			let tokens = {
+				'temperature': value
+			};
+
+			let state  = {
+				'measure_temperature': value
+			}
+
+			//trigger flows
+			let driver = this.getDriver();
+			driver
+				.triggerTemperatureMoreThan(device, tokens, state)
+				.triggerTemperatureLessThan(device, tokens, state)
+				.triggerTemperatureBetween(device, tokens, state);
+		}
+
+		return Promise.resolve();
+	}
+
+	sync(data) {
+		let device;
+
+		for (let i=0; i&lt;data.length; i++) {
+			if (this.getData().id == data[i].oid) {
+				device = data[i];
+				continue;
+			}
+		}
+
+		if (!device) {
+			this.setUnavailable(null);
+			return;
+		}
+		
+		const range = 15 * 60 * 1000; //range of 15 minutes
+		const to = Date.now();
+		const from = to - range;
+		const kelvinOffset = 273.15;
+		
+		Tahoma.getDeviceStateHistory(this.getDeviceUrl(), 'core:TemperatureState', from, to)
+			.then(data => {
+				//process result
+				if (data.historyValues &amp;&amp; data.historyValues.length > 0) {
+					var mostRecentMeasurement = data.historyValues[data.historyValues.length - 1];
+					this.triggerCapabilityListener('measure_temperature', mostRecentMeasurement.value - kelvinOffset);
+				}		
+			})
+			.catch(error => {
+				console.log(error.message, error.stack);
+			});
+	}
+}
+
+module.exports = TemperatureSensorDevice;</code></pre>
+        </article>
+    </section>
 
 
 
