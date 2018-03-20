@@ -4,6 +4,7 @@
   "description": "Somfy TaHoma app for Homey",
   "main": "app.js",
   "scripts": {
+    "docs": "./node_modules/.bin/esdoc -c esdoc.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +22,7 @@
     "request": "^2.81.0"
   },
   "devDependencies": {
-    "jsdoc": "^3.5.5"
+    "esdoc": "^1.0.4",
+    "esdoc-standard-plugin": "^1.0.0"
   }
 }
