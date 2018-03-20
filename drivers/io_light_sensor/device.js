@@ -4,7 +4,10 @@ const Homey = require('homey');
 const Device = require('../../lib/Device');
 const Tahoma = require('../../lib/Tahoma');
 
-//Device for a io:LightIOSystemSensor device
+/**
+ * Device class for the light sensor with the io:LightIOSystemSensor controllable name in TaHoma
+ * @extends {Device}
+ */
 class LightSensorDevice extends Device {
 
 	onInit() {

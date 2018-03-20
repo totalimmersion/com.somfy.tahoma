@@ -4,8 +4,11 @@ const Homey = require('homey');
 const WindowCoveringsDevice = require('../../lib/WindowCoveringsDevice');
 
 //Device for a io:VerticalInteriorBlindVeluxIOComponent device
+/**
+ * Device class for Velus interior blinds with the io:VerticalInteriorBlindVeluxIOComponent controllable name in TaHoma
+ * @extends {WindowCoveringsDevice}
+ */
 class VeluxInteriorBlindDevice extends WindowCoveringsDevice {
-
 }
 
 module.exports = VeluxInteriorBlindDevice;
