@@ -4,7 +4,7 @@
   "description": "Somfy TaHoma app for Homey",
   "main": "app.js",
   "scripts": {
-    "docs": "./node_modules/.bin/esdoc -c esdoc.json",
+    "docs": "./node_modules/.bin/jsdoc -c conf.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
