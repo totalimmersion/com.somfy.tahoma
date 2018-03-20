@@ -4,8 +4,15 @@ const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
 const syncManager = require('./lib/sync');
 
+/**
+ * This class is the starting point of the app and initializes the neccessary services, listeners, etc.
+ * @extends {Homey.App}
+ **/
 class App extends Homey.App {
 
+	/**
+	 * Initializes the app
+	 */
 	onInit() {		
 		this.log(`${Homey.app.manifest.id} running...`);
 
@@ -13,6 +20,9 @@ class App extends Homey.App {
 		syncManager.init();
 	}
 
+	/**
+	 * Adds a listener for flowcard scenario actions
+	 */
 	addScenarioActionListeners() {
 		/*** ADD FLOW ACTION LISTENERS ***/
 		new Homey.FlowCardAction('activate_scenario')
