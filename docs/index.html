@@ -1,40 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | com.somfy.tahoma</title>
-  <link type="text/css" rel="stylesheet" href="css/style.css">
-  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
-  <script src="script/prettify/prettify.js"></script>
-  <script src="script/manual.js"></script>
-<meta name="description" content="Somfy TaHoma app for Homey"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="com.somfy.tahoma"><meta property="twitter:description" content="Somfy TaHoma app for Homey"></head>
-<body class="layout-container" data-ice="rootContainer">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Home - Documentation</title>
 
-<header>
-  <a href="./">Home</a>
-  
-  <a href="identifiers.html">Reference</a>
-  <a href="source.html">Source</a>
-  
-  <div class="search-box">
-  <span>
-    <img src="./image/search.png">
-    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
-  </span>
-    <ul class="search-result"></ul>
-  </div>
-<a href="https://totalimmersion@github.com/totalimmersion/com.somfy.tahoma.git">Repository</a></header>
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
 
-<nav class="navigation" data-ice="nav"><div>
-  <ul>
-    
-  </ul>
-</div>
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="App.html">App</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#addScenarioActionListeners">addScenarioActionListeners</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#onInit">onInit</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ExteriorVenetianBlindDevice.html">ExteriorVenetianBlindDevice</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="WindowCoveringsDevice.html">WindowCoveringsDevice</a></span></li>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h2 id="somfy-tahoma-app-for-homey">Somfy TaHoma app for Homey</h2><p>With this app it&apos;s possible to connect your Somfy TaHoma box to Homey and control your TaHoma senarios and IO homecontrol devices / sensors from Homey.</p>
-<h3 id="supported-devices---services-with-most-common-parameters-">Supported devices / services with most common parameters:</h3><ul>
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><h2>Somfy TaHoma app for Homey</h2><p>With this app it's possible to connect your Somfy TaHoma box to Homey and control your TaHoma senarios and IO homecontrol devices / sensors from Homey.</p>
+<h3>Supported devices / services with most common parameters:</h3><ul>
 <li>IO vertical exterior blinds</li>
 <li>IO roller shutters</li>
 <li>IO horizontal awnings</li>
@@ -45,67 +60,69 @@
 <li>Thermis wirefree IO sensor</li>
 <li>TaHoma scenarios</li>
 </ul>
-<h3 id="suggestions-or-problems-">Suggestions or problems?</h3><p>Do you have a suggestion for (or a problem with) this app that you would like implemented?<br>Please go to the github page and create an issue or pull request with your suggestion/problem.</p>
+<h3>Suggestions or problems?</h3><p>Do you have a suggestion for (or a problem with) this app that you would like implemented?<br>Please go to the github page and create an issue or pull request with your suggestion/problem.</p>
 <p>If you like this app and would like to support its development, consider buying me a cup of coffee.</p>
-<p>&lt;form action=&quot;https://www.paypal.com/cgi-bin/webscr&quot; method=&quot;post&quot; target=&quot;_top&quot;&gt;
-&lt;input type=&quot;hidden&quot; name=&quot;cmd&quot; value=&quot;_s-xclick&quot;&gt;
-&lt;input type=&quot;hidden&quot; name=&quot;hosted_button_id&quot; value=&quot;4U7BSXH7G6JPC&quot;&gt;
-&lt;input type=&quot;image&quot; src=&quot;https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif&quot; border=&quot;0&quot; name=&quot;submit&quot; alt=&quot;PayPal &#x2013; The safer, easier way to pay online!&quot;&gt;
-<img src="https://www.paypalobjects.com/nl_NL/i/scr/pixel.gif" width="1" height="1">
-&lt;/form&gt;
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="4U7BSXH7G6JPC">
+<input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/nl_NL/i/scr/pixel.gif" width="1" height="1">
+</form>
 
-</p>
-<h3 id="changelog-">Changelog:</h3><h4 id="1-3-2">1.3.2</h4><ul>
+<h3>Changelog:</h3><h4>1.3.2</h4><ul>
 <li>Added support for IO exterior venetian blinds.</li>
 <li>The roller shutters device supports low speed management motors as well.</li>
 </ul>
-<h4 id="1-3-1">1.3.1</h4><ul>
+<h4>1.3.1</h4><ul>
 <li>Added support for IO horizontal awnings.</li>
 </ul>
-<h4 id="1-3">1.3</h4><ul>
+<h4>1.3</h4><ul>
 <li>Added support for IO roller shutters.</li>
 <li>Added support for Velux IO roof windows.</li>
 <li>Added support for Velux IO blinds.</li>
 </ul>
-<h4 id="1-2-1">1.2.1</h4><ul>
+<h4>1.2.1</h4><ul>
 <li>Fixed an issue that would prohibit TaHoma scenarios to be used.</li>
-<li>Fixed an issue where the temperature of the Thermis wouldn&#x2019;t be processed anymore.</li>
+<li>Fixed an issue where the temperature of the Thermis wouldn’t be processed anymore.</li>
 <li>Fixed an issue where the settings screen would not be visible.</li>
-<li>Fixed an issue where flow triggers wouldn&apos;t trigger.</li>
-<li>Fixed an issue where devices couldn&apos;t be added anymore.</li>
+<li>Fixed an issue where flow triggers wouldn't trigger.</li>
+<li>Fixed an issue where devices couldn't be added anymore.</li>
 </ul>
-<h4 id="1-2">1.2</h4><ul>
+<h4>1.2</h4><ul>
 <li>App is now compatible with SDK 2.</li>
 </ul>
-<h4 id="1-1">1.1</h4><ul>
+<h4>1.1</h4><ul>
 <li>Added support for the Somfy Thermis WireFree IO sensor.</li>
 </ul>
-<h4 id="1-0-3">1.0.3</h4><ul>
+<h4>1.0.3</h4><ul>
 <li>Fixed an issue that would crash the app, if there was an error response from TaHoma.</li>
 </ul>
-<h4 id="1-0-2">1.0.2</h4><ul>
+<h4>1.0.2</h4><ul>
 <li>A user defined action (which is in progress), can no longer be overwritten by another action through cloud sync.</li>
 <li>Fixed an issue that would crash the app, if the response from the TaHoma API was in the wrong format.</li>
 </ul>
-<h4 id="1-0-1">1.0.1</h4><ul>
-<li>Because of a difference in blind states between TaHoma and Homey, sometimes it wasn&apos;t possible to open halfway closed blinds after a sync with TaHoma cloud or a cloud sync would open the blinds when the user had closed the blinds half way. This is now fixed.</li>
+<h4>1.0.1</h4><ul>
+<li>Because of a difference in blind states between TaHoma and Homey, sometimes it wasn't possible to open halfway closed blinds after a sync with TaHoma cloud or a cloud sync would open the blinds when the user had closed the blinds half way. This is now fixed.</li>
 </ul>
-<h4 id="1-0">1.0</h4><ul>
+<h4>1.0</h4><ul>
 <li>First release with support for IO vertical exterior blinds and Sunis IO wirefree sensor</li>
-</ul>
-</div>
+</ul></article>
+    </section>
+
+
+
+
+
+
 </div>
 
-<footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Mar 20 2018 11:26:00 GMT+0100 (CET) using the Minami theme.
 </footer>
 
-<script src="script/search_index.js"></script>
-<script src="script/search.js"></script>
-<script src="script/pretty-print.js"></script>
-<script src="script/inherited-summary.js"></script>
-<script src="script/test-summary.js"></script>
-<script src="script/inner-link.js"></script>
-<script src="script/patch-for-local.js"></script>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
 </body>
 </html>
