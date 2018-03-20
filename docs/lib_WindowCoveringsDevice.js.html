@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>lib/WindowCoveringsDevice.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="App.html">App</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#addScenarioActionListeners">addScenarioActionListeners</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#onInit">onInit</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ExteriorVenetianBlindDevice.html">ExteriorVenetianBlindDevice</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="WindowCoveringsDevice.html">WindowCoveringsDevice</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">lib/WindowCoveringsDevice.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+
+const Homey = require('homey');
+const Device = require('./Device');
+const Tahoma = require('./Tahoma');
+
+/**
+ * Base class for window coverings devices
+ */
+class WindowCoveringsDevice extends Device {
+
+	onInit() {
+		this.windowcoveringsStateMap = {
+			up: 'open',
+			idle: null,
+			down: 'close'
+		};
+
+        this.registerCapabilityListener('windowcoverings_state', this.onCapabilityWindowcoveringsState.bind(this));
+   		super.onInit();
+	}
+
+	onCapabilityWindowcoveringsState(value, opts, callback) {
+		var _this = this;
+		var deviceData = this.getData();
+		var oldWindowCoveringsState = this.getState().windowcoverings_state;
+		if (oldWindowCoveringsState != value) {
+			if (value == 'idle' &amp;&amp; this.getStoreValue('executionId')) {
+				Tahoma.cancelExecution(this.getStoreValue('executionId'))
+					.then(result => {
+						//let's set the state to open, because Tahoma, doesn't have an idle state. If a blind isn't closed for 100%, the state will remain open.
+						_this.setCapabilityValue('windowcoverings_state', value);
+						if (callback) {
+							callback(null, value);
+						}
+					})
+					.catch(error => {
+						console.log(error.message, error.stack);
+					});
+			} else if(!(oldWindowCoveringsState == 'idle' &amp;&amp; opts.fromCloudSync == true)) {
+				var action = {
+					name: _this.windowcoveringsStateMap[value],
+					parameters: []
+				};
+
+				if (!opts.fromCloudSync) {
+					Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
+						.then(result => {
+							_this.setStoreValue('executionId', result.execId);
+							_this.setCapabilityValue('windowcoverings_state', value);
+							if (callback) {
+								callback(null, value);
+							}
+						})
+						.catch(error => {
+							console.log(error.message, error.stack);
+						});
+				} else {
+					_this.setCapabilityValue('windowcoverings_state', value);
+				}
+			}
+		}
+	}
+
+	sync(data) {
+		let device;
+
+		for (let i=0; i&lt;data.length; i++) {
+			if (this.getData().id == data[i].oid) {
+				device = data[i];
+				continue;
+			}
+		}
+
+		if (device) {
+			//device exists -> let's sync the state of the device
+			let closureState, openClosedState,
+				states = device.states;
+
+			const statesMap = {
+				open: 'up',
+				closed: 'down'
+			};
+
+			for (let i=0; i&lt;states.length; i++) {
+				if (states[i].name == 'core:ClosureState') {
+					closureState = states[i].value;
+				}
+				if (states[i].name == 'core:OpenClosedState') {
+					openClosedState = states[i].value;
+				}
+			}
+
+			this.log(this.getName(), 'state', statesMap[openClosedState]);
+			this.triggerCapabilityListener('windowcoverings_state', statesMap[openClosedState], {
+				fromCloudSync: true
+			});
+		} else {
+			//device was not found in TaHoma response -> remove device from Homey
+			this.setUnavailable(null);
+		}
+	}
+}
+
+module.exports = WindowCoveringsDevice;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Mar 20 2018 11:26:00 GMT+0100 (CET) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

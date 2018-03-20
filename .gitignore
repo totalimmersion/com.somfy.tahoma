@@ -57,3 +57,25 @@ typings/
 .env
 
 .DS_Store
+/node_modules/jsdoc
+/node_modules/.bin/mkdirp
+/node_modules/.bin/marked
+/node_modules/.bin/babylon
+/node_modules/.bin/jsdoc
+/node_modules/klaw
+/node_modules/graceful-fs
+/node_modules/strip-json-comments
+/node_modules/requizzle
+/node_modules/minami
+/node_modules/underscore
+/node_modules/minimist
+/node_modules/xmlcreate
+/node_modules/taffydb
+/node_modules/mkdirp
+/node_modules/escape-string-regexp
+/node_modules/marked
+/node_modules/js2xmlparser
+/node_modules/underscore-contrib
+/node_modules/bluebird
+/node_modules/babylon
+/node_modules/catharsis
