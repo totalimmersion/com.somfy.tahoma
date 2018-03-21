@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>drivers/io_temperature_sensor/driver.js - Documentation</title>
+    <title>HttpHelper - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,91 +29,304 @@
 
 <div id="main">
     
-    <h1 class="page-title">drivers/io_temperature_sensor/driver.js</h1>
+    <h1 class="page-title">HttpHelper</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>"use strict";
+        <h2>
+        HttpHelper
+        </h2>
+        
+            <div class="class-description"><p>Class for managing http requests to TaHoma cloud</p></div>
+        
+    
+</header>
 
-const Homey = require('homey');
-const Driver = require('../../lib/Driver');
+<article>
+    <div class="container-overview">
+    
+        
+<div class="section-method">
 
-/**
- * Driver class for the temperature sensor with the io:TemperatureIOSystemSensor controllable name in TaHoma
- * @extends {Driver}
- */
-class TemperatureSensorDriver extends Driver {
+    
+    <h2>Constructor</h2>
+    
 
-	onInit() {
-		this.deviceType = ['io:TemperatureIOSystemSensor'];
-		
-		/*** TEMPERATURE TRIGGERS ***/
-		this._triggerTemperatureMoreThan = new Homey.FlowCardTriggerDevice('change_temperature_more_than').register();
-		this._triggerTemperatureMoreThan.registerRunListener((args, state) => {
-			let conditionMet = state.measure_temperature > args.temperature;
-			return Promise.resolve(conditionMet);
-		});
+    <h4 class="name" id="HttpHelper"><span class="type-signature"></span>new HttpHelper<span class="signature">()</span><span class="type-signature"></span></h4>
 
-		this._triggerTemperatureLessThan = new Homey.FlowCardTriggerDevice('change_temperature_less_than').register()
-		this._triggerTemperatureLessThan.registerRunListener((args, state) => {
-			let conditionMet = state.measure_temperature &lt; args.temperature;
-			return Promise.resolve(conditionMet);
-		});
+    
 
-		this._triggerTemperatureBetween = new Homey.FlowCardTriggerDevice('change_temperature_between').register()
-		this._triggerTemperatureBetween.registerRunListener((args, state) => {
-			let conditionMet = state.measure_temperature > args.temperature_from &amp;&amp; state.measure_temperature &lt; args.temperature_to;
-			return Promise.resolve(conditionMet);
-		});
 
-		/*** TEMPERATURE CONDITIONS ***/
-		this._conditionTemperatureMoreThan = new Homey.FlowCardCondition('has_temperature_more_than').register();
-		this._conditionTemperatureMoreThan.registerRunListener((args, state) => {
-			let device = args.device;
-			let conditionMet = device.getState().measure_temperature > args.temperature;
-			return Promise.resolve(conditionMet);
-		});
 
-		this._conditionTemperatureLessThan = new Homey.FlowCardCondition('has_temperature_less_than').register();
-		this._conditionTemperatureLessThan.registerRunListener((args, state) => {
-			let device = args.device;
-			let conditionMet = device.getState().measure_temperature &lt; args.temperature;
-			return Promise.resolve(conditionMet);
-		});
 
-		this._conditionTemperatureBetween = new Homey.FlowCardCondition('has_temperature_between').register();
-		this._conditionTemperatureBetween.registerRunListener((args, state) => {
-			let device = args.device;
-			let conditionMet = device.getState().measure_temperature > args.temperature_from &amp;&amp; device.getState().measure_temperature &lt; args.temperature_to;
-			return Promise.resolve(conditionMet);
-		});
-	}
 
-	triggerTemperatureMoreThan(device, tokens, state) {
-		this.triggerFlow(this._triggerTemperatureMoreThan, device, tokens, state);
-		return this;
-	}
 
-	triggerTemperatureLessThan(device, tokens, state) {
-		this.triggerFlow(this._triggerTemperatureLessThan, device, tokens, state);
-		return this;
-	}
 
-	triggerTemperatureBetween(device, tokens, state) {
-		this.triggerFlow(this._triggerTemperatureBetween, device, tokens, state);
-		return this;
-	}
-}
+<dl class="details">
 
-module.exports = TemperatureSensorDriver;</code></pre>
-        </article>
-    </section>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_HttpHelper.js.html">lib/HttpHelper.js</a>, <a href="lib_HttpHelper.js.html#line19">line 19</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>Homey.SimpleClass</li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(options)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Makes an async get request to TaHoma</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_HttpHelper.js.html">lib/HttpHelper.js</a>, <a href="lib_HttpHelper.js.html#line35">line 35</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

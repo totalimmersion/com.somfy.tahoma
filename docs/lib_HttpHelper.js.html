@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>drivers/io_temperature_sensor/driver.js - Documentation</title>
+    <title>lib/HttpHelper.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">drivers/io_temperature_sensor/driver.js</h1>
+    <h1 class="page-title">lib/HttpHelper.js</h1>
     
 
     
@@ -39,79 +39,154 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>"use strict";
+            <pre class="prettyprint source linenums"><code>'use strict';
 
 const Homey = require('homey');
-const Driver = require('../../lib/Driver');
+const request = require('request');
+const cookieJar = request.jar();
+
+const tahomaRequest = request.defaults({
+	baseUrl: 'https://www.tahomalink.com/enduser-mobile-web/enduserAPI',
+	jar: cookieJar
+});
+
+let instance = null;
 
 /**
- * Driver class for the temperature sensor with the io:TemperatureIOSystemSensor controllable name in TaHoma
- * @extends {Driver}
+ * Class for managing http requests to TaHoma cloud
+ * @class
+ * @extends {Homey.SimpleClass}
  */
-class TemperatureSensorDriver extends Driver {
+class HttpHelper extends Homey.SimpleClass {
 
-	onInit() {
-		this.deviceType = ['io:TemperatureIOSystemSensor'];
-		
-		/*** TEMPERATURE TRIGGERS ***/
-		this._triggerTemperatureMoreThan = new Homey.FlowCardTriggerDevice('change_temperature_more_than').register();
-		this._triggerTemperatureMoreThan.registerRunListener((args, state) => {
-			let conditionMet = state.measure_temperature > args.temperature;
-			return Promise.resolve(conditionMet);
-		});
+	constructor() {
+		if (!instance) {
+			super();
+			instance = this;
+		}
 
-		this._triggerTemperatureLessThan = new Homey.FlowCardTriggerDevice('change_temperature_less_than').register()
-		this._triggerTemperatureLessThan.registerRunListener((args, state) => {
-			let conditionMet = state.measure_temperature &lt; args.temperature;
-			return Promise.resolve(conditionMet);
-		});
+		return instance;
+	}
 
-		this._triggerTemperatureBetween = new Homey.FlowCardTriggerDevice('change_temperature_between').register()
-		this._triggerTemperatureBetween.registerRunListener((args, state) => {
-			let conditionMet = state.measure_temperature > args.temperature_from &amp;&amp; state.measure_temperature &lt; args.temperature_to;
-			return Promise.resolve(conditionMet);
-		});
+	/**
+	 * Makes an async get request to TaHoma
+	 * @param {Object} options
+	 * @return {Promise}
+	 */
+	get(options, callback) {
+		var _self = this;
 
-		/*** TEMPERATURE CONDITIONS ***/
-		this._conditionTemperatureMoreThan = new Homey.FlowCardCondition('has_temperature_more_than').register();
-		this._conditionTemperatureMoreThan.registerRunListener((args, state) => {
-			let device = args.device;
-			let conditionMet = device.getState().measure_temperature > args.temperature;
-			return Promise.resolve(conditionMet);
-		});
+		return new Promise((resolve, reject) => {
+			tahomaRequest.get(options, function(error, response, body) {
+				if (error) {
+					if (callback) {
+						callback(error, null);
+					}
+					reject(error);
+					return;
+				}
 
-		this._conditionTemperatureLessThan = new Homey.FlowCardCondition('has_temperature_less_than').register();
-		this._conditionTemperatureLessThan.registerRunListener((args, state) => {
-			let device = args.device;
-			let conditionMet = device.getState().measure_temperature &lt; args.temperature;
-			return Promise.resolve(conditionMet);
-		});
+				if (response.statusCode == 401) {
+					//no longer authenticated -> login again
+					_self.reAuthenticate('get', options, callback);
+					return;
+				}
 
-		this._conditionTemperatureBetween = new Homey.FlowCardCondition('has_temperature_between').register();
-		this._conditionTemperatureBetween.registerRunListener((args, state) => {
-			let device = args.device;
-			let conditionMet = device.getState().measure_temperature > args.temperature_from &amp;&amp; device.getState().measure_temperature &lt; args.temperature_to;
-			return Promise.resolve(conditionMet);
+				try {
+					if (callback) {
+						callback(null, JSON.parse(body));
+					}
+					resolve(JSON.parse(body));
+				} catch (e) {
+					if (callback) {
+						callback(e, null);
+					}
+					reject(e);
+				}
+			});
 		});
 	}
 
-	triggerTemperatureMoreThan(device, tokens, state) {
-		this.triggerFlow(this._triggerTemperatureMoreThan, device, tokens, state);
-		return this;
+	post(options, callback) {
+		var _self = this;
+
+		return new Promise((resolve, reject) => {
+			tahomaRequest.post(options, function(error, response, body) {
+				if (error) {
+					if (callback) {
+						callback(error, null);
+					}
+					reject(error);
+					return;
+				}
+
+				if (options.uri != '/login' &amp;&amp; response.statusCode == 401) {
+					//no longer authenticated -> login again
+					_self.reAuthenticate('post', options, callback);
+					return;
+				}
+
+				try {
+					var result = (options.json) ? body : JSON.parse(body);
+					if (callback) {
+						callback(null, result);
+					}
+					resolve(result);
+				} catch (e) {
+					if (callback) {
+						callback(e, null);
+					}
+					reject(e);
+				}
+			});
+		});
 	}
 
-	triggerTemperatureLessThan(device, tokens, state) {
-		this.triggerFlow(this._triggerTemperatureLessThan, device, tokens, state);
-		return this;
+	delete(options, callback) {
+		var _self = this;
+
+		return new Promise((resolve, reject) => {
+			tahomaRequest.delete(options, function(error, response, body) {
+				if (error) {
+					if (callback) {
+						callback(error, null);
+					}
+					reject(error);
+					return;
+				}
+
+				if (options.uri != '/login' &amp;&amp; response.statusCode == 401) {
+					//no longer authenticated -> login again
+					_self.reAuthenticate('delete', options, callback);
+					return;
+				}
+
+				if (callback) {
+					callback(null, null);
+				}
+				resolve(null);
+			});
+		});
 	}
 
-	triggerTemperatureBetween(device, tokens, state) {
-		this.triggerFlow(this._triggerTemperatureBetween, device, tokens, state);
-		return this;
+	reAuthenticate(forwardMethod, forwardOptions, forwardCallback) {
+		var _self = this;
+
+		var username = Homey.ManagerSettings.get('username');
+		var password = Homey.ManagerSettings.get('password');
+		Tahoma.login(username, password, function(err, result) {
+			if (!err &amp;&amp; result &amp;&amp; result.success &amp;&amp; typeof _self[forwardMethod] === 'function') {
+				//successfully logged in
+				_self[forwardMethod](forwardOptions, forwardCallback);
+			}
+		});
 	}
 }
 
-module.exports = TemperatureSensorDriver;</code></pre>
+module.exports = new HttpHelper();
+
+const Tahoma = require('./Tahoma');
+</code></pre>
         </article>
     </section>
 
