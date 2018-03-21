@@ -3,7 +3,10 @@
 const Homey = require('homey');
 const Driver = require('../../lib/Driver');
 
-//Driver for a io:TemperatureIOSystemSensor device
+/**
+ * Driver class for the temperature sensor with the io:TemperatureIOSystemSensor controllable name in TaHoma
+ * @extends {Driver}
+ */
 class TemperatureSensorDriver extends Driver {
 
 	onInit() {

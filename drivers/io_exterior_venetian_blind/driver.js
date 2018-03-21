@@ -3,7 +3,10 @@
 const Homey = require('homey');
 const Driver = require('../../lib/Driver');
 
-//Driver for a io:ExteriorVenetianBlindIOComponent device
+/**
+ * Driver class for exterior venetian blinds with the io:ExteriorVenetianBlindIOComponent controllable name in TaHoma
+ * @extends {Driver}
+ */
 class ExteriorVenetianBlindDriver extends Driver {
 
 	onInit() {

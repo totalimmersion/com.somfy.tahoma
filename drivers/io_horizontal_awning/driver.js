@@ -3,7 +3,10 @@
 const Homey = require('homey');
 const Driver = require('../../lib/Driver');
 
-//Driver for a io:HorizontalAwningIOComponent device
+/**
+ * Driver class for horizontal awnings with the io:HorizontalAwningIOComponent controllable name in TaHoma
+ * @extends {Driver}
+ */
 class HorizontalAwningDriver extends Driver {
 
 	onInit() {

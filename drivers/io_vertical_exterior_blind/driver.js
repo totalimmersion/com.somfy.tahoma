@@ -3,7 +3,10 @@
 const Homey = require('homey');
 const Driver = require('../../lib/Driver');
 
-//Driver for a io:VerticalExteriorAwningIOComponent device
+/**
+ * Driver class for vertical exterior blinds with the io:VerticalExteriorAwningIOComponent controllable name in TaHoma
+ * @extends {Driver}
+ */
 class VerticalExteriorBlindDriver extends Driver {
 
 	onInit() {

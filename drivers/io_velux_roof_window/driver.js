@@ -3,7 +3,10 @@
 const Homey = require('homey');
 const Driver = require('../../lib/Driver');
 
-//Driver for a io:WindowOpenerVeluxIOComponent device
+/**
+ * Driver class for Velux roof windows with the io:WindowOpenerVeluxIOComponent controllable name in TaHoma
+ * @extends {Driver}
+ */
 class RoofWindowDriver extends Driver {
 
 	onInit() {

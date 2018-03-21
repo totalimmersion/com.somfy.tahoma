@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>drivers/io_exterior_venetian_blind/device.js - Documentation</title>
+    <title>lib/Device.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">drivers/io_exterior_venetian_blind/device.js</h1>
+    <h1 class="page-title">lib/Device.js</h1>
     
 
     
@@ -42,16 +42,47 @@
             <pre class="prettyprint source linenums"><code>"use strict";
 
 const Homey = require('homey');
-const WindowCoveringsDevice = require('../../lib/WindowCoveringsDevice');
 
 /**
- * Device class for exterior venetian blinds with the io:ExteriorVenetianBlindIOComponent controllable name in TaHoma
- * @extends {WindowCoveringsDevice}
+ * Base class for devices
+ * @extends {Homey.Device}
  */
-class ExteriorVenetianBlindDevice extends WindowCoveringsDevice {
+class Device extends Homey.Device {
+
+	onInit() {
+		this.log('Device init:', this.getName(), 'class:', this.getClass());
+	}
+
+	onAdded() {
+		this.log('device added');
+	}
+
+	onDeleted() {
+		this.log('device deleted');
+	}
+
+	/**
+	 * Returns the TaHoma device url
+	 * @return {String}
+	 */
+	getDeviceUrl() {
+		return this.getData().deviceURL;
+	}
+
+	/**
+	 * Returns the io controllable name(s) of TaHoma
+	 * @return {Array} deviceType
+	 */
+	getDeviceType() {
+		this.getDriver().getDeviceType();
+	}
+
+	sync() {
+		throw new Error('sync() not implemented for device');
+	}
 }
 
-module.exports = ExteriorVenetianBlindDevice;</code></pre>
+module.exports = Device;</code></pre>
         </article>
     </section>
 

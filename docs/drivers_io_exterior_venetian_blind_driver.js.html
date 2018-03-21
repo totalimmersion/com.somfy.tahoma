@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>drivers/io_exterior_venetian_blind/device.js - Documentation</title>
+    <title>drivers/io_exterior_venetian_blind/driver.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">drivers/io_exterior_venetian_blind/device.js</h1>
+    <h1 class="page-title">drivers/io_exterior_venetian_blind/driver.js</h1>
     
 
     
@@ -42,16 +42,21 @@
             <pre class="prettyprint source linenums"><code>"use strict";
 
 const Homey = require('homey');
-const WindowCoveringsDevice = require('../../lib/WindowCoveringsDevice');
+const Driver = require('../../lib/Driver');
 
 /**
- * Device class for exterior venetian blinds with the io:ExteriorVenetianBlindIOComponent controllable name in TaHoma
- * @extends {WindowCoveringsDevice}
+ * Driver class for exterior venetian blinds with the io:ExteriorVenetianBlindIOComponent controllable name in TaHoma
+ * @extends {Driver}
  */
-class ExteriorVenetianBlindDevice extends WindowCoveringsDevice {
+class ExteriorVenetianBlindDriver extends Driver {
+
+	onInit() {
+		this.deviceType = ['io:ExteriorVenetianBlindIOComponent'];
+	}
+
 }
 
-module.exports = ExteriorVenetianBlindDevice;</code></pre>
+module.exports = ExteriorVenetianBlindDriver;</code></pre>
         </article>
     </section>
 

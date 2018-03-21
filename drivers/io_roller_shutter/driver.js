@@ -3,7 +3,10 @@
 const Homey = require('homey');
 const Driver = require('../../lib/Driver');
 
-//Driver for a io:RollerShutterGenericIOComponent device
+/**
+ * Driver class for roller shutters with the io:RollerShutterGenericIOComponent or io:RollerShutterWithLowSpeedManagementIOComponent controllable name in TaHoma
+ * @extends {Driver}
+ */
 class RollerShutterDriver extends Driver {
 
 	onInit() {
