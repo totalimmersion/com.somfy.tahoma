@@ -15,7 +15,7 @@
         "cleverLinks": true,
         "monospaceLinks": true,
         "useLongnameInNav": false,
-        "showInheritedInNav": true
+        "showInheritedInNav": false
     },
     "opts": {
         "template": "node_modules/minami",
