@@ -54,16 +54,34 @@ class LightSensorDriver extends Driver {
 		});
 	}
 
+	/**
+	 * Triggers the 'luminance more than x' flow
+	 * @param {Device} device - A Device instance
+	 * @param {Object} tokens - An object with tokens and their typed values, as defined in the app.json
+	 * @param {Object} state - An object with properties which are accessible throughout the Flow
+	 */
 	triggerLuminanceMoreThan(device, tokens, state) {
 		this.triggerFlow(this._triggerLuminanceMoreThan, device, tokens, state);
 		return this;
 	}
 
+	/**
+	 * Triggers the 'luminance less than x' flow
+	 * @param {Device} device - A Device instance
+	 * @param {Object} tokens - An object with tokens and their typed values, as defined in the app.json
+	 * @param {Object} state - An object with properties which are accessible throughout the Flow
+	 */
 	triggerLuminanceLessThan(device, tokens, state) {
 		this.triggerFlow(this._triggerLuminanceLessThan, device, tokens, state);
 		return this;
 	}
 
+	/**
+	 * Triggers the 'luminance between x and y' flow
+	 * @param {Device} device - A Device instance
+	 * @param {Object} tokens - An object with tokens and their typed values, as defined in the app.json
+	 * @param {Object} state - An object with properties which are accessible throughout the Flow
+	 */
 	triggerLuminanceBetween(device, tokens, state) {
 		this.triggerFlow(this._triggerLuminanceBetween, device, tokens, state);
 		return this;
