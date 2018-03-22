@@ -2,35 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>drivers/io_temperature_sensor/driver.js - Documentation</title>
+    <title>JSDoc: Source: drivers/io_temperature_sensor/driver.js</title>
 
-    <script src="scripts/prettify/prettify.js"></script>
-    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
 </head>
+
 <body>
 
-<input type="checkbox" id="nav-trigger" class="nav-trigger" />
-<label for="nav-trigger" class="navicon-button x">
-  <div class="navicon"></div>
-</label>
-
-<label for="nav-trigger" class="overlay"></label>
-
-<nav>
-    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="App.html">App</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#addScenarioActionListeners">addScenarioActionListeners</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="App.html#onInit">onInit</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Device.html">Device</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Device.html#getDeviceType">getDeviceType</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Device.html#getDeviceUrl">getDeviceUrl</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Driver.html">Driver</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Driver.html#getDeviceType">getDeviceType</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Driver.html#triggerFlow">triggerFlow</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ExteriorVenetianBlindDevice.html">ExteriorVenetianBlindDevice</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ExteriorVenetianBlindDriver.html">ExteriorVenetianBlindDriver</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="HorizontalAwningDevice.html">HorizontalAwningDevice</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="HorizontalAwningDriver.html">HorizontalAwningDriver</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="HttpHelper.html">HttpHelper</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="HttpHelper.html#delete">delete</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="HttpHelper.html#get">get</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="HttpHelper.html#post">post</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="LightSensorDevice.html">LightSensorDevice</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="LightSensorDriver.html">LightSensorDriver</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="RollerShutterDevice.html">RollerShutterDevice</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="RollerShutterDriver.html">RollerShutterDriver</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="RoofWindowDevice.html">RoofWindowDevice</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="RoofWindowDriver.html">RoofWindowDriver</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TemperatureSensorDevice.html">TemperatureSensorDevice</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TemperatureSensorDriver.html">TemperatureSensorDriver</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="VeluxInteriorBlindDevice.html">VeluxInteriorBlindDevice</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="VeluxInteriorBlindDriver.html">VeluxInteriorBlindDriver</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="VerticalExteriorBlindDevice.html">VerticalExteriorBlindDevice</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="VerticalExteriorBlindDriver.html">VerticalExteriorBlindDriver</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="WindowCoveringsDevice.html">WindowCoveringsDevice</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="WindowCoveringsDevice.html#sync">sync</a></span></li>
-</nav>
-
 <div id="main">
-    
-    <h1 class="page-title">drivers/io_temperature_sensor/driver.js</h1>
-    
+
+    <h1 class="page-title">Source: drivers/io_temperature_sensor/driver.js</h1>
 
     
 
@@ -120,13 +107,17 @@ module.exports = TemperatureSensorDriver;</code></pre>
 
 </div>
 
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Device.html">Device</a></li><li><a href="Driver.html">Driver</a></li><li><a href="ExteriorVenetianBlindDevice.html">ExteriorVenetianBlindDevice</a></li><li><a href="ExteriorVenetianBlindDriver.html">ExteriorVenetianBlindDriver</a></li><li><a href="HorizontalAwningDevice.html">HorizontalAwningDevice</a></li><li><a href="HorizontalAwningDriver.html">HorizontalAwningDriver</a></li><li><a href="HttpHelper.html">HttpHelper</a></li><li><a href="LightSensorDevice.html">LightSensorDevice</a></li><li><a href="LightSensorDriver.html">LightSensorDriver</a></li><li><a href="RollerShutterDevice.html">RollerShutterDevice</a></li><li><a href="RollerShutterDriver.html">RollerShutterDriver</a></li><li><a href="RoofWindowDevice.html">RoofWindowDevice</a></li><li><a href="RoofWindowDriver.html">RoofWindowDriver</a></li><li><a href="TemperatureSensorDevice.html">TemperatureSensorDevice</a></li><li><a href="TemperatureSensorDriver.html">TemperatureSensorDriver</a></li><li><a href="VeluxInteriorBlindDevice.html">VeluxInteriorBlindDevice</a></li><li><a href="VeluxInteriorBlindDriver.html">VeluxInteriorBlindDriver</a></li><li><a href="VerticalExteriorBlindDevice.html">VerticalExteriorBlindDevice</a></li><li><a href="VerticalExteriorBlindDriver.html">VerticalExteriorBlindDriver</a></li><li><a href="WindowCoveringsDevice.html">WindowCoveringsDevice</a></li></ul>
+</nav>
+
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Mar 21 2018 19:02:35 GMT+0100 (CET) using the Minami theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Mar 22 2018 09:20:29 GMT+0100 (CET)
 </footer>
 
-<script>prettyPrint();</script>
-<script src="scripts/linenumber.js"></script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
 </body>
 </html>

@@ -18,7 +18,6 @@
         "showInheritedInNav": false
     },
     "opts": {
-        "template": "node_modules/minami",
         "encoding": "utf8",
         "destination": "./docs/",
         "recurse": true
