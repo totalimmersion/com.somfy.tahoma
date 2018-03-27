@@ -26,6 +26,9 @@ If you like this app and would like to support its development, consider buying 
 
 ### Changelog:
 
+#### 1.3.3
+* Added an icon for the IO exterior venetian blinds.
+
 #### 1.3.2
 * Added support for IO exterior venetian blinds.
 * The roller shutters device supports low speed management motors as well.
