@@ -43,6 +43,10 @@ class LightSensorDevice extends Device {
 		return Promise.resolve();
 	}
 
+	/**
+	 * Gets the sensor data from the TaHoma cloud
+	 * @param {Array} data - device data from all the devices in the TaHoma cloud
+	 */
 	sync(data) {
 		let device;
 
