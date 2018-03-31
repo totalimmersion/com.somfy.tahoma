@@ -140,3 +140,5 @@ typings/
 /node_modules/.bin/mocha
 /node_modules/mock-require
 /node_modules/get-caller-file
+/com.somfy.tahoma.sublime-project
+/com.somfy.tahoma.sublime-workspace

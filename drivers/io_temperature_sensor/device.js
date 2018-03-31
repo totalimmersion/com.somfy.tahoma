@@ -3,6 +3,8 @@
 const Homey = require('homey');
 const Device = require('../../lib/Device');
 const Tahoma = require('../../lib/Tahoma');
+const helper = require('../../lib/functional');
+const deviceHelper = require('../../lib/device-helper');
 
 /**
  * Device class for the temperature sensor with the io:TemperatureIOSystemSensor controllable name in TaHoma
@@ -48,14 +50,7 @@ class TemperatureSensorDevice extends Device {
 	 * @param {Array} data - device data from all the devices in the TaHoma cloud
 	 */
 	sync(data) {
-		let device;
-
-		for (let i=0; i<data.length; i++) {
-			if (this.getData().id == data[i].oid) {
-				device = data[i];
-				continue;
-			}
-		}
+		const device = data.find(deviceHelper.isSameDevice(this.getData().id), this);
 
 		if (!device) {
 			this.setUnavailable(null);
@@ -71,7 +66,7 @@ class TemperatureSensorDevice extends Device {
 			.then(data => {
 				//process result
 				if (data.historyValues && data.historyValues.length > 0) {
-					var mostRecentMeasurement = data.historyValues[data.historyValues.length - 1];
+					var mostRecentMeasurement = helper.getLastItemFrom(data.historyValues);
 					this.triggerCapabilityListener('measure_temperature', mostRecentMeasurement.value - kelvinOffset);
 				}		
 			})
