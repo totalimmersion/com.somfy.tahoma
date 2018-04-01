@@ -6,7 +6,7 @@
   "scripts": {
     "create-docs": "jsdoc -c conf.json",
     "test": "npm run test-unit",
-    "test-unit": "NODE_ENV=test mocha --require co-mocha '*/*.spec.js'"
+    "test-unit": "NODE_ENV=test mocha --recursive --require co-mocha '**/*.spec.js'"
   },
   "repository": {
     "type": "git",
