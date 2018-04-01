@@ -3,8 +3,8 @@
 const Homey = require('homey');
 const Device = require('../../lib/Device');
 const Tahoma = require('../../lib/Tahoma');
-const helper = require('../../lib/functional');
-const deviceHelper = require('../../lib/device-helper');
+const genericHelper = require('../../lib/helper').Generic;
+const deviceHelper = require('../../lib/helper').Device;
 
 /**
  * Device class for the temperature sensor with the io:TemperatureIOSystemSensor controllable name in TaHoma
@@ -66,7 +66,7 @@ class TemperatureSensorDevice extends Device {
 			.then(data => {
 				//process result
 				if (data.historyValues && data.historyValues.length > 0) {
-					var mostRecentMeasurement = helper.getLastItemFrom(data.historyValues);
+					var mostRecentMeasurement = genericHelper.getLastItemFrom(data.historyValues);
 					this.triggerCapabilityListener('measure_temperature', mostRecentMeasurement.value - kelvinOffset);
 				}		
 			})
