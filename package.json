@@ -4,7 +4,7 @@
   "description": "Somfy TaHoma app for Homey",
   "main": "app.js",
   "scripts": {
-    "create-docs": "jsdoc -c conf.json",
+    "create-docs": "jsdoc -c conf.json && open ./docs/index.html",
     "test": "npm run test-unit",
     "test-unit": "NODE_ENV=test mocha --recursive --require co-mocha '**/*.spec.js'"
   },

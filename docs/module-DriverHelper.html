@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: LightSensorDevice</title>
+    <title>JSDoc: Module: DriverHelper</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: LightSensorDevice</h1>
+    <h1 class="page-title">Module: DriverHelper</h1>
 
     
 
@@ -28,9 +28,8 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>LightSensorDevice<span class="signature">()</span><span class="type-signature"></span></h2>
         
-            <div class="class-description"><p>Device class for the light sensor with the io:LightIOSystemSensor controllable name in TaHoma</p></div>
+            
         
     
 </header>
@@ -39,16 +38,11 @@
     <div class="container-overview">
     
         
+            <div class="description"><p>Module with driver specific helper functions</p></div>
+        
 
-    
-    <h2>Constructor</h2>
-    
-
-    
-    <h4 class="name" id="LightSensorDevice"><span class="type-signature"></span>new LightSensorDevice<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
+        
+            
 
 
 
@@ -93,7 +87,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="drivers_io_light_sensor_device.js.html">drivers/io_light_sensor/device.js</a>, <a href="drivers_io_light_sensor_device.js.html#line13">line 13</a>
+        <a href="lib_helper_driver.js.html">lib/helper/driver.js</a>, <a href="lib_helper_driver.js.html#line4">line 4</a>
     </li></ul></dd>
     
 
@@ -120,20 +114,15 @@
 
 
 
-
+    <h5>Example</h5>
     
-    </div>
+    <pre class="prettyprint"><code>const driverHelper = require('./lib/helper').Driver;</code></pre>
 
-    
-        <h3 class="subsection-title">Extends</h3>
+
 
         
-
-
-    <ul>
-        <li><a href="Device.html">Device</a></li>
-    </ul>
-
+    
+    </div>
 
     
 
@@ -158,7 +147,7 @@
     
 
     
-    <h4 class="name" id="getDeviceType"><span class="type-signature"></span>getDeviceType<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id="~getDevices"><span class="type-signature">(inner) </span>getDevices<span class="signature">(driver)</span><span class="type-signature"> &rarr; {Array}</span></h4>
     
 
     
@@ -166,229 +155,7 @@
 
 
 <div class="description">
-    <p>Returns the io controllable name(s) of TaHoma</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Device.html#getDeviceType">Device#getDeviceType</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_Device.js.html">lib/Device.js</a>, <a href="lib_Device.js.html#line35">line 35</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>deviceType</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getDeviceUrl"><span class="type-signature"></span>getDeviceUrl<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Returns the TaHoma device url</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Device.html#getDeviceUrl">Device#getDeviceUrl</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_Device.js.html">lib/Device.js</a>, <a href="lib_Device.js.html#line27">line 27</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="sync"><span class="type-signature"></span>sync<span class="signature">(data)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Gets the sensor data from the TaHoma cloud</p>
+    <p>Gets all the devices from the given drivers in a flat array</p>
 </div>
 
 
@@ -424,7 +191,7 @@
 
         <tr>
             
-                <td class="name"><code>data</code></td>
+                <td class="name"><code>driver</code></td>
             
 
             <td class="type">
@@ -440,7 +207,7 @@
 
             
 
-            <td class="description last"><p>device data from all the devices in the TaHoma cloud</p></td>
+            <td class="description last"><p>Array with drivers to get the devices from</p></td>
         </tr>
 
     
@@ -481,7 +248,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="drivers_io_light_sensor_device.js.html">drivers/io_light_sensor/device.js</a>, <a href="drivers_io_light_sensor_device.js.html#line52">line 52</a>
+        <a href="lib_helper_driver.js.html">lib/helper/driver.js</a>, <a href="lib_helper_driver.js.html#line11">line 11</a>
     </li></ul></dd>
     
 
@@ -504,8 +271,215 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>devices</p>
+</div>
 
 
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~syncAll"><span class="type-signature">(inner) </span>syncAll<span class="signature">(drivers, devices)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Syncs all the devices from the given drivers by calling sync() on each device</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>drivers</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The drivers as returned from Homey.ManagerDrivers.getDrivers()</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>devices</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Array with devices as provided by theTahoma api</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_helper_driver.js.html">lib/helper/driver.js</a>, <a href="lib_helper_driver.js.html#line21">line 21</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>devices</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>driverHelper.syncAll(Homey.ManagerDrivers.getDrivers())(data.devices);</code></pre>
 
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: lib/Driver.js</title>
+    <title>JSDoc: Source: lib/helper/generic.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: lib/Driver.js</h1>
+    <h1 class="page-title">Source: lib/helper/generic.js</h1>
 
     
 
@@ -26,87 +26,92 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>"use strict";
-
-const Homey = require('homey');
-const Tahoma = require('../../lib/Tahoma');
+            <pre class="prettyprint source linenums"><code>/** 
+ * Module with generic helper functions
+ * @module GenericHelper
+ * @example
+ * const genericHelper = require('./lib/helper').Generic;
+ **/
 
 /**
- * Base class for drivers
- * @class
- * @extends {Homey.Driver}
+ * Checks if the argument is a function
+ * @name isFunction
+ * @function
+ * @public
+ * @param {Object} obj - Object to check if it is a function
+ * @returns {boolean}
  */
-class Driver extends Homey.Driver {
+const isFunction = obj => !!(obj &amp;&amp; obj.constructor &amp;&amp; obj.call &amp;&amp; obj.apply);
 
-	onPair(socket) {
-		var _this = this;
+/**
+ * Transforms an object to an array
+ * @name objToArray
+ * @function
+ * @public
+ * @param {Object} obj - Object to transform to array
+ * @returns {Array}
+ */
+const objToArray = (obj) => {
+	if (isFunction(obj)) throw new TypeError('obj is not a function');
+	return Object.values(obj);
+}
 
-		socket
-			.on('list_devices', (data, callback) => {
-				if (_this.deviceType &amp;&amp; _this.deviceType instanceof Array &amp;&amp; _this.deviceType.length > 0) {
-					this.log('list_devices');
-					Tahoma.setup()
-						.then(data => {
-							this.log('setup resolve');
-							if (data &amp;&amp; data.devices) {
-								var devices = new Array();
-								for (var i=0; i&lt;data.devices.length; i++) {
-									var device = data.devices[i];
-									if (_this.deviceType.indexOf(device.controllableName) !== -1) {
-										var device_data = {
-											name: device.label,
-											data: {
-												id: device.oid,
-												deviceURL: device.deviceURL,
-												label: device.label
-											}
-										};
-										devices.push(device_data);
-									}
-								}
+/**
+ * Returns the last item in an array
+ * @name getLastItemFrom
+ * @function
+ * @public
+ * @param {Array} array - array to get the last item from
+ * @returns {Object}
+ */
+const getLastItemFrom = array => {
+	if (!Array.isArray(array)) throw new TypeError('argument is not an array');
+	return array.slice().pop();
+}
 
-								callback(null, devices);
-							}
-						})
-						.catch(error => {
-							this.log('setup reject')
-							callback(error);
-						});
-				} else {
-					callback(new Error('missing deviceType'));
-				}
-			})
-			.on('disconnect', () => {
-				this.log("User aborted pairing, or pairing is finished");
-			});
+/**
+ * Creates a new function which executes the given functions where each function's return value is the next one's input
+ * @name pipe
+ * @function
+ * @public
+ * @example
+ * const add = x => x+1;
+ * const dbl = x => x*2;
+ * const addThenDbl = genericHelper.pipe(add, dbl);
+ * const result = addThenDbl(2); // result = 6
+ * @param {Array} fns - Array of function to create the pipe from
+ * @returns {Function}
+ */
+const pipe = (...fns) => fns.reduce((a, b) => x => b(a(x)));
+
+
+const stackPattern = /(\(.+:[0-9]+:[0-9]+\))/g;
+/**
+ * Logs given label, value and file + linenumber (where the trace function is invoked) to the console
+ * @function
+ * @public
+ * @example
+ * const value = genericHelper.trace('label')('value');
+ * @param {string} label - the label for the value
+ * @param {Object} value - the value to trace
+ * @returns {Object} value - the same value as the argument
+ */
+const trace = label => value => {
+	let stack = '';
+	try {
+		throw new Error();
+	} catch(error) {
+		stack = error.stack.match(stackPattern)[1];
 	}
+	console.log(`${label}: ${value} ${stack}`);
+	return value;
+}
 
-	/**
-	 * Triggers a flow
-	 * @param {Homey.FlowCardTriggerDevice} trigger - A Homey.FlowCardTriggerDevice instance
-	 * @param {Device} device - A Device instance
-	 * @param {Object} tokens - An object with tokens and their typed values, as defined in the app.json
-	 * @param {Object} state - An object with properties which are accessible throughout the Flow
-	 */
-	triggerFlow(trigger, device, tokens, state) {
-		if (trigger) {
-			trigger
-				.trigger(device, tokens, state)
-				.then(this.log)
-				.catch(this.error);
-		}
-	}
-
-	/**
-	 * Returns the io controllable name(s) of TaHoma
-	 * @return {Array} deviceType
-	 */
-	getDeviceType() {
-		return this.deviceType ? this.deviceType : false;
-	}
-};
-
-module.exports = Driver;</code></pre>
+module.exports.isFunction = isFunction;
+module.exports.objToArray = objToArray;
+module.exports.getLastItemFrom = getLastItemFrom;
+module.exports.pipe = pipe;
+module.exports.trace = trace;</code></pre>
         </article>
     </section>
 
