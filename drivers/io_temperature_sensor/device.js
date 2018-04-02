@@ -19,24 +19,21 @@ class TemperatureSensorDevice extends Device {
 	}
 
 	onCapabilityMeasureTemperature(value, opts) {
-		var deviceData = this.getData();
-
 		var oldTemperature = this.getState().measure_temperature;
 		if (oldTemperature != value) {
 			this.setCapabilityValue('measure_temperature', value);
 
-			let device = this;
-			let tokens = {
+			const device = this;
+			const tokens = {
 				'temperature': value
 			};
 
-			let state  = {
+			const state  = {
 				'measure_temperature': value
 			}
 
 			//trigger flows
-			let driver = this.getDriver();
-			driver
+			this.getDriver()
 				.triggerTemperatureMoreThan(device, tokens, state)
 				.triggerTemperatureLessThan(device, tokens, state)
 				.triggerTemperatureBetween(device, tokens, state);

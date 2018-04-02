@@ -36,23 +36,10 @@ class App extends Homey.App {
 			.getArgument('scenario')
 			.registerAutocompleteListener((query, args) => {
 				return Tahoma.getActionGroups()
-					.then(function (data) {
-						var scenarios = new Array();
-
-						if (data && data.constructor === Array) {
-							for (var i=0; i<data.length; i++) {
-								var scenario = {
-									oid: data[i].oid,
-									name: data[i].label
-								};
-								scenarios.push(scenario);
-							}
-
-							scenarios = scenarios.filter(function(scenario) {
-								return ( scenario.name.toLowerCase().indexOf( query.toLowerCase() ) > -1 );
-							});
-
-						}
+					.then(data => {
+						const scenarios = data
+											.map(scenario => ({ oid: scenario.oid, name: scenario.label }))
+											.filter(scenario => scenario.name.toLowerCase().indexOf( query.toLowerCase() ) > -1);
 
 						return Promise.resolve(scenarios);
 					})

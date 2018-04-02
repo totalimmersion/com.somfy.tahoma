@@ -19,24 +19,21 @@ class LightSensorDevice extends Device {
 	}
 
 	onCapabilityMeasureLuminance(value, opts) {
-		var deviceData = this.getData();
-
 		var oldLuminance = this.getState().measure_luminance;
 		if (oldLuminance != value) {
 			this.setCapabilityValue('measure_luminance', value);
 
-			let device = this;
-			let tokens = {
+			const device = this;
+			const tokens = {
 				'luminance': value
 			};
 
-			let state  = {
+			const state  = {
 				'measure_luminance': value
 			}
 
 			//trigger flows
-			let driver = this.getDriver();
-			driver
+			this.getDriver()
 				.triggerLuminanceMoreThan(device, tokens, state)
 				.triggerLuminanceLessThan(device, tokens, state)
 				.triggerLuminanceBetween(device, tokens, state);
