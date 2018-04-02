@@ -26,6 +26,10 @@ If you like this app and would like to support its development, consider buying 
 
 ### Changelog:
 
+#### 1.3.4
+* Changed app store assets
+* Optimized code for a better performance
+
 #### 1.3.3
 * Added an icon for the IO exterior venetian blinds.
 
