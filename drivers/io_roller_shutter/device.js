@@ -1,7 +1,7 @@
 "use strict";
 
 const Homey = require('homey');
-const WindowCoveringsDevice = require('../../lib/WindowCoveringsDevice');
+const WindowCoveringsDevice = require('../WindowCoveringsDevice');
 
 /**
  * Device class for roller shutters with the io:RollerShutterGenericIOComponent or io:RollerShutterWithLowSpeedManagementIOComponent controllable name in TaHoma

@@ -1,7 +1,7 @@
 "use strict";
 
 const Homey = require('homey');
-const Driver = require('../../lib/Driver');
+const Driver = require('../Driver');
 
 /**
  * Driver class for Velus interior blinds with the io:VerticalInteriorBlindVeluxIOComponent controllable name in TaHoma

@@ -1,7 +1,7 @@
 "use strict";
 
 const Homey = require('homey');
-const Driver = require('../../lib/Driver');
+const Driver = require('../Driver');
 
 /**
  * Driver class for exterior venetian blinds with the io:ExteriorVenetianBlindIOComponent controllable name in TaHoma

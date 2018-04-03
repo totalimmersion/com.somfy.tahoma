@@ -1,7 +1,7 @@
 "use strict";
 
 const Homey = require('homey');
-const Device = require('../../lib/Device');
+const SensorDevice = require('../SensorDevice');
 const Tahoma = require('../../lib/Tahoma');
 const genericHelper = require('../../lib/helper').Generic;
 const deviceHelper = require('../../lib/helper').Device;
@@ -10,16 +10,16 @@ const deviceHelper = require('../../lib/helper').Device;
  * Device class for the light sensor with the io:LightIOSystemSensor controllable name in TaHoma
  * @extends {Device}
  */
-class LightSensorDevice extends Device {
+class LightSensorDevice extends SensorDevice {
 
 	onInit() {
-		super.onInit();
-
         this.registerCapabilityListener('measure_luminance', this.onCapabilityMeasureLuminance.bind(this));
+
+   		super.onInit();
 	}
 
 	onCapabilityMeasureLuminance(value, opts) {
-		var oldLuminance = this.getState().measure_luminance;
+		const oldLuminance = this.getState().measure_luminance;
 		if (oldLuminance != value) {
 			this.setCapabilityValue('measure_luminance', value);
 
@@ -68,6 +68,8 @@ class LightSensorDevice extends Device {
 			.catch(error => {
 				console.log(error.message, error.stack);
 			});
+
+		super.sync(data);
 	}
 }
 

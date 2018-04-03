@@ -1,7 +1,7 @@
 "use strict";
 
 const Homey = require('homey');
-const Driver = require('../../lib/Driver');
+const Driver = require('../Driver');
 
 /**
  * Driver class for the temperature sensor with the io:TemperatureIOSystemSensor controllable name in TaHoma
