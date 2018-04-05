@@ -142,3 +142,5 @@ typings/
 /node_modules/get-caller-file
 /com.somfy.tahoma.sublime-project
 /com.somfy.tahoma.sublime-workspace
+/node_modules/normalize-path
+/node_modules/remove-trailing-separator
