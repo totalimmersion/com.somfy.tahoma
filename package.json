@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/totalimmersion/com.somfy.tahoma#readme",
   "dependencies": {
-    "homey-log": "^1.0.3",
+    "homey-log": "^1.0.5",
     "request": "^2.81.0"
   },
   "devDependencies": {
