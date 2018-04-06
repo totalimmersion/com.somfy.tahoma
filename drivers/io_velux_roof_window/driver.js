@@ -1,7 +1,7 @@
 "use strict";
 
 const Homey = require('homey');
-const Driver = require('../../lib/Driver');
+const Driver = require('../Driver');
 
 /**
  * Driver class for Velux roof windows with the io:WindowOpenerVeluxIOComponent controllable name in TaHoma

@@ -2,8 +2,8 @@
 
 const Homey = require('homey');
 const Device = require('./Device');
-const Tahoma = require('./Tahoma');
-const deviceHelper = require('./helper').Device;
+const Tahoma = require('../lib/Tahoma');
+const deviceHelper = require('../lib/helper').Device;
 
 /**
  * Base class for window coverings devices
@@ -65,37 +65,33 @@ class WindowCoveringsDevice extends Device {
 	 * @param {Array} data - device data from all the devices in the TaHoma cloud
 	 */
 	sync(data) {
-		try {
-			const device = data.find(deviceHelper.isSameDevice(this.getData().id), this);
+		const device = data.find(deviceHelper.isSameDevice(this.getData().id), this);
 
-			if (device) {
-				//device exists -> let's sync the state of the device
-				const statesMap = {
-					open: 'up',
-					closed: 'down'
-				};
+		if (device) {
+			//device exists -> let's sync the state of the device
+			const statesMap = {
+				open: 'up',
+				closed: 'down'
+			};
 
-				const states = device.states
-					.filter(state => state.name == 'core:OpenClosedState' || state.name == 'core:ClosureState')
-					.map(state => {
-						return {
-							name: state.name ==  'core:OpenClosedState' ? 'openClosedState' : 'closureState',
-							value: statesMap[state.value] ? statesMap[state.value]: state.value
-						};
-					});
-
-				const openClosedState = states.find(state => state.name == 'openClosedState');
-
-				this.log(this.getName(), 'state', openClosedState.value);
-				this.triggerCapabilityListener('windowcoverings_state', openClosedState.value, {
-					fromCloudSync: true
+			const states = device.states
+				.filter(state => state.name == 'core:OpenClosedState' || state.name == 'core:ClosureState')
+				.map(state => {
+					return {
+						name: state.name ==  'core:OpenClosedState' ? 'openClosedState' : 'closureState',
+						value: statesMap[state.value] ? statesMap[state.value]: state.value
+					};
 				});
-			} else {
-				//device was not found in TaHoma response -> remove device from Homey
-				this.setUnavailable(null);
-			}
-		} catch(error) {
-			console.log(error.message, error.stack);
+
+			const openClosedState = states.find(state => state.name == 'openClosedState');
+
+			this.log(this.getName(), 'state', openClosedState.value);
+			this.triggerCapabilityListener('windowcoverings_state', openClosedState.value, {
+				fromCloudSync: true
+			});
+		} else {
+			//device was not found in TaHoma response -> remove device from Homey
+			this.setUnavailable(null);
 		}
 	}
 }

@@ -1,7 +1,7 @@
 "use strict";
 
 const Homey = require('homey');
-const Device = require('../../lib/Device');
+const SensorDevice = require('../SensorDevice');
 const Tahoma = require('../../lib/Tahoma');
 const genericHelper = require('../../lib/helper').Generic;
 const deviceHelper = require('../../lib/helper').Device;
@@ -10,7 +10,7 @@ const deviceHelper = require('../../lib/helper').Device;
  * Device class for the temperature sensor with the io:TemperatureIOSystemSensor controllable name in TaHoma
  * @extends {Device}
  */
-class TemperatureSensorDevice extends Device {
+class TemperatureSensorDevice extends SensorDevice {
 
 	onInit() {
 		super.onInit();
@@ -70,6 +70,8 @@ class TemperatureSensorDevice extends Device {
 			.catch(error => {
 				console.log(error.message, error.stack);
 			});
+
+		super.sync(data);
 	}
 }
 

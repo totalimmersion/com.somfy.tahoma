@@ -214,9 +214,26 @@
                 "small": "/drivers/io_light_sensor/assets/images/small.png"
             },
             "class": "sensor",
-            "capabilities": [
-                "measure_luminance"
-            ],
+            "capabilities": [ "measure_luminance", "alarm_battery" ],
+            "mobile": {
+                "components": [
+                    {
+                        "id": "icon"
+                    },
+                    {
+                        "id": "sensor",
+                        "capabilities": [
+                            "measure_luminance"
+                        ]
+                    },
+                    {
+                        "id": "sensor",
+                        "capabilities": [
+                            "alarm_battery"
+                        ]
+                    }
+                ]
+            },
             "pair": [
                 {
                     "id": "list_my_devices",
@@ -242,9 +259,26 @@
                 "small": "/drivers/io_temperature_sensor/assets/images/small.png"
             },
             "class": "sensor",
-            "capabilities": [
-                "measure_temperature"
-            ],
+            "capabilities": [ "measure_temperature", "alarm_battery" ],
+            "mobile": {
+                "components": [
+                    {
+                        "id": "icon"
+                    },
+                    {
+                        "id": "sensor",
+                        "capabilities": [
+                            "measure_luminance"
+                        ]
+                    },
+                    {
+                        "id": "sensor",
+                        "capabilities": [
+                            "alarm_battery"
+                        ]
+                    }
+                ]
+            },
             "pair": [
                 {
                     "id": "list_my_devices",
