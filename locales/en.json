@@ -11,6 +11,7 @@
 		"logouttitle": "Revoke access for Homey",
 		"logout": "Log out",
 		"logout_success": "Successfully logged out.",
-		"logout_failure": "Failed to log out."
+		"logout_failure": "Failed to log out.",
+		"on_pair_login_failure": "Unable to login. Please go to the settings screen and provide access to TaHoma for Homey."
 	}
 }
