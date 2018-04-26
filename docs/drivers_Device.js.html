@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: drivers/io_roller_shutter/driver.js</title>
+    <title>JSDoc: Source: drivers/Device.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: drivers/io_roller_shutter/driver.js</h1>
+    <h1 class="page-title">Source: drivers/Device.js</h1>
 
     
 
@@ -29,21 +29,47 @@
             <pre class="prettyprint source linenums"><code>"use strict";
 
 const Homey = require('homey');
-const Driver = require('../Driver');
 
 /**
- * Driver class for roller shutters with the io:RollerShutterGenericIOComponent or io:RollerShutterWithLowSpeedManagementIOComponent controllable name in TaHoma
- * @extends {Driver}
+ * Base class for devices
+ * @extends {Homey.Device}
  */
-class RollerShutterDriver extends Driver {
+class Device extends Homey.Device {
 
 	onInit() {
-		this.deviceType = ['io:RollerShutterGenericIOComponent', 'io:RollerShutterWithLowSpeedManagementIOComponent'];
+		this.log('Device init:', this.getName(), 'class:', this.getClass());
 	}
 
+	onAdded() {
+		this.log('device added');
+	}
+
+	onDeleted() {
+		this.log('device deleted');
+	}
+
+	/**
+	 * Returns the TaHoma device url
+	 * @return {String}
+	 */
+	getDeviceUrl() {
+		return this.getData().deviceURL;
+	}
+
+	/**
+	 * Returns the io controllable name(s) of TaHoma
+	 * @return {Array} deviceType
+	 */
+	getDeviceType() {
+		return this.getDriver().getDeviceType();
+	}
+
+	sync() {
+		throw new Error('sync() not implemented for device');
+	}
 }
 
-module.exports = RollerShutterDriver;</code></pre>
+module.exports = Device;</code></pre>
         </article>
     </section>
 

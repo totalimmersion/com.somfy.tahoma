@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: drivers/io_roller_shutter/driver.js</title>
+    <title>JSDoc: Source: drivers/SensorDevice.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: drivers/io_roller_shutter/driver.js</h1>
+    <h1 class="page-title">Source: drivers/SensorDevice.js</h1>
 
     
 
@@ -29,21 +29,18 @@
             <pre class="prettyprint source linenums"><code>"use strict";
 
 const Homey = require('homey');
-const Driver = require('../Driver');
+const Device = require('./Device');
+const Tahoma = require('../lib/Tahoma');
+const deviceHelper = require('../lib/helper').Device;
 
 /**
- * Driver class for roller shutters with the io:RollerShutterGenericIOComponent or io:RollerShutterWithLowSpeedManagementIOComponent controllable name in TaHoma
- * @extends {Driver}
+ * Base class for sensor devices
+ * @extends {Device}
  */
-class RollerShutterDriver extends Driver {
-
-	onInit() {
-		this.deviceType = ['io:RollerShutterGenericIOComponent', 'io:RollerShutterWithLowSpeedManagementIOComponent'];
-	}
-
+class SensorDevice extends Device {
 }
 
-module.exports = RollerShutterDriver;</code></pre>
+module.exports = SensorDevice;</code></pre>
         </article>
     </section>
 
