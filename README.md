@@ -26,7 +26,7 @@ If you like this app and would like to support its development, consider buying 
 
 ### Changelog:
 
-#### 1.4.0
+#### 1.3.5
 * Ability to log out of the TaHoma service was added.
 
 #### 1.3.4
