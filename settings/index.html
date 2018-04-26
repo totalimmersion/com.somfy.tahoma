@@ -8,8 +8,16 @@
 		<script type="text/javascript">
 			function onHomeyReady(Homey) {
 				var saveButton = $('#saveButton');
+				var logoutButton = $('#logoutButton');
 
 				Homey.ready();
+
+				var response = $('#response');
+				var usernameEl = $('#username');
+				var passwordEl = $('#password');
+				var logoutEl = $('#logoutElement');
+				var hasUsername = false;
+				var hasPassword = false;
 
 				Homey.get('username', function(err, username){
 					if (err) {
@@ -17,7 +25,10 @@
 					}
 
 					console.log('username: ', username);
-					$('#username').val(username);
+					usernameEl.val(username);
+					if (username.length > 0) {
+						logoutEl.show();
+					}
 				});
 
 				Homey.get('password', function(err, password){
@@ -26,13 +37,15 @@
 					}
 
 					console.log('password: ', password);
-					$('#password').val(password);
+					passwordEl.val(password);
+					if (password.length > 0) {
+						logoutEl.show();
+					}
 				});
 
 				saveButton.on('click', function() {
-					var username = $('#username').val();
-					var password = $('#password').val();
-					var response = $('#response');
+					var username = usernameEl.val();
+					var password = passwordEl.val();
 
 					Homey.api('POST', '/login/', {
 							"username": username,
@@ -44,12 +57,31 @@
 
 							if (result.success) {
 								response.css({color: 'green'});
-								response.html(__('settings.success'));
+								response.html(__('settings.login_success'));
+								logoutEl.show();
 							} else {
 								response.css({color: 'red'});
-								response.html(__('settings.failure') + '<br/>' + result.error);
+								response.html(__('settings.login_failure') + '<br/>' + result.error);
+								Homey.unset('username');
+								Homey.unset('password');
 							}
-							console.log(result);
+					});
+				});
+
+				logoutButton.on('click', function() {
+					var response = $('#response');
+
+					Homey.api('POST', '/logout/', function(err, result) {
+						if (err) {
+							response.css({color: 'red'});
+							response.html(__('settings.logout_failure') + '<br/>' + result.error);
+						} else {
+							response.css({color: 'green'});
+							response.html(__('settings.logout_success'));
+
+							usernameEl.val('');
+							passwordEl.val('');
+						}
 					});
 				});
 			}
@@ -58,6 +90,8 @@
 	<body>
 		<h1 data-i18n="settings.title"></h1>
 		<p id="introText" data-i18n="settings.intro"></p>
+
+		<p id="response"></p>
 
 		<fieldset>
 			<legend data-i18n="settings.logintitle"></legend>
@@ -70,9 +104,14 @@
 	            <label for="password" data-i18n="settings.password"></label>
 	            <input id="password" type="password" value=""/>
 	        </div>
+
+           	<button id="saveButton" class="left" style="display:block" data-i18n="settings.save" ></button>
     	</fieldset>
 
-    <button id="saveButton" class="left" style="display:block" data-i18n="settings.save" ></button>
+    	<fieldset id="logoutElement" style="display: none;">
+    		<legend data-i18n="settings.logouttitle"></legend>
+    		<button id="logoutButton" class="left" style="display:block" data-i18n="settings.logout" ></button>
+    	</fieldset>
 
 	</body>
 </html>

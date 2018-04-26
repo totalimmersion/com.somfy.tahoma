@@ -6,7 +6,11 @@
 		"username": "Username",
 		"password": "Password",
 		"save": "Save credentials",
-		"success": "Successfully logged in.",
-		"failure": "Failed to log in."
+		"login_success": "Successfully logged in.",
+		"login_failure": "Failed to log in.",
+		"logouttitle": "Revoke access for Homey",
+		"logout": "Log out",
+		"logout_success": "Successfully logged out.",
+		"logout_failure": "Failed to log out."
 	}
 }

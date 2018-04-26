@@ -17,6 +17,24 @@ module.exports = [
 			})
 			.catch(error => {
 				console.log(error.message, error.stack);
+				callback(error)
+			});
+		}
+	},
+	{
+		description: 'Log out of TaHoma',
+		method: 'POST',
+		path: '/logout/',
+		fn: function(args, callback) {
+			Tahoma.logout()
+			.then(result => {
+				Homey.ManagerSettings.unset('username');
+				Homey.ManagerSettings.unset('password');
+				callback(null, result);
+			})
+			.catch(error => {
+				console.log(error.message, error.stack);
+				callback(error);
 			});
 		}
 	}

@@ -6,7 +6,11 @@
 		"username": "Gebruikersnaam",
 		"password": "Wachtwoord",
 		"save": "Login gegevens opslaan",
-		"success": "Inloggen succesvol.",
-		"failure": "Inloggen niet gelukt."
+		"login_success": "Inloggen succesvol.",
+		"login_failure": "Inloggen niet gelukt.",
+		"logouttitle": "Toegang voor Homey intrekken",
+		"logout": "Uitloggen",
+		"logout_success": "Succesvol uitgelogd.",
+		"logout_failure": "Uitloggen niet gelukt."
 	}
 }
