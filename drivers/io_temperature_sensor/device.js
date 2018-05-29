@@ -57,14 +57,13 @@ class TemperatureSensorDevice extends SensorDevice {
 		const range = 15 * 60 * 1000; //range of 15 minutes
 		const to = Date.now();
 		const from = to - range;
-		const kelvinOffset = 273.15;
 		
 		Tahoma.getDeviceStateHistory(this.getDeviceUrl(), 'core:TemperatureState', from, to)
 			.then(data => {
 				//process result
 				if (data.historyValues && data.historyValues.length > 0) {
 					var mostRecentMeasurement = genericHelper.getLastItemFrom(data.historyValues);
-					this.triggerCapabilityListener('measure_temperature', mostRecentMeasurement.value - kelvinOffset);
+					this.triggerCapabilityListener('measure_temperature', mostRecentMeasurement.value);
 				}		
 			})
 			.catch(error => {
