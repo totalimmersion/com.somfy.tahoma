@@ -26,8 +26,11 @@ If you like this app and would like to support its development, consider buying 
 
 ### Changelog:
 
+#### 1.3.7
+* Fixed a bug that would cause the temperature of the Thermis to be incorrect.
+
 #### 1.3.6
-Fixed a bug that would crash the app.
+* Fixed a bug that would crash the app.
 
 #### 1.3.5
 * Ability to log out of the TaHoma service was added.
