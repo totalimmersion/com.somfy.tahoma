@@ -31,14 +31,14 @@ class OpeningDetectorDriver extends Driver {
 		});
 
 		/*** CONTACT CONDITIONS ***/
-		this._conditionContactOpen = new Homey.FlowCardCondition('has_contact_open').register();
+		this._conditionContactOpen = new Homey.FlowCardCondition('contact_is_open').register();
 		this._conditionContactOpen.registerRunListener((args, state) => {
 			let device = args.device;
 			let conditionMet = device.getState().alarm_contact == 'open';
 			return Promise.resolve(conditionMet);
 		});
 
-		this._conditionContactClosed = new Homey.FlowCardCondition('has_contact_closed').register();
+		this._conditionContactClosed = new Homey.FlowCardCondition('contact_is_closed').register();
 		this._conditionContactClosed.registerRunListener((args, state) => {
 			let device = args.device;
 			let conditionMet = device.getState().alarm_contact = 'closed';
