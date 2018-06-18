@@ -8,7 +8,7 @@ const deviceHelper = require('../../lib/helper').Device;
 
 /**
  * Device class for the light sensor with the io:LightIOSystemSensor controllable name in TaHoma
- * @extends {Device}
+ * @extends {SensorDevice}
  */
 class LightSensorDevice extends SensorDevice {
 

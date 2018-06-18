@@ -8,7 +8,7 @@ const deviceHelper = require('../../lib/helper').Device;
 
 /**
  * Device class for the temperature sensor with the io:TemperatureIOSystemSensor controllable name in TaHoma
- * @extends {Device}
+ * @extends {SensorDevice}
  */
 class TemperatureSensorDevice extends SensorDevice {
 
