@@ -34,9 +34,9 @@ class OpeningDetectorDevice extends SensorDevice {
 
 			//trigger flows
 			this.getDriver()
-				.triggerTemperatureMoreThan(device, tokens, state)
-				.triggerTemperatureLessThan(device, tokens, state)
-				.triggerTemperatureBetween(device, tokens, state);
+				.triggerContactChange(device, tokens, state)
+				.triggerContactOpen(device, tokens, state)
+				.triggerContactClosed(device, tokens, state);
 		}
 
 		return Promise.resolve();
