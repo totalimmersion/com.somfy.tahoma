@@ -26,6 +26,9 @@ If you like this app and would like to support its development, consider buying 
 
 ### Changelog:
 
+#### 1.4.0
+* Added support for the IO Opening Detector.
+
 #### 1.3.7
 * Fixed a bug that would cause the temperature of the Thermis to be incorrect.
 
