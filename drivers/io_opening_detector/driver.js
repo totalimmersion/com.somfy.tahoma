@@ -13,18 +13,18 @@ class OpeningDetectorDriver extends Driver {
 		this.deviceType = ['io:SomfyContactIOSystemSensor'];
 
 		/*** CONTACT TRIGGERS ***/
-		this._triggerContactChange = new Homey.FlowCardTriggerDevice('change_contact_change').register();
+		this._triggerContactChange = new Homey.FlowCardTriggerDevice('contact_has_changed').register();
 		this._triggerContactChange.registerRunListener((args, state) => {
 			return Promise.resolve(true);
 		});
 
-		this._triggerContactOpen = new Homey.FlowCardTriggerDevice('change_contact_open').register()
+		this._triggerContactOpen = new Homey.FlowCardTriggerDevice('contact_has_changed_to_open').register()
 		this._triggerContactOpen.registerRunListener((args, state) => {
 			let conditionMet = state.alarm_contact == 'open';
 			return Promise.resolve(conditionMet);
 		});
 
-		this._triggerContactClosed = new Homey.FlowCardTriggerDevice('change_contact_closed').register()
+		this._triggerContactClosed = new Homey.FlowCardTriggerDevice('contact_has_changed_to_closed').register()
 		this._triggerContactClosed.registerRunListener((args, state) => {
 			let conditionMet = state.alarm_contact == 'closed';
 			return Promise.resolve(conditionMet);
@@ -79,3 +79,5 @@ class OpeningDetectorDriver extends Driver {
 		return this;
 	}
 }
+
+module.exports = OpeningDetectorDriver;

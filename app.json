@@ -473,7 +473,7 @@
                         "filter": "driver_id=io_opening_detector"
                     }
                 ]
-            },
+            }
         ],
         "conditions": [
             {
@@ -666,7 +666,6 @@
                         "type": "autocomplete"
                     }
                 ]
-
             }
         ]
     }
