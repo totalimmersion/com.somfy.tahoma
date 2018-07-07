@@ -20,13 +20,13 @@ class OpeningDetectorDriver extends Driver {
 
 		this._triggerContactOpen = new Homey.FlowCardTriggerDevice('contact_has_changed_to_open').register()
 		this._triggerContactOpen.registerRunListener((args, state) => {
-			let conditionMet = state.alarm_contact == 'open';
+			let conditionMet = state.alarm_contact == true;
 			return Promise.resolve(conditionMet);
 		});
 
 		this._triggerContactClosed = new Homey.FlowCardTriggerDevice('contact_has_changed_to_closed').register()
 		this._triggerContactClosed.registerRunListener((args, state) => {
-			let conditionMet = state.alarm_contact == 'closed';
+			let conditionMet = state.alarm_contact == false;
 			return Promise.resolve(conditionMet);
 		});
 
@@ -34,14 +34,14 @@ class OpeningDetectorDriver extends Driver {
 		this._conditionContactOpen = new Homey.FlowCardCondition('contact_is_open').register();
 		this._conditionContactOpen.registerRunListener((args, state) => {
 			let device = args.device;
-			let conditionMet = device.getState().alarm_contact == 'open';
+			let conditionMet = device.getState().alarm_contact == true;
 			return Promise.resolve(conditionMet);
 		});
 
 		this._conditionContactClosed = new Homey.FlowCardCondition('contact_is_closed').register();
 		this._conditionContactClosed.registerRunListener((args, state) => {
 			let device = args.device;
-			let conditionMet = device.getState().alarm_contact = 'closed';
+			let conditionMet = device.getState().alarm_contact == false;
 			return Promise.resolve(conditionMet);
 		});
 	}

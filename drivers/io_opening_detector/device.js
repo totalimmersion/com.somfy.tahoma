@@ -25,7 +25,7 @@ class OpeningDetectorDevice extends SensorDevice {
 
 			const device = this;
 			const tokens = {
-				'contactState': value
+				'isOpen': value
 			};
 
 			const state  = {
@@ -62,8 +62,8 @@ class OpeningDetectorDevice extends SensorDevice {
 			.then(data => {
 				//process result
 				if (data.historyValues && data.historyValues.length > 0) {
-					var mostRecentMeasurement = genericHelper.getLastItemFrom(data.historyValues);
-					this.triggerCapabilityListener('alarm_contact', mostRecentMeasurement.value == 'open');
+					const { value } = genericHelper.getLastItemFrom(data.historyValues);
+					this.triggerCapabilityListener('alarm_contact', value == 'open');
 				}
 			})
 			.catch(error => {
