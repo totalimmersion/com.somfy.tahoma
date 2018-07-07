@@ -440,10 +440,11 @@
                 },
                 "tokens": [
                     {
-                        "name": "contactState",
-                        "type": "string",
+                        "name": "isOpen",
+                        "type": "boolean",
                         "title": {
-                            "en": "contactState"
+                            "en": "is open?",
+                            "nl": "is open?"
                         },
                         "example": "open"
                     }
