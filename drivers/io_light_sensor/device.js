@@ -13,7 +13,7 @@ const deviceHelper = require('../../lib/helper').Device;
 class LightSensorDevice extends SensorDevice {
 
 	onInit() {
-        this.registerCapabilityListener('measure_luminance', this.onCapabilityMeasureLuminance.bind(this));
+      this.registerCapabilityListener('measure_luminance', this.onCapabilityMeasureLuminance.bind(this));
 
    		super.onInit();
 	}
@@ -52,17 +52,17 @@ class LightSensorDevice extends SensorDevice {
 			this.setUnavailable(null);
 			return;
 		}
-		
+
 		const range = 15 * 60 * 1000; //range of 15 minutes
 		const to = Date.now();
 		const from = to - range;
-		
+
 		Tahoma.getDeviceStateHistory(this.getDeviceUrl(), 'core:LuminanceState', from, to)
 			.then(data => {
 				//process result
 				if (data.historyValues && data.historyValues.length > 0) {
-					var mostRecentMeasurement = genericHelper.getLastItemFrom(data.historyValues);
-					this.triggerCapabilityListener('measure_luminance', mostRecentMeasurement.value);
+					const { value } = genericHelper.getLastItemFrom(data.historyValues);
+					this.triggerCapabilityListener('measure_luminance', value);
 				}
 			})
 			.catch(error => {

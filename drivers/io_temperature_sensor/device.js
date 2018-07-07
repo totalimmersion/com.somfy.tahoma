@@ -15,11 +15,11 @@ class TemperatureSensorDevice extends SensorDevice {
 	onInit() {
 		super.onInit();
 
-        this.registerCapabilityListener('measure_temperature', this.onCapabilityMeasureTemperature.bind(this));
+    this.registerCapabilityListener('measure_temperature', this.onCapabilityMeasureTemperature.bind(this));
 	}
 
 	onCapabilityMeasureTemperature(value, opts) {
-		var oldTemperature = this.getState().measure_temperature;
+		const oldTemperature = this.getState().measure_temperature;
 		if (oldTemperature != value) {
 			this.setCapabilityValue('measure_temperature', value);
 
@@ -53,18 +53,18 @@ class TemperatureSensorDevice extends SensorDevice {
 			this.setUnavailable(null);
 			return;
 		}
-		
+
 		const range = 15 * 60 * 1000; //range of 15 minutes
 		const to = Date.now();
 		const from = to - range;
-		
+
 		Tahoma.getDeviceStateHistory(this.getDeviceUrl(), 'core:TemperatureState', from, to)
 			.then(data => {
 				//process result
 				if (data.historyValues && data.historyValues.length > 0) {
-					var mostRecentMeasurement = genericHelper.getLastItemFrom(data.historyValues);
-					this.triggerCapabilityListener('measure_temperature', mostRecentMeasurement.value);
-				}		
+					var { value } = genericHelper.getLastItemFrom(data.historyValues);
+					this.triggerCapabilityListener('measure_temperature', value);
+				}
 			})
 			.catch(error => {
 				console.log(error.message, error.stack);
