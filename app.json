@@ -63,7 +63,7 @@
                 }
             ]
         },
-          {
+        {
             "id": "io_exterior_venetian_blind",
             "name": {
                 "en": "Exterior venetian blind (io)",
@@ -348,7 +348,7 @@
                             "nl": "in Lux"
                         }
                     },
-                                        {
+                    {
                         "name": "luminance_to",
                         "type": "number",
                         "placeholder": {
@@ -422,7 +422,7 @@
                             "nl": "in C"
                         }
                     },
-                                        {
+                    {
                         "name": "temperature_to",
                         "type": "number",
                         "placeholder": {
@@ -438,6 +438,16 @@
                     "en": "The state of the opening detector has changed",
                     "nl": "De staat van de openingsmelder is veranderd"
                 },
+                "tokens": [
+                    {
+                        "name": "contactState",
+                        "type": "string",
+                        "title": {
+                            "en": "contactState"
+                        },
+                        "example": "open"
+                    }
+                ],
                 "args": [
                     {
                         "name": "device",
@@ -540,7 +550,7 @@
                             "nl": "in Lux"
                         }
                     },
-                                        {
+                    {
                         "name": "luminance_to",
                         "type": "number",
                         "placeholder": {
@@ -614,7 +624,7 @@
                             "nl": "in C"
                         }
                     },
-                                        {
+                    {
                         "name": "temperature_to",
                         "type": "number",
                         "placeholder": {
