@@ -1,11 +1,12 @@
-"use strict";
+'use strict';
 
 const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
 const syncManager = require('./lib/sync');
 
 /**
- * This class is the starting point of the app and initializes the neccessary services, listeners, etc.
+ * This class is the starting point of the app and initializes the neccessary
+ * services, listeners, etc.
  * @extends {Homey.App}
  **/
 class App extends Homey.App {
@@ -13,7 +14,7 @@ class App extends Homey.App {
 	/**
 	 * Initializes the app
 	 */
-	onInit() {		
+	onInit() {
 		this.log(`${Homey.app.manifest.id} running...`);
 
 		this.addScenarioActionListeners();
@@ -27,23 +28,23 @@ class App extends Homey.App {
 		/*** ADD FLOW ACTION LISTENERS ***/
 		new Homey.FlowCardAction('activate_scenario')
 			.register()
-			.registerRunListener((args, state) => {
+			.registerRunListener(args => {
 				return Tahoma.executeScenario(args.scenario.oid)
-					.then(data => {
+					.then(() => {
 						return Promise.resolve();
 					});
 			})
 			.getArgument('scenario')
-			.registerAutocompleteListener((query, args) => {
+			.registerAutocompleteListener(query => {
 				return Tahoma.getActionGroups()
 					.then(data => {
 						const scenarios = data
-											.map(scenario => ({ oid: scenario.oid, name: scenario.label }))
-											.filter(scenario => scenario.name.toLowerCase().indexOf( query.toLowerCase() ) > -1);
+											.map(({ oid, label }) => ({ oid, name: label }))
+											.filter(({ name }) => name.toLowerCase().indexOf(query.toLowerCase()) > -1);
 
 						return Promise.resolve(scenarios);
 					})
-					.catch(function (error) {
+					.catch(error => {
 						console.log(error.message, error.stack);
 					});
 			});
