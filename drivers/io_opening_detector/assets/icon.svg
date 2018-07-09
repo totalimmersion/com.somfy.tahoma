@@ -1,0 +1,28 @@
+<svg width="261.00003515625" height="145.000125" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+ <title>IO-Contact</title>
+ <defs>
+  <linearGradient y2="0" x2="1" y1="0" x1="0" id="svg_35">
+   <stop offset="0" stop-color="rgb(229, 229, 229)"/>
+   <stop offset="1" stop-color="rgb(26, 26, 26)"/>
+  </linearGradient>
+  <linearGradient id="svg_36">
+   <stop offset="0" stop-color="rgb(204, 204, 204)"/>
+   <stop offset="1" stop-color="rgb(51, 51, 51)"/>
+  </linearGradient>
+  <linearGradient y2="0" x2="1" y1="0" x1="0" id="svg_3">
+   <stop offset="0" stop-color="rgb(26, 26, 26)"/>
+   <stop offset="0.77606" stop-color="rgb(229, 229, 229)"/>
+  </linearGradient>
+ </defs>
+ <g>
+  <title>Layer 1</title>
+  <line y2="63.5641" x2="253.93" y1="29.0661" x1="31.8098" transform="rotate(-0.592484 142.87 46.3151)" stroke-width="13" stroke-linejoin="null" stroke-linecap="null" stroke-dasharray="null" stroke="#b2b2b2" fill-opacity="0.52" fill="none" id="svg_27"/>
+  <path d="m6.068988,8.957985l11.446448,-6.69529l5.617201,1.91641l2.660782,4.791009l1.478209,5.74921l0.591282,5.749221l0.295645,4.79101l-0.295645,5.110411l-0.886929,7.026819l-8.277971,47.910091l-1.773857,15.970039l-12.416962,2.235794l1.561798,-94.554715l0,0.00001l0,0l0,-0.00002z" stroke-width="5" stroke-linejoin="null" stroke-linecap="null" stroke-dasharray="null" stroke="#7f7f7f" fill-opacity="0.81" fill="url(#svg_3)" id="svg_19"/>
+  <path d="m24.800699,4.070031l219.491812,36.604701l6.355469,4.378624l4.448853,4.691395l0.635529,6.255184l0.31781,10.008312l-2.542221,7.193451l-6.991028,20.954887l-3.177719,16.576233l-5.084381,1.876572l-221.170498,-9.07003l6.35549,-44.099064l5.402147,-35.341808l-4.041252,-20.028447l-0.000019,0l0,0l0,-0.00001l0.00001,0z" stroke-width="5" stroke-linejoin="null" stroke-linecap="null" stroke-dasharray="null" stroke="#7f7f7f" fill-opacity="0.62" fill="url(#svg_35)" id="svg_20"/>
+  <path d="m15.6816,119.785004l-12.76202,1.273987l0.32783,18.808014l1.89835,1.821991l3.480299,1.30101l7.27704,-0.521011l221.157905,-0.259995l4.429001,-3.123001l1.265991,-14.834l-226.763496,-4.694l-0.310901,0.227013l0,-0.000008z" transform="rotate(0.730983 122.838 131.274)" stroke-width="4" stroke-linejoin="null" stroke-linecap="null" stroke-dasharray="null" stroke="#7f7f7f" fill-opacity="0.59" fill="url(#svg_36)" id="svg_22"/>
+  <line y2="139.492" x2="15.3548" y1="116.394" x1="16.3038" stroke-width="5" stroke-linejoin="null" stroke-linecap="null" stroke-dasharray="null" stroke="#7f7f7f" fill="none" id="svg_23"/>
+  <line y2="103.738" x2="3.96384" y1="103.421" x1="17.2528" stroke-width="5" stroke-linejoin="null" stroke-linecap="null" stroke-dasharray="null" stroke="#7f7f7f" fill="none" id="svg_25"/>
+  <text xml:space="preserve" y="239.191" x="319.6595" transform="rotate(3.9303 145.556 93.7287) matrix(0.836524, 0, 0, 0.472657, -121.847, -15.4929)" text-anchor="middle" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" stroke-dasharray="null" stroke="#000000" fill="#000000" font-size="24px" font-family="serif" id="svg_26">somfy</text>
+ </g>
+</svg>
