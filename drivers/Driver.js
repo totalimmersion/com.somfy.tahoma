@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const Homey = require('homey');
 const Tahoma = require('../lib/Tahoma');
@@ -11,46 +11,45 @@ const Tahoma = require('../lib/Tahoma');
 class Driver extends Homey.Driver {
 
 	onPair(socket) {
-		var _this = this;
-
 		socket
 			.on('list_devices', (data, callback) => {
-				if (_this.deviceType && _this.deviceType instanceof Array && _this.deviceType.length > 0) {
-					this.log('list_devices');
-					Tahoma.setup()
-						.then(data => {
-							this.log('setup resolve');
-							if (data && data.devices) {
-								var devices = new Array();
-								for (var i=0; i<data.devices.length; i++) {
-									var device = data.devices[i];
-									if (_this.deviceType.indexOf(device.controllableName) !== -1) {
-										var device_data = {
-											name: device.label,
-											data: {
-												id: device.oid,
-												deviceURL: device.deviceURL,
-												label: device.label
-											}
-										};
-										devices.push(device_data);
-									}
-								}
-
-								callback(null, devices);
-							}
-						})
-						.catch(error => {
-							this.log('setup reject')
-							callback(error);
-						});
-				} else {
-					callback(new Error('missing deviceType'));
-				}
+				this.log('list_devices');
+				Tahoma.setup()
+					.then((tahomaData) => {
+						this.onReceiveSetupData(tahomaData, callback);
+					})
+					.catch(error => {
+						this.log('setup reject');
+						callback(error);
+					});
 			})
 			.on('disconnect', () => {
-				this.log("User aborted pairing, or pairing is finished");
+				this.log('User aborted pairing, or pairing is finished');
 			});
+	}
+
+	onReceiveSetupData({ devices }, callback) {
+		try {
+			this.log('setup resolve');
+			if (devices) {
+				const homeyDevices = devices
+					.filter(device => this.deviceType.indexOf(device.controllableName) !== -1)
+					.map(device => (
+						{
+							name: device.label,
+							data: {
+								id: device.oid,
+								deviceURL: device.deviceURL,
+								label: device.label
+							}
+						}
+					));
+
+				callback(null, homeyDevices);
+			}
+		} catch (error) {
+			callback(error);
+		}
 	}
 
 	/**
@@ -76,6 +75,6 @@ class Driver extends Homey.Driver {
 	getDeviceType() {
 		return this.deviceType ? this.deviceType : false;
 	}
-};
+}
 
 module.exports = Driver;
