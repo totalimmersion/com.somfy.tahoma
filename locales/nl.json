@@ -12,6 +12,10 @@
 		"logout": "Uitloggen",
 		"logout_success": "Succesvol uitgelogd.",
 		"logout_failure": "Uitloggen niet gelukt.",
-		"on_pair_login_failure": "Inloggen niet gelukt. Ga a.u.b. naar het instellingen scherm en geef Homey toegang tot TaHoma."
+		"on_pair_login_failure": "Inloggen niet gelukt. Ga a.u.b. naar het instellingen scherm en geef Homey toegang tot TaHoma.",
+		"preferences": "Voorkeuren",
+		"sync_speed": "Synchronisatie snelheid",
+		"sync_tooltip": "(seconden)",
+		"save_preferences": "Voorkeuren opslaan"
 	}
 }

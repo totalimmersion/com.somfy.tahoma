@@ -12,6 +12,10 @@
 		"logout": "Log out",
 		"logout_success": "Successfully logged out.",
 		"logout_failure": "Failed to log out.",
-		"on_pair_login_failure": "Unable to login. Please go to the settings screen and provide access to TaHoma for Homey."
+		"on_pair_login_failure": "Unable to login. Please go to the settings screen and provide access to TaHoma for Homey.",
+		"preferences": "Preferences",
+		"sync_speed": "Sync speed",
+		"sync_tooltip": "(seconds)",
+		"save_preferences": "Save preferences"
 	}
 }
