@@ -18,12 +18,11 @@ class WindowCoveringsDevice extends Device {
 			down: 'close'
 		};
 
-        this.registerCapabilityListener('windowcoverings_state', this.onCapabilityWindowcoveringsState.bind(this));
-   		super.onInit();
+		this.registerCapabilityListener('windowcoverings_state', this.onCapabilityWindowcoveringsState.bind(this));
+		super.onInit();
 	}
 
 	onCapabilityWindowcoveringsState(value, opts, callback) {
-		var _this = this;
 		var deviceData = this.getData();
 		var oldWindowCoveringsState = this.getState().windowcoverings_state;
 		if (oldWindowCoveringsState != value) {
@@ -31,30 +30,30 @@ class WindowCoveringsDevice extends Device {
 				Tahoma.cancelExecution(this.getStoreValue('executionId'))
 					.then(result => {
 						//let's set the state to open, because Tahoma, doesn't have an idle state. If a blind isn't closed for 100%, the state will remain open.
-						_this.setCapabilityValue('windowcoverings_state', value);
+						this.setCapabilityValue('windowcoverings_state', value);
 						if (callback) callback(null, value);
 					})
 					.catch(error => {
 						console.log(error.message, error.stack);
 					});
 			} else if(!(oldWindowCoveringsState == 'idle' && opts.fromCloudSync == true)) {
-				var action = {
-					name: _this.windowcoveringsStateMap[value],
+				const action = {
+					name: this.windowcoveringsStateMap[value],
 					parameters: []
 				};
 
 				if (!opts.fromCloudSync) {
 					Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
 						.then(result => {
-							_this.setStoreValue('executionId', result.execId);
-							_this.setCapabilityValue('windowcoverings_state', value);
+							this.setStoreValue('executionId', result.execId);
+							this.setCapabilityValue('windowcoverings_state', value);
 							if (callback) callback(null, value);
 						})
 						.catch(error => {
 							console.log(error.message, error.stack);
 						});
 				} else {
-					_this.setCapabilityValue('windowcoverings_state', value);
+					this.setCapabilityValue('windowcoverings_state', value);
 				}
 			}
 		}
