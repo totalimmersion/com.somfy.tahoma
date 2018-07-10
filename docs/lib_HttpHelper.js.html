@@ -71,10 +71,8 @@ class HttpHelper extends Homey.SimpleClass {
 	 * @return {Promise&lt;Object>}
 	 */
 	get(options) {
-		var _self = this;
-
 		return new Promise((resolve, reject) => {
-			tahomaRequest.get(options, function(error, response, body) {
+			tahomaRequest.get(options, (error, response, body) => {
 				if (error) {
 					reject(error);
 					return;
@@ -82,7 +80,7 @@ class HttpHelper extends Homey.SimpleClass {
 
 				if (response.statusCode == 401) {
 					//no longer authenticated -> login again
-					_self.reAuthenticate('get', options)
+					this.reAuthenticate('get', options)
 						.then(result => resolve(result))
 						.catch(error => reject(error));
 					return;
@@ -104,10 +102,8 @@ class HttpHelper extends Homey.SimpleClass {
 	 * @return {Promise&lt;Object>}
 	 */
 	post(options) {
-		var _self = this;
-
 		return new Promise((resolve, reject) => {
-			tahomaRequest.post(options, function(error, response, body) {
+			tahomaRequest.post(options, (error, response, body) => {
 				if (error) {
 					reject(error);
 					return;
@@ -115,14 +111,14 @@ class HttpHelper extends Homey.SimpleClass {
 
 				if (options.uri != '/login' &amp;&amp; response.statusCode == 401) {
 					//no longer authenticated -> login again
-					_self.reAuthenticate('post', options)
+					this.reAuthenticate('post', options)
 						.then(result => resolve(result))
 						.catch(error => reject(error));
 					return;
 				}
 
 				try {
-					var result = (options.json) ? body : JSON.parse(body);
+					const result = (options.json) ? body : JSON.parse(body);
 					resolve(result);
 				} catch (e) {
 					reject(e);
@@ -138,10 +134,8 @@ class HttpHelper extends Homey.SimpleClass {
 	 * @return {Promise}
 	 */
 	delete(options) {
-		var _self = this;
-
 		return new Promise((resolve, reject) => {
-			tahomaRequest.delete(options, function(error, response, body) {
+			tahomaRequest.delete(options, (error, response, body) => {
 				if (error) {
 					reject(error);
 					return;
@@ -149,7 +143,7 @@ class HttpHelper extends Homey.SimpleClass {
 
 				if (options.uri != '/login' &amp;&amp; response.statusCode == 401) {
 					//no longer authenticated -> login again
-					_self.reAuthenticate('delete', options)
+					this.reAuthenticate('delete', options)
 						.then(result => resolve(result))
 						.catch(error => reject(error));
 					return;
@@ -161,19 +155,18 @@ class HttpHelper extends Homey.SimpleClass {
 	}
 
 	reAuthenticate(forwardMethod, forwardOptions) {
-		var _self = this;
-
 		return new Promise((resolve, reject) => {
 			const username = Homey.ManagerSettings.get('username');
 			const password = Homey.ManagerSettings.get('password');
 			Tahoma.login(username, password)
 				.then(result => {
-					if (result.success &amp;&amp; typeof _self[forwardMethod] === 'function') {
-						_self[forwardMethod](forwardOptions)
+					if (result.success &amp;&amp; typeof this[forwardMethod] === 'function') {
+						this[forwardMethod](forwardOptions)
 							.then(result => resolve(result))
 							.catch(error => reject(error));
 					} else {
-						reject(new Error('Error: ' + Homey.__('login_failure')));
+						//Homey.__('on_pair_login_failure') doesn't currently work (in order to get a localized error message), so for now a hardcoded error message in english
+						reject(new Error('Unable to login. Please go to the settings screen and provide access to TaHoma for Homey.'));
 					}
 				})
 				.catch(error => {
@@ -197,13 +190,13 @@ const Tahoma = require('./Tahoma');
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-DeviceHelper.html">DeviceHelper</a></li><li><a href="module-DriverHelper.html">DriverHelper</a></li><li><a href="module-GenericHelper.html">GenericHelper</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Device.html">Device</a></li><li><a href="Driver.html">Driver</a></li><li><a href="ExteriorVenetianBlindDevice.html">ExteriorVenetianBlindDevice</a></li><li><a href="ExteriorVenetianBlindDriver.html">ExteriorVenetianBlindDriver</a></li><li><a href="HorizontalAwningDevice.html">HorizontalAwningDevice</a></li><li><a href="HorizontalAwningDriver.html">HorizontalAwningDriver</a></li><li><a href="HttpHelper.html">HttpHelper</a></li><li><a href="LightSensorDevice.html">LightSensorDevice</a></li><li><a href="LightSensorDriver.html">LightSensorDriver</a></li><li><a href="RollerShutterDevice.html">RollerShutterDevice</a></li><li><a href="RollerShutterDriver.html">RollerShutterDriver</a></li><li><a href="RoofWindowDevice.html">RoofWindowDevice</a></li><li><a href="RoofWindowDriver.html">RoofWindowDriver</a></li><li><a href="SensorDevice.html">SensorDevice</a></li><li><a href="Tahoma.html">Tahoma</a></li><li><a href="TemperatureSensorDevice.html">TemperatureSensorDevice</a></li><li><a href="TemperatureSensorDriver.html">TemperatureSensorDriver</a></li><li><a href="VeluxInteriorBlindDevice.html">VeluxInteriorBlindDevice</a></li><li><a href="VeluxInteriorBlindDriver.html">VeluxInteriorBlindDriver</a></li><li><a href="VerticalExteriorBlindDevice.html">VerticalExteriorBlindDevice</a></li><li><a href="VerticalExteriorBlindDriver.html">VerticalExteriorBlindDriver</a></li><li><a href="WindowCoveringsDevice.html">WindowCoveringsDevice</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-DeviceHelper.html">DeviceHelper</a></li><li><a href="module-DriverHelper.html">DriverHelper</a></li><li><a href="module-GenericHelper.html">GenericHelper</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Device.html">Device</a></li><li><a href="Driver.html">Driver</a></li><li><a href="ExteriorVenetianBlindDevice.html">ExteriorVenetianBlindDevice</a></li><li><a href="ExteriorVenetianBlindDriver.html">ExteriorVenetianBlindDriver</a></li><li><a href="HorizontalAwningDevice.html">HorizontalAwningDevice</a></li><li><a href="HorizontalAwningDriver.html">HorizontalAwningDriver</a></li><li><a href="HttpHelper.html">HttpHelper</a></li><li><a href="LightSensorDevice.html">LightSensorDevice</a></li><li><a href="LightSensorDriver.html">LightSensorDriver</a></li><li><a href="OpeningDetectorDevice.html">OpeningDetectorDevice</a></li><li><a href="OpeningDetectorDriver.html">OpeningDetectorDriver</a></li><li><a href="RollerShutterDevice.html">RollerShutterDevice</a></li><li><a href="RollerShutterDriver.html">RollerShutterDriver</a></li><li><a href="RoofWindowDevice.html">RoofWindowDevice</a></li><li><a href="RoofWindowDriver.html">RoofWindowDriver</a></li><li><a href="SensorDevice.html">SensorDevice</a></li><li><a href="Tahoma.html">Tahoma</a></li><li><a href="TemperatureSensorDevice.html">TemperatureSensorDevice</a></li><li><a href="TemperatureSensorDriver.html">TemperatureSensorDriver</a></li><li><a href="VeluxInteriorBlindDevice.html">VeluxInteriorBlindDevice</a></li><li><a href="VeluxInteriorBlindDriver.html">VeluxInteriorBlindDriver</a></li><li><a href="VerticalExteriorBlindDevice.html">VerticalExteriorBlindDevice</a></li><li><a href="VerticalExteriorBlindDriver.html">VerticalExteriorBlindDriver</a></li><li><a href="WindowCoveringsDevice.html">WindowCoveringsDevice</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Apr 26 2018 14:53:02 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jul 10 2018 23:02:01 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>
