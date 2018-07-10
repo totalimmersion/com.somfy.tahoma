@@ -18,7 +18,7 @@ class OpeningDetectorDriver extends Driver {
 			return Promise.resolve(true);
 		});
 
-		this._triggerContactOpen = new Homey.FlowCardTriggerDevice('contact_has_changed_to_open').register()
+		/*this._triggerContactOpen = new Homey.FlowCardTriggerDevice('contact_has_changed_to_open').register()
 		this._triggerContactOpen.registerRunListener((args, state) => {
 			let conditionMet = state.alarm_contact == true;
 			return Promise.resolve(conditionMet);
@@ -28,10 +28,10 @@ class OpeningDetectorDriver extends Driver {
 		this._triggerContactClosed.registerRunListener((args, state) => {
 			let conditionMet = state.alarm_contact == false;
 			return Promise.resolve(conditionMet);
-		});
+		});*/
 
 		/*** CONTACT CONDITIONS ***/
-		this._conditionContactOpen = new Homey.FlowCardCondition('contact_is_open').register();
+		/*this._conditionContactOpen = new Homey.FlowCardCondition('contact_is_open').register();
 		this._conditionContactOpen.registerRunListener((args, state) => {
 			let device = args.device;
 			let conditionMet = device.getState().alarm_contact == true;
@@ -43,7 +43,7 @@ class OpeningDetectorDriver extends Driver {
 			let device = args.device;
 			let conditionMet = device.getState().alarm_contact == false;
 			return Promise.resolve(conditionMet);
-		});
+		});*/
 	}
 
 	/**
@@ -63,10 +63,10 @@ class OpeningDetectorDriver extends Driver {
 	 * @param {Object} tokens - An object with tokens and their typed values, as defined in the app.json
 	 * @param {Object} state - An object with properties which are accessible throughout the Flow
 	 */
-	triggerContactOpen(device, tokens, state) {
+	/*triggerContactOpen(device, tokens, state) {
 		this.triggerFlow(this._triggerContactOpen, device, tokens, state);
 		return this;
-	}
+	}*/
 
 	/**
 	 * Triggers the 'contact closed' flow
@@ -74,10 +74,10 @@ class OpeningDetectorDriver extends Driver {
 	 * @param {Object} tokens - An object with tokens and their typed values, as defined in the app.json
 	 * @param {Object} state - An object with properties which are accessible throughout the Flow
 	 */
-	triggerContactClosed(device, tokens, state) {
+	/*triggerContactClosed(device, tokens, state) {
 		this.triggerFlow(this._triggerContactClosed, device, tokens, state);
 		return this;
-	}
+	}*/
 }
 
 module.exports = OpeningDetectorDriver;

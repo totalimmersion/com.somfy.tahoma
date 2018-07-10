@@ -10,6 +10,7 @@ With this app it's possible to connect your Somfy TaHoma box to Homey and contro
 * Velux IO blinds
 * Sunis wirefree IO sensor
 * Thermis wirefree IO sensor
+* Opening Detector IO sensor
 * TaHoma scenarios
 
 ### Suggestions or problems?
