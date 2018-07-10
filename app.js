@@ -4,6 +4,8 @@ const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
 const syncManager = require('./lib/sync');
 
+const INITIAL_SYNC_INTERVAL = 10; //interval of 60 seconds
+
 /**
  * This class is the starting point of the app and initializes the neccessary
  * services, listeners, etc.
@@ -16,9 +18,28 @@ class App extends Homey.App {
 	 */
 	onInit() {
 		this.log(`${Homey.app.manifest.id} running...`);
-
 		this.addScenarioActionListeners();
-		syncManager.init();
+
+		if (!Homey.ManagerSettings.get('syncInterval')) {
+			Homey.ManagerSettings.set('syncInterval', INITIAL_SYNC_INTERVAL);
+		}
+
+		Homey.ManagerSettings.on('set', (setting) => {
+			if (setting === 'syncInterval') this.initSync();
+		});
+		Homey.on('settings.set', this.initSync);
+
+		this.initSync();
+	}
+
+	initSync() {
+		let interval = null;
+		try {
+			interval = Number(Homey.ManagerSettings.get('syncInterval'));
+		} catch(e) {
+			interval = INITIAL_SYNC_INTERVAL;
+		}
+		syncManager.init(interval * 1000);
 	}
 
 	/**
