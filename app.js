@@ -32,6 +32,10 @@ class App extends Homey.App {
 		this.initSync();
 	}
 
+	/**
+	 * Initializes synchronization between Homey and TaHoma
+	 * with the interval as defined in the settings.
+	 */
 	initSync() {
 		let interval = null;
 		try {
