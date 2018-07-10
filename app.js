@@ -4,7 +4,7 @@ const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
 const syncManager = require('./lib/sync');
 
-const INITIAL_SYNC_INTERVAL = 10; //interval of 60 seconds
+const INITIAL_SYNC_INTERVAL = 10; //interval of 10 seconds
 
 /**
  * This class is the starting point of the app and initializes the neccessary
