@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: ExteriorVenetianBlindDriver</title>
+    <title>JSDoc: Class: OpeningDetectorDriver</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: ExteriorVenetianBlindDriver</h1>
+    <h1 class="page-title">Class: OpeningDetectorDriver</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>ExteriorVenetianBlindDriver<span class="signature">()</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>OpeningDetectorDriver<span class="signature">()</span><span class="type-signature"></span></h2>
         
-            <div class="class-description"><p>Driver class for exterior venetian blinds with the io:ExteriorVenetianBlindIOComponent controllable name in TaHoma</p></div>
+            <div class="class-description"><p>Driver class for the opening detector with the io:SomfyContactIOSystemSensor controllable name in TaHoma</p></div>
         
     
 </header>
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="ExteriorVenetianBlindDriver"><span class="type-signature"></span>new ExteriorVenetianBlindDriver<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="OpeningDetectorDriver"><span class="type-signature"></span>new OpeningDetectorDriver<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -93,7 +93,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="drivers_io_exterior_venetian_blind_driver.js.html">drivers/io_exterior_venetian_blind/driver.js</a>, <a href="drivers_io_exterior_venetian_blind_driver.js.html#line10">line 10</a>
+        <a href="drivers_io_opening_detector_driver.js.html">drivers/io_opening_detector/driver.js</a>, <a href="drivers_io_opening_detector_driver.js.html#line10">line 10</a>
     </li></ul></dd>
     
 
@@ -260,6 +260,187 @@
 </dl>
 
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="triggerContactChange"><span class="type-signature"></span>triggerContactChange<span class="signature">(device, tokens, state)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Triggers the 'contact change' flow</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>device</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Device.html">Device</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A Device instance</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tokens</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An object with tokens and their typed values, as defined in the app.json</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An object with properties which are accessible throughout the Flow</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drivers_io_opening_detector_driver.js.html">drivers/io_opening_detector/driver.js</a>, <a href="drivers_io_opening_detector_driver.js.html#line28">line 28</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

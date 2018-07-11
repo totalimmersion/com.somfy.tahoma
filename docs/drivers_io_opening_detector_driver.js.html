@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: drivers/io_vertical_exterior_blind/driver.js</title>
+    <title>JSDoc: Source: drivers/io_opening_detector/driver.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: drivers/io_vertical_exterior_blind/driver.js</h1>
+    <h1 class="page-title">Source: drivers/io_opening_detector/driver.js</h1>
 
     
 
@@ -32,18 +32,35 @@ const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
- * Driver class for vertical exterior blinds with the io:VerticalExteriorAwningIOComponent controllable name in TaHoma
+ * Driver class for the opening detector with the io:SomfyContactIOSystemSensor controllable name in TaHoma
  * @extends {Driver}
  */
-class VerticalExteriorBlindDriver extends Driver {
+class OpeningDetectorDriver extends Driver {
 
 	onInit() {
-		this.deviceType = ['io:VerticalExteriorAwningIOComponent'];
+		this.deviceType = ['io:SomfyContactIOSystemSensor'];
+
+		/*** CONTACT TRIGGERS ***/
+		this._triggerContactChange = new Homey.FlowCardTriggerDevice('contact_has_changed').register();
+		this._triggerContactChange.registerRunListener((args, state) => {
+			return Promise.resolve(true);
+		});
 	}
 
+	/**
+	 * Triggers the 'contact change' flow
+	 * @param {Device} device - A Device instance
+	 * @param {Object} tokens - An object with tokens and their typed values, as defined in the app.json
+	 * @param {Object} state - An object with properties which are accessible throughout the Flow
+	 */
+	triggerContactChange(device, tokens, state) {
+		this.triggerFlow(this._triggerContactChange, device, tokens, state);
+		return this;
+	}
 }
 
-module.exports = VerticalExteriorBlindDriver;</code></pre>
+module.exports = OpeningDetectorDriver;
+</code></pre>
         </article>
     </section>
 
