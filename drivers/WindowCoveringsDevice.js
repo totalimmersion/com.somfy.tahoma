@@ -25,8 +25,8 @@ class WindowCoveringsDevice extends Device {
 	onCapabilityWindowcoveringsState(value, opts, callback) {
 		var deviceData = this.getData();
 		var oldWindowCoveringsState = this.getState().windowcoverings_state;
-		if (oldWindowCoveringsState != value) {
-			if (value == 'idle' && this.getStoreValue('executionId')) {
+		if (oldWindowCoveringsState !== value) {
+			if (value === 'idle' && this.getStoreValue('executionId')) {
 				Tahoma.cancelExecution(this.getStoreValue('executionId'))
 					.then(result => {
 						//let's set the state to open, because Tahoma, doesn't have an idle state. If a blind isn't closed for 100%, the state will remain open.
@@ -74,7 +74,7 @@ class WindowCoveringsDevice extends Device {
 			};
 
 			const states = device.states
-				.filter(state => state.name == 'core:OpenClosedState' || state.name == 'core:ClosureState')
+				.filter(state => state.name === 'core:OpenClosedState' || state.name === 'core:ClosureState')
 				.map(state => {
 					return {
 						name: state.name ==  'core:OpenClosedState' ? 'openClosedState' : 'closureState',
@@ -82,7 +82,7 @@ class WindowCoveringsDevice extends Device {
 					};
 				});
 
-			const openClosedState = states.find(state => state.name == 'openClosedState');
+			const openClosedState = states.find(state => state.name === 'openClosedState');
 
 			this.log(this.getName(), 'state', openClosedState.value);
 			this.triggerCapabilityListener('windowcoverings_state', openClosedState.value, {
