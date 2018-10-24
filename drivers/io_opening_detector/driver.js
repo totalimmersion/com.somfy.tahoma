@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const Homey = require('homey');
 const Driver = require('../Driver');
@@ -9,26 +9,26 @@ const Driver = require('../Driver');
  */
 class OpeningDetectorDriver extends Driver {
 
-	onInit() {
-		this.deviceType = ['io:SomfyContactIOSystemSensor'];
+  onInit() {
+    this.deviceType = ['io:SomfyContactIOSystemSensor'];
 
-		/*** CONTACT TRIGGERS ***/
-		this._triggerContactChange = new Homey.FlowCardTriggerDevice('contact_has_changed').register();
-		this._triggerContactChange.registerRunListener((args, state) => {
-			return Promise.resolve(true);
-		});
-	}
+    /*** CONTACT TRIGGERS ***/
+    this._triggerContactChange = new Homey.FlowCardTriggerDevice('contact_has_changed').register();
+    this._triggerContactChange.registerRunListener(() => {
+      return Promise.resolve(true);
+    });
+  }
 
-	/**
+  /**
 	 * Triggers the 'contact change' flow
 	 * @param {Device} device - A Device instance
 	 * @param {Object} tokens - An object with tokens and their typed values, as defined in the app.json
 	 * @param {Object} state - An object with properties which are accessible throughout the Flow
 	 */
-	triggerContactChange(device, tokens, state) {
-		this.triggerFlow(this._triggerContactChange, device, tokens, state);
-		return this;
-	}
+  triggerContactChange(device, tokens, state) {
+    this.triggerFlow(this._triggerContactChange, device, tokens, state);
+    return this;
+  }
 }
 
 module.exports = OpeningDetectorDriver;

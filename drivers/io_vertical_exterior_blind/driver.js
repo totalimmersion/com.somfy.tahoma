@@ -1,6 +1,5 @@
-"use strict";
+'use strict';
 
-const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
@@ -9,9 +8,9 @@ const Driver = require('../Driver');
  */
 class VerticalExteriorBlindDriver extends Driver {
 
-	onInit() {
-		this.deviceType = ['io:VerticalExteriorAwningIOComponent'];
-	}
+  onInit() {
+    this.deviceType = ['io:VerticalExteriorAwningIOComponent'];
+  }
 
 }
 

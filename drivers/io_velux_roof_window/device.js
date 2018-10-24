@@ -1,6 +1,5 @@
-"use strict";
+'use strict';
 
-const Homey = require('homey');
 const WindowCoveringsDevice = require('../WindowCoveringsDevice');
 
 /**

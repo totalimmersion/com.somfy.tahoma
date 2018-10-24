@@ -1,6 +1,5 @@
-"use strict";
+'use strict';
 
-const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
@@ -9,9 +8,9 @@ const Driver = require('../Driver');
  */
 class RoofWindowDriver extends Driver {
 
-	onInit() {
-		this.deviceType = ['io:WindowOpenerVeluxIOComponent'];
-	}
+  onInit() {
+    this.deviceType = ['io:WindowOpenerVeluxIOComponent'];
+  }
 
 }
 

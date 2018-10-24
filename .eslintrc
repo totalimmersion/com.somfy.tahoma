@@ -1,12 +1,41 @@
 {
-  "extends": "rallycoding",
+  "env": {
+    "node": 2,
+    "es6": true
+  },
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 2017
+  },
+  "globals": {
+    "describe": true,
+    "it": true,
+    "beforeAll": true,
+    "afterAll": true,
+    "before": true,
+    "after": true,
+    "beforeEach": true,
+    "afterEach": true
   },
   "rules": {
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": 0,
     "object-shorthand": 0,
-    "arrow-body-style": 0
+    "arrow-body-style": 0,
+    "brace-style": [2, "1tbs", { "allowSingleLine": true }],
+    "camelcase": 2,
+    "comma-style": [2, "last"],
+    "eqeqeq": 2,
+    "guard-for-in": 2,
+    "indent": ["error", 2],
+    "wrap-iife": 2,
+    "no-use-before-define": [2, "nofunc"],
+    "new-cap": 2,
+    "quotes": [2, "single"],
+    "no-trailing-spaces": 2,
+    "no-underscore-dangle": 0,
+    "strict": 2,
+    "no-shadow": 0,
+    "semi": "error",
+    "no-unused-vars": "error"
   }
 }

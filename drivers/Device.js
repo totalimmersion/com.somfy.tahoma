@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const Homey = require('homey');
 
@@ -8,37 +8,37 @@ const Homey = require('homey');
  */
 class Device extends Homey.Device {
 
-	onInit() {
-		this.log('Device init:', this.getName(), 'class:', this.getClass());
-	}
+  onInit() {
+    this.log('Device init:', this.getName(), 'class:', this.getClass());
+  }
 
-	onAdded() {
-		this.log('device added');
-	}
+  onAdded() {
+    this.log('device added');
+  }
 
-	onDeleted() {
-		this.log('device deleted');
-	}
+  onDeleted() {
+    this.log('device deleted');
+  }
 
-	/**
+  /**
 	 * Returns the TaHoma device url
 	 * @return {String}
 	 */
-	getDeviceUrl() {
-		return this.getData().deviceURL;
-	}
+  getDeviceUrl() {
+    return this.getData().deviceURL;
+  }
 
-	/**
+  /**
 	 * Returns the io controllable name(s) of TaHoma
 	 * @return {Array} deviceType
 	 */
-	getDeviceType() {
-		return this.getDriver().getDeviceType();
-	}
+  getDeviceType() {
+    return this.getDriver().getDeviceType();
+  }
 
-	sync() {
-		throw new Error('sync() not implemented for device');
-	}
+  sync() {
+    throw new Error('sync() not implemented for device');
+  }
 }
 
 module.exports = Device;
