@@ -7,7 +7,9 @@
     "create-docs": "jsdoc -c conf.json && open ./docs/index.html",
     "lint": "eslint lib drivers",
     "test": "npm run lint && npm run unit-test",
-    "unit-test": "NODE_ENV=test mocha --recursive --require co-mocha '**/*.spec.js'"
+    "unit-test": "NODE_ENV=test mocha --recursive --require co-mocha '**/*.spec.js'",
+    "precommit": "npm run lint",
+    "prepush": "npm test",
   },
   "repository": {
     "type": "git",
