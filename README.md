@@ -14,7 +14,7 @@ With this app it's possible to connect your Somfy TaHoma box to Homey and contro
 * TaHoma scenarios
 
 ### Suggestions or problems?
-Do you have a suggestion for (or a problem with) this app that you would like implemented?  
+Do you have a suggestion for (or a problem with) this app that you would like implemented?
 Please go to the github page and create an issue or pull request with your suggestion/problem.
 
 If you like this app and would like to support its development, consider buying me a cup of coffee.
@@ -26,6 +26,10 @@ If you like this app and would like to support its development, consider buying 
 </form>
 
 ### Changelog:
+
+### 1.5.0
+* Made app compatible with Homey V2.
+* Added support for VELUX IO exterior roller shutters.
 
 #### 1.4.0
 * Added support for the IO Opening Detector.
@@ -79,8 +83,8 @@ If you like this app and would like to support its development, consider buying 
 * A user defined action (which is in progress), can no longer be overwritten by another action through cloud sync.
 * Fixed an issue that would crash the app, if the response from the TaHoma API was in the wrong format.
 
-#### 1.0.1  
+#### 1.0.1
 * Because of a difference in blind states between TaHoma and Homey, sometimes it wasn't possible to open halfway closed blinds after a sync with TaHoma cloud or a cloud sync would open the blinds when the user had closed the blinds half way. This is now fixed.
 
-#### 1.0  
+#### 1.0
 * First release with support for IO vertical exterior blinds and Sunis IO wirefree sensor
