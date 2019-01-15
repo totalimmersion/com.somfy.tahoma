@@ -30,6 +30,7 @@ If you like this app and would like to support its development, consider buying 
 ### 1.5.0
 * Made app compatible with Homey V2.
 * Added support for VELUX IO exterior roller shutters.
+* Apart from setting the window covering state to open or closed, it is now also possible to use a slider to set it to a specific position.
 
 #### 1.4.0
 * Added support for the IO Opening Detector.
