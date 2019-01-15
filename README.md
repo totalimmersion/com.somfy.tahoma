@@ -1,5 +1,5 @@
 ## Somfy TaHoma / Connexoon app for Homey
-With this app it's possible to connect your Somfy TaHoma or Conexoon box to Homey and control your senarios and IO homecontrol devices / sensors directly from Homey.
+With this app it's possible to connect your Somfy TaHoma or Connexoon box to Homey and control your senarios and IO homecontrol devices / sensors directly from Homey.
 
 ### Supported devices / services with most common parameters:
 * IO vertical exterior blinds
@@ -61,7 +61,7 @@ If you like this app and would like to support its development, consider buying 
 #### 1.3.1
 * Added support for IO horizontal awnings.
 
-#### 1.3
+#### 1.3.0
 * Added support for IO roller shutters.
 * Added support for Velux IO roof windows.
 * Added support for Velux IO blinds.
@@ -73,10 +73,10 @@ If you like this app and would like to support its development, consider buying 
 * Fixed an issue where flow triggers wouldn't trigger.
 * Fixed an issue where devices couldn't be added anymore.
 
-#### 1.2
+#### 1.2.0
 * App is now compatible with SDK 2.
 
-#### 1.1
+#### 1.1.0
 * Added support for the Somfy Thermis WireFree IO sensor.
 
 #### 1.0.3
@@ -89,5 +89,5 @@ If you like this app and would like to support its development, consider buying 
 #### 1.0.1
 * Because of a difference in blind states between TaHoma and Homey, sometimes it wasn't possible to open halfway closed blinds after a sync with TaHoma cloud or a cloud sync would open the blinds when the user had closed the blinds half way. This is now fixed.
 
-#### 1.0
+#### 1.0.0
 * First release with support for IO vertical exterior blinds and Sunis IO wirefree sensor
