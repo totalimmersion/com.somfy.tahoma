@@ -30,7 +30,7 @@ If you like this app and would like to support its development, consider buying 
 
 ### 1.5.0
 * App is now compatible with Homey V2.
-* Added support for VELUX IO exterior roller shutters.
+* Added support for Velux IO exterior roller shutters.
 * Apart from setting the window covering state to open or closed, it is now also possible to use a slider to set it to a specific position.
 * App is also compatible with the Somfy Connexoon.
 
