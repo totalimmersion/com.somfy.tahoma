@@ -18,6 +18,7 @@ class WindowCoveringsDevice extends Device {
     };
 
     this.registerCapabilityListener('windowcoverings_state', this.onCapabilityWindowcoveringsState.bind(this));
+    this.registerCapabilityListener('windowcoverings_set', this.onCapabilityWindowcoveringsSet.bind(this));
     super.onInit();
   }
 
@@ -55,6 +56,27 @@ class WindowCoveringsDevice extends Device {
           this.setCapabilityValue('windowcoverings_state', value);
         }
       }
+    }
+  }
+
+  onCapabilityWindowcoveringsSet(value, opts, callback) {
+    var deviceData = this.getData();
+    if (!opts.fromCloudSync) {
+      const action = {
+        name: 'setClosure',
+        parameters: [value]
+      };
+      Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
+        .then(result => {
+          this.setStoreValue('executionId', result.execId);
+          this.setCapabilityValue('windowcoverings_set', value);
+          if (callback) callback(null, value);
+        })
+        .catch(error => {
+          console.log(error.message, error.stack);
+        });
+    } else {
+      this.setCapabilityValue('windowcoverings_set', value);
     }
   }
 

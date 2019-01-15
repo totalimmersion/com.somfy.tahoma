@@ -47,7 +47,8 @@
             },
             "class": "windowcoverings",
             "capabilities": [
-                "windowcoverings_state"
+                "windowcoverings_state",
+                "windowcoverings_set"
             ],
             "pair": [
                 {
@@ -75,7 +76,8 @@
             },
             "class": "windowcoverings",
             "capabilities": [
-                "windowcoverings_state"
+                "windowcoverings_state",
+                "windowcoverings_set"
             ],
             "pair": [
                 {
@@ -103,7 +105,8 @@
             },
             "class": "windowcoverings",
             "capabilities": [
-                "windowcoverings_state"
+                "windowcoverings_state",
+                "windowcoverings_set"
             ],
             "pair": [
                 {
@@ -131,7 +134,8 @@
             },
             "class": "windowcoverings",
             "capabilities": [
-                "windowcoverings_state"
+                "windowcoverings_state",
+                "windowcoverings_set"
             ],
             "pair": [
                 {
@@ -159,7 +163,8 @@
             },
             "class": "windowcoverings",
             "capabilities": [
-                "windowcoverings_state"
+                "windowcoverings_state",
+                "windowcoverings_set"
             ],
             "pair": [
                 {
@@ -187,7 +192,8 @@
             },
             "class": "windowcoverings",
             "capabilities": [
-                "windowcoverings_state"
+                "windowcoverings_state",
+                "windowcoverings_set"
             ],
             "pair": [
                 {
