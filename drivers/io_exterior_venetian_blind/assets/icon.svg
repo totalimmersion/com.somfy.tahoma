@@ -1,23 +1,23 @@
-<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
- <g>
-  <title>background</title>
-  <rect x="-1" y="-1" width="26.9998" height="26.9998" id="canvas_background" fill="none"/>
-  <g id="canvasGrid" display="none">
-   <rect id="svg_3" width="100%" height="100%" x="0" y="0" stroke-width="0" fill="url(#gridpattern)"/>
-  </g>
- </g>
- <g>
-  <title>Layer 1</title>
-  <rect fill="#fff" stroke="#000" stroke-width="1.5" x="407" y="-55" width="0" height="1" id="svg_2"/>
-  <rect fill="#000000" stroke="#000" stroke-width="0" stroke-opacity="null" x="92" y="0" width="3" height="100" id="svg_5"/>
-  <rect fill="#000000" stroke="#000" stroke-width="0" stroke-opacity="null" x="5" y="0" width="3" height="100" id="svg_7"/>
-  <path id="svg_6" d="m0.126368,89.12622l86.746249,-0.249993l12.999643,9.999726l-86.74762,-0.124997l-12.998272,-9.624736z" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
-  <path id="svg_8" d="m0.12637,1.624304l86.74625,-0.25l12.99964,9.99973l-86.74762,-0.125l-12.99827,-9.62473z" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
-  <path id="svg_9" d="m0.12637,14.124574l86.74625,-0.24999l12.99964,9.99972l-86.74762,-0.12499l-12.99827,-9.62474z" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
-  <path id="svg_10" d="m0.12637,26.624854l86.74625,-0.25l12.99964,9.99973l-86.74762,-0.125l-12.99827,-9.62473z" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
-  <path id="svg_11" d="m0.12637,39.125124l86.74625,-0.24999l12.99964,9.99972l-86.74762,-0.12499l-12.99827,-9.62474z" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
-  <path id="svg_12" d="m0.12637,51.625394l86.74625,-0.24999l12.99964,9.99973l-86.74762,-0.125l-12.99827,-9.62474z" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
-  <path id="svg_13" d="m0.12637,64.125674l86.74625,-0.24999l12.99964,9.99972l-86.74762,-0.125l-12.99827,-9.62473z" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
-  <path id="svg_14" d="m0.12637,76.625944l86.74625,-0.24999l12.99964,9.99973l-86.74762,-0.125l-12.99827,-9.62474z" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
- </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="102px" height="102px" viewBox="0 0 102 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>Untitled</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(1.000000, 1.000000)">
+            <g id="background"></g>
+            <g id="Layer-1" fill="#000000" stroke="#000000" stroke-opacity="0">
+                <rect id="svg_5" x="92" y="0" width="3" height="100"></rect>
+                <rect id="svg_7" x="5" y="0" width="3" height="100"></rect>
+                <polygon id="svg_6" points="0.126368 89.12622 86.872617 88.876227 99.87226 98.875953 13.12464 98.750956"></polygon>
+                <polygon id="svg_8" points="0.12637 1.624304 86.87262 1.374304 99.87226 11.374034 13.12464 11.249034"></polygon>
+                <polygon id="svg_9" points="0.12637 14.124574 86.87262 13.874584 99.87226 23.874304 13.12464 23.749314"></polygon>
+                <polygon id="svg_10" points="0.12637 26.624854 86.87262 26.374854 99.87226 36.374584 13.12464 36.249584"></polygon>
+                <polygon id="svg_11" points="0.12637 39.125124 86.87262 38.875134 99.87226 48.874854 13.12464 48.749864"></polygon>
+                <polygon id="svg_12" points="0.12637 51.625394 86.87262 51.375404 99.87226 61.375134 13.12464 61.250134"></polygon>
+                <polygon id="svg_13" points="0.12637 64.125674 86.87262 63.875684 99.87226 73.875404 13.12464 73.750404"></polygon>
+                <polygon id="svg_14" points="0.12637 76.625944 86.87262 76.375954 99.87226 86.375684 13.12464 86.250684"></polygon>
+            </g>
+        </g>
+    </g>
 </svg>

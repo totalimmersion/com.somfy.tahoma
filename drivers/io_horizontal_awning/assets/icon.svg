@@ -1,27 +1,26 @@
-<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
- <g>
-  <title>background</title>
-  <rect x="-1" y="-1" width="102" height="102" id="canvas_background" fill="none"/>
-  <g id="canvasGrid" display="none">
-   <rect id="svg_3" width="100%" height="100%" x="0" y="0" stroke-width="0" fill="url(#gridpattern)"/>
-  </g>
- </g>
- <g>
-  <title>Layer 1</title>
-  <rect fill="#fff" stroke="#000" stroke-width="1.5" x="407" y="-55" width="0" height="1" id="svg_2"/>
-  <path stroke="#000" id="svg_7" d="m0.396877,55.250002l19.850001,-55.000002l79.399996,0l-19.850001,55.000002l-79.399996,0z" stroke-opacity="null" stroke-width="0" fill="#000000"/>
-  <line stroke="#000" stroke-width="3" stroke-linecap="null" stroke-linejoin="null" id="svg_10" y2="49" x2="100.375001" y1="54.5" x1="80.125" fill-opacity="null" stroke-opacity="null" fill="none"/>
-  <ellipse rx="0.125" id="svg_12" cy="78.5" cx="22" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#ff0000"/>
-  <ellipse id="svg_13" cy="51.5" cx="15.625" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#ff0000"/>
-  <ellipse id="svg_14" cy="57" cx="31.625" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#ff0000"/>
-  <ellipse ry="5" rx="5" id="svg_30" cy="55.25" cx="75.625" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
-  <ellipse ry="5" rx="5" id="svg_35" cy="55.25" cx="5.625" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
-  <ellipse ry="5" rx="5" id="svg_36" cy="55.25" cx="14.375" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
-  <ellipse ry="5" rx="5" id="svg_37" cy="55.25" cx="23.125" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
-  <ellipse ry="5" rx="5" id="svg_38" cy="55.25" cx="31.875" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
-  <ellipse ry="5" rx="5" id="svg_39" cy="55.25" cx="40.625" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
-  <ellipse ry="5" rx="5" id="svg_40" cy="55.25" cx="49.375" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
-  <ellipse ry="5" rx="5" id="svg_41" cy="55.25" cx="58.125" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
-  <ellipse ry="5" rx="5" id="svg_42" cy="55.25" cx="66.875" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000"/>
- </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="102px" height="102px" viewBox="0 0 102 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>Untitled</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(0.000000, -54.000000)">
+            <g id="background" transform="translate(0.000000, 54.000000)">
+                <rect id="canvas_background" x="0" y="0" width="102" height="102"></rect>
+            </g>
+            <g id="Layer-1" transform="translate(1.000000, 0.000000)" stroke="#000000">
+                <polygon id="svg_7" stroke-opacity="0" fill="#000000" points="0.396877 110.250002 20.246878 55.25 99.646874 55.25 79.796873 110.250002"></polygon>
+                <path d="M80.125,109.5 L100.375001,104" id="svg_10" stroke-width="3"></path>
+                <circle id="svg_30" stroke-opacity="0" fill="#000000" cx="75.625" cy="110.25" r="5"></circle>
+                <circle id="svg_35" stroke-opacity="0" fill="#000000" cx="5.625" cy="110.25" r="5"></circle>
+                <circle id="svg_36" stroke-opacity="0" fill="#000000" cx="14.375" cy="110.25" r="5"></circle>
+                <circle id="svg_37" stroke-opacity="0" fill="#000000" cx="23.125" cy="110.25" r="5"></circle>
+                <circle id="svg_38" stroke-opacity="0" fill="#000000" cx="31.875" cy="110.25" r="5"></circle>
+                <circle id="svg_39" stroke-opacity="0" fill="#000000" cx="40.625" cy="110.25" r="5"></circle>
+                <path d="M49.375,115.25 C46.6135763,115.25 44.375,113.011424 44.375,110.25 C44.375,107.488576 46.6135763,105.25 49.375,105.25 C52.1364237,105.25 54.375,107.488576 54.375,110.25 C54.375,113.011424 52.1364237,115.25 49.375,115.25 Z M407,0 L407,1 L407,0 Z" id="svg_40-2" stroke-opacity="0" fill="#000000"></path>
+                <circle id="svg_41" stroke-opacity="0" fill="#000000" cx="58.125" cy="110.25" r="5"></circle>
+                <circle id="svg_42" stroke-opacity="0" fill="#000000" cx="66.875" cy="110.25" r="5"></circle>
+            </g>
+        </g>
+    </g>
 </svg>
