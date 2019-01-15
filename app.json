@@ -45,7 +45,7 @@
                 "large": "/drivers/io_vertical_exterior_blind/assets/images/large.png",
                 "small": "/drivers/io_vertical_exterior_blind/assets/images/small.png"
             },
-            "class": "windowcoverings",
+            "class": "sunshade",
             "capabilities": [
                 "windowcoverings_state",
                 "windowcoverings_set"
@@ -74,7 +74,7 @@
                 "large": "/drivers/io_exterior_venetian_blind/assets/images/large.png",
                 "small": "/drivers/io_exterior_venetian_blind/assets/images/small.png"
             },
-            "class": "windowcoverings",
+            "class": "blinds",
             "capabilities": [
                 "windowcoverings_state",
                 "windowcoverings_set"
@@ -103,7 +103,7 @@
                 "large": "/drivers/io_horizontal_awning/assets/images/large.png",
                 "small": "/drivers/io_horizontal_awning/assets/images/small.png"
             },
-            "class": "windowcoverings",
+            "class": "sunshade",
             "capabilities": [
                 "windowcoverings_state",
                 "windowcoverings_set"
@@ -132,7 +132,7 @@
                 "large": "/drivers/io_roller_shutter/assets/images/large.png",
                 "small": "/drivers/io_roller_shutter/assets/images/small.png"
             },
-            "class": "windowcoverings",
+            "class": "blinds",
             "capabilities": [
                 "windowcoverings_state",
                 "windowcoverings_set"
@@ -161,7 +161,7 @@
                 "large": "/drivers/io_velux_roller_shutter/assets/images/large.png",
                 "small": "/drivers/io_velux_roller_shutter/assets/images/small.png"
             },
-            "class": "windowcoverings",
+            "class": "blinds",
             "capabilities": [
                 "windowcoverings_state",
                 "windowcoverings_set"
@@ -219,7 +219,7 @@
                 "large": "/drivers/io_velux_interior_blind/assets/images/large.png",
                 "small": "/drivers/io_velux_interior_blind/assets/images/small.png"
             },
-            "class": "windowcoverings",
+            "class": "sunshade",
             "capabilities": [
                 "windowcoverings_state",
                 "windowcoverings_set"
