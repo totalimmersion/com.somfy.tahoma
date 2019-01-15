@@ -33,8 +33,8 @@ const request = require('request');
 const cookieJar = request.jar();
 
 const tahomaRequest = request.defaults({
-	baseUrl: 'https://www.tahomalink.com/enduser-mobile-web/enduserAPI',
-	jar: cookieJar
+  baseUrl: 'https://www.tahomalink.com/enduser-mobile-web/enduserAPI',
+  jar: cookieJar
 });
 
 let instance = null;
@@ -55,126 +55,120 @@ let instance = null;
  */
 class HttpHelper extends Homey.SimpleClass {
 
-	constructor() {
-		if (!instance) {
-			super();
-			instance = this;
-		}
+  constructor() {
+    if (!instance) {
+      super();
+      instance = this;
+    }
 
-		return instance;
-	}
+    return instance;
+  }
 
-	/**
+  /**
 	 * Makes an async http get request to TaHoma
 	 * @async
 	 * @param {Object} options
 	 * @return {Promise&lt;Object>}
 	 */
-	get(options) {
-		return new Promise((resolve, reject) => {
-			tahomaRequest.get(options, (error, response, body) => {
-				if (error) {
-					reject(error);
-					return;
-				}
+  get(options) {
+    return new Promise((resolve, reject) => {
+      tahomaRequest.get(options, (error, response, body) => {
+        if (error) {
+          return reject(error);
+        }
 
-				if (response.statusCode == 401) {
-					//no longer authenticated -> login again
-					this.reAuthenticate('get', options)
-						.then(result => resolve(result))
-						.catch(error => reject(error));
-					return;
-				}
+        if (response.statusCode === 401) {
+          //no longer authenticated -> login again
+          return this.reAuthenticate('get', options)
+            .then(result => resolve(result))
+            .catch(error => reject(error));
+        }
 
-				try {
-					resolve(JSON.parse(body));
-				} catch (e) {
-					reject(e);
-				}
-			});
-		});
-	}
+        try {
+          resolve(JSON.parse(body));
+        } catch (e) {
+          reject(e);
+        }
+      });
+    });
+  }
 
-	/**
+  /**
 	 * Makes an async http post request to TaHoma
 	 * @async
 	 * @param {Object} options
 	 * @return {Promise&lt;Object>}
 	 */
-	post(options) {
-		return new Promise((resolve, reject) => {
-			tahomaRequest.post(options, (error, response, body) => {
-				if (error) {
-					reject(error);
-					return;
-				}
+  post(options) {
+    return new Promise((resolve, reject) => {
+      tahomaRequest.post(options, (error, response, body) => {
+        if (error) {
+          return reject(error);
+        }
 
-				if (options.uri != '/login' &amp;&amp; response.statusCode == 401) {
-					//no longer authenticated -> login again
-					this.reAuthenticate('post', options)
-						.then(result => resolve(result))
-						.catch(error => reject(error));
-					return;
-				}
+        if (options.uri !== '/login' &amp;&amp; response.statusCode === 401) {
+          //no longer authenticated -> login again
+          return this.reAuthenticate('post', options)
+            .then(result => resolve(result))
+            .catch(error => reject(error));
+        }
 
-				try {
-					const result = (options.json) ? body : JSON.parse(body);
-					resolve(result);
-				} catch (e) {
-					reject(e);
-				}
-			});
-		});
-	}
+        try {
+          const result = (options.json) ? body : JSON.parse(body);
+          resolve(result);
+        } catch (e) {
+          reject(e);
+        }
+      });
+    });
+  }
 
-	/**
+  /**
 	 * Makes an async http delete request to TaHoma
 	 * @async
 	 * @param {Object} options
 	 * @return {Promise}
 	 */
-	delete(options) {
-		return new Promise((resolve, reject) => {
-			tahomaRequest.delete(options, (error, response, body) => {
-				if (error) {
-					reject(error);
-					return;
-				}
+  delete(options) {
+    return new Promise((resolve, reject) => {
+      tahomaRequest.delete(options, (error, response) => {
+        if (error) {
+          return reject(error);
+        }
 
-				if (options.uri != '/login' &amp;&amp; response.statusCode == 401) {
-					//no longer authenticated -> login again
-					this.reAuthenticate('delete', options)
-						.then(result => resolve(result))
-						.catch(error => reject(error));
-					return;
-				}
+        if (options.uri !== '/login' &amp;&amp; response.statusCode === 401) {
+          //no longer authenticated -> login again
+          return this.reAuthenticate('delete', options)
+            .then(result => resolve(result))
+            .catch(error => reject(error));
+        }
 
-				resolve(null);
-			});
-		});
-	}
+        resolve(null);
+      });
+    });
+  }
 
-	reAuthenticate(forwardMethod, forwardOptions) {
-		return new Promise((resolve, reject) => {
-			const username = Homey.ManagerSettings.get('username');
-			const password = Homey.ManagerSettings.get('password');
-			Tahoma.login(username, password)
-				.then(result => {
-					if (result.success &amp;&amp; typeof this[forwardMethod] === 'function') {
-						this[forwardMethod](forwardOptions)
-							.then(result => resolve(result))
-							.catch(error => reject(error));
-					} else {
-						//Homey.__('on_pair_login_failure') doesn't currently work (in order to get a localized error message), so for now a hardcoded error message in english
-						reject(new Error('Unable to login. Please go to the settings screen and provide access to TaHoma for Homey.'));
-					}
-				})
-				.catch(error => {
-					console.log(error.message, error.stack);
-					reject(error);
-				});
-		});
-	}
+  reAuthenticate(forwardMethod, forwardOptions) {
+    return new Promise((resolve, reject) => {
+      const username = Homey.ManagerSettings.get('username');
+      const password = Homey.ManagerSettings.get('password');
+      Tahoma.login(username, password) // eslint-disable-line no-use-before-define
+        .then(result => {
+          if (result.success &amp;&amp; typeof this[forwardMethod] === 'function') {
+            this[forwardMethod](forwardOptions)
+              .then(result => resolve(result))
+              .catch(error => reject(error));
+          } else {
+            //Homey.__('on_pair_login_failure') doesn't currently work (in order to get a localized error message), so for now a hardcoded error message in english
+            reject(new Error('Unable to login. Please go to the settings screen and provide access to TaHoma for Homey.'));
+          }
+        })
+        .catch(error => {
+          console.log(error.message, error.stack);
+          reject(error);
+        });
+    });
+  }
 }
 
 module.exports = new HttpHelper();
@@ -190,13 +184,13 @@ const Tahoma = require('./Tahoma');
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-DeviceHelper.html">DeviceHelper</a></li><li><a href="module-DriverHelper.html">DriverHelper</a></li><li><a href="module-GenericHelper.html">GenericHelper</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Device.html">Device</a></li><li><a href="Driver.html">Driver</a></li><li><a href="ExteriorVenetianBlindDevice.html">ExteriorVenetianBlindDevice</a></li><li><a href="ExteriorVenetianBlindDriver.html">ExteriorVenetianBlindDriver</a></li><li><a href="HorizontalAwningDevice.html">HorizontalAwningDevice</a></li><li><a href="HorizontalAwningDriver.html">HorizontalAwningDriver</a></li><li><a href="HttpHelper.html">HttpHelper</a></li><li><a href="LightSensorDevice.html">LightSensorDevice</a></li><li><a href="LightSensorDriver.html">LightSensorDriver</a></li><li><a href="OpeningDetectorDevice.html">OpeningDetectorDevice</a></li><li><a href="OpeningDetectorDriver.html">OpeningDetectorDriver</a></li><li><a href="RollerShutterDevice.html">RollerShutterDevice</a></li><li><a href="RollerShutterDriver.html">RollerShutterDriver</a></li><li><a href="RoofWindowDevice.html">RoofWindowDevice</a></li><li><a href="RoofWindowDriver.html">RoofWindowDriver</a></li><li><a href="SensorDevice.html">SensorDevice</a></li><li><a href="Tahoma.html">Tahoma</a></li><li><a href="TemperatureSensorDevice.html">TemperatureSensorDevice</a></li><li><a href="TemperatureSensorDriver.html">TemperatureSensorDriver</a></li><li><a href="VeluxInteriorBlindDevice.html">VeluxInteriorBlindDevice</a></li><li><a href="VeluxInteriorBlindDriver.html">VeluxInteriorBlindDriver</a></li><li><a href="VerticalExteriorBlindDevice.html">VerticalExteriorBlindDevice</a></li><li><a href="VerticalExteriorBlindDriver.html">VerticalExteriorBlindDriver</a></li><li><a href="WindowCoveringsDevice.html">WindowCoveringsDevice</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-DeviceHelper.html">DeviceHelper</a></li><li><a href="module-DriverHelper.html">DriverHelper</a></li><li><a href="module-GenericHelper.html">GenericHelper</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Device.html">Device</a></li><li><a href="Driver.html">Driver</a></li><li><a href="ExteriorVenetianBlindDevice.html">ExteriorVenetianBlindDevice</a></li><li><a href="ExteriorVenetianBlindDriver.html">ExteriorVenetianBlindDriver</a></li><li><a href="HorizontalAwningDevice.html">HorizontalAwningDevice</a></li><li><a href="HorizontalAwningDriver.html">HorizontalAwningDriver</a></li><li><a href="HttpHelper.html">HttpHelper</a></li><li><a href="LightSensorDevice.html">LightSensorDevice</a></li><li><a href="LightSensorDriver.html">LightSensorDriver</a></li><li><a href="OpeningDetectorDevice.html">OpeningDetectorDevice</a></li><li><a href="OpeningDetectorDriver.html">OpeningDetectorDriver</a></li><li><a href="RollerShutterDevice.html">RollerShutterDevice</a></li><li><a href="RollerShutterDriver.html">RollerShutterDriver</a></li><li><a href="RoofWindowDevice.html">RoofWindowDevice</a></li><li><a href="RoofWindowDriver.html">RoofWindowDriver</a></li><li><a href="SensorDevice.html">SensorDevice</a></li><li><a href="Tahoma.html">Tahoma</a></li><li><a href="TemperatureSensorDevice.html">TemperatureSensorDevice</a></li><li><a href="TemperatureSensorDriver.html">TemperatureSensorDriver</a></li><li><a href="VeluxInteriorBlindDevice.html">VeluxInteriorBlindDevice</a></li><li><a href="VeluxInteriorBlindDriver.html">VeluxInteriorBlindDriver</a></li><li><a href="VeluxRollerShutterDevice.html">VeluxRollerShutterDevice</a></li><li><a href="VeluxRollerShutterDriver.html">VeluxRollerShutterDriver</a></li><li><a href="VerticalExteriorBlindDevice.html">VerticalExteriorBlindDevice</a></li><li><a href="VerticalExteriorBlindDriver.html">VerticalExteriorBlindDriver</a></li><li><a href="WindowCoveringsDevice.html">WindowCoveringsDevice</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jul 10 2018 23:02:01 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jan 15 2019 16:16:43 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

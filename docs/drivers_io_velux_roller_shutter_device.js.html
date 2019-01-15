@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: drivers/io_roller_shutter/driver.js</title>
+    <title>JSDoc: Source: drivers/io_velux_roller_shutter/device.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: drivers/io_roller_shutter/driver.js</h1>
+    <h1 class="page-title">Source: drivers/io_velux_roller_shutter/device.js</h1>
 
     
 
@@ -28,21 +28,16 @@
         <article>
             <pre class="prettyprint source linenums"><code>'use strict';
 
-const Driver = require('../Driver');
+const WindowCoveringsDevice = require('../WindowCoveringsDevice');
 
 /**
- * Driver class for roller shutters with the io:RollerShutterGenericIOComponent or io:RollerShutterWithLowSpeedManagementIOComponent controllable name in TaHoma
- * @extends {Driver}
+ * Device class for Velus interior blinds with the io:RollerShutterVeluxIOComponent controllable name in TaHoma
+ * @extends {WindowCoveringsDevice}
  */
-class RollerShutterDriver extends Driver {
-
-  onInit() {
-    this.deviceType = ['io:RollerShutterGenericIOComponent', 'io:RollerShutterWithLowSpeedManagementIOComponent'];
-  }
-
+class VeluxRollerShutterDevice extends WindowCoveringsDevice {
 }
 
-module.exports = RollerShutterDriver;
+module.exports = VeluxRollerShutterDevice;
 </code></pre>
         </article>
     </section>

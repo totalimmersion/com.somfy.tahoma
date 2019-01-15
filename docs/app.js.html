@@ -32,7 +32,7 @@ const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
 const syncManager = require('./lib/sync');
 
-const INITIAL_SYNC_INTERVAL = 10; //interval of 60 seconds
+const INITIAL_SYNC_INTERVAL = 10; //interval of 10 seconds
 
 /**
  * This class is the starting point of the app and initializes the neccessary
@@ -41,67 +41,67 @@ const INITIAL_SYNC_INTERVAL = 10; //interval of 60 seconds
  **/
 class App extends Homey.App {
 
-	/**
+  /**
 	 * Initializes the app
 	 */
-	onInit() {
-		this.log(`${Homey.app.manifest.id} running...`);
-		this.addScenarioActionListeners();
+  onInit() {
+    this.log(`${Homey.app.manifest.id} running...`);
+    this.addScenarioActionListeners();
 
-		if (!Homey.ManagerSettings.get('syncInterval')) {
-			Homey.ManagerSettings.set('syncInterval', INITIAL_SYNC_INTERVAL);
-		}
+    if (!Homey.ManagerSettings.get('syncInterval')) {
+      Homey.ManagerSettings.set('syncInterval', INITIAL_SYNC_INTERVAL);
+    }
 
-		Homey.ManagerSettings.on('set', (setting) => {
-			if (setting === 'syncInterval') this.initSync();
-		});
-		Homey.on('settings.set', this.initSync);
+    Homey.ManagerSettings.on('set', (setting) => {
+      if (setting === 'syncInterval') this.initSync();
+    });
+    Homey.on('settings.set', this.initSync);
 
-		this.initSync();
-	}
+    this.initSync();
+  }
 
-	/**
+  /**
 	 * Initializes synchronization between Homey and TaHoma
 	 * with the interval as defined in the settings.
 	 */
-	initSync() {
-		let interval = null;
-		try {
-			interval = Number(Homey.ManagerSettings.get('syncInterval'));
-		} catch(e) {
-			interval = INITIAL_SYNC_INTERVAL;
-		}
-		syncManager.init(interval * 1000);
-	}
+  initSync() {
+    let interval = null;
+    try {
+      interval = Number(Homey.ManagerSettings.get('syncInterval'));
+    } catch(e) {
+      interval = INITIAL_SYNC_INTERVAL;
+    }
+    syncManager.init(interval * 1000);
+  }
 
-	/**
+  /**
 	 * Adds a listener for flowcard scenario actions
 	 */
-	addScenarioActionListeners() {
-		/*** ADD FLOW ACTION LISTENERS ***/
-		new Homey.FlowCardAction('activate_scenario')
-			.register()
-			.registerRunListener(args => {
-				return Tahoma.executeScenario(args.scenario.oid)
-					.then(() => {
-						return Promise.resolve();
-					});
-			})
-			.getArgument('scenario')
-			.registerAutocompleteListener(query => {
-				return Tahoma.getActionGroups()
-					.then(data => {
-						const scenarios = data
-											.map(({ oid, label }) => ({ oid, name: label }))
-											.filter(({ name }) => name.toLowerCase().indexOf(query.toLowerCase()) > -1);
+  addScenarioActionListeners() {
+    /*** ADD FLOW ACTION LISTENERS ***/
+    new Homey.FlowCardAction('activate_scenario')
+      .register()
+      .registerRunListener(args => {
+        return Tahoma.executeScenario(args.scenario.oid)
+          .then(() => {
+            return Promise.resolve();
+          });
+      })
+      .getArgument('scenario')
+      .registerAutocompleteListener(query => {
+        return Tahoma.getActionGroups()
+          .then(data => {
+            const scenarios = data
+              .map(({ oid, label }) => ({ oid, name: label }))
+              .filter(({ name }) => name.toLowerCase().indexOf(query.toLowerCase()) > -1);
 
-						return Promise.resolve(scenarios);
-					})
-					.catch(error => {
-						console.log(error.message, error.stack);
-					});
-			});
-	}
+            return Promise.resolve(scenarios);
+          })
+          .catch(error => {
+            console.log(error.message, error.stack);
+          });
+      });
+  }
 }
 
 module.exports = App;
@@ -115,13 +115,13 @@ module.exports = App;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-DeviceHelper.html">DeviceHelper</a></li><li><a href="module-DriverHelper.html">DriverHelper</a></li><li><a href="module-GenericHelper.html">GenericHelper</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Device.html">Device</a></li><li><a href="Driver.html">Driver</a></li><li><a href="ExteriorVenetianBlindDevice.html">ExteriorVenetianBlindDevice</a></li><li><a href="ExteriorVenetianBlindDriver.html">ExteriorVenetianBlindDriver</a></li><li><a href="HorizontalAwningDevice.html">HorizontalAwningDevice</a></li><li><a href="HorizontalAwningDriver.html">HorizontalAwningDriver</a></li><li><a href="HttpHelper.html">HttpHelper</a></li><li><a href="LightSensorDevice.html">LightSensorDevice</a></li><li><a href="LightSensorDriver.html">LightSensorDriver</a></li><li><a href="OpeningDetectorDevice.html">OpeningDetectorDevice</a></li><li><a href="OpeningDetectorDriver.html">OpeningDetectorDriver</a></li><li><a href="RollerShutterDevice.html">RollerShutterDevice</a></li><li><a href="RollerShutterDriver.html">RollerShutterDriver</a></li><li><a href="RoofWindowDevice.html">RoofWindowDevice</a></li><li><a href="RoofWindowDriver.html">RoofWindowDriver</a></li><li><a href="SensorDevice.html">SensorDevice</a></li><li><a href="Tahoma.html">Tahoma</a></li><li><a href="TemperatureSensorDevice.html">TemperatureSensorDevice</a></li><li><a href="TemperatureSensorDriver.html">TemperatureSensorDriver</a></li><li><a href="VeluxInteriorBlindDevice.html">VeluxInteriorBlindDevice</a></li><li><a href="VeluxInteriorBlindDriver.html">VeluxInteriorBlindDriver</a></li><li><a href="VerticalExteriorBlindDevice.html">VerticalExteriorBlindDevice</a></li><li><a href="VerticalExteriorBlindDriver.html">VerticalExteriorBlindDriver</a></li><li><a href="WindowCoveringsDevice.html">WindowCoveringsDevice</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-DeviceHelper.html">DeviceHelper</a></li><li><a href="module-DriverHelper.html">DriverHelper</a></li><li><a href="module-GenericHelper.html">GenericHelper</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Device.html">Device</a></li><li><a href="Driver.html">Driver</a></li><li><a href="ExteriorVenetianBlindDevice.html">ExteriorVenetianBlindDevice</a></li><li><a href="ExteriorVenetianBlindDriver.html">ExteriorVenetianBlindDriver</a></li><li><a href="HorizontalAwningDevice.html">HorizontalAwningDevice</a></li><li><a href="HorizontalAwningDriver.html">HorizontalAwningDriver</a></li><li><a href="HttpHelper.html">HttpHelper</a></li><li><a href="LightSensorDevice.html">LightSensorDevice</a></li><li><a href="LightSensorDriver.html">LightSensorDriver</a></li><li><a href="OpeningDetectorDevice.html">OpeningDetectorDevice</a></li><li><a href="OpeningDetectorDriver.html">OpeningDetectorDriver</a></li><li><a href="RollerShutterDevice.html">RollerShutterDevice</a></li><li><a href="RollerShutterDriver.html">RollerShutterDriver</a></li><li><a href="RoofWindowDevice.html">RoofWindowDevice</a></li><li><a href="RoofWindowDriver.html">RoofWindowDriver</a></li><li><a href="SensorDevice.html">SensorDevice</a></li><li><a href="Tahoma.html">Tahoma</a></li><li><a href="TemperatureSensorDevice.html">TemperatureSensorDevice</a></li><li><a href="TemperatureSensorDriver.html">TemperatureSensorDriver</a></li><li><a href="VeluxInteriorBlindDevice.html">VeluxInteriorBlindDevice</a></li><li><a href="VeluxInteriorBlindDriver.html">VeluxInteriorBlindDriver</a></li><li><a href="VeluxRollerShutterDevice.html">VeluxRollerShutterDevice</a></li><li><a href="VeluxRollerShutterDriver.html">VeluxRollerShutterDriver</a></li><li><a href="VerticalExteriorBlindDevice.html">VerticalExteriorBlindDevice</a></li><li><a href="VerticalExteriorBlindDriver.html">VerticalExteriorBlindDriver</a></li><li><a href="WindowCoveringsDevice.html">WindowCoveringsDevice</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jul 10 2018 23:02:01 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jan 15 2019 16:16:43 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>
