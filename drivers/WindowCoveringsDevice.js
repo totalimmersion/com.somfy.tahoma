@@ -64,7 +64,7 @@ class WindowCoveringsDevice extends Device {
     if (!opts.fromCloudSync) {
       const action = {
         name: 'setClosure',
-        parameters: [value]
+        parameters: [100-(value*100)]
       };
       Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
         .then(result => {
@@ -104,9 +104,13 @@ class WindowCoveringsDevice extends Device {
         });
 
       const openClosedState = states.find(state => state.name === 'openClosedState');
+      const closureState = states.find(state => state.name === 'closureState');
 
-      this.log(this.getName(), 'state', openClosedState.value);
+      this.log(this.getName(), 'state', openClosedState.value, closureState.value);
       this.triggerCapabilityListener('windowcoverings_state', openClosedState.value, {
+        fromCloudSync: true
+      });
+      this.triggerCapabilityListener('windowcoverings_set', 1-(closureState.value/100), {
         fromCloudSync: true
       });
     } else {
