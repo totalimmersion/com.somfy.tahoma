@@ -7,6 +7,16 @@ const WindowCoveringsDevice = require('../WindowCoveringsDevice');
  * @extends {WindowCoveringsDevice}
  */
 class HorizontalAwningDevice extends WindowCoveringsDevice {
+
+  onInit() {
+    super.onInit();
+
+    this.windowcoveringsStateMap = {
+      up: 'close',
+      idle: null,
+      down: 'open'
+    };
+  }
 }
 
 module.exports = HorizontalAwningDevice;
