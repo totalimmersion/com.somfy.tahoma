@@ -28,6 +28,8 @@ If you like this app and would like to support its development, consider buying 
 
 ### Changelog:
 
+### 1.5.1
+
 ### 1.5.0
 * App is now compatible with Homey V2.
 * Added support for Velux IO exterior roller shutters.
