@@ -89,17 +89,17 @@ class WindowCoveringsDevice extends Device {
 
     if (device) {
       //device exists -> let's sync the state of the device
-      const statesMap = {
-        open: 'up',
-        closed: 'down'
-      };
+      const swappedStatesMap = {};
+      Object.keys(this.windowcoveringsStateMap).map(key => {
+        swappedStatesMap[this.windowcoveringsStateMap[key]] = key;
+      });
 
       const states = device.states
         .filter(state => state.name === 'core:OpenClosedState' || state.name === 'core:ClosureState')
         .map(state => {
           return {
             name: state.name ===  'core:OpenClosedState' ? 'openClosedState' : 'closureState',
-            value: statesMap[state.value] ? statesMap[state.value]: state.value
+            value: swappedStatesMap[state.value] ? swappedStatesMap[state.value]: state.value
           };
         });
 
