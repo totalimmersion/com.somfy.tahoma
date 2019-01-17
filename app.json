@@ -1,6 +1,7 @@
 {
     "id": "com.somfy.tahoma",
     "sdk": 2,
+    "brandColor": "#FAB800",
     "name": {
         "en": "Somfy TaHoma",
         "nl": "Somfy TaHoma"

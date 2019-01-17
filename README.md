@@ -29,6 +29,7 @@ If you like this app and would like to support its development, consider buying 
 ### Changelog:
 
 ### 1.5.1
+* Fixed a bug where the opening / closing of the IO horizontal awnings would be reversed.
 
 ### 1.5.0
 * App is now compatible with Homey V2.
