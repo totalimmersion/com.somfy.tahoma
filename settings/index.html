@@ -75,7 +75,7 @@
 					Homey.api('POST', '/logout/', function(err, result) {
 						if (err) {
 							response.css({color: 'red'});
-							response.html(__('settings.logout_failure') + '<br/>' + result.error);
+							response.html(__('settings.logout_failure') + '<br/>' + err.message);
 						} else {
 							response.css({color: 'green'});
 							response.html(__('settings.logout_success'));
