@@ -28,6 +28,9 @@ If you like this app and would like to support its development, consider buying 
 
 ### Changelog:
 
+### 1.5.2
+* Small bug fixes.
+
 ### 1.5.1
 * Fixed a bug where the opening / closing of the IO horizontal awnings would be reversed.
 
