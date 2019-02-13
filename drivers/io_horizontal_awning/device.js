@@ -11,10 +11,15 @@ class HorizontalAwningDevice extends WindowCoveringsDevice {
   onInit() {
     super.onInit();
 
-    this.windowcoveringsStateMap = {
+    this.windowcoveringsActions = {
       up: 'close',
       idle: null,
       down: 'open'
+    };
+
+    this.windowcoveringsStatesMap = {
+      open: 'down',
+      closed: 'up'
     };
   }
 }
