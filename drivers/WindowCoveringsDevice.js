@@ -41,25 +41,23 @@ class WindowCoveringsDevice extends Device {
           .catch(error => {
             console.log(error.message, error.stack);
           });
-      } else if(!(oldWindowCoveringsState === 'idle' && opts.fromCloudSync === true)) {
+      } else if(!opts.fromCloudSync) {
         const action = {
           name: this.windowcoveringsActions[value],
           parameters: []
         };
 
-        if (!opts.fromCloudSync) {
-          Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
-            .then(result => {
-              this.setStoreValue('executionId', result.execId);
-              this.setCapabilityValue('windowcoverings_state', value);
-              if (callback) callback(null, value);
-            })
-            .catch(error => {
-              console.log(error.message, error.stack);
-            });
-        } else {
-          this.setCapabilityValue('windowcoverings_state', value);
-        }
+        Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
+          .then(result => {
+            this.setStoreValue('executionId', result.execId);
+            this.setCapabilityValue('windowcoverings_state', value);
+            if (callback) callback(null, value);
+          })
+          .catch(error => {
+            console.log(error.message, error.stack);
+          });
+      } else {
+        this.setCapabilityValue('windowcoverings_state', value);
       }
     }
   }
