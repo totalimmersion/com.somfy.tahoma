@@ -94,19 +94,19 @@ class WindowCoveringsDevice extends Device {
 
     if (device) {
       //device exists -> let's sync the state of the device
-
       const states = device.states
         .filter(state => state.name === 'core:OpenClosedState' || state.name === 'core:ClosureState')
         .map(state => {
+          const value = this.windowcoveringsStatesMap[state.value] ? this.windowcoveringsStatesMap[state.value]: state.value;
           return {
             name: state.name ===  'core:OpenClosedState' ? 'openClosedState' : 'closureState',
-            value: this.windowcoveringsStatesMap[state.value] ? this.windowcoveringsStatesMap[state.value]: state.value
+            value
           };
         });
 
-      const openClosedState = states.find(state => state.name === 'openClosedState');
       const closureState = states.find(state => state.name === 'closureState');
-
+      const openClosedState = states.find(state => state.name === 'openClosedState');
+      openClosedState.value = (closureState.value !== 0 && closureState.value !== 100) ? 'idle' : openClosedState.value;
       this.log(this.getName(), 'state', openClosedState.value, closureState.value);
       this.triggerCapabilityListener('windowcoverings_state', openClosedState.value, {
         fromCloudSync: true
