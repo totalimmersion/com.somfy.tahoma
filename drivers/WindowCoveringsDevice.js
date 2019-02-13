@@ -11,10 +11,15 @@ const deviceHelper = require('../lib/helper').Device;
 class WindowCoveringsDevice extends Device {
 
   onInit() {
-    this.windowcoveringsStateMap = {
+    this.windowcoveringsActions = {
       up: 'open',
       idle: null,
       down: 'close'
+    };
+
+    this.windowcoveringsStatesMap = {
+      open: 'up',
+      closed: 'down'
     };
 
     this.registerCapabilityListener('windowcoverings_state', this.onCapabilityWindowcoveringsState.bind(this));
@@ -38,7 +43,7 @@ class WindowCoveringsDevice extends Device {
           });
       } else if(!(oldWindowCoveringsState === 'idle' && opts.fromCloudSync === true)) {
         const action = {
-          name: this.windowcoveringsStateMap[value],
+          name: this.windowcoveringsActions[value],
           parameters: []
         };
 
@@ -89,17 +94,13 @@ class WindowCoveringsDevice extends Device {
 
     if (device) {
       //device exists -> let's sync the state of the device
-      const swappedStatesMap = {};
-      Object.keys(this.windowcoveringsStateMap).map(key => {
-        swappedStatesMap[this.windowcoveringsStateMap[key]] = key;
-      });
 
       const states = device.states
         .filter(state => state.name === 'core:OpenClosedState' || state.name === 'core:ClosureState')
         .map(state => {
           return {
             name: state.name ===  'core:OpenClosedState' ? 'openClosedState' : 'closureState',
-            value: swappedStatesMap[state.value] ? swappedStatesMap[state.value]: state.value
+            value: this.windowcoveringsStatesMap[state.value] ? this.windowcoveringsStatesMap[state.value]: state.value
           };
         });
 

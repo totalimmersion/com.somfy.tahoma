@@ -1,6 +1,6 @@
 {
   "name": "com.somfy.tahoma",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Somfy TaHoma app for Homey",
   "main": "app.js",
   "scripts": {
@@ -9,7 +9,8 @@
     "test": "npm run lint && npm run unit-test",
     "unit-test": "NODE_ENV=test nyc mocha --recursive --require co-mocha '**/*.spec.js'",
     "precommit": "npm run lint",
-    "prepush": "npm test"
+    "prepush": "npm test",
+    "prepare-production": "rm -rf node_modules && npm i --production"
   },
   "repository": {
     "type": "git",
