@@ -30,6 +30,7 @@ If you like this app and would like to support its development, consider buying 
 
 ### 1.5.3
 * Fixed a bug where the up and down buttons of the window coverings devices wouldn't respond.
+* Improved app performance.
 
 ### 1.5.2
 * Small bug fixes.
