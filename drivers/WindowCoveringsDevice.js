@@ -28,8 +28,8 @@ class WindowCoveringsDevice extends Device {
   }
 
   onCapabilityWindowcoveringsState(value, opts, callback) {
-    var deviceData = this.getData();
-    var oldWindowCoveringsState = this.getState().windowcoverings_state;
+    const deviceData = this.getData();
+    const oldWindowCoveringsState = this.getState().windowcoverings_state;
     if (oldWindowCoveringsState !== value) {
       if (value === 'idle' && this.getStoreValue('executionId')) {
         Tahoma.cancelExecution(this.getStoreValue('executionId'))
@@ -63,7 +63,7 @@ class WindowCoveringsDevice extends Device {
   }
 
   onCapabilityWindowcoveringsSet(value, opts, callback) {
-    var deviceData = this.getData();
+    const deviceData = this.getData();
     if (!opts.fromCloudSync) {
       const action = {
         name: 'setClosure',

@@ -28,17 +28,17 @@ If you like this app and would like to support its development, consider buying 
 
 ### Changelog:
 
-### 1.5.3
+#### 1.5.3
 * Fixed a bug where the up and down buttons of the window coverings devices wouldn't respond.
 * Improved app performance.
 
-### 1.5.2
+#### 1.5.2
 * Small bug fixes.
 
-### 1.5.1
+#### 1.5.1
 * Fixed a bug where the opening / closing of the IO horizontal awnings would be reversed.
 
-### 1.5.0
+#### 1.5.0
 * App is now compatible with Homey V2.
 * Added support for Velux IO exterior roller shutters.
 * Apart from setting the window covering state to open or closed, it is now also possible to use a slider to set it to a specific position, in order to use this new feature it is necessary to remove and add the device in Homey.
