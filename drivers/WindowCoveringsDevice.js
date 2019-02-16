@@ -67,7 +67,7 @@ class WindowCoveringsDevice extends Device {
     if (!opts.fromCloudSync) {
       const action = {
         name: 'setClosure',
-        parameters: [100-(value*100)]
+        parameters: [Math.round((1-value)*100)]
       };
       Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
         .then(result => {
