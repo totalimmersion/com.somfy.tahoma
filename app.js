@@ -53,22 +53,13 @@ class App extends Homey.App {
     /*** ADD FLOW ACTION LISTENERS ***/
     new Homey.FlowCardAction('activate_scenario')
       .register()
-      .registerRunListener(args => {
-        return Tahoma.executeScenario(args.scenario.oid)
-          .then(() => {
-            return Promise.resolve();
-          });
-      })
+      .registerRunListener(args => Tahoma.executeScenario(args.scenario.oid))
       .getArgument('scenario')
       .registerAutocompleteListener(query => {
         return Tahoma.getActionGroups()
-          .then(data => {
-            const scenarios = data
-              .map(({ oid, label }) => ({ oid, name: label }))
-              .filter(({ name }) => name.toLowerCase().indexOf(query.toLowerCase()) > -1);
-
-            return Promise.resolve(scenarios);
-          })
+          .then(data => data
+            .map(({ oid, label }) => ({ oid, name: label }))
+            .filter(({ name }) => name.toLowerCase().indexOf(query.toLowerCase()) > -1))
           .catch(error => {
             console.log(error.message, error.stack);
           });
