@@ -31,7 +31,7 @@ class WindowCoveringsDevice extends Device {
     const deviceData = this.getData();
     const oldWindowCoveringsState = this.getState().windowcoverings_state;
     if (oldWindowCoveringsState !== value) {
-      if (value === 'idle' && this.getStoreValue('executionId')) {
+      if (value === 'idle' && this.getStoreValue('executionId') && !opts.fromCloudSync) {
         Tahoma.cancelExecution(this.getStoreValue('executionId'))
           .then(() => {
             //let's set the state to open, because Tahoma, doesn't have an idle state. If a blind isn't closed for 100%, the state will remain open.

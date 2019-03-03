@@ -28,6 +28,9 @@ If you like this app and would like to support its development, consider buying 
 
 ### Changelog:
 
+#### 1.5.4
+* Fixed a bug where the movement of the window coverings devices would suddenly stop.
+
 #### 1.5.3
 * Fixed a bug where the up and down buttons of the window coverings devices wouldn't respond.
 * Improved app performance.
