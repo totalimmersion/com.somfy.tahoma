@@ -38,71 +38,71 @@ const Tahoma = require('../lib/Tahoma');
  */
 class Driver extends Homey.Driver {
 
-  onPair(socket) {
-    socket
-      .on('list_devices', (data, callback) => {
-        this.log('list_devices');
-        Tahoma.setup()
-          .then((tahomaData) => {
-            this.onReceiveSetupData(tahomaData, callback);
-          })
-          .catch(error => {
-            this.log('setup reject');
-            callback(error);
-          });
-      })
-      .on('disconnect', () => {
-        this.log('User aborted pairing, or pairing is finished');
-      });
-  }
+	onPair(socket) {
+		socket
+			.on('list_devices', (data, callback) => {
+				this.log('list_devices');
+				Tahoma.setup()
+					.then((tahomaData) => {
+						this.onReceiveSetupData(tahomaData, callback);
+					})
+					.catch(error => {
+						this.log('setup reject');
+						callback(error);
+					});
+			})
+			.on('disconnect', () => {
+				this.log('User aborted pairing, or pairing is finished');
+			});
+	}
 
-  onReceiveSetupData({ devices }, callback) {
-    try {
-      this.log('setup resolve');
-      if (devices) {
-        const homeyDevices = devices
-          .filter(device => this.deviceType.indexOf(device.controllableName) !== -1)
-          .map(device => (
-            {
-              name: device.label,
-              data: {
-                id: device.oid,
-                deviceURL: device.deviceURL,
-                label: device.label
-              }
-            }
-          ));
+	onReceiveSetupData({ devices }, callback) {
+		try {
+			this.log('setup resolve');
+			if (devices) {
+				const homeyDevices = devices
+					.filter(device => this.deviceType.indexOf(device.controllableName) !== -1)
+					.map(device => (
+						{
+							name: device.label,
+							data: {
+								id: device.oid,
+								deviceURL: device.deviceURL,
+								label: device.label
+							}
+						}
+					));
 
-        callback(null, homeyDevices);
-      }
-    } catch (error) {
-      callback(error);
-    }
-  }
+				callback(null, homeyDevices);
+			}
+		} catch (error) {
+			callback(error);
+		}
+	}
 
-  /**
+	/**
 	 * Triggers a flow
 	 * @param {Homey.FlowCardTriggerDevice} trigger - A Homey.FlowCardTriggerDevice instance
 	 * @param {Device} device - A Device instance
 	 * @param {Object} tokens - An object with tokens and their typed values, as defined in the app.json
 	 * @param {Object} state - An object with properties which are accessible throughout the Flow
 	 */
-  triggerFlow(trigger, device, tokens, state) {
-    if (trigger) {
-      trigger
-        .trigger(device, tokens, state)
-        .then(this.log)
-        .catch(this.error);
-    }
-  }
+	triggerFlow(trigger, device, tokens, state) {
+		if (trigger) {
+			trigger
+				.trigger(device, tokens, state)
+				.then(this.log)
+				.catch(this.error);
+		}
+	}
 
-  /**
+	/**
 	 * Returns the io controllable name(s) of TaHoma
 	 * @return {Array} deviceType
 	 */
-  getDeviceType() {
-    return this.deviceType ? this.deviceType : false;
-  }
+	getDeviceType() {
+		return this.deviceType ? this.deviceType : false;
+	}
 }
 
 module.exports = Driver;
@@ -116,13 +116,13 @@ module.exports = Driver;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-DeviceHelper.html">DeviceHelper</a></li><li><a href="module-DriverHelper.html">DriverHelper</a></li><li><a href="module-GenericHelper.html">GenericHelper</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Device.html">Device</a></li><li><a href="Driver.html">Driver</a></li><li><a href="ExteriorVenetianBlindDevice.html">ExteriorVenetianBlindDevice</a></li><li><a href="ExteriorVenetianBlindDriver.html">ExteriorVenetianBlindDriver</a></li><li><a href="HorizontalAwningDevice.html">HorizontalAwningDevice</a></li><li><a href="HorizontalAwningDriver.html">HorizontalAwningDriver</a></li><li><a href="HttpHelper.html">HttpHelper</a></li><li><a href="LightSensorDevice.html">LightSensorDevice</a></li><li><a href="LightSensorDriver.html">LightSensorDriver</a></li><li><a href="OpeningDetectorDevice.html">OpeningDetectorDevice</a></li><li><a href="OpeningDetectorDriver.html">OpeningDetectorDriver</a></li><li><a href="RollerShutterDevice.html">RollerShutterDevice</a></li><li><a href="RollerShutterDriver.html">RollerShutterDriver</a></li><li><a href="RoofWindowDevice.html">RoofWindowDevice</a></li><li><a href="RoofWindowDriver.html">RoofWindowDriver</a></li><li><a href="SensorDevice.html">SensorDevice</a></li><li><a href="Tahoma.html">Tahoma</a></li><li><a href="TemperatureSensorDevice.html">TemperatureSensorDevice</a></li><li><a href="TemperatureSensorDriver.html">TemperatureSensorDriver</a></li><li><a href="VeluxInteriorBlindDevice.html">VeluxInteriorBlindDevice</a></li><li><a href="VeluxInteriorBlindDriver.html">VeluxInteriorBlindDriver</a></li><li><a href="VeluxRollerShutterDevice.html">VeluxRollerShutterDevice</a></li><li><a href="VeluxRollerShutterDriver.html">VeluxRollerShutterDriver</a></li><li><a href="VerticalExteriorBlindDevice.html">VerticalExteriorBlindDevice</a></li><li><a href="VerticalExteriorBlindDriver.html">VerticalExteriorBlindDriver</a></li><li><a href="WindowCoveringsDevice.html">WindowCoveringsDevice</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-DeviceHelper.html">DeviceHelper</a></li><li><a href="module-DriverHelper.html">DriverHelper</a></li><li><a href="module-GenericHelper.html">GenericHelper</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Device.html">Device</a></li><li><a href="Driver.html">Driver</a></li><li><a href="ExteriorVenetianBlindDevice.html">ExteriorVenetianBlindDevice</a></li><li><a href="ExteriorVenetianBlindDriver.html">ExteriorVenetianBlindDriver</a></li><li><a href="HorizontalAwningDevice.html">HorizontalAwningDevice</a></li><li><a href="HorizontalAwningDriver.html">HorizontalAwningDriver</a></li><li><a href="HttpHelper.html">HttpHelper</a></li><li><a href="LightSensorDevice.html">LightSensorDevice</a></li><li><a href="LightSensorDriver.html">LightSensorDriver</a></li><li><a href="myFoxLightControllerDevice.html">myFoxLightControllerDevice</a></li><li><a href="myFoxLightControllerDriver.html">myFoxLightControllerDriver</a></li><li><a href="OneAlarmDevice.html">OneAlarmDevice</a></li><li><a href="OneAlarmDriver.html">OneAlarmDriver</a></li><li><a href="OpeningDetectorDevice.html">OpeningDetectorDevice</a></li><li><a href="OpeningDetectorDriver.html">OpeningDetectorDriver</a></li><li><a href="RollerShutterDevice.html">RollerShutterDevice</a></li><li><a href="RollerShutterDriver.html">RollerShutterDriver</a></li><li><a href="RoofWindowDevice.html">RoofWindowDevice</a></li><li><a href="RoofWindowDriver.html">RoofWindowDriver</a></li><li><a href="SensorDevice.html">SensorDevice</a></li><li><a href="Tahoma.html">Tahoma</a></li><li><a href="TemperatureSensorDevice.html">TemperatureSensorDevice</a></li><li><a href="TemperatureSensorDriver.html">TemperatureSensorDriver</a></li><li><a href="VeluxInteriorBlindDevice.html">VeluxInteriorBlindDevice</a></li><li><a href="VeluxInteriorBlindDriver.html">VeluxInteriorBlindDriver</a></li><li><a href="VeluxRollerShutterDevice.html">VeluxRollerShutterDevice</a></li><li><a href="VeluxRollerShutterDriver.html">VeluxRollerShutterDriver</a></li><li><a href="VerticalExteriorBlindDevice.html">VerticalExteriorBlindDevice</a></li><li><a href="VerticalExteriorBlindDriver.html">VerticalExteriorBlindDriver</a></li><li><a href="WindowCoveringsDevice.html">WindowCoveringsDevice</a></li><li><a href="WindowHandleDevice.html">WindowHandleDevice</a></li><li><a href="WindowHandleDriver.html">WindowHandleDriver</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Mar 03 2019 15:35:54 GMT+0100 (Central European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Feb 08 2020 13:15:50 GMT+0000 (Greenwich Mean Time)
 </footer>
 
 <script> prettyPrint(); </script>
