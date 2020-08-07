@@ -14,7 +14,7 @@ With this app it's possible to connect your Somfy TaHoma or Connexoon box to Hom
 * Opening Detector IO sensor
 * TaHoma scenarios
 
-Add by Adrian Rockall (do not contact Lennart Kuijs about problems with these devices)
+Add by Adrian Rockall (for support with these devices contact @Adrian_Rockall on the community forum)
 * Somfy One Alarm
 * Outdoor Camera Light Controller
 * Enocean Window Handle (requires Enocean USB module)
