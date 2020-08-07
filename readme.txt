@@ -1,4 +1,4 @@
-## Somfy TaHoma / Connexoon app for Homey
+
 With this app it's possible to connect your Somfy TaHoma or Connexoon box to Homey and control your senarios and IO homecontrol devices / sensors directly from Homey.
 
 ### Supported devices / services with most common parameters:
@@ -14,19 +14,22 @@ With this app it's possible to connect your Somfy TaHoma or Connexoon box to Hom
 * Opening Detector IO sensor
 * TaHoma scenarios
 
+Add by Adrian Rockall (do not contact Lennart Kuijs about problems with these devices)
+* Somfy One Alarm
+* Outdoor Camera Light Controller
+* Enocean Window Handle (requires Enocean USB module)
+
 ### Suggestions or problems?
 Do you have a suggestion for (or a problem with) this app that you would like implemented?
 Please go to the github page and create an issue or pull request with your suggestion/problem.
 
-If you like this app and would like to support its development, consider buying me a cup of coffee.
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="4U7BSXH7G6JPC">
-<input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online!">
-<img alt="" border="0" src="https://www.paypalobjects.com/nl_NL/i/scr/pixel.gif" width="1" height="1">
-</form>
 
 ### Changelog:
+
+#### 1.6.0
+* Added Somfy One Alarm.
+* Added Outdoor Camera Light Controller.
+* Enocean Window Handle (requires Enocean USB module).
 
 #### 1.5.4
 * Fixed a bug where the movement of the window coverings devices would suddenly stop.
