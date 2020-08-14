@@ -10,7 +10,7 @@
     "en": "Somfy TaHoma for Homey",
     "nl": "Somfy TaHoma voor Homey"
   },
-  "version": "1.6.0",
+  "version": "1.6.1",
   "compatibility": ">=2.0.0",
   "author": {
     "name": "Immersion Apps"
@@ -24,6 +24,10 @@
       {
         "name": "Adrian Rockall",
         "email": "ady@rockall.plus.com"
+      },
+      {
+        "name": "Anders Fjeldstad",
+        "email": "anders@fjeldstad.se"
       }
     ]
   },
