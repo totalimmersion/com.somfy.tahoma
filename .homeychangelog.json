@@ -86,5 +86,9 @@
     "1.6.1":
     {
         "en": "* Added Somfy receiver IZYMO io shutter.\n* Added Somfy io motion sensor.\n* Merged Anders fix from GitHub for horizontal awnings issue."
+    },
+    "1.6.2":
+    {
+        "en": "* Added RTS dual curtains, blinds and venetian blinds."
     }
 }
