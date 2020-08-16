@@ -1,0 +1,8 @@
+{
+  "1.6.0": {
+    "en": "* Added Somfy One Alarm.\n* Added Outdoor Camera Light Controller.\n* Enocean Window Handle (requires Enocean USB module)."
+  },
+  "1.6.1": {
+    "en": "* Added Somfy receiver IZYMO io shutter.\n* Added Somfy io motion sensor.\n* Merged Anders fix for horizontal awnings."
+  }
+}

@@ -12,7 +12,8 @@ class RollerShutterDriver extends Driver {
     this.deviceType = [
       'io:RollerShutterGenericIOComponent',
       'io:RollerShutterWithLowSpeedManagementIOComponent',
-      'io:Re3js3W69CrGF8kKXvvmYtT4zNGqicXRjvuAnmmbvPZXnt'
+      'io:Re3js3W69CrGF8kKXvvmYtT4zNGqicXRjvuAnmmbvPZXnt',
+      'io:MicroModuleRollerShutterSomfyIOComponent'
     ];
   }
 

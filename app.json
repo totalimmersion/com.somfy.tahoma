@@ -326,6 +326,31 @@
       ]
     },
     {
+      "id": "io_occupancy_detector",
+      "name": {
+        "en": "Occupancy Detector (io)"
+      },
+      "images": {
+        "large": "/drivers/io_occupancy_detector/assets/images/large.png",
+        "small": "/drivers/io_occupancy_detector/assets/images/small.png"
+      },
+      "class": "sensor",
+      "capabilities": [ "alarm_motion" ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
       "id": "enocean_window_handle",
       "name": {
         "en": "Window Handle (SecuSignal)",
@@ -581,6 +606,29 @@
             "name": "device",
             "type": "device",
             "filter": "driver_id=io_opening_detector"
+          }
+        ]
+      },
+      {
+        "id": "motion_has_changed",
+        "title": {
+          "en": "The state of the motion detector has changed"
+        },
+        "tokens": [
+          {
+            "name": "isMotion",
+            "type": "boolean",
+            "title": {
+              "en": "is motion?"
+            },
+            "example": "motion"
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=io_motion_detector"
           }
         ]
       }

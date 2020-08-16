@@ -26,6 +26,11 @@ Please go to the github page and create an issue or pull request with your sugge
 
 ### Changelog:
 
+#### 1.6.1
+* Added Somfy receiver IZYMO io shutter.
+* Added Somfy io motion sensor.
+* Merged Anders fix for horizontal awnings.
+
 #### 1.6.0
 * Added Somfy One Alarm.
 * Added Outdoor Camera Light Controller.
