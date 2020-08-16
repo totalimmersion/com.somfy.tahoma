@@ -432,6 +432,94 @@
           "template": "add_devices"
         }
       ]
+    },
+    {
+      "id": "rts_interior_venetian_blind",
+      "name": {
+        "en": "Interior venetian blind (RTS)"
+      },
+      "images": {
+        "large": "/drivers/rts_interior_venetian_blind/assets/images/large.png",
+        "small": "/drivers/rts_interior_venetian_blind/assets/images/small.png"
+      },
+      "class": "blinds",
+      "capabilities": [
+        "windowcoverings_state",
+        "windowcoverings_tilt_up",
+        "windowcoverings_tilt_down"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "rts_interior_blind",
+      "name": {
+        "en": "Interior Blind (RTS)"
+      },
+      "images": {
+        "large": "/drivers/rts_interior_cover/assets/images/large.png",
+        "small": "/drivers/rts_interior_cover/assets/images/small.png"
+      },
+      "class": "blinds",
+      "capabilities": [
+        "windowcoverings_state"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "rts_interior_curtain",
+      "name": {
+        "en": "Interior Curtain (RTS)"
+      },
+      "images": {
+        "large": "/drivers/rts_interior_cover/assets/images/large.png",
+        "small": "/drivers/rts_interior_cover/assets/images/small.png"
+      },
+      "class": "curtain",
+      "capabilities": [
+        "windowcoverings_state"
+      ],
+      "capabilitiesOptions": {
+        "windowcoverings_state": {
+          "getable": false
+        }
+      },
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ]
     }
 ],
   "flow": {

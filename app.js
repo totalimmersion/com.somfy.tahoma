@@ -1,5 +1,9 @@
 'use strict';
 
+if (process.env.DEBUG === '1') {
+	require('inspector').open(9222, '0.0.0.0')
+}
+
 const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
 const syncManager = require('./lib/sync');
