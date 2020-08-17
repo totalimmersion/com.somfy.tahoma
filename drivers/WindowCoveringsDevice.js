@@ -34,6 +34,7 @@ class WindowCoveringsDevice extends Device
         this.registerCapabilityListener( 'windowcoverings_closed', this.onCapabilityWindowcoveringsClosed.bind( this ) );
         this.registerCapabilityListener( 'windowcoverings_tilt_up', this.onCapabilityWindowcoveringsTiltUp.bind( this ) );
         this.registerCapabilityListener( 'windowcoverings_tilt_down', this.onCapabilityWindowcoveringsTiltDown.bind( this ) );
+        this.registerCapabilityListener( 'my_position', this.onCapabilityMyPosition.bind( this ) );
         super.onInit();
     }
 
@@ -49,8 +50,8 @@ class WindowCoveringsDevice extends Device
                     .then( () =>
                     {
                         //let's set the state to open, because Tahoma, doesn't have an idle state. If a blind isn't closed for 100%, the state will remain open.
-                        this.setCapabilityValue( 'windowcoverings_state', value );
-                        if ( callback ) callback( null, value );
+                        this.setCapabilityValue( 'windowcoverings_state', null );
+                        if ( callback ) callback( null, null );
                     } )
                     .catch( error =>
                     {
@@ -62,12 +63,16 @@ class WindowCoveringsDevice extends Device
                 Tahoma.cancelExecution( this.getStoreValue( 'executionId' ) )
                     .then( () =>
                     {
+                        const action = {
+                            name: this.windowcoveringsActions[ value ],
+                            parameters: []
+                        }
                         Tahoma.executeDeviceAction( deviceData.label, deviceData.deviceURL, action )
                             .then( result =>
                             {
                                 this.setStoreValue( 'executionId', result.execId );
-                                this.setCapabilityValue( 'windowcoverings_state', value );
-                                if ( callback ) callback( null, value );
+                                this.setCapabilityValue( 'windowcoverings_state', null );
+                                if ( callback ) callback( null, null );
                             } )
                             .catch( error =>
                             {
@@ -78,43 +83,12 @@ class WindowCoveringsDevice extends Device
                     {
                         console.log( error.message, error.stack );
                     } );
-                const action = {
-                    name: this.windowcoveringsActions[ value ],
-                    parameters: []
-                };
-            }
-            else
-            {
-                this.setCapabilityValue( 'windowcoverings_state', value );
-                if ( callback ) callback( null, value );
-            }
+            };
         }
-        else if ( !opts.fromCloudSync )
+        else
         {
-            if ( value === 'idle' )
-            {
-                const action = {
-                    name: 'my',
-                    parameters: []
-                };
-
-                Tahoma.executeDeviceAction( deviceData.label, deviceData.deviceURL, action )
-                    .then( result =>
-                    {
-                        this.setStoreValue( 'executionId', result.execId );
-                        this.setCapabilityValue( 'windowcoverings_state', value );
-                        if ( callback ) callback( null, value );
-                    } )
-                    .catch( error =>
-                    {
-                        console.log( error.message, error.stack );
-                    } );
-            }
-            else
-            {
-                this.setCapabilityValue( 'windowcoverings_state', value );
-                if ( callback ) callback( null, value );
-            }
+            this.setCapabilityValue( 'windowcoverings_state', null );
+            if ( callback ) callback( null, null );
         }
     }
 
@@ -222,6 +196,32 @@ class WindowCoveringsDevice extends Device
         else
         {
             this.setCapabilityValue( 'windowcoverings_tilt_down', value );
+        }
+    }
+
+    onCapabilityMyPosition( value, opts, callback )
+    {
+        const deviceData = this.getData();
+        if ( !opts || !opts.fromCloudSync )
+        {
+            const action = {
+                name: 'my'
+            };
+            Tahoma.executeDeviceAction( deviceData.label, deviceData.deviceURL, action )
+                .then( result =>
+                {
+                    this.setStoreValue( 'executionId', result.execId );
+                    this.setCapabilityValue( 'my_position', value );
+                    if ( callback ) callback( null, value );
+                } )
+                .catch( error =>
+                {
+                    console.log( error.message, error.stack );
+                } );
+        }
+        else
+        {
+            this.setCapabilityValue( 'my_position', value );
         }
     }
 

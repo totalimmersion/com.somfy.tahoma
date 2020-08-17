@@ -10,7 +10,7 @@
     "en": "Somfy TaHoma for Homey",
     "nl": "Somfy TaHoma voor Homey"
   },
-  "version": "1.6.2",
+  "version": "1.6.3",
   "compatibility": ">=2.0.0",
   "author": {
     "name": "Immersion Apps"
@@ -42,6 +42,17 @@
   "tags": {
         "en": ["Somfy TaHoma", "io-homecontrol", "io", "Sunis Wirefree", "lightsensor", "Thermis WireFree", "temperature sensor","exterior blinds", "screens", "Velux", "roof window", "One Alarm", "Outdoor Camera"],
         "nl": ["Somfy TaHoma", "io-homecontrol", "io", "Sunis Wirefree", "lichtsensor", "Thermis WireFree", "temperatuur sensor", "zonwering", "screens", "Velux", "dakraam", "One Alarm", "Outdoor Camera"]
+  },
+  "capabilities": {
+    "my_position": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "My Position"
+      }
+    }
   },
   "drivers": [
     {
@@ -446,7 +457,8 @@
       "capabilities": [
         "windowcoverings_state",
         "windowcoverings_tilt_up",
-        "windowcoverings_tilt_down"
+        "windowcoverings_tilt_down",
+        "my_position"
       ],
       "pair": [
         {
@@ -882,6 +894,19 @@
           {
             "name": "scenario",
             "type": "autocomplete"
+          }
+        ]
+      },
+      {
+        "id": "set_my_position",
+        "title": {
+          "en": "Move to MY position"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=rts_interior_venetian_blind"
           }
         ]
       }

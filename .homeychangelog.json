@@ -90,5 +90,9 @@
     "1.6.2":
     {
         "en": "* Added RTS dual curtains, blinds and venetian blinds."
+    },
+    "1.6.3":
+    {
+        "en": "* Added MY button and flow action to RTS venetian blind."
     }
 }
