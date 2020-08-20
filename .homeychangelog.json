@@ -94,5 +94,9 @@
     "1.6.3":
     {
         "en": "* Added MY button and flow action to RTS venetian blind.\n* Added Interior io vertical blind"
+    },
+    "1.6.4":
+    {
+        "en": "* Added io garage door opener"
     }
 }

@@ -19,7 +19,9 @@ Add by Adrian Rockall (for support with these devices contact @Adrian_Rockall on
 * Outdoor Camera Light Controller
 * Enocean Window Handle (requires Enocean USB module)
 * Somfy receiver IZYMO io shutter
-* Added Somfy io motion sensor
+* IO motion sensor
+* IO vertical interior blind 
+* IO garage door
 
 ### Suggestions or problems?
 Do you have a suggestion for (or a problem with) this app that you would like implemented?
@@ -31,3 +33,4 @@ So version 1.6.0 onwards has additional devices and bug fixes by me and those su
 
 
 Icons made by <a href="https://www.flaticon.com/authors/those-icons" title="Those Icons">Those Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+Icons made by <a href="https://www.flaticon.com/free-icon/garage_1418005?term=garage%20door&page=2&position=30" title="Vitaly Gorbachev">Vitaly Gorbachev</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
