@@ -1,41 +1,23 @@
 {
   "name": "com.somfy.tahoma",
-  "version": "1.5.4",
+  "version": "1.6.4",
   "description": "Somfy TaHoma app for Homey",
   "main": "app.js",
-  "scripts": {
-    "create-docs": "npm i && jsdoc -c conf.json && open ./docs/index.html && npm run prepare-production",
-    "lint": "eslint lib drivers",
-    "test": "npm i && npm run lint && npm run unit-test && npm run prepare-production",
-    "unit-test": "NODE_ENV=test nyc mocha --recursive --require co-mocha '**/*.spec.js'",
-    "precommit": "npm run lint",
-    "prepush": "npm test",
-    "prepare-production": "rm -rf node_modules && npm i --production"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://totalimmersion@github.com/totalimmersion/com.somfy.tahoma.git"
+    "url": "https://github.com/AdyRock/com.somfy.tahoma.git"
   },
   "author": "Lennart Kuijs",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/totalimmersion/com.somfy.tahoma/issues"
+    "url": "https://github.com/AdyRock/com.somfy.tahoma/issues"
   },
-  "homepage": "https://github.com/totalimmersion/com.somfy.tahoma#readme",
+  "homepage": "https://github.com/AdyRock/com.somfy.tahoma#readme",
   "dependencies": {
-    "homey-log": "^1.0.6",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "nodemailer": "^6.4.11"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "chai-http": "^4.0.0",
-    "co-mocha": "^1.2.2",
-    "jsdoc": "^3.5.5",
-    "minami": "^1.2.3",
-    "mocha": "^5.2.0",
-    "mock-require": "^3.0.2",
-    "nyc": "^13.1.0",
-    "sinon": "^6.1.3",
-    "sinon-chai": "^3.2.0"
+    "homey": "^2.3.3"
   }
 }

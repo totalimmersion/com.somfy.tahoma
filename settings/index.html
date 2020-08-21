@@ -1,134 +1,283 @@
 <!doctype html>
 <html>
-	<head>
-		<link rel="stylesheet" href="/manager/webserver/assets/css/font.awesome.css">
-		<script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
-		<script type="text/javascript" src="/homey.js" data-origin="settings"></script>
 
-		<script type="text/javascript">
-			function onHomeyReady(Homey) {
-				var saveButton = $('#saveButton');
-				var logoutButton = $('#logoutButton');
-				var preferencesButton = $('#savePreferencesButton');
+<head>
+    <link rel="stylesheet" href="/manager/webserver/assets/css/font.awesome.css">
+    <script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
 
-				Homey.ready();
+    <script type="text/javascript">
+        function onHomeyReady( Homey )
+        {
+            var saveButton = $( '#saveButton' );
+            var logoutButton = $( '#logoutButton' );
+            var preferencesButton = $( '#savePreferencesButton' );
 
-				var response = $('#response');
-				var usernameEl = $('#username');
-				var passwordEl = $('#password');
-				var syncSpeedEl = $('#sync_speed');
-				var logoutEl = $('#logoutElement');
-				var hasUsername = false;
-				var hasPassword = false;
+            Homey.ready();
 
-				Homey.get('username', function(err, username){
-					if (err) return Homey.alert(err);
+            var response = $( '#response' );
+            var usernameEl = $( '#username' );
+            var passwordEl = $( '#password' );
+            var syncSpeedEl = $( '#sync_speed' );
+            var logoutEl = $( '#logoutElement' );
+            var hasUsername = false;
+            var hasPassword = false;
 
-					console.log('username: ', username);
-					usernameEl.val(username);
-					if (username.length > 0) {
-						logoutEl.show();
-					}
-				});
+            Homey.get( 'username', function( err, username )
+            {
+                if ( err ) return Homey.alert( err );
 
-				Homey.get('password', function(err, password){
-					if (err) return Homey.alert(err);
+                console.log( 'username: ', username );
+                usernameEl.val( username );
+                if ( username.length > 0 )
+                {
+                    logoutEl.show();
+                }
+            } );
 
-					console.log('password: ', password);
-					passwordEl.val(password);
-					if (password.length > 0) {
-						logoutEl.show();
-					}
-				});
+            Homey.get( 'password', function( err, password )
+            {
+                if ( err ) return Homey.alert( err );
 
-				Homey.get('syncInterval', function(err, interval){
-					if (err) return Homey.alert(err);
-					syncSpeedEl.val(interval);
-				});
+                console.log( 'password: ', password );
+                passwordEl.val( password );
+                if ( password.length > 0 )
+                {
+                    logoutEl.show();
+                }
+            } );
 
-				saveButton.on('click', function() {
-					var username = usernameEl.val();
-					var password = passwordEl.val();
+            Homey.get( 'syncInterval', function( err, interval )
+            {
+                if ( err ) return Homey.alert( err );
+                syncSpeedEl.val( interval );
+            } );
 
-					Homey.api('POST', '/login/', {
-							"username": username,
-							"password": password
-						}, function(err, result) {
-							if (err) return Homey.alert(err);
+            saveButton.on( 'click', function()
+            {
+                var username = usernameEl.val();
+                var password = passwordEl.val();
 
-							if (result.success) {
-								response.css({color: 'green'});
-								response.html(__('settings.login_success'));
-								logoutEl.show();
-							} else {
-								response.css({color: 'red'});
-								response.html(__('settings.login_failure') + '<br/>' + result.error);
-								Homey.unset('username');
-								Homey.unset('password');
-							}
-					});
-				});
+                Homey.api( 'POST', '/login/',
+                {
+                    "username": username,
+                    "password": password
+                }, function( err, result )
+                {
+                    if ( err ) return Homey.alert( err );
 
-				logoutButton.on('click', function() {
-					var response = $('#response');
+                    if ( result.success )
+                    {
+                        response.css( { color: 'green' } );
+                        response.html( __( 'settings.login_success' ) );
+                        logoutEl.show();
+                    }
+                    else
+                    {
+                        response.css( { color: 'red' } );
+                        response.html( __( 'settings.login_failure' ) + '<br/>' + result.error );
+                        Homey.unset( 'username' );
+                        Homey.unset( 'password' );
+                    }
+                } );
+            } );
 
-					Homey.api('POST', '/logout/', function(err, result) {
-						if (err) {
-							response.css({color: 'red'});
-							response.html(__('settings.logout_failure') + '<br/>' + err.message);
-						} else {
-							response.css({color: 'green'});
-							response.html(__('settings.logout_success'));
+            logoutButton.on( 'click', function()
+            {
+                var response = $( '#response' );
 
-							usernameEl.val('');
-							passwordEl.val('');
-						}
-					});
-				});
+                Homey.api( 'POST', '/logout/', function( err, result )
+                {
+                    if ( err )
+                    {
+                        response.css( { color: 'red' } );
+                        response.html( __( 'settings.logout_failure' ) + '<br/>' + err.message );
+                    }
+                    else
+                    {
+                        response.css( { color: 'green' } );
+                        response.html( __( 'settings.logout_success' ) );
 
-				preferencesButton.on('click', function() {
-					Homey.set('syncInterval', syncSpeedEl.val(), function(err) {
-						if (err) return Homey.alert(err);
-					});
-				});
-			}
-		</script>
-	</head>
-	<body>
-		<h1 data-i18n="settings.title"></h1>
-		<p id="introText" data-i18n="settings.intro"></p>
+                        usernameEl.val( '' );
+                        passwordEl.val( '' );
+                    }
+                } );
+            } );
 
-		<p id="response"></p>
+            preferencesButton.on( 'click', function()
+            {
+                Homey.set( 'syncInterval', syncSpeedEl.val(), function( err )
+                {
+                    if ( err ) return Homey.alert( err );
+                } );
+            } );
 
-		<fieldset>
-			<legend data-i18n="settings.logintitle"></legend>
-			<span id="response"></span>
-      <div class="field row">
-          <label for="username" data-i18n="settings.username"></label>
-          <input id="username" type="text" value=""/>
-      </div>
-      <div class="field row">
-          <label for="password" data-i18n="settings.password"></label>
-          <input id="password" type="password" value=""/>
-      </div>
+            doStuff();
+        }
+    </script>
+</head>
 
-      <button id="saveButton" class="left" style="display:block" data-i18n="settings.save" ></button>
-    </fieldset>
+<body>
+    <!-- Tab links -->
+    <div class="tab">
+        <button class="tablinks" onclick="setPage(event, 'settings')" id="defaultOpen">Settings</button>
+        <button class="tablinks" onclick="setPage(event, 'log')">Log</button>
+    </div>
 
-    <fieldset id="logoutElement" style="display: none;">
-    	<legend data-i18n="settings.logouttitle"></legend>
-    	<button id="logoutButton" class="left" style="display:block" data-i18n="settings.logout" ></button>
-    </fieldset>
+    <!-- SETTINGS PAGE -->
+    <div id="settings" class="tabcontent">
+        <fieldset>
+            <h1 data-i18n="settings.title"></h1>
+            <p id="introText" data-i18n="settings.intro"></p>
 
-		<fieldset id="preferences">
-			<legend data-i18n="settings.preferences"></legend>
-			<div class="field row">
-					<label for="sync_speed" data-i18n="settings.sync_speed"></label>
-					<input id="sync_speed" type="text" value=""/>
-					&nbsp;<span data-i18n="settings.sync_tooltip"></span>
-			</div>
+            <p id="response"></p>
 
-			<button id="savePreferencesButton" class="left" style="display:block" data-i18n="settings.save_preferences" ></button>
-		</fieldset>
-	</body>
+            <fieldset>
+                <legend data-i18n="settings.logintitle"></legend>
+                <span id="response"></span>
+                <div class="field row">
+                    <label for="username" data-i18n="settings.username"></label>
+                    <input id="username" type="text" value="" />
+                </div>
+                <div class="field row">
+                    <label for="password" data-i18n="settings.password"></label>
+                    <input id="password" type="password" value="" />
+                </div>
+
+                <button id="saveButton" class="left" style="display:block" data-i18n="settings.save"></button>
+            </fieldset>
+
+            <fieldset id="logoutElement" style="display: none;">
+                <legend data-i18n="settings.logouttitle"></legend>
+                <button id="logoutButton" class="left" style="display:block" data-i18n="settings.logout"></button>
+            </fieldset>
+
+            <fieldset id="preferences">
+                <legend data-i18n="settings.preferences"></legend>
+                <div class="field row">
+                    <label for="sync_speed" data-i18n="settings.sync_speed"></label>
+                    <input id="sync_speed" type="text" value="" />
+                    &nbsp;<span data-i18n="settings.sync_tooltip"></span>
+                </div>
+
+                <button id="savePreferencesButton" class="left" style="display:block" data-i18n="settings.save_preferences"></button>
+            </fieldset>
+        </fieldset>
+    </div>
+
+    <!-- LOG PAGE -->
+    <div id="log" class="tabcontent">
+        <fieldset>
+            <h1>Data Log</h1>
+            <p>Capture a single set of data from Tahoma</p>
+            <div class="field row">
+                <label for="logEnabled">Log Enabled</label>
+                <input id="logEnabled" type="checkbox" value="logEnabled" />
+            </div>
+        </fieldset>
+        <fieldset>
+            <p><button id="clearLog">Clear Log</button><button id="sendLog">Send Log</button></p>
+            <div class="field row">
+                <textarea id="diagLog"></textarea>
+            </div>
+        </fieldset>
+    </div>
+
+    <script type="text/javascript">
+        var diagLogElement = document.getElementById( 'diagLog' );
+        var logEnabledElement = document.getElementById( 'logEnabled' );
+        var clearLogElement = document.getElementById( 'clearLog' );
+        var sendLogElement = document.getElementById('sendLog');
+
+        function doStuff()
+        {
+            document.getElementById( "defaultOpen" ).click();
+
+            Homey.on( 'settings.set', function()
+            {
+                Homey.get( 'diagLog', function( err, diagLog )
+                {
+                    if ( err ) return Homey.alert( err );
+                    diagLogElement.value = JSON.stringify( diagLog, null, 2 );
+                } );
+                Homey.get( 'logEnabled', function( err, logEnabled )
+                {
+                    if ( err ) return Homey.alert( err );
+                    logEnabledElement.checked = logEnabled;
+                } );
+            } );
+
+            logEnabledElement.addEventListener( 'click', function( e )
+            {
+                Homey.set( 'logEnabled', logEnabledElement.checked, function( err )
+                {
+                    if ( err ) return Homey.alert( err );
+                } );
+            } );
+
+            clearLogElement.addEventListener( 'click', function( e )
+            {
+                Homey.set( 'diagLog', "", function( err )
+                {
+                    if ( err ) return Homey.alert( err );
+                } );
+                diagLogElement.value = "";
+            } );
+
+            sendLogElement.addEventListener('click', function (e) {
+                Homey.confirm("Send the log contents to the developer?", null, function (e, ok) {
+                    if (ok) {
+                        Homey.set('sendLog', "send", function (err) {
+                            if (err) return Homey.alert(err);
+                        });
+                    }
+                });
+            });
+        };
+
+        function setPage( evt, tabPage )
+        {
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName( "tabcontent" );
+            for ( i = 0; i < tabcontent.length; i++ )
+            {
+                tabcontent[ i ].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName( "tablinks" );
+            for ( i = 0; i < tablinks.length; i++ )
+            {
+                tablinks[ i ].className = tablinks[ i ].className.replace( " active", "" );
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById( tabPage ).style.display = "block";
+            evt.currentTarget.className += " active";
+
+            if ( tabPage == 'log' )
+            {
+                // Refresh the log data
+                Homey.get( 'logEnabled', function( err, logEnabled )
+                {
+                    if ( err ) return Homey.alert( err );
+                    logEnabledElement.checked = logEnabled;
+                } );
+
+                Homey.get( 'diagLog', function( err, diagLog )
+                {
+                    if ( err ) return Homey.alert( err );
+                    diagLogElement.value = JSON.stringify( diagLog, null, 2 );
+                } );
+
+                // Make the log text area fill the page
+                diagLogElement.setAttribute( 'cols', diagLogElement.parentElement.clientWidth / 8 );
+                diagLogElement.style.height = ( window.innerHeight - diagLogElement.offsetTop - 20 ) + 'px';
+            }
+        };
+    </script>
+</body>
+
 </html>
