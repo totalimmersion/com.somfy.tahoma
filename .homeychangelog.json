@@ -98,5 +98,9 @@
     "1.6.4":
     {
         "en": "* Added io garage door opener"
+    },
+    "1.6.5":
+    {
+        "en": "* Added a data log to the app configuration screen to make it easier to provide the data required to add a new device."
     }
 }
