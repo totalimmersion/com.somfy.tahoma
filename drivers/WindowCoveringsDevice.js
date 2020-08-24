@@ -10,7 +10,6 @@ const deviceHelper = require( '../lib/helper' ).Device;
  */
 class WindowCoveringsDevice extends Device
 {
-
     onInit()
     {
         this.windowcoveringsActions = {
@@ -25,203 +24,125 @@ class WindowCoveringsDevice extends Device
         };
 
         // From Anders pull request
-        this.closureActionName = 'setClosure';
         this.closureStateName = 'core:ClosureState';
-        this.openActionName = '';
+        this.setPositionActionName =  'setClosure';
+        this.silentMode = false;
 
         this.registerCapabilityListener( 'windowcoverings_state', this.onCapabilityWindowcoveringsState.bind( this ) );
         this.registerCapabilityListener( 'windowcoverings_set', this.onCapabilityWindowcoveringsSet.bind( this ) );
-        this.registerCapabilityListener( 'windowcoverings_closed', this.onCapabilityWindowcoveringsClosed.bind( this ) );
         this.registerCapabilityListener( 'windowcoverings_tilt_up', this.onCapabilityWindowcoveringsTiltUp.bind( this ) );
         this.registerCapabilityListener( 'windowcoverings_tilt_down', this.onCapabilityWindowcoveringsTiltDown.bind( this ) );
         this.registerCapabilityListener( 'my_position', this.onCapabilityMyPosition.bind( this ) );
         super.onInit();
     }
 
-    onCapabilityWindowcoveringsState( value, opts, callback )
+    async onCapabilityWindowcoveringsState( value, opts )
     {
-        const deviceData = this.getData();
-        const oldWindowCoveringsState = this.getState().windowcoverings_state;
-        if ( oldWindowCoveringsState !== value )
+        if ( !opts.fromCloudSync )
         {
-            if ( value === 'idle' && this.getStoreValue( 'executionId' ) && !opts.fromCloudSync )
+            const deviceData = this.getData();
+            if ( value === 'idle' && this.getStoreValue( 'executionId' ))
             {
-                Tahoma.cancelExecution( this.getStoreValue( 'executionId' ) )
-                    .then( () =>
-                    {
-                        //let's set the state to open, because Tahoma, doesn't have an idle state. If a blind isn't closed for 100%, the state will remain open.
-                        this.setCapabilityValue( 'windowcoverings_state', null );
-                        if ( callback ) callback( null, null );
-                    } )
-                    .catch( error =>
-                    {
-                        console.log( error.message, error.stack );
-                    } );
+                Tahoma.cancelExecution( this.getStoreValue( 'executionId' ) );
             }
-            else if ( !opts.fromCloudSync )
+            else
             {
-                Tahoma.cancelExecution( this.getStoreValue( 'executionId' ) )
-                    .then( () =>
-                    {
-                        const action = {
-                            name: this.windowcoveringsActions[ value ],
-                            parameters: []
-                        }
-                        Tahoma.executeDeviceAction( deviceData.label, deviceData.deviceURL, action )
-                            .then( result =>
-                            {
-                                this.setStoreValue( 'executionId', result.execId );
-                                this.setCapabilityValue( 'windowcoverings_state', null );
-                                if ( callback ) callback( null, null );
-                            } )
-                            .catch( error =>
-                            {
-                                console.log( error.message, error.stack );
-                            } );
-                    } )
-                    .catch( error =>
-                    {
-                        console.log( error.message, error.stack );
-                    } );
+                await Tahoma.cancelExecution( this.getStoreValue( 'executionId' ) );
+                const action = {
+                    name: this.windowcoveringsActions[ value ],
+                    parameters: []
+                }
+                let result = await Tahoma.executeDeviceAction( deviceData.label, deviceData.deviceURL, action );
+                this.setStoreValue( 'executionId', result.execId );
             };
+
+            if (!this.closureStateName)
+            {
+                setTimeout(() => {
+                    this.setCapabilityValue( 'windowcoverings_state', null );
+                }, 500 );
+            }
         }
         else
         {
-            this.setCapabilityValue( 'windowcoverings_state', null );
-            if ( callback ) callback( null, null );
+            // New value from Tahoma
+            this.setCapabilityValue( 'windowcoverings_state', value );
         }
     }
 
-    onCapabilityWindowcoveringsSet( value, opts, callback )
+    async onCapabilityWindowcoveringsSet( value, opts )
     {
-        const deviceData = this.getData();
         if ( !opts.fromCloudSync )
         {
+            const deviceData = this.getData();
             const action = {
-                name: this.closureActionName, // Anders pull request
+                name: this.setPositionActionName, // Anders pull request
                 parameters: [ Math.round( ( 1 - value ) * 100 ) ]
             };
-            Tahoma.executeDeviceAction( deviceData.label, deviceData.deviceURL, action )
-                .then( result =>
+
+            if ( this.setPositionActionName === 'setPositionAndLinearSpeed' )
+            {
+                // Add slow speed option if silent mode is selected
+                if ( this.silentMode )
                 {
-                    this.setStoreValue( 'executionId', result.execId );
-                    this.setCapabilityValue( 'windowcoverings_set', value );
-                    if ( callback ) callback( null, value );
-                } )
-                .catch( error =>
+                    action.parameters.push( "lowspeed" );
+                }
+                else
                 {
-                    console.log( error.message, error.stack );
-                } );
+                    action.parameters.push( "normalspeed" );
+                }
+            }
+            let result = await Tahoma.executeDeviceAction( deviceData.label, deviceData.deviceURL, action )
+            this.setStoreValue( 'executionId', result.execId );
         }
         else
         {
-            this.setCapabilityValue( 'windowcoverings_set', value );
+            // New value from Tahoma
+            this.setCapabilityValue( 'windowcoverings_set', value ); 
         }
     }
 
-    onCapabilityWindowcoveringsClosed( value, opts, callback )
+    async onCapabilityWindowcoveringsTiltUp( value, opts )
     {
-        const deviceData = this.getData();
         if ( !opts.fromCloudSync )
         {
-            const action = {
-                name: value ? this.openActionName : this.closureActionName,
-            };
-            Tahoma.executeDeviceAction( deviceData.label, deviceData.deviceURL, action )
-                .then( result =>
-                {
-                    this.setStoreValue( 'executionId', result.execId );
-                    this.setCapabilityValue( 'windowcoverings_closed', value );
-                    if ( callback ) callback( null, value );
-                } )
-                .catch( error =>
-                {
-                    console.log( error.message, error.stack );
-                } );
-        }
-        else
-        {
-            this.setCapabilityValue( 'windowcoverings_closed', value );
-        }
-    }
-
-    onCapabilityWindowcoveringsTiltUp( value, opts, callback )
-    {
-        const deviceData = this.getData();
-        if ( !opts.fromCloudSync )
-        {
+            const deviceData = this.getData();
+            await Tahoma.cancelExecution( this.getStoreValue( 'executionId' ) );
             const action = {
                 name: 'tiltPositive',
                 parameters: [ 3, 1 ]
             };
-            Tahoma.executeDeviceAction( deviceData.label, deviceData.deviceURL, action )
-                .then( result =>
-                {
-                    this.setStoreValue( 'executionId', result.execId );
-                    this.setCapabilityValue( 'windowcoverings_tilt_up', value );
-                    if ( callback ) callback( null, value );
-                } )
-                .catch( error =>
-                {
-                    console.log( error.message, error.stack );
-                } );
-        }
-        else
-        {
-            this.setCapabilityValue( 'windowcoverings_tilt_up', value );
+            let result = await Tahoma.executeDeviceAction( deviceData.label, deviceData.deviceURL, action )
+            this.setStoreValue( 'executionId', result.execId );
         }
     }
 
-    onCapabilityWindowcoveringsTiltDown( value, opts, callback )
+    async onCapabilityWindowcoveringsTiltDown( value, opts )
     {
-        const deviceData = this.getData();
         if ( !opts.fromCloudSync )
         {
+            const deviceData = this.getData();
+            await Tahoma.cancelExecution( this.getStoreValue( 'executionId' ) );
             const action = {
                 name: 'tiltNegative',
                 parameters: [ 3, 1 ]
             };
-            Tahoma.executeDeviceAction( deviceData.label, deviceData.deviceURL, action )
-                .then( result =>
-                {
-                    this.setStoreValue( 'executionId', result.execId );
-                    this.setCapabilityValue( 'windowcoverings_tilt_down', value );
-                    if ( callback ) callback( null, value );
-                } )
-                .catch( error =>
-                {
-                    console.log( error.message, error.stack );
-                } );
-        }
-        else
-        {
-            this.setCapabilityValue( 'windowcoverings_tilt_down', value );
+            let result = await Tahoma.executeDeviceAction( deviceData.label, deviceData.deviceURL, action )
+            this.setStoreValue( 'executionId', result.execId );
         }
     }
 
-    onCapabilityMyPosition( value, opts, callback )
+    async onCapabilityMyPosition( value, opts )
     {
-        const deviceData = this.getData();
         if ( !opts || !opts.fromCloudSync )
         {
+            const deviceData = this.getData();
+            await Tahoma.cancelExecution( this.getStoreValue( 'executionId' ) );
             const action = {
                 name: 'my'
             };
-            Tahoma.executeDeviceAction( deviceData.label, deviceData.deviceURL, action )
-                .then( result =>
-                {
-                    this.setStoreValue( 'executionId', result.execId );
-                    this.setCapabilityValue( 'my_position', value );
-                    if ( callback ) callback( null, value );
-                } )
-                .catch( error =>
-                {
-                    console.log( error.message, error.stack );
-                } );
-        }
-        else
-        {
-            this.setCapabilityValue( 'my_position', value );
+            let result = await Tahoma.executeDeviceAction( deviceData.label, deviceData.deviceURL, action )
+            this.setStoreValue( 'executionId', result.execId );
         }
     }
 
@@ -234,32 +155,40 @@ class WindowCoveringsDevice extends Device
     {
         const device = data.find( deviceHelper.isSameDevice( this.getData().id ), this );
 
-        if ( device && device.states )
+        if ( device )
         {
-            //device exists -> let's sync the state of the device
-            const states = device.states
-                .filter( state => state.name === 'core:OpenClosedState' || state.name === this.closureStateName ) // Anders pull request
-                .map( state =>
-                {
-                    const value = this.windowcoveringsStatesMap[ state.value ] ? this.windowcoveringsStatesMap[ state.value ] : state.value;
-                    return {
-                        name: state.name === 'core:OpenClosedState' ? 'openClosedState' : 'closureState',
-                        value
-                    };
-                } );
+            if ( device.states )
+            {
+                //device exists -> let's sync the state of the device
+                const states = device.states
+                    .filter( state => state.name === 'core:OpenClosedState' || state.name === this.closureStateName ) // Anders pull request
+                    .map( state =>
+                    {
+                        const value = this.windowcoveringsStatesMap[ state.value ] ? this.windowcoveringsStatesMap[ state.value ] : state.value;
+                        return {
+                            name: state.name === 'core:OpenClosedState' ? 'openClosedState' : 'closureState',
+                            value
+                        };
+                    } );
 
-            const closureState = states.find( state => state.name === 'closureState' );
-            const openClosedState = states.find( state => state.name === 'openClosedState' );
-            openClosedState.value = ( closureState.value !== 0 && closureState.value !== 100 ) ? 'idle' : openClosedState.value;
-            this.log( this.getName(), 'state', openClosedState.value, closureState.value );
-            this.triggerCapabilityListener( 'windowcoverings_state', openClosedState.value,
+                const closureState = states.find( state => state.name === 'closureState' );
+                const openClosedState = states.find( state => state.name === 'openClosedState' );
+                openClosedState.value = ( closureState.value !== 0 && closureState.value !== 100 ) ? 'idle' : openClosedState.value;
+                openClosedState.value = ( openClosedState.value === 'open' ? 'up' : openClosedState.value === 'closed' ? 'down' : openClosedState.value);
+                this.log( this.getName(), 'state', openClosedState.value, closureState.value );
+                this.triggerCapabilityListener( 'windowcoverings_state', openClosedState.value,
+                {
+                    fromCloudSync: true
+                } );
+                this.triggerCapabilityListener( 'windowcoverings_set', 1 - ( closureState.value / 100 ),
+                {
+                    fromCloudSync: true
+                } );
+            }
+            else if ( this.hasCapability( 'windowcoverings_state' ) )
             {
-                fromCloudSync: true
-            } );
-            this.triggerCapabilityListener( 'windowcoverings_set', 1 - ( closureState.value / 100 ),
-            {
-                fromCloudSync: true
-            } );
+                this.setCapabilityValue( 'windowcoverings_state', null );
+            }
         }
         else
         {

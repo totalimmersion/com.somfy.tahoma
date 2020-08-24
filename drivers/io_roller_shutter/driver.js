@@ -16,7 +16,6 @@ class RollerShutterDriver extends Driver {
       'io:MicroModuleRollerShutterSomfyIOComponent'
     ];
   }
-
 }
 
 module.exports = RollerShutterDriver;

@@ -22,7 +22,6 @@ class InteriorVenetianBlindDriver extends Driver {
         })
    
   }
-
 }
 
 module.exports = InteriorVenetianBlindDriver;

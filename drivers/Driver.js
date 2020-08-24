@@ -40,7 +40,8 @@ class Driver extends Homey.Driver {
               data: {
                 id: device.oid,
                 deviceURL: device.deviceURL,
-                label: device.label
+                label: device.label,
+                controllableName: device.controllableName
               }
             }
           ));

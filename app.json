@@ -52,6 +52,15 @@
       "title": {
         "en": "My Position"
       }
+    },
+    "silent_mode": {
+      "type": "boolean",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "toggle",
+      "title": {
+        "en": "Quiet Mode"
+      }
     }
   },
   "drivers": [
@@ -460,6 +469,11 @@
         "windowcoverings_tilt_down",
         "my_position"
       ],
+      "capabilitiesOptions":{
+        "windowcoverings_state":{
+          "setable": false
+        }
+      },
       "pair": [
         {
           "id": "list_my_devices",
@@ -514,11 +528,6 @@
       "capabilities": [
         "windowcoverings_state"
       ],
-      "capabilitiesOptions": {
-        "windowcoverings_state": {
-          "getable": false
-        }
-      },
       "pair": [
         {
           "id": "list_my_devices",

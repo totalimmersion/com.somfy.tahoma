@@ -12,9 +12,6 @@ class InteriorVenetianBlindDevice extends WindowCoveringsDevice
     {
         super.onInit();
 
-        // From Anders pull request
-        this.closureActionName = 'close';
-        this.openActionName = 'open';
         this.closureStateName = '';
     }
 }

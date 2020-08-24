@@ -23,7 +23,7 @@ class HorizontalAwningDevice extends WindowCoveringsDevice {
     };
 
     // From Anders pull request
-    this.closureActionName = 'setPosition';
+    this.setPositionActionName = 'setPosition';
     this.closureStateName = 'core:DeploymentState';
   }
 }
