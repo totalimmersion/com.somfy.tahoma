@@ -102,5 +102,9 @@
     "1.6.5":
     {
         "en": "* Added a data log to the app configuration screen to make it easier to provide the data required to add a new device."
+    },
+    "1.6.6":
+    {
+        "en": "* Added a Quiet Mode for io:RollerShutterWithLowSpeedManagementIOComponent.\nTidy up of old code."
     }
 }
