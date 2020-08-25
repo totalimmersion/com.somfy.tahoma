@@ -105,6 +105,10 @@
     },
     "1.6.6":
     {
-        "en": "* Added a Quiet Mode for io:RollerShutterWithLowSpeedManagementIOComponent.\nTidy up of old code."
+        "en": "* Added a Quiet Mode for io:RollerShutterWithLowSpeedManagementIOComponent.\n* Tidy up of old code."
+    },
+    "1.6.7":
+    {
+        "en": "* Fix for Quiet Mode not working in normal mode"
     }
 }

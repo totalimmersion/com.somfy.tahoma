@@ -83,14 +83,7 @@ class WindowCoveringsDevice extends Device
             if ( this.setPositionActionName === 'setPositionAndLinearSpeed' )
             {
                 // Add slow speed option if silent mode is selected
-                if ( this.silentMode )
-                {
-                    action.parameters.push( "lowspeed" );
-                }
-                else
-                {
-                    action.parameters.push( "normalspeed" );
-                }
+                action.parameters.push( "lowspeed" );
             }
             let result = await Tahoma.executeDeviceAction( deviceData.label, deviceData.deviceURL, action )
             this.setStoreValue( 'executionId', result.execId );

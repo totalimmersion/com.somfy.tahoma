@@ -33,6 +33,14 @@ class RollerShutterDevice extends WindowCoveringsDevice {
     async onCapabilitySilentMode( value, opts )
     {
         this.silentMode = value;
+        if ( value )
+        {
+            this.setPositionActionName = 'setPositionAndLinearSpeed';
+        }
+        else
+        {
+            this.setPositionActionName = 'setClosure';
+        }
     }
 }
 
