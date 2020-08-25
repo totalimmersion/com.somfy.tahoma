@@ -109,6 +109,6 @@
     },
     "1.6.7":
     {
-        "en": "* Fix for Quiet Mode not working in normal mode"
+        "en": "* Separated Roller Shutter Quiet (io) from other Roller Shutter (io) devices\n* Added action card for quite mode.\n* Fix for Quiet Mode not working when switched off."
     }
 }

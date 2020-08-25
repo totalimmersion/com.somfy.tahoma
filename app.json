@@ -154,7 +154,7 @@
     {
       "id": "io_roller_shutter",
       "name": {
-        "en": "Roller shutter(io)",
+        "en": "Roller shutter (io)",
         "nl": "Rolluik (io)"
       },
       "images": {
@@ -165,6 +165,36 @@
       "capabilities": [
         "windowcoverings_state",
         "windowcoverings_set"
+      ],
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "io_roller_shutter_quiet",
+      "name": {
+        "en": "Roller shutter Quiet (io)",
+        "nl": "Rolluik Stille (io)"
+      },
+      "images": {
+        "large": "/drivers/io_roller_shutter/assets/images/large.png",
+        "small": "/drivers/io_roller_shutter/assets/images/small.png"
+      },
+      "class": "blinds",
+      "capabilities": [
+        "windowcoverings_state",
+        "windowcoverings_set",
+        "silent_mode"
       ],
       "pair": [
         {
@@ -971,6 +1001,40 @@
             "name": "device",
             "type": "device",
             "filter": "driver_id=rts_interior_venetian_blind"
+          }
+        ]
+      },
+      {
+        "id": "set_quite_mode",
+        "title": {
+          "en": "Quiet mode",
+          "nl": "Stille modus"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=io_roller_shutter_quite"
+          },
+          {
+            "name": "state",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "on",
+                "label": {
+                  "en": "On",
+                  "nl": "aan"
+                }
+              },
+              {
+                "id": "off",
+                "label": {
+                  "en": "Off",
+                  "nl": "uit"
+                }
+              }
+            ]
           }
         ]
       }
