@@ -59,7 +59,8 @@
       "setable": true,
       "uiComponent": "toggle",
       "title": {
-        "en": "Quiet Mode"
+        "en": "Quiet Mode",
+        "nl": "Stille modus"
       }
     }
   },
