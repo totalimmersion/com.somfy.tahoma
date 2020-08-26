@@ -118,5 +118,9 @@
     "1.6.9":
     {
         "en": "* Fix crash when adding new Roller Shutter Quiet (io)."
+    },
+    "1.6.10":
+    {
+        "en": "* Added simulator to help debug devices."
     }
 }
