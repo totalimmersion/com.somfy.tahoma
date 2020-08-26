@@ -23,8 +23,8 @@ class RollerShutterDeviceQuiet extends WindowCoveringsDevice
             this.setPositionActionName = 'setClosure';
         }
 
-        let setQuiteModeAction = new Homey.FlowCardAction( 'set_quite_mode' );
-        setQuiteModeAction
+        let setQuietModeAction = new Homey.FlowCardAction( 'set_quiet_mode' );
+        setQuietModeAction
             .register()
             .registerRunListener( async ( args, state ) =>
             {

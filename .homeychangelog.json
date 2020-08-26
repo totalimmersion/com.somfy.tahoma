@@ -114,5 +114,9 @@
     "1.6.8":
     {
         "en": "* Added Dutch translation for Quite mode."
+    },
+    "1.6.9":
+    {
+        "en": "* Fix crash when adding new Roller Shutter Quiet (io)."
     }
 }

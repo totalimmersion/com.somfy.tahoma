@@ -10,7 +10,7 @@
     "en": "Somfy TaHoma for Homey",
     "nl": "Somfy TaHoma voor Homey"
   },
-  "version": "1.6.8",
+  "version": "1.6.9",
   "compatibility": ">=2.0.0",
   "author": {
     "name": "Immersion Apps"
@@ -1006,7 +1006,7 @@
         ]
       },
       {
-        "id": "set_quite_mode",
+        "id": "set_quiet_mode",
         "title": {
           "en": "Quiet mode",
           "nl": "Stille modus"
@@ -1015,7 +1015,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=io_roller_shutter_quite"
+            "filter": "driver_id=io_roller_shutter_quiet"
           },
           {
             "name": "state",
