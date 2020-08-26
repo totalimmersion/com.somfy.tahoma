@@ -26,7 +26,7 @@ class WindowCoveringsDevice extends Device
         // From Anders pull request
         this.closureStateName = 'core:ClosureState';
         this.setPositionActionName =  'setClosure';
-        this.silentMode = false;
+        this.quietMode = false;
 
         this.registerCapabilityListener( 'windowcoverings_state', this.onCapabilityWindowcoveringsState.bind( this ) );
         this.registerCapabilityListener( 'windowcoverings_set', this.onCapabilityWindowcoveringsSet.bind( this ) );
@@ -83,7 +83,7 @@ class WindowCoveringsDevice extends Device
 
             if ( this.setPositionActionName === 'setPositionAndLinearSpeed' )
             {
-                // Add slow speed option if silent mode is selected
+                // Add low speed option if quiet mode is selected
                 action.parameters.push( "lowspeed" );
             }
 

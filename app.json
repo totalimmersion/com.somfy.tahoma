@@ -53,7 +53,7 @@
         "en": "My Position"
       }
     },
-    "silent_mode": {
+    "quiet_mode": {
       "type": "boolean",
       "getable": true,
       "setable": true,
@@ -195,7 +195,7 @@
       "capabilities": [
         "windowcoverings_state",
         "windowcoverings_set",
-        "silent_mode"
+        "quiet_mode"
       ],
       "pair": [
         {
@@ -1018,7 +1018,7 @@
             "filter": "driver_id=io_roller_shutter_quiet"
           },
           {
-            "name": "state",
+            "name": "newQuietMode",
             "type": "dropdown",
             "values": [
               {

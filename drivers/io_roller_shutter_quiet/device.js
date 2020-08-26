@@ -12,9 +12,10 @@ class RollerShutterDeviceQuiet extends WindowCoveringsDevice
     {
         super.onInit();
 
-        this.registerCapabilityListener( 'silent_mode', this.onCapabilitySilentMode.bind( this ) );
-        this.silentMode = this.getCapabilityValue( 'silent_mode' );
-        if ( this.silentMode )
+        this.registerCapabilityListener( 'quiet_mode', this.onCapabilityQuietMode.bind( this ) );
+
+        this.quietMode = this.getCapabilityValue( 'quiet_mode' );
+        if ( this.quietMode )
         {
             this.setPositionActionName = 'setPositionAndLinearSpeed';
         }
@@ -22,20 +23,11 @@ class RollerShutterDeviceQuiet extends WindowCoveringsDevice
         {
             this.setPositionActionName = 'setClosure';
         }
-
-        let setQuietModeAction = new Homey.FlowCardAction( 'set_quiet_mode' );
-        setQuietModeAction
-            .register()
-            .registerRunListener( async ( args, state ) =>
-            {
-                await args.device.onCapabilitySilentMode( args.state == 'on', null );
-                return args.device.setCapabilityValue( 'silent_mode', args.state == 'on' );
-            } )
     }
 
-    async onCapabilitySilentMode( value, opts )
+    async onCapabilityQuietMode( value, opts )
     {
-        this.silentMode = value;
+        this.quietMode = value;
         if ( value )
         {
             this.setPositionActionName = 'setPositionAndLinearSpeed';

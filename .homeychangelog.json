@@ -109,11 +109,11 @@
     },
     "1.6.7":
     {
-        "en": "* Separated Roller Shutter Quiet (io) from other Roller Shutter (io) devices\n* Added action card for quite mode.\n* Fix for Quiet Mode not working when switched off."
+        "en": "* Separated Roller Shutter Quiet (io) from other Roller Shutter (io) devices\n* Added action card for quiet mode.\n* Fix for Quiet Mode not working when switched off."
     },
     "1.6.8":
     {
-        "en": "* Added Dutch translation for Quite mode."
+        "en": "* Added Dutch translation for Quiet mode."
     },
     "1.6.9":
     {
