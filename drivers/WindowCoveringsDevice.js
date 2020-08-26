@@ -48,6 +48,7 @@ class WindowCoveringsDevice extends Device
             else
             {
                 await Tahoma.cancelExecution( this.getStoreValue( 'executionId' ) );
+
                 const action = {
                     name: this.windowcoveringsActions[ value ],
                     parameters: []
@@ -85,6 +86,7 @@ class WindowCoveringsDevice extends Device
                 // Add slow speed option if silent mode is selected
                 action.parameters.push( "lowspeed" );
             }
+
             let result = await Tahoma.executeDeviceAction( deviceData.label, deviceData.deviceURL, action )
             this.setStoreValue( 'executionId', result.execId );
         }
@@ -101,6 +103,7 @@ class WindowCoveringsDevice extends Device
         {
             const deviceData = this.getData();
             await Tahoma.cancelExecution( this.getStoreValue( 'executionId' ) );
+
             const action = {
                 name: 'tiltPositive',
                 parameters: [ 3, 1 ]
@@ -169,10 +172,12 @@ class WindowCoveringsDevice extends Device
                 openClosedState.value = ( closureState.value !== 0 && closureState.value !== 100 ) ? 'idle' : openClosedState.value;
                 openClosedState.value = ( openClosedState.value === 'open' ? 'up' : openClosedState.value === 'closed' ? 'down' : openClosedState.value);
                 this.log( this.getName(), 'state', openClosedState.value, closureState.value );
+                
                 this.triggerCapabilityListener( 'windowcoverings_state', openClosedState.value,
                 {
                     fromCloudSync: true
                 } );
+
                 this.triggerCapabilityListener( 'windowcoverings_set', 1 - ( closureState.value / 100 ),
                 {
                     fromCloudSync: true
