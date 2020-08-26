@@ -72,3 +72,6 @@ typings/
 # sublime
 /com.somfy.tahoma.sublime-project
 /com.somfy.tahoma.sublime-workspace
+
+# VS config file
+/.vs
