@@ -55,6 +55,7 @@ class myApp extends Homey.App
         if ( Homey.ManagerSettings.get( 'logEnabled' ) )
         {
             let logData = devices;
+            let i = 1;
             devices.forEach( element =>
             {
                 delete element[ "creationTime" ];
@@ -62,7 +63,7 @@ class myApp extends Homey.App
                 delete element[ "shortcut" ];
                 delete element[ "deviceURL" ];
                 delete element[ "placeOID" ];
-                delete element[ "oid" ];
+                element[ "oid" ] = "temp" + i++;
             } );
             Homey.ManagerSettings.set( 'diagLog', logData );
             Homey.ManagerSettings.set( 'logEnabled', false );
