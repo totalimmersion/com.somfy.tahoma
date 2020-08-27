@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\drivers",
+    "\\drivers\\io_light_sensor",
+    "\\lib",
+    "\\lib\\helper",
+    "\\settings"
   ],
-  "SelectedNode": "\\app.js",
+  "SelectedNode": "\\drivers\\Driver.js",
   "PreviewInSolutionExplorer": false
 }

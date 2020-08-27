@@ -192,11 +192,12 @@
         "small": "/drivers/io_roller_shutter/assets/images/small.png"
       },
       "class": "blinds",
-      "capabilities": [
-        "windowcoverings_state",
-        "windowcoverings_set",
-        "quiet_mode"
-      ],
+        "capabilities": [
+          "windowcoverings_state",
+          "windowcoverings_set",
+          "my_position",
+          "quiet_mode"
+        ],
       "pair": [
         {
           "id": "list_my_devices",
@@ -1001,7 +1002,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=rts_interior_venetian_blind"
+            "filter": "driver_id=rts_interior_venetian_blind&io_roller_shutter_quiet"
           }
         ]
       },
