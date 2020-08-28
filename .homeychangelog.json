@@ -122,5 +122,9 @@
     "1.6.10":
     {
         "en": "* Added simulator to help debug devices."
+    },
+    "1.6.11":
+    {
+        "en": "* Added My button to io:RollerShutterWithLowSpeedManagementIOComponent.\n* Convert Up / Down commands to quiet move command for io:RollerShutterWithLowSpeedManagementIOComponent."
     }
 }
