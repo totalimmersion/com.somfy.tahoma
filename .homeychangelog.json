@@ -126,5 +126,9 @@
     "1.6.11":
     {
         "en": "* Added My button to io:RollerShutterWithLowSpeedManagementIOComponent.\n* Convert Up / Down commands to quiet move command for io:RollerShutterWithLowSpeedManagementIOComponent."
+    },
+    "1.6.12":
+    {
+        "en": "io:RollerShutterWithLowSpeedManagementIOComponent:\n * Reversed quite Up/Down.\n * Fixed My flowcard\n * Added quiet mode to My position.\n* io:GarageOpenerIOComponent: Added position control."
     }
 }

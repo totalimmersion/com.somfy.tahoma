@@ -1,45 +1,62 @@
-'use strict';
+"use strict";
 
-const WindowCoveringsDevice = require('../WindowCoveringsDevice');
+const WindowCoveringsDevice = require("../WindowCoveringsDevice");
 
 /**
  * Device class for roller shutters with the io:RollerShutterWithLowSpeedManagementIOComponent controllable name in TaHoma
  * @extends {WindowCoveringsDevice}
  */
 class RollerShutterDeviceQuiet extends WindowCoveringsDevice {
-    onInit() {
-        super.onInit();
+  onInit() {
+    super.onInit();
 
-        if (!this.hasCapability('my_position')) {
-            this.addCapability('my_position');
-        }
-
-        this.registerCapabilityListener('quiet_mode', this.onCapabilityQuietMode.bind(this));
-
-        this.quietMode = this.getCapabilityValue('quiet_mode');
-        if (this.quietMode) {
-            this.setPositionActionName = 'setPositionAndLinearSpeed';
-        } else {
-            this.setPositionActionName = 'setClosure';
-        }
+    if (!this.hasCapability("my_position")) {
+      this.addCapability("my_position");
     }
 
-    async onCapabilityQuietMode(value, opts) {
-        this.quietMode = value;
-        if (value) {
-            this.setPositionActionName = 'setPositionAndLinearSpeed';
-        } else {
-            this.setPositionActionName = 'setClosure';
-        }
-    }
+    this.registerCapabilityListener(
+      "quiet_mode",
+      this.onCapabilityQuietMode.bind(this)
+    );
 
-    async onCapabilityWindowcoveringsState(value, opts) {
-        if (!opts.fromCloudSync && (this.setPositionActionName === 'setPositionAndLinearSpeed') && ((value === 'up') || (value === 'down'))) {
-            super.onCapabilityWindowcoveringsSet(value === 'up' ? 1 : 0, opts);
-        } else {
-            super.onCapabilityWindowcoveringsState(value, opts);
-        }
+    this.quietMode = this.getCapabilityValue("quiet_mode");
+    if (this.quietMode) {
+      this.setPositionActionName = "setPositionAndLinearSpeed";
+    } else {
+      this.setPositionActionName = "setClosure";
     }
+  }
+
+  async onCapabilityQuietMode(value, opts) {
+    this.quietMode = value;
+    if (value) {
+      this.setPositionActionName = "setPositionAndLinearSpeed";
+    } else {
+      this.setPositionActionName = "setClosure";
+    }
+  }
+
+  async onCapabilityWindowcoveringsState(value, opts) {
+    if (
+      !opts.fromCloudSync &&
+      this.setPositionActionName === "setPositionAndLinearSpeed" &&
+      (value === "up" || value === "down")
+    ) {
+      super.onCapabilityWindowcoveringsSet(value === "up" ? 1 : 0, opts);
+    } else {
+      super.onCapabilityWindowcoveringsState(value, opts);
+    }
+  }
+
+  async onCapabilityMyPosition(value, opts) {
+    if (
+      !opts.fromCloudSync &&
+      this.setPositionActionName === "setPositionAndLinearSpeed") {
+      super.onCapabilityWindowcoveringsSet(0.14, opts);
+    } else {
+      super.onCapabilityMyPosition(value, opts);
+    }
+  }
 }
 
 module.exports = RollerShutterDeviceQuiet;
