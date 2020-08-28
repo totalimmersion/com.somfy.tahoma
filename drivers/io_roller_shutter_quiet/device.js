@@ -35,7 +35,7 @@ class RollerShutterDeviceQuiet extends WindowCoveringsDevice {
 
     async onCapabilityWindowcoveringsState(value, opts) {
         if (!opts.fromCloudSync && (this.setPositionActionName === 'setPositionAndLinearSpeed') && ((value === 'up') || (value === 'down'))) {
-            super.onCapabilityWindowcoveringsSet(value === 'up' ? 0 : 1, opts);
+            super.onCapabilityWindowcoveringsSet(value === 'up' ? 1 : 0, opts);
         } else {
             super.onCapabilityWindowcoveringsState(value, opts);
         }
