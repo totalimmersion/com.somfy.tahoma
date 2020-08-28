@@ -613,7 +613,8 @@
       },
       "class": "blinds",
       "capabilities": [
-        "windowcoverings_state"
+        "windowcoverings_state",
+        "windowcoverings_set"
       ],
       "pair": [
         {
@@ -1002,7 +1003,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=rts_interior_venetian_blind&io_roller_shutter_quiet"
+            "filter": "driver_id=rts_interior_venetian_blind|io_roller_shutter_quiet"
           }
         ]
       },

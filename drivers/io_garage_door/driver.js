@@ -6,7 +6,7 @@ const Driver = require('../Driver');
  * Driver class for exterior venetian blinds with the io:ExteriorVenetianBlindIOComponent controllable name in TaHoma
  * @extends {Driver}
  */
-class InteriorBlindDriver extends Driver {
+class GarageDoorIOdDriver extends Driver {
 
   onInit() {
     this.deviceType = ['io:GarageOpenerIOComponent'];
@@ -14,4 +14,4 @@ class InteriorBlindDriver extends Driver {
 
 }
 
-module.exports = InteriorBlindDriver;
+module.exports = GarageDoorIOdDriver;
