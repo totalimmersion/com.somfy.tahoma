@@ -2,11 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\drivers",
-    "\\drivers\\io_light_sensor",
-    "\\lib",
-    "\\lib\\helper",
-    "\\settings"
+    "\\lib\\helper"
   ],
-  "SelectedNode": "\\drivers\\Driver.js",
+  "SelectedNode": "\\.gitignore",
   "PreviewInSolutionExplorer": false
 }
