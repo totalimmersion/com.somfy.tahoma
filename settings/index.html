@@ -111,7 +111,7 @@
     <!-- Tab links -->
     <div class="tab">
         <button class="tablinks" onclick="setPage(event, 'settings')" id="defaultOpen">Settings</button>
-        <button class="tablinks" onclick="setPage(event, 'log')">Log</button>
+        <button class="tablinks" onclick="setPage(event, 'log')">Device Log</button>
         <button class="tablinks" onclick="setPage(event, 'simulator')">Simulation Data</button>
     </div>
 
@@ -160,7 +160,6 @@
     <!-- LOG PAGE -->
     <div id="log" class="tabcontent">
         <fieldset>
-            <h1>Data Log</h1>
             <p>Use this if you have a device that is not supported.</p>
             <p>Set the Log Enable option and wait for the data to appear. Then send the log.</p>
             <p>Contact @Adrian_Rockall on the community forum to describe which device is not supported.</p>
@@ -181,10 +180,7 @@
     <!--SIMULATION PAGE -->
     <div id="simulator" class="tabcontent">
         <fieldset>
-            <h1>Data Log</h1>
-            <p>For debug use only</p>
-        </fieldset>
-        <fieldset>
+            <h1>For debug use only</h1>
             <p><button id="useSim">Activate</button><button id="clearSim">Clear Sim</button></p>
             <div class="field row">
                 <textarea id="simData"></textarea>
@@ -288,7 +284,7 @@
 
                 Homey.get('diagLog', function (err, diagLog) {
                     if (err) return Homey.alert(err);
-                    diagLogElement.value = JSON.stringify(diagLog, null, 2);
+                    diagLogElement.value = diagLog ? JSON.stringify(diagLog, null, 2) : "";
                 });
 
                 // Make the log text area fill the page
@@ -299,7 +295,7 @@
             if (tabPage == 'simulator') {
                 Homey.get('simData', function (err, simData) {
                     if (err) return Homey.alert(err);
-                    simDataElement.value = JSON.stringify(simData, null, 2);
+                    simDataElement.value = simData ? JSON.stringify(simData, null, 2) : "";
                 });
 
                 // Make the simulator text box fill the page

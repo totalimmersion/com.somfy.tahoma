@@ -14,7 +14,7 @@ class LightSensorDevice extends SensorDevice {
   onInit() {
     this.registerCapabilityListener('measure_luminance', this.onCapabilityMeasureLuminance.bind(this));
 
-   		super.onInit();
+    super.onInit();
   }
 
   onCapabilityMeasureLuminance(value) {
@@ -27,7 +27,7 @@ class LightSensorDevice extends SensorDevice {
         'luminance': value
       };
 
-      const state  = {
+      const state = {
         'measure_luminance': value
       };
 
@@ -42,9 +42,9 @@ class LightSensorDevice extends SensorDevice {
   }
 
   /**
-	 * Gets the sensor data from the TaHoma cloud
-	 * @param {Array} data - device data from all the devices in the TaHoma cloud
-	 */
+   * Gets the sensor data from the TaHoma cloud
+   * @param {Array} data - device data from all the devices in the TaHoma cloud
+   */
   sync(data) {
     const device = data.find(deviceHelper.isSameDevice(this.getData().id), this);
     if (!device) {
@@ -52,21 +52,13 @@ class LightSensorDevice extends SensorDevice {
       return;
     }
 
-    const range = 15 * 60 * 1000; //range of 15 minutes
-    const to = Date.now();
-    const from = to - range;
-
-    Tahoma.getDeviceStateHistory(this.getDeviceUrl(), 'core:LuminanceState', from, to)
-      .then(data => {
-        //process result
-        if (data.historyValues && data.historyValues.length > 0) {
-          const { value } = genericHelper.getLastItemFrom(data.historyValues);
-          this.triggerCapabilityListener('measure_luminance', value);
-        }
-      })
-      .catch(error => {
-        console.log(error.message, error.stack);
-      });
+    if (device.states) {
+      const luminance = device.states.find(state => state.name === 'core:LuminanceState');
+      if (luminance) {
+        this.log(this.getName(), luminance.value);
+        this.triggerCapabilityListener('measure_luminance', luminance.value);
+      }
+    }
   }
 }
 

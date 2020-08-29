@@ -18,20 +18,19 @@ class WindowCoveringsDevice extends Device {
 
         this.windowcoveringsStatesMap = {
             open: 'up',
-            closed: 'down'
+            closed: 'down',
+            unknown: 'idle'
         };
 
-        // From Anders pull request
         this.closureStateName = 'core:ClosureState';
         this.setPositionActionName = 'setClosure';
+        this.openClosedStateName = 'core:OpenClosedState';
         this.quietMode = false;
 
         this.registerCapabilityListener('windowcoverings_state', this.onCapabilityWindowcoveringsState.bind(this));
         this.registerCapabilityListener('windowcoverings_set', this.onCapabilityWindowcoveringsSet.bind(this));
-        this.registerCapabilityListener('windowcoverings_tilt_up', this.onCapabilityWindowcoveringsTiltUp.bind(
-            this));
-        this.registerCapabilityListener('windowcoverings_tilt_down', this.onCapabilityWindowcoveringsTiltDown.bind(
-            this));
+        this.registerCapabilityListener('windowcoverings_tilt_up', this.onCapabilityWindowcoveringsTiltUp.bind(this));
+        this.registerCapabilityListener('windowcoverings_tilt_down', this.onCapabilityWindowcoveringsTiltDown.bind(this));
         this.registerCapabilityListener('my_position', this.onCapabilityMyPosition.bind(this));
         super.onInit();
     }
@@ -134,44 +133,45 @@ class WindowCoveringsDevice extends Device {
         if (device) {
             if (device.states) {
                 //device exists -> let's sync the state of the device
-                const states = device.states
-                    .filter(state => state.name === 'core:OpenClosedState' || state.name === this
-                        .closureStateName) // Anders pull request
-                    .map(state => {
-                        const value = this.windowcoveringsStatesMap[state.value] ? this
-                            .windowcoveringsStatesMap[state.value] : state.value;
-                        return {
-                            name: state.name === 'core:OpenClosedState' ? 'openClosedState' : 'closureState',
-                            value
-                        };
-                    });
+                const closureState = device.states.find(state => state.name === this.closureStateName);
+                const openClosedState = device.states.find(state => state.name === this.openClosedStateName);
 
-                if (states.length > 0) {
-                    const closureState = states.find(state => state.name === 'closureState');
-                    const openClosedState = states.find(state => state.name === 'openClosedState');
-                    openClosedState.value = (closureState.value !== 0 && closureState.value !== 100) ? 'idle' : openClosedState.value;
-                    openClosedState.value = (openClosedState.value === 'open' ? 'up' : openClosedState.value === 'closed' ? 'down' : openClosedState.value);
-
-                    if (this.unavailable) {
-                        this.unavailable = false;
-                        this.setAvailable();
+                if (openClosedState) {
+                    // Convert Tahoma states to Homey equivalent
+                    if (closureState && (closureState.value !== 0) && (closureState.value !== 100)) {
+                        // Not fully open or closed
+                        openClosedState.value = 'idle';
+                    } else {
+                        openClosedState.value = this.windowcoveringsStatesMap[openClosedState.value];
                     }
+                }
 
-                    this.log(this.getName(), 'state', openClosedState.value, closureState.value);
+                if (this.unavailable) {
+                    this.unavailable = false;
+                    this.setAvailable();
+                }
 
+                this.log(this.getName(), 'state', openClosedState ? openClosedState.value : 'N/A', closureState ? closureState.value : 'N/A');
+
+                if (openClosedState) {
                     this.triggerCapabilityListener('windowcoverings_state', openClosedState.value, {
                         fromCloudSync: true
                     });
+                }
 
+                if (closureState) {
                     this.triggerCapabilityListener('windowcoverings_set', 1 - (closureState.value / 100), {
                         fromCloudSync: true
                     });
                 }
             } else if (this.hasCapability('windowcoverings_state')) {
+                // RTS devices have no feedback
                 if (this.unavailable) {
                     this.unavailable = false;
                     this.setAvailable();
                 }
+
+                this.log(this.getName(), " No device status");
 
                 this.setCapabilityValue('windowcoverings_state', null);
             }
@@ -181,6 +181,7 @@ class WindowCoveringsDevice extends Device {
                 this.unavailable = true;
                 this.setUnavailable("Data not detected");
             }
+            this.log(this.getName(), " No device data");
         }
     }
 }

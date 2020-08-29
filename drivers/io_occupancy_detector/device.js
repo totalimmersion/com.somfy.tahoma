@@ -27,7 +27,7 @@ class OccupancyDetectorDevice extends SensorDevice {
         'isMotion': value
       };
 
-      const state  = {
+      const state = {
         'alarm_motion': value
       };
 
@@ -40,9 +40,9 @@ class OccupancyDetectorDevice extends SensorDevice {
   }
 
   /**
-	 * Gets the sensor data from the TaHoma cloud
-	 * @param {Array} data - device data from all the devices in the TaHoma cloud
-	 */
+   * Gets the sensor data from the TaHoma cloud
+   * @param {Array} data - device data from all the devices in the TaHoma cloud
+   */
   sync(data) {
     const device = data.find(deviceHelper.isSameDevice(this.getData().id), this);
 
@@ -51,21 +51,13 @@ class OccupancyDetectorDevice extends SensorDevice {
       return;
     }
 
-    const range = 15 * 60 * 1000; //range of 15 minutes
-    const to = Date.now();
-    const from = to - range;
-
-    Tahoma.getDeviceStateHistory(this.getDeviceUrl(), 'core:OccupancyState', from, to)
-      .then(data => {
-        //process result
-        if (data.historyValues && data.historyValues.length > 0) {
-          const { value } = genericHelper.getLastItemFrom(data.historyValues);
-          this.triggerCapabilityListener('alarm_motion', value === 'personInside');
-        }
-      })
-      .catch(error => {
-        console.log(error.message, error.stack);
-      });
+    if (device.states) {
+      const contactState = device.states.find(state => state.name === 'core:OccupancyState');
+      if (contactState) {
+        this.log(this.getName(), contactState.value);
+        this.triggerCapabilityListener('alarm_motion', contactState.value === 'personInside');
+      }
+    }
   }
 }
 
