@@ -1,3 +1,5 @@
+env.json
+
 # Logs
 logs
 *.log
@@ -75,4 +77,3 @@ typings/
 
 # VS config file
 /.vs/
-env.json
