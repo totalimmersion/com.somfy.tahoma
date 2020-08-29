@@ -75,7 +75,7 @@ class OneAlarmDevice extends SensorDevice {
                     if (callback) callback(null, value);
                 })
                 .catch(error => {
-                    console.log(error.message, error.stack);
+                    Homey.app.logError("onCapabilityAlarmArmedState: " + JSON.stringify(error) + '\n');
                 });
         } else {
             this.setCapabilityValue('homealarm_state', value);

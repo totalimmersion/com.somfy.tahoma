@@ -16,7 +16,7 @@ module.exports = [
           callback(null, result);
         })
         .catch(error => {
-          console.log(error.message, error.stack);
+          Homey.app.logError("API POST login: " + JSON.stringify(error) + '\n');
           callback(error);
         });
     }
@@ -33,7 +33,7 @@ module.exports = [
           callback(null, result);
         })
         .catch(error => {
-          console.log(error.message, error.stack);
+          Homey.app.logError("API POST logout: " + JSON.stringify(error) + '\n');
           callback(error);
         });
     }

@@ -103,7 +103,6 @@
 
             doStuff();
         }
-
     </script>
 </head>
 
@@ -111,6 +110,7 @@
     <!-- Tab links -->
     <div class="tab">
         <button class="tablinks" onclick="setPage(event, 'settings')" id="defaultOpen">Settings</button>
+        <button class="tablinks" onclick="setPage(event, 'errorLog')">Error Log</button>
         <button class="tablinks" onclick="setPage(event, 'log')">Device Log</button>
         <button class="tablinks" onclick="setPage(event, 'simulator')">Simulation Data</button>
     </div>
@@ -157,7 +157,18 @@
         </fieldset>
     </div>
 
-    <!-- LOG PAGE -->
+    <!-- ERROR LOG PAGE -->
+    <div id="errorLog" class="tabcontent">
+        <fieldset>
+            <p>Shows error encountered.</p>
+            <p><button id="clearErrorLog">Clear Log</button></p>
+            <div class="field row">
+                <textarea id="errorLogData"></textarea>
+            </div>
+        </fieldset>
+    </div>
+
+    <!-- DEVICE LOG PAGE -->
     <div id="log" class="tabcontent">
         <fieldset>
             <p>Use this if you have a device that is not supported.</p>
@@ -168,8 +179,6 @@
                 <label for="logEnabled">Log Enabled</label>
                 <input id="logEnabled" type="checkbox" value="logEnabled" />
             </div>
-        </fieldset>
-        <fieldset>
             <p><button id="clearLog">Clear Log</button><button id="sendLog">Send Log</button></p>
             <div class="field row">
                 <textarea id="diagLog"></textarea>
@@ -189,6 +198,8 @@
     </div>
 
     <script type="text/javascript">
+        var errorLogElement = document.getElementById('errorLogData');
+        var clearErrorLogElement = document.getElementById('clearErrorLog');
         var diagLogElement = document.getElementById('diagLog');
         var logEnabledElement = document.getElementById('logEnabled');
         var clearLogElement = document.getElementById('clearLog');
@@ -202,6 +213,10 @@
             document.getElementById("defaultOpen").click();
 
             Homey.on('settings.set', function () {
+                Homey.get('errorLog', function (err, errorLog) {
+                    if (err) return Homey.alert(err);
+                    errorLogElement.value = JSON.stringify(errorLog, null, 2);
+                });
                 Homey.get('diagLog', function (err, diagLog) {
                     if (err) return Homey.alert(err);
                     diagLogElement.value = JSON.stringify(diagLog, null, 2);
@@ -210,6 +225,13 @@
                     if (err) return Homey.alert(err);
                     logEnabledElement.checked = logEnabled;
                 });
+            });
+
+            clearErrorLogElement.addEventListener('click', function (e) {
+                Homey.set('errorLog', "", function (err) {
+                    if (err) return Homey.alert(err);
+                });
+                errorLogElement.value = "";
             });
 
             logEnabledElement.addEventListener('click', function (e) {
@@ -275,6 +297,18 @@
             document.getElementById(tabPage).style.display = "block";
             evt.currentTarget.className += " active";
 
+            if (tabPage == 'errorLog') {
+                // Refresh the log data
+                Homey.get('errorLog', function (err, errorLog) {
+                    if (err) return Homey.alert(err);
+                    errorLogElement.value = errorLog ? JSON.stringify(errorLog, null, 2) : "";
+                });
+
+                // Make the log text area fill the page
+                errorLogElement.setAttribute('cols', errorLogElement.parentElement.clientWidth / 8);
+                errorLogElement.style.height = (window.innerHeight - errorLogElement.offsetTop - 20) + 'px';
+            }
+
             if (tabPage == 'log') {
                 // Refresh the log data
                 Homey.get('logEnabled', function (err, logEnabled) {
@@ -303,7 +337,6 @@
                 simDataElement.style.height = (window.innerHeight - simDataElement.offsetTop - 20) + 'px';
             }
         };
-
     </script>
 </body>
 
