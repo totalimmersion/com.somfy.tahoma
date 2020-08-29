@@ -3,8 +3,7 @@
 const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
 
-module.exports = [
-  {
+module.exports = [{
     description: 'Authenticate TaHoma',
     method: 'POST',
     path: '/login/',
@@ -16,7 +15,7 @@ module.exports = [
           callback(null, result);
         })
         .catch(error => {
-          Homey.app.logError("API POST login: " + JSON.stringify(error) + '\n');
+          Homey.app.logError("API POST login", error);
           callback(error);
         });
     }
@@ -33,9 +32,37 @@ module.exports = [
           callback(null, result);
         })
         .catch(error => {
-          Homey.app.logError("API POST logout: " + JSON.stringify(error) + '\n');
+          Homey.app.logError("API POST logout", error);
           callback(error);
         });
+    }
+  },
+  {
+    description: 'Send device log',
+    method: 'POST',
+    path: '/SendDeviceLog/',
+    fn: function (args, callback) {
+      Homey.app.sendLog('deviceLog')
+      .then( result => {
+        return callback(result.error, result.message);
+      })
+      .catch( error => {
+        return callback(error, null );
+      });
+    }
+  },
+  {
+    description: 'Send error log',
+    method: 'POST',
+    path: '/SendErrorLog/',
+    fn: function (args, callback) {
+      Homey.app.sendLog('errorLog')
+      .then( result => {
+        return callback(result.error, result.message);
+      })
+      .catch( error => {
+        return callback(error, null );
+      });
     }
   }
 ];

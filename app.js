@@ -8,6 +8,7 @@ const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
 const syncManager = require('./lib/sync');
 const nodemailer = require("nodemailer");
+const { isArray } = require('util');
 
 const INITIAL_SYNC_INTERVAL = 10; //interval of 10 seconds
 
@@ -25,10 +26,15 @@ class myApp extends Homey.App {
         this.log(`${Homey.app.manifest.id} running...`);
         Homey.ManagerSettings.set('diagLog', "");
         Homey.ManagerSettings.set('logEnabled', false);
+        let logData = [];
+        Homey.ManagerSettings.set('errorLog', logData);
 
         process.on('unhandledRejection', (reason, p) => {
-            let message = 'Unhandled Rejection at: Promise: ' + p + 'reason: ' + reason + '\n';
-            this.logError(message);
+
+            this.logError('Unhandled Rejection', {
+                'reason': reason,
+                'promise': p
+            });
         });
 
         this.addScenarioActionListeners();
@@ -39,9 +45,6 @@ class myApp extends Homey.App {
 
         Homey.ManagerSettings.on('set', (setting) => {
             if (setting === 'syncInterval') this.initSync();
-            if (setting === 'sendLog' && (Homey.ManagerSettings.get('sendLog') === "send") && (Homey.ManagerSettings.get('diagLog') !== "")) {
-                return this.sendLog();
-            }
         });
 
         Homey.on('settings.set', this.initSync);
@@ -51,9 +54,10 @@ class myApp extends Homey.App {
 
     logDevices(devices) {
         if (Homey.ManagerSettings.get('logEnabled')) {
-            let logData = devices;
+            // Do a deep copy
+            let logData = JSON.parse(JSON.stringify(devices));
             let i = 1;
-            devices.forEach(element => {
+            logData.forEach(element => {
                 delete element["creationTime"];
                 delete element["lastUpdateTime"];
                 delete element["shortcut"];
@@ -61,26 +65,48 @@ class myApp extends Homey.App {
                 delete element["placeOID"];
                 element["oid"] = "temp" + i++;
             });
-            Homey.ManagerSettings.set('diagLog', logData);
+            Homey.ManagerSettings.set('diagLog', {
+                "devices": logData
+            });
             Homey.ManagerSettings.set('logEnabled', false);
             Homey.ManagerSettings.unset('sendLog');
         }
     }
 
-    logError(message) {
-        console.log(message);
+    logError(source, error) {
+        console.log(source, error);
+        let err = {message: error.message, stack: error.stack};
 
         let logData = Homey.ManagerSettings.get('errorLog');
-        logData += message;
+        if (!isArray(logData))
+        {
+            logData = [];
+        }
+        logData.push({
+            'source': source,
+            'error': err
+        });
+        if (logData.length > 50) {
+            logData.splice(0, 1);
+        }
         Homey.ManagerSettings.set('errorLog', logData);
     }
 
-    async sendLog() {
+    async sendLog(logType) {
         let tries = 5;
         console.log("Send Log");
 
         while (tries-- > 0) {
             try {
+                let subject = "";
+                let text = "";
+                if (logType === 'errorLog') {
+                    subject = "Tahoma error log";
+                    text = JSON.stringify(Homey.ManagerSettings.get('errorLog'), null, 2);
+                } else {
+                    subject = "Tahoma device log";
+                    text = JSON.stringify(Homey.ManagerSettings.get('diagLog'), null, 2);
+                }
                 // create reusable transporter object using the default SMTP transport
                 let transporter = nodemailer.createTransport({
                     host: Homey.env.MAIL_HOST, //Homey.env.MAIL_HOST,
@@ -101,17 +127,18 @@ class myApp extends Homey.App {
                 let info = await transporter.sendMail({
                     from: '"Homey User" <' + Homey.env.MAIL_USER + '>', // sender address
                     to: Homey.env.MAIL_RECIPIENT, // list of receivers
-                    subject: "Tahoma device log", // Subject line
-                    text: JSON.stringify(Homey.ManagerSettings.get('diagLog'), null, 2) // plain text body
+                    subject: subject, // Subject line
+                    text: text // plain text body
                 });
 
                 // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
                 // Preview only available when sending through an Ethereal account
                 console.log("Preview URL: ", nodemailer.getTestMessageUrl(info));
-                return "";
+                return {error: null, message: "OK"};
             } catch (err) {
-                this.logError("Send log error: " + JSON.stringify(err) + '\n');
+                this.logError("Send log error", err);
+                return {error: err, message: null};
             };
         }
     }
@@ -153,7 +180,7 @@ class myApp extends Homey.App {
                             name
                         }) => name.toLowerCase().indexOf(query.toLowerCase()) > -1))
                     .catch(error => {
-                        this.logError("addScenarioActionListeners: " + JSON.stringify(error) + '\n');
+                        this.logError("addScenarioActionListeners", error);
                     });
             });
     }

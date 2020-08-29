@@ -2,8 +2,6 @@
 
 const SensorDevice = require('../SensorDevice');
 const Tahoma = require('../../lib/Tahoma');
-const genericHelper = require('../../lib/helper').Generic;
-const deviceHelper = require('../../lib/helper').Device;
 
 /**
  * Device class for the opening detector with the io:SomfymotionIOSystemSensor controllable name in TaHoma
@@ -44,7 +42,8 @@ class OccupancyDetectorDevice extends SensorDevice {
    * @param {Array} data - device data from all the devices in the TaHoma cloud
    */
   sync(data) {
-    const device = data.find(deviceHelper.isSameDevice(this.getData().id), this);
+    let thisId = this.getData().id;
+    const device = data.find(device => device.oid === thisId);
 
     if (!device) {
       this.setUnavailable(null);

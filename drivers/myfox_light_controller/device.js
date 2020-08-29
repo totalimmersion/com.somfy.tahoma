@@ -2,8 +2,6 @@
 
 const SensorDevice = require('../SensorDevice');
 const Tahoma = require('../../lib/Tahoma');
-const genericHelper = require('../../lib/helper').Generic;
-const deviceHelper = require('../../lib/helper').Device;
 
 /**
  * Device class for the light controller with the myfox:LightController controllable name in TaHoma
@@ -43,7 +41,7 @@ class myFoxLightControllerDevice extends SensorDevice {
                     if (callback) callback(null, value);
                 })
                 .catch(error => {
-                    Homey.app.logError("onCapabilityOnOff: " + JSON.stringify(error) + '\n');
+                    Homey.app.logError("onCapabilityOnOff", error);
                 });
         } else {
             this.setCapabilityValue('onoff', (value == true));
@@ -57,7 +55,8 @@ class myFoxLightControllerDevice extends SensorDevice {
      * @param {Array} data - device data from all the devices in the TaHoma cloud
      */
     sync(data) {
-        const device = data.find(deviceHelper.isSameDevice(this.getData().id), this);
+        let thisId = this.getData().id;
+        const device = data.find(device => device.oid === thisId);
 
         if (!device) {
             this.setUnavailable(null);

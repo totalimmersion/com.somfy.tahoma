@@ -161,7 +161,7 @@
     <div id="errorLog" class="tabcontent">
         <fieldset>
             <p>Shows error encountered.</p>
-            <p><button id="clearErrorLog">Clear Log</button></p>
+            <p><button id="clearErrorLog">Clear Log</button><button id="sendErrorLog">Send Log</button></p>
             <div class="field row">
                 <textarea id="errorLogData"></textarea>
             </div>
@@ -179,7 +179,7 @@
                 <label for="logEnabled">Log Enabled</label>
                 <input id="logEnabled" type="checkbox" value="logEnabled" />
             </div>
-            <p><button id="clearLog">Clear Log</button><button id="sendLog">Send Log</button></p>
+            <p><button id="clearLog">Clear Log</button><button id="sendDeviceLog">Send Log</button></p>
             <div class="field row">
                 <textarea id="diagLog"></textarea>
             </div>
@@ -200,10 +200,11 @@
     <script type="text/javascript">
         var errorLogElement = document.getElementById('errorLogData');
         var clearErrorLogElement = document.getElementById('clearErrorLog');
+        var sendErrorLogElement = document.getElementById('sendErrorLog');
         var diagLogElement = document.getElementById('diagLog');
         var logEnabledElement = document.getElementById('logEnabled');
         var clearLogElement = document.getElementById('clearLog');
-        var sendLogElement = document.getElementById('sendLog');
+        var sendDeviceLogElement = document.getElementById('sendDeviceLog');
 
         var useSimElement = document.getElementById('useSim');
         var clearSimElement = document.getElementById('clearSim');
@@ -247,11 +248,29 @@
                 diagLogElement.value = "";
             });
 
-            sendLogElement.addEventListener('click', function (e) {
-                Homey.confirm("Send the log contents to the developer?", null, function (e, ok) {
+            sendDeviceLogElement.addEventListener('click', function (e) {
+                Homey.confirm("Send the device log contents to the developer?", null, function (e, ok) {
                     if (ok) {
-                        Homey.set('sendLog', "send", function (err) {
-                            if (err) return Homey.alert(err);
+                        Homey.api('POST', '/SendDeviceLog/', {
+                            notify: true
+                        }, function (err, result) {
+                            if (err) {
+                                return Homey.alert(err);
+                            }
+                        });
+                    }
+                });
+            });
+
+            sendErrorLogElement.addEventListener('click', function (e) {
+                Homey.confirm("Send the error log contents to the developer?", null, function (e, ok) {
+                    if (ok) {
+                        Homey.api('POST', '/SendErrorLog/', {
+                            notify: true
+                        }, function (err, result) {
+                            if (err) {
+                                return Homey.alert(err);
+                            }
                         });
                     }
                 });

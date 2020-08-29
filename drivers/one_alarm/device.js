@@ -2,8 +2,6 @@
 
 const SensorDevice = require('../SensorDevice');
 const Tahoma = require('../../lib/Tahoma');
-const genericHelper = require('../../lib/helper').Generic;
-const deviceHelper = require('../../lib/helper').Device;
 
 /**
  * Device class for the opening detector with the io:SomfyContactIOSystemSensor controllable name in TaHoma
@@ -75,7 +73,7 @@ class OneAlarmDevice extends SensorDevice {
                     if (callback) callback(null, value);
                 })
                 .catch(error => {
-                    Homey.app.logError("onCapabilityAlarmArmedState: " + JSON.stringify(error) + '\n');
+                    Homey.app.logError("onCapabilityAlarmArmedState", error);
                 });
         } else {
             this.setCapabilityValue('homealarm_state', value);
@@ -89,7 +87,8 @@ class OneAlarmDevice extends SensorDevice {
      * @param {Array} data - device data from all the devices in the TaHoma cloud
      */
     sync(data) {
-        const device = data.find(deviceHelper.isSameDevice(this.getData().id), this);
+        let thisId = this.getData().id;
+        const device = data.find(device => device.oid === thisId);
 
         if (!device) {
             this.setUnavailable(null);

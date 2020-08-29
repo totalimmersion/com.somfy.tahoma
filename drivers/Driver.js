@@ -19,7 +19,7 @@ class Driver extends Homey.Driver {
             this.onReceiveSetupData(tahomaData, callback);
           })
           .catch(error => {
-            Homey.app.logError("OnPair: " + JSON.stringify(error) + '\n');
+            Homey.app.logError("OnPair", error);
             callback(error);
           });
       })
@@ -46,7 +46,7 @@ class Driver extends Homey.Driver {
         callback(null, homeyDevices);
       }
     } catch (error) {
-      Homey.app.logError("OnReceiveSetupData: " + JSON.stringify(error) + '\n');
+      Homey.app.logError("OnReceiveSetupData", error);
       callback(error);
     }
   }
@@ -64,7 +64,7 @@ class Driver extends Homey.Driver {
         .trigger(device, tokens, state)
         .then(this.log)
         .catch(error => {
-          Homey.app.logError("triggerFlow: " + JSON.stringify(error) + '\n');
+          Homey.app.logError("triggerFlow", error);
         });
     }
   }

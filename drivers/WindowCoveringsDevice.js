@@ -2,7 +2,6 @@
 
 const Device = require('./Device');
 const Tahoma = require('../lib/Tahoma');
-const deviceHelper = require('../lib/helper').Device;
 
 /**
  * Base class for window coverings devices
@@ -128,7 +127,8 @@ class WindowCoveringsDevice extends Device {
      * @param {Array} data - device data from all the devices in the TaHoma cloud
      */
     sync(data) {
-        const device = data.find(deviceHelper.isSameDevice(this.getData().id), this);
+        let thisId = this.getData().id;
+        const device = data.find(device => device.oid === thisId);
 
         if (device) {
             if (device.states) {

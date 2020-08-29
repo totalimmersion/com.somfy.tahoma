@@ -2,8 +2,6 @@
 
 const SensorDevice = require('../SensorDevice');
 const Tahoma = require('../../lib/Tahoma');
-const genericHelper = require('../../lib/helper').Generic;
-const deviceHelper = require('../../lib/helper').Device;
 
 /**
  * Device class for the light sensor with the io:LightIOSystemSensor controllable name in TaHoma
@@ -46,7 +44,8 @@ class LightSensorDevice extends SensorDevice {
    * @param {Array} data - device data from all the devices in the TaHoma cloud
    */
   sync(data) {
-    const device = data.find(deviceHelper.isSameDevice(this.getData().id), this);
+    let thisId = this.getData().id;
+    const device = data.find(device => device.oid === thisId);
     if (!device) {
       this.setUnavailable(null);
       return;
@@ -56,7 +55,10 @@ class LightSensorDevice extends SensorDevice {
       const luminance = device.states.find(state => state.name === 'core:LuminanceState');
       if (luminance) {
         this.log(this.getName(), luminance.value);
-        this.triggerCapabilityListener('measure_luminance', luminance.value);
+        const oldLuminance = this.getState().measure_luminance;
+        if (oldLuminance !== luminance.value) {
+            this.triggerCapabilityListener('measure_luminance', luminance.value);
+        }
       }
     }
   }
