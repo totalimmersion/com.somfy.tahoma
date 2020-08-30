@@ -133,6 +133,10 @@
     },
     "1.6.14":
     {
-        "en": "* io:RollerShutterWithLowSpeedManagementIOComponent: Fixed Move to My position flow card\n* Added Dutch translation for My Position button and flow card"
+        "en": "* Added Dutch translation for My Position button and flow card"
+    },
+    "1.6.15":
+    {
+        "en": "* io:RollerShutterWithLowSpeedManagementIOComponent: Fixed Move to My position flow card"
     }
 }

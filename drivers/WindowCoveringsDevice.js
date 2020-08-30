@@ -36,7 +36,7 @@ class WindowCoveringsDevice extends Device {
     }
 
     async onCapabilityWindowcoveringsState(value, opts) {
-        if (!opts.fromCloudSync) {
+        if (!opts || !opts.fromCloudSync) {
             const deviceData = this.getData();
             if (value === 'idle' && this.getStoreValue('executionId')) {
                 Tahoma.cancelExecution(this.getStoreValue('executionId'));
@@ -72,7 +72,7 @@ class WindowCoveringsDevice extends Device {
     }
 
     async onCapabilityWindowcoveringsSet(value, opts) {
-        if (!opts.fromCloudSync) {
+        if (!opts || !opts.fromCloudSync) {
             const deviceData = this.getData();
             const action = {
                 name: this.setPositionActionName, // Anders pull request
@@ -102,7 +102,7 @@ class WindowCoveringsDevice extends Device {
     }
 
     async onCapabilityWindowcoveringsTiltUp(value, opts) {
-        if (!opts.fromCloudSync) {
+        if (!opts || !opts.fromCloudSync) {
             const deviceData = this.getData();
             await Tahoma.cancelExecution(this.getStoreValue('executionId'));
 
@@ -125,7 +125,7 @@ class WindowCoveringsDevice extends Device {
     }
 
     async onCapabilityWindowcoveringsTiltDown(value, opts) {
-        if (!opts.fromCloudSync) {
+        if (!opts || !opts.fromCloudSync) {
             const deviceData = this.getData();
             await Tahoma.cancelExecution(this.getStoreValue('executionId'));
             const action = {
