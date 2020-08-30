@@ -129,6 +129,10 @@
     },
     "1.6.12":
     {
-        "en": "* io:RollerShutterWithLowSpeedManagementIOComponent:\n  * Reversed quite Up/Down.\n  * Fixed My flow card\n  * Added quiet mode to My position.\n* io:GarageOpenerIOComponent: Added position control."
+        "en": "* io:RollerShutterWithLowSpeedManagementIOComponent:\n  * Reversed quite Up/Down.\n  * Added quiet mode to My position.\n* io:GarageOpenerIOComponent: Added position control."
+    },
+    "1.6.13":
+    {
+        "en": "* io:RollerShutterWithLowSpeedManagementIOComponent: Fixed Move to My position flow card\n* Added Dutch translation for My Position button and flow card"
     }
 }
