@@ -30,10 +30,7 @@ class WindowHandleDevice extends SensorDevice {
 			};
 
 			//trigger flows
-			this.getDriver()
-				.triggerContactChange(device, tokens, state);
-			/*.triggerContactOpen(device, tokens, state)
-			.triggerContactClosed(device, tokens, state);*/
+			return this.getDriver().triggerContactChange(device, tokens, state);
 		}
 
 		return Promise.resolve();

@@ -1,5 +1,6 @@
 'use strict';
 
+const Homey = require('homey');
 const Device = require('./Device');
 const Tahoma = require('../lib/Tahoma');
 
@@ -47,7 +48,16 @@ class WindowCoveringsDevice extends Device {
                     parameters: []
                 }
                 let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-                this.setStoreValue('executionId', result.execId);
+                if (result.errorCode) {
+                    this.setWarning(result.errorCode + result.error);
+                    Homey.app.logError(this.getName(), {
+                        message: result.error,
+                        stack: result.errorCode
+                    });
+                    return Promise.reject(new Error(result.error));
+                } else {
+                    this.setStoreValue('executionId', result.execId);
+                }
             };
 
             if (!this.closureStateName) {
@@ -75,7 +85,16 @@ class WindowCoveringsDevice extends Device {
             }
 
             let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
-            this.setStoreValue('executionId', result.execId);
+            if (result.errorCode) {
+                this.setWarning(result.errorCode + result.error);
+                Homey.app.logError(this.getName(), {
+                    message: result.error,
+                    stack: result.errorCode
+                });
+                return Promise.reject(new Error(result.error));
+            } else {
+                this.setStoreValue('executionId', result.execId);
+            }
         } else {
             // New value from Tahoma
             this.setCapabilityValue('windowcoverings_set', value);
@@ -92,7 +111,16 @@ class WindowCoveringsDevice extends Device {
                 parameters: [3, 1]
             };
             let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
-            this.setStoreValue('executionId', result.execId);
+            if (result.errorCode) {
+                this.setWarning(result.errorCode + result.error);
+                Homey.app.logError(this.getName(), {
+                    message: result.error,
+                    stack: result.errorCode
+                });
+                return Promise.reject(new Error(result.error));
+            } else {
+                this.setStoreValue('executionId', result.execId);
+            }
         }
     }
 
@@ -105,7 +133,15 @@ class WindowCoveringsDevice extends Device {
                 parameters: [3, 1]
             };
             let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
-            this.setStoreValue('executionId', result.execId);
+            if (result.errorCode) {
+                Homey.app.logError(this.getName(), {
+                    message: result.error,
+                    stack: result.errorCode
+                });
+                return Promise.reject(new Error(result.error));
+            } else {
+                this.setStoreValue('executionId', result.execId);
+            }
         }
     }
 
@@ -116,8 +152,16 @@ class WindowCoveringsDevice extends Device {
             const action = {
                 name: 'my'
             };
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
-            this.setStoreValue('executionId', result.execId);
+            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            if (result.errorCode) {
+                Homey.app.logError(this.getName(), {
+                    message: result.error,
+                    stack: result.errorCode
+                });
+                return Promise.reject(new Error(result.error));
+            } else {
+                this.setStoreValue('executionId', result.execId);
+            }
         }
     }
 

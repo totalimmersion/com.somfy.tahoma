@@ -41,7 +41,7 @@ class myFoxLightControllerDevice extends SensorDevice {
                     if (callback) callback(null, value);
                 })
                 .catch(error => {
-                    Homey.app.logError("onCapabilityOnOff", error);
+                    Homey.app.logError(this.getName() + ": onCapabilityOnOff", error);
                 });
         } else {
             this.setCapabilityValue('onoff', (value == true));

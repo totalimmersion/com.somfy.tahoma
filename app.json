@@ -10,7 +10,7 @@
     "en": "Somfy TaHoma for Homey",
     "nl": "Somfy TaHoma voor Homey"
   },
-  "version": "1.6.12",
+  "version": "1.6.13",
   "compatibility": ">=2.0.0",
   "author": {
     "name": "Immersion Apps"
@@ -50,7 +50,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "My Position"
+        "en": "My Position",
+        "nl": "MY Positie"
       }
     },
     "quiet_mode": {
@@ -997,7 +998,8 @@
       {
         "id": "set_my_position",
         "title": {
-          "en": "Move to MY position"
+          "en": "Move to MY position",
+          "nl": "Zet de positie naar MY"
         },
         "args": [
           {

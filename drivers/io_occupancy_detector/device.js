@@ -30,8 +30,7 @@ class OccupancyDetectorDevice extends SensorDevice {
       };
 
       //trigger flows
-      this.getDriver()
-        .triggerMotionChange(device, tokens, state);
+      this.getDriver().triggerMotionChange(device, tokens, state);
     }
 
     return Promise.resolve();

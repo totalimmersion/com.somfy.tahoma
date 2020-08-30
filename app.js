@@ -164,7 +164,7 @@ class myApp extends Homey.App {
         /*** ADD FLOW ACTION LISTENERS ***/
         new Homey.FlowCardAction('activate_scenario')
             .register()
-            .registerRunListener(args => Tahoma.executeScenario(args.scenario.oid))
+            .registerRunListener(args => {return Tahoma.executeScenario(args.scenario.oid)})
             .getArgument('scenario')
             .registerAutocompleteListener(query => {
                 return Tahoma.getActionGroups()
