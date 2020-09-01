@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\drivers",
-    "\\lib\\helper"
+    "\\drivers\\io_garage_door",
+    "\\drivers\\io_roller_shutter_quiet"
   ],
-  "SelectedNode": "\\.gitignore",
+  "SelectedNode": "\\app.json",
   "PreviewInSolutionExplorer": false
 }
