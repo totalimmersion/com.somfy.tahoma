@@ -18,7 +18,7 @@ class RollerShutterQuietDriver extends Driver {
             .registerRunListener( async ( args, state ) => {
                 console.log( "set_quiet_mode" );
                 await args.device.onCapabilityQuietMode(args.newQuietMode == "on", null);
-                return await args.device.setCapabilityValue("quiet_mode", args.newQuietMode == "on");
+                return args.device.setCapabilityValue("quiet_mode", args.newQuietMode == "on");
             } )
 
         this.set_my_position = new Homey.FlowCardAction( 'set_my_position' );
@@ -27,7 +27,7 @@ class RollerShutterQuietDriver extends Driver {
             .registerRunListener( async ( args, state ) =>
             {
                 console.log( "set_my_position" );
-                args.device.onCapabilityMyPosition( true, null );
+                return args.device.onCapabilityMyPosition( true, null );
             } )
 
     }

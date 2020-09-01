@@ -2,8 +2,6 @@
 
 const SensorDevice = require('../SensorDevice');
 const Tahoma = require('../../lib/Tahoma');
-const genericHelper = require('../../lib/helper').Generic;
-const deviceHelper = require('../../lib/helper').Device;
 
 /**
  * Device class for the temperature sensor with the io:TemperatureIOSystemSensor controllable name in TaHoma
@@ -27,7 +25,7 @@ class TemperatureSensorDevice extends SensorDevice {
         'temperature': value
       };
 
-      const state  = {
+      const state = {
         'measure_temperature': value
       };
 
@@ -42,32 +40,25 @@ class TemperatureSensorDevice extends SensorDevice {
   }
 
   /**
-	 * Gets the sensor data from the TaHoma cloud
-	 * @param {Array} data - device data from all the devices in the TaHoma cloud
-	 */
+   * Gets the sensor data from the TaHoma cloud
+   * @param {Array} data - device data from all the devices in the TaHoma cloud
+   */
   sync(data) {
-    const device = data.find(deviceHelper.isSameDevice(this.getData().id), this);
+    let thisId = this.getData().id;
+    const device = data.find(device => device.oid === thisId);
 
     if (!device) {
       this.setUnavailable(null);
       return;
     }
 
-    const range = 15 * 60 * 1000; //range of 15 minutes
-    const to = Date.now();
-    const from = to - range;
-
-    Tahoma.getDeviceStateHistory(this.getDeviceUrl(), 'core:TemperatureState', from, to)
-      .then(data => {
-        //process result
-        if (data.historyValues && data.historyValues.length > 0) {
-          var { value } = genericHelper.getLastItemFrom(data.historyValues);
-          this.triggerCapabilityListener('measure_temperature', value);
-        }
-      })
-      .catch(error => {
-        console.log(error.message, error.stack);
-      });
+    if (device.states) {
+      const temperatureState = device.states.find(state => state.name === 'core:TemperatureState');
+      if (temperatureState) {
+        this.log(this.getName(), temperatureState.value);
+        this.triggerCapabilityListener('measure_temperature', temperatureState.value);
+      }
+    }
   }
 }
 

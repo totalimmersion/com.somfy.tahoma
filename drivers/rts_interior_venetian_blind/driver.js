@@ -17,8 +17,7 @@ class InteriorVenetianBlindDriver extends Driver {
         .register()
         .registerRunListener(async (args, state) => {
           console.log("set_my_position");
-          args.device.onCapabilityMyPosition(true, null);
-          // return await args.device.setCapabilityValue('motion_enabled', true); // Promise<void>
+          return args.device.onCapabilityMyPosition(true, null);
         })
    
   }

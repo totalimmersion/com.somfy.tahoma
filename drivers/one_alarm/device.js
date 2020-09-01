@@ -1,19 +1,15 @@
 'use strict';
 
-const SensorDevice = require( '../SensorDevice' );
-const Tahoma = require( '../../lib/Tahoma' );
-const genericHelper = require( '../../lib/helper' ).Generic;
-const deviceHelper = require( '../../lib/helper' ).Device;
+const SensorDevice = require('../SensorDevice');
+const Tahoma = require('../../lib/Tahoma');
 
 /**
  * Device class for the opening detector with the io:SomfyContactIOSystemSensor controllable name in TaHoma
  * @extends {SensorDevice}
  */
 
-class OneAlarmDevice extends SensorDevice
-{
-    onInit()
-    {
+class OneAlarmDevice extends SensorDevice {
+    onInit() {
         super.onInit();
         this.alarmArmedState = {
             armed: 'armed',
@@ -21,21 +17,19 @@ class OneAlarmDevice extends SensorDevice
             partial: 'partially_armed'
         };
 
-		this.alarmTriggeredStatesMap = {
+        this.alarmTriggeredStatesMap = {
             detected: 'detected',
             notDetected: 'notDetected'
         };
 
-        this.registerCapabilityListener( 'homealarm_state', this.onCapabilityAlarmArmedState.bind( this ) );
-        this.registerCapabilityListener( 'alarm_generic', this.onCapabilityAlarmTriggeredState.bind( this ) );
+        this.registerCapabilityListener('homealarm_state', this.onCapabilityAlarmArmedState.bind(this));
+        this.registerCapabilityListener('alarm_generic', this.onCapabilityAlarmTriggeredState.bind(this));
     }
 
-    onCapabilityAlarmTriggeredState( value )
-    {
+    onCapabilityAlarmTriggeredState(value) {
         const oldTriggeredState = this.getState().alarm_generic;
-        if ( oldTriggeredState !== value )
-        {
-            this.setCapabilityValue( 'alarm_generic', value );
+        if (oldTriggeredState !== value) {
+            this.setCapabilityValue('alarm_generic', value);
 
             const device = this;
             const tokens = {
@@ -50,107 +44,72 @@ class OneAlarmDevice extends SensorDevice
         return Promise.resolve();
     }
 
-    onCapabilityAlarmArmedState( value, opts, callback )
-    {
+    onCapabilityAlarmArmedState(value, opts, callback) {
         const deviceData = this.getData();
-        if ( !opts.fromCloudSync )
-        {
+        if (!opts.fromCloudSync) {
             var action;
-            if ( value == 'armed' )
-            {
+            if (value == 'armed') {
                 action = {
                     name: 'arm',
                     parameters: []
                 };
             }
-            if ( value == 'disarmed' )
-            {
+            if (value == 'disarmed') {
                 action = {
                     name: 'disarm',
                     parameters: []
                 };
             }
-            if ( value == 'partially_armed' )
-            {
+            if (value == 'partially_armed') {
                 action = {
                     name: 'partial',
                     parameters: []
                 };
             }
-            Tahoma.executeDeviceAction( deviceData.label, deviceData.deviceURL, action )
-                .then( result =>
-                {
-                    this.setStoreValue( 'executionId', result.execId );
-                    this.setCapabilityValue( 'homealarm_state', value );
-                    if ( callback ) callback( null, value );
-                } )
-                .catch( error =>
-                {
-                    console.log( error.message, error.stack );
-                } );
+            Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
+                .then(result => {
+                    this.setStoreValue('executionId', result.execId);
+                    this.setCapabilityValue('homealarm_state', value);
+                    if (callback) callback(null, value);
+                })
+                .catch(error => {
+                    Homey.app.logError(this.getName() + ": onCapabilityAlarmArmedState", error);
+                });
+        } else {
+            this.setCapabilityValue('homealarm_state', value);
         }
-        else
-        {
-            this.setCapabilityValue( 'homealarm_state', value );
-		}
-		
-		return Promise.resolve();
+
+        return Promise.resolve();
     }
 
     /**
      * Gets the sensor data from the TaHoma cloud
      * @param {Array} data - device data from all the devices in the TaHoma cloud
      */
-    sync( data )
-    {
-        const device = data.find( deviceHelper.isSameDevice( this.getData().id ), this );
+    sync(data) {
+        let thisId = this.getData().id;
+        const device = data.find(device => device.oid === thisId);
 
-        if ( !device )
-        {
-            this.setUnavailable( null );
+        if (!device) {
+            this.setUnavailable(null);
             return;
         }
 
-        const range = 15 * 60 * 1000; //range of 15 minutes
-        const to = Date.now();
-        const from = to - range;
+        if (device.states) {
+            const intrusionState = device.states.find(state => state.name === 'core:IntrusionState');
+            if (intrusionState) {
+                this.log(this.getName(), intrusionState.value);
+                this.triggerCapabilityListener('alarm_generic', intrusionState.value === 'detected');
+            }
 
-        Tahoma.getDeviceStateHistory( this.getDeviceUrl(), 'core:IntrusionState', from, to )
-            .then( data =>
-            {
-                //process result
-                if ( data.historyValues && data.historyValues.length > 0 )
-                {
-                    const
-                    {
-                        value
-                    } = genericHelper.getLastItemFrom( data.historyValues );
-                    this.triggerCapabilityListener( 'alarm_generic', value === 'detected' );
-                }
-            } )
-            .catch( error =>
-            {
-                console.log( error.message, error.stack );
-            } );
- 
-
-        const states = device.states
-            .filter( state => state.name === 'myfox:AlarmStatusState')
-            .map( state =>
-            {
-                const value = this.alarmArmedState[ state.value ] ? this.alarmArmedState[ state.value ] : state.value;
-                return {
-                    name: state.name === 'myfox:AlarmStatusState' ? 'armedState' : '',
-                    value
-                };
-            } );
-
-        const ArmedState = states.find( state => state.name === 'armedState' );
-        this.triggerCapabilityListener( 'homealarm_state', ArmedState.value,
-        {
-            fromCloudSync: true
-        } );
-
+            const alarmStatusState = device.states.find(state => state.name === 'myfox:AlarmStatusState');
+            if (alarmStatusState) {
+                this.log(this.getName(), alarmStatusState.value);
+                this.triggerCapabilityListener('homealarm_state', this.alarmArmedState[alarmStatusState.value], {
+                    fromCloudSync: true
+                });
+            }
+        }
     }
 }
 

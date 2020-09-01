@@ -30,7 +30,3 @@ Please go to the github page and create an issue or pull request with your sugge
 # Why is this app in the Community Store?
 This app was written by Lennart Kuijs. As Lennart is currently unable to work on the app I (Adrian Rockall) will try to maintain it for now.
 So version 1.6.0 onwards has additional devices and bug fixes by me and those submitted to GitHub by other developers.
-
-
-Icons made by <a href="https://www.flaticon.com/authors/those-icons" title="Those Icons">Those Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-Icons made by <a href="https://www.flaticon.com/free-icon/garage_1418005?term=garage%20door&page=2&position=30" title="Vitaly Gorbachev">Vitaly Gorbachev</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>

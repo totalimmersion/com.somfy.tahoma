@@ -2,8 +2,6 @@
 
 const SensorDevice = require('../SensorDevice');
 const Tahoma = require('../../lib/Tahoma');
-const genericHelper = require('../../lib/helper').Generic;
-const deviceHelper = require('../../lib/helper').Device;
 
 /**
  * Device class for the light sensor with the io:LightIOSystemSensor controllable name in TaHoma
@@ -14,7 +12,7 @@ class LightSensorDevice extends SensorDevice {
   onInit() {
     this.registerCapabilityListener('measure_luminance', this.onCapabilityMeasureLuminance.bind(this));
 
-   		super.onInit();
+    super.onInit();
   }
 
   onCapabilityMeasureLuminance(value) {
@@ -27,7 +25,7 @@ class LightSensorDevice extends SensorDevice {
         'luminance': value
       };
 
-      const state  = {
+      const state = {
         'measure_luminance': value
       };
 
@@ -42,31 +40,27 @@ class LightSensorDevice extends SensorDevice {
   }
 
   /**
-	 * Gets the sensor data from the TaHoma cloud
-	 * @param {Array} data - device data from all the devices in the TaHoma cloud
-	 */
+   * Gets the sensor data from the TaHoma cloud
+   * @param {Array} data - device data from all the devices in the TaHoma cloud
+   */
   sync(data) {
-    const device = data.find(deviceHelper.isSameDevice(this.getData().id), this);
+    let thisId = this.getData().id;
+    const device = data.find(device => device.oid === thisId);
     if (!device) {
       this.setUnavailable(null);
       return;
     }
 
-    const range = 15 * 60 * 1000; //range of 15 minutes
-    const to = Date.now();
-    const from = to - range;
-
-    Tahoma.getDeviceStateHistory(this.getDeviceUrl(), 'core:LuminanceState', from, to)
-      .then(data => {
-        //process result
-        if (data.historyValues && data.historyValues.length > 0) {
-          const { value } = genericHelper.getLastItemFrom(data.historyValues);
-          this.triggerCapabilityListener('measure_luminance', value);
+    if (device.states) {
+      const luminance = device.states.find(state => state.name === 'core:LuminanceState');
+      if (luminance) {
+        this.log(this.getName(), luminance.value);
+        const oldLuminance = this.getState().measure_luminance;
+        if (oldLuminance !== luminance.value) {
+            this.triggerCapabilityListener('measure_luminance', luminance.value);
         }
-      })
-      .catch(error => {
-        console.log(error.message, error.stack);
-      });
+      }
+    }
   }
 }
 
