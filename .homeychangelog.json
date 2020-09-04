@@ -138,5 +138,9 @@
     "1.6.15":
     {
         "en": "* io:RollerShutterWithLowSpeedManagementIOComponent: Fixed Move to My position flow card"
+    },
+    "1.6.16":
+    {
+        "en": "* Added io:AwningValanceIOComponent"
     }
 }

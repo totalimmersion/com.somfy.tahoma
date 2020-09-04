@@ -78,7 +78,7 @@ class myApp extends Homey.App {
         let err = {message: error.message, stack: error.stack};
 
         let logData = Homey.ManagerSettings.get('errorLog');
-        if (!isArray(logData))
+        if (!Array.isArray(logData))
         {
             logData = [];
         }
