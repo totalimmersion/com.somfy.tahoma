@@ -142,5 +142,9 @@
     "1.6.16":
     {
         "en": "* Added io:AwningValanceIOComponent"
+    },
+    "1.6.17":
+    {
+        "en": "* Use alternate commands for io:AwningValanceIOComponent"
     }
 }
