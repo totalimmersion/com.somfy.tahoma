@@ -146,5 +146,9 @@
     "1.6.18":
     {
         "en": "* Use alternate commands for io:AwningValanceIOComponent"
+    },
+    "1.6.19":
+    {
+        "en": "* Fix possible error for old io:HorizontalAwningIOComponent"
     }
 }
