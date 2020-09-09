@@ -1,14 +1,19 @@
 'use strict';
 
 if (process.env.DEBUG === '1') {
-    require('inspector').open(9222, '0.0.0.0', false)
+    require('inspector').open(9222, '0.0.0.0', true)
 }
 
 const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
-const syncManager = require('./lib/sync');
+//const syncManager = require('./lib/sync');
 const nodemailer = require("nodemailer");
-const { isArray } = require('util');
+const {
+    isArray
+} = require('util');
+const {
+    setTimeout
+} = require('timers');
 
 const INITIAL_SYNC_INTERVAL = 10; //interval of 10 seconds
 
@@ -24,17 +29,24 @@ class myApp extends Homey.App {
      */
     onInit() {
         this.log(`${Homey.app.manifest.id} running...`);
+        this.timerId = null;
+
         Homey.ManagerSettings.set('diagLog', "");
         Homey.ManagerSettings.set('logEnabled', false);
         let logData = [];
         Homey.ManagerSettings.set('errorLog', logData);
 
         process.on('unhandledRejection', (reason, p) => {
-
             this.logError('Unhandled Rejection', {
                 'reason': reason,
                 'promise': p
             });
+        });
+
+        Homey.on('unload', () => {
+            if (this.timerId) {
+                clearInterval(this.timerId);
+            }
         });
 
         this.addScenarioActionListeners();
@@ -75,11 +87,13 @@ class myApp extends Homey.App {
 
     logError(source, error) {
         console.log(source, error);
-        let err = {message: error.message, stack: error.stack};
+        let err = {
+            message: error.message,
+            stack: error.stack
+        };
 
         let logData = Homey.ManagerSettings.get('errorLog');
-        if (!Array.isArray(logData))
-        {
+        if (!Array.isArray(logData)) {
             logData = [];
         }
         logData.push({
@@ -131,10 +145,16 @@ class myApp extends Homey.App {
                     text: text // plain text body
                 });
 
-                return {error: null, message: "OK"};
+                return {
+                    error: null,
+                    message: "OK"
+                };
             } catch (err) {
                 this.logError("Send log error", err);
-                return {error: err, message: null};
+                return {
+                    error: err,
+                    message: null
+                };
             };
         }
     }
@@ -144,14 +164,68 @@ class myApp extends Homey.App {
      * with the interval as defined in the settings.
      */
     initSync() {
+        if (this.timerId) {
+            clearInterval(this.timerId);
+        }
+
         let interval = null;
         try {
             interval = Number(Homey.ManagerSettings.get('syncInterval'));
         } catch (e) {
             interval = INITIAL_SYNC_INTERVAL;
         }
-        syncManager.init(interval * 1000);
+
+        this.syncWithCloud(interval * 1000);
     }
+
+    async syncWithCloud(interval) {
+        try {
+            let data = await Tahoma.setup();
+            if (data.devices) {
+
+                this.logDevices(data.devices);
+
+                const drivers = Homey.ManagerDrivers.getDrivers();
+                for (const driver in drivers) {
+                    Homey.ManagerDrivers.getDriver(driver).getDevices().forEach(device => {
+                        try {
+                            device.sync(data.devices)
+                        } catch (error) {
+                            this.logError("Tahoma.setup", error);
+                        }
+                    })
+                }
+            }
+        } catch (error) {
+            console.log(error.message, error.stack);
+        }
+        this.timerId = setTimeout(() => this.syncWithCloud(interval), interval);
+
+        // Tahoma.setup()
+        //     .then(data => {
+        //         if (data.devices) {
+
+        //             Homey.app.logDevices(data.devices);
+
+        //             const drivers = Homey.ManagerDrivers.getDrivers();
+        //             for (const driver in drivers) {
+        //                 Homey.ManagerDrivers.getDriver(driver).getDevices().forEach(device => {
+        //                     try {
+        //                         device.sync(data.devices)
+        //                     } catch (error) {
+        //                         Homey.app.logError("Tahoma.setup", error);
+        //                     }
+        //                 })
+        //             }
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.log(error.message, error.stack);
+        //     })
+        //     .finally(() => {
+        //         _this.timerId = setTimeout(() => _this.syncWithCloud(interval), interval);
+        //     });
+    };
 
     /**
      * Adds a listener for flowcard scenario actions
@@ -160,7 +234,9 @@ class myApp extends Homey.App {
         /*** ADD FLOW ACTION LISTENERS ***/
         new Homey.FlowCardAction('activate_scenario')
             .register()
-            .registerRunListener(args => {return Tahoma.executeScenario(args.scenario.oid)})
+            .registerRunListener(args => {
+                return Tahoma.executeScenario(args.scenario.oid)
+            })
             .getArgument('scenario')
             .registerAutocompleteListener(query => {
                 return Tahoma.getActionGroups()
