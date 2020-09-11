@@ -63,6 +63,16 @@
         "en": "Quiet Mode",
         "nl": "Stille modus"
       }
+    },
+    "quick_open": {
+      "type": "boolean",
+      "uiQuickAction": true,
+      "getable": true,
+      "setable": true,
+      "uiComponent": null,
+      "title": {
+        "en": "Open"
+      }
     }
   },
   "drivers": [
@@ -79,7 +89,8 @@
       "class": "sunshade",
       "capabilities": [
         "windowcoverings_state",
-        "windowcoverings_set"
+        "windowcoverings_set",
+        "quick_open"
       ],
       "pair": [
         {
@@ -108,7 +119,8 @@
       "class": "blinds",
       "capabilities": [
         "windowcoverings_state",
-        "windowcoverings_set"
+        "windowcoverings_set",
+        "quick_open"
       ],
       "pair": [
         {
@@ -137,7 +149,8 @@
       "class": "sunshade",
       "capabilities": [
         "windowcoverings_state",
-        "windowcoverings_set"
+        "windowcoverings_set",
+        "quick_open"
       ],
       "pair": [
         {
@@ -166,7 +179,8 @@
       "class": "blinds",
       "capabilities": [
         "windowcoverings_state",
-        "windowcoverings_set"
+        "windowcoverings_set",
+        "quick_open"
       ],
       "pair": [
         {
@@ -197,7 +211,8 @@
           "windowcoverings_state",
           "windowcoverings_set",
           "my_position",
-          "quiet_mode"
+          "quiet_mode",
+          "quick_open"
         ],
       "pair": [
         {
@@ -226,7 +241,8 @@
       "class": "blinds",
       "capabilities": [
         "windowcoverings_state",
-        "windowcoverings_set"
+        "windowcoverings_set",
+        "quick_open"
       ],
       "pair": [
         {
@@ -255,7 +271,8 @@
       "class": "windowcoverings",
       "capabilities": [
         "windowcoverings_state",
-        "windowcoverings_set"
+        "windowcoverings_set",
+        "quick_open"
       ],
       "pair": [
         {
@@ -284,7 +301,8 @@
       "class": "sunshade",
       "capabilities": [
         "windowcoverings_state",
-        "windowcoverings_set"
+        "windowcoverings_set",
+        "quick_open"
       ],
       "pair": [
         {
@@ -587,7 +605,8 @@
       "class": "blinds",
       "capabilities": [
         "windowcoverings_state",
-        "windowcoverings_set"
+        "windowcoverings_set",
+        "quick_open"
       ],
       "pair": [
         {

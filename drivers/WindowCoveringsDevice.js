@@ -32,6 +32,7 @@ class WindowCoveringsDevice extends Device {
         this.registerCapabilityListener('windowcoverings_tilt_up', this.onCapabilityWindowcoveringsTiltUp.bind(this));
         this.registerCapabilityListener('windowcoverings_tilt_down', this.onCapabilityWindowcoveringsTiltDown.bind(this));
         this.registerCapabilityListener('my_position', this.onCapabilityMyPosition.bind(this));
+        this.registerCapabilityListener('quick_open', this.onCapabilityWindowcoveringsClosed.bind(this));
         super.onInit();
     }
 
@@ -68,6 +69,10 @@ class WindowCoveringsDevice extends Device {
         } else {
             // New value from Tahoma
             this.setCapabilityValue('windowcoverings_state', value);
+            if (this.hasCapability("quick_open"))
+            {
+                this.setCapabilityValue("quick_open", value !== "down")
+            }
         }
     }
 
@@ -165,6 +170,9 @@ class WindowCoveringsDevice extends Device {
         }
     }
 
+    async onCapabilityWindowcoveringsClosed(value, opts) {
+        return this.onCapabilityWindowcoveringsState(value ? 'up' : 'down', null)
+    }
 
     /**
      * Sync the state of the devices from the TaHoma cloud with Homey
