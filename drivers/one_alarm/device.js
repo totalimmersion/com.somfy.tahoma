@@ -9,7 +9,7 @@ const Tahoma = require('../../lib/Tahoma');
  */
 
 class OneAlarmDevice extends SensorDevice {
-    onInit() {
+    async onInit() {
         super.onInit();
         this.alarmArmedState = {
             armed: 'armed',
@@ -86,7 +86,7 @@ class OneAlarmDevice extends SensorDevice {
      * Gets the sensor data from the TaHoma cloud
      * @param {Array} data - device data from all the devices in the TaHoma cloud
      */
-    sync(data) {
+    async sync(data) {
         let thisId = this.getData().id;
         const device = data.find(device => device.oid === thisId);
 

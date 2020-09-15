@@ -8,7 +8,7 @@ const Driver = require('../Driver');
  */
 class InteriorBlindDriver extends Driver {
 
-  onInit() {
+  async onInit() {
     this.deviceType = ['rts:BlindRTSComponent'];
   }
 

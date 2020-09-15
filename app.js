@@ -1,7 +1,7 @@
 'use strict';
 
 if (process.env.DEBUG === '1') {
-    require('inspector').open(9222, '0.0.0.0', true)
+    require('inspector').open(9222, '0.0.0.0', false)
 }
 
 const Homey = require('homey');
@@ -189,7 +189,9 @@ class myApp extends Homey.App {
                 for (const driver in drivers) {
                     Homey.ManagerDrivers.getDriver(driver).getDevices().forEach(device => {
                         try {
-                            device.sync(data.devices)
+                            if (device.isReady()) {
+                                device.sync(data.devices)
+                            }
                         } catch (error) {
                             this.logError("Tahoma.setup", error);
                         }
@@ -200,31 +202,6 @@ class myApp extends Homey.App {
             console.log(error.message, error.stack);
         }
         this.timerId = setTimeout(() => this.syncWithCloud(interval), interval);
-
-        // Tahoma.setup()
-        //     .then(data => {
-        //         if (data.devices) {
-
-        //             Homey.app.logDevices(data.devices);
-
-        //             const drivers = Homey.ManagerDrivers.getDrivers();
-        //             for (const driver in drivers) {
-        //                 Homey.ManagerDrivers.getDriver(driver).getDevices().forEach(device => {
-        //                     try {
-        //                         device.sync(data.devices)
-        //                     } catch (error) {
-        //                         Homey.app.logError("Tahoma.setup", error);
-        //                     }
-        //                 })
-        //             }
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.log(error.message, error.stack);
-        //     })
-        //     .finally(() => {
-        //         _this.timerId = setTimeout(() => _this.syncWithCloud(interval), interval);
-        //     });
     };
 
     /**

@@ -9,7 +9,7 @@ const Driver = require( '../Driver' );
  */
 class myFoxLightControllerDriver extends Driver
 {
-    onInit()
+    async onInit()
     {
         this.deviceType = [ 'myfox:LightController' ];
     }

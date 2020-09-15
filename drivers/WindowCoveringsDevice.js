@@ -9,7 +9,18 @@ const Tahoma = require('../lib/Tahoma');
  * @extends {Device}
  */
 class WindowCoveringsDevice extends Device {
-    onInit() {
+    async onInit() {
+
+        this._driver = this.getDriver();
+
+        try{
+            await this.addCapability("lock_state");
+        }
+        catch(err){
+            this.log( err );
+        }
+
+
         this.windowcoveringsActions = {
             up: 'open',
             idle: null,
@@ -69,8 +80,7 @@ class WindowCoveringsDevice extends Device {
         } else {
             // New value from Tahoma
             this.setCapabilityValue('windowcoverings_state', value);
-            if (this.hasCapability("quick_open"))
-            {
+            if (this.hasCapability("quick_open")) {
                 this.setCapabilityValue("quick_open", value !== "down")
             }
         }
@@ -178,12 +188,32 @@ class WindowCoveringsDevice extends Device {
      * Sync the state of the devices from the TaHoma cloud with Homey
      * @param {Array} data - device data from all the devices in the TaHoma cloud
      */
-    sync(data) {
+    async sync(data) {
         let thisId = this.getData().id;
         const device = data.find(device => device.oid === thisId);
 
         if (device) {
             if (device.states) {
+
+                const lockState = device.states.find(state => state.name === "io:PriorityLockOriginatorState");
+                if (lockState) {
+                    if (!this.hasCapability("lock_state")) {
+                        await this.addCapability("lock_state");
+                    }
+
+                    if (!this._driver.lock_state_changedTrigger) {
+                        this._driver.lock_state_changedTrigger = new Homey.FlowCardTriggerDevice('lock_state_changed')
+                            .register()
+                    }
+
+                    this.setCapabilityValue("lock_state", lockState.value);
+                }
+                else{
+                    if (this.hasCapability("lock_state")) {
+                        await this.removeCapability("lock_state");
+                    }
+                }
+                //lock_state
                 //device exists -> let's sync the state of the device
                 const closureState = device.states.find(state => state.name === this.closureStateName);
                 const openClosedState = device.states.find(state => state.name === this.openClosedStateName);

@@ -9,7 +9,7 @@ const Driver = require('../Driver');
  */
 class LightSensorDriver extends Driver {
 
-  onInit() {
+  async onInit() {
     this.deviceType = ['io:LightIOSystemSensor'];
 
     /*** LUMINANCE TRIGGERS ***/

@@ -9,7 +9,7 @@ const Driver = require('../Driver');
  */
 class InteriorVenetianBlindDriver extends Driver {
 
-  onInit() {
+  async onInit() {
     this.deviceType = ['rts:VenetianBlindRTSComponent'];
 
     this.set_my_position = new Homey.FlowCardAction('set_my_position');

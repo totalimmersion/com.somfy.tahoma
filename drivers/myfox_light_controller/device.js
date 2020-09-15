@@ -9,7 +9,7 @@ const Tahoma = require('../../lib/Tahoma');
  */
 
 class myFoxLightControllerDevice extends SensorDevice {
-    onInit() {
+    async onInit() {
         super.onInit();
         this.lightState = {
             off: false,
@@ -54,7 +54,7 @@ class myFoxLightControllerDevice extends SensorDevice {
      * Gets the data from the TaHoma cloud
      * @param {Array} data - device data from all the devices in the TaHoma cloud
      */
-    sync(data) {
+    async sync(data) {
         let thisId = this.getData().id;
         const device = data.find(device => device.oid === thisId);
 

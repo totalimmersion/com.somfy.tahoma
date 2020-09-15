@@ -9,7 +9,7 @@ const Driver = require('../Driver');
  */
 class OpeningDetectorDriver extends Driver {
 
-  onInit() {
+  async onInit() {
     this.deviceType = ['io:SomfyContactIOSystemSensor'];
 
     /*** CONTACT TRIGGERS ***/

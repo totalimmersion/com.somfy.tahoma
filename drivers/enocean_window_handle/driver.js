@@ -9,7 +9,7 @@ const Driver = require('../Driver');
  */
 class WindowHandleDriver extends Driver {
 
-	onInit() {
+	async onInit() {
 		this.deviceType = ['enocean:EnOceanWindowHandle'];
 
 		/*** CONTACT TRIGGERS ***/

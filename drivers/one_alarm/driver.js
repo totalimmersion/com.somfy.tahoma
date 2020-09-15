@@ -9,7 +9,7 @@ const Driver = require( '../Driver' );
  */
 class OneAlarmDriver extends Driver
 {
-    onInit()
+    async onInit()
     {
         this.deviceType = [ 'myfox:SomfyProtectAlarmController' ];
 

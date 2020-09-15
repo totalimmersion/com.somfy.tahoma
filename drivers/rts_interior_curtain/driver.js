@@ -8,7 +8,7 @@ const Driver = require('../Driver');
  */
 class InteriorCurtainDriver extends Driver {
 
-  onInit() {
+  async onInit() {
     this.deviceType = ['rts:DualCurtainRTSComponent'];
   }
 

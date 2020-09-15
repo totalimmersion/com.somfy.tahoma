@@ -9,7 +9,7 @@ const Driver = require('../Driver');
  */
 class TemperatureSensorDriver extends Driver {
 
-  onInit() {
+  async onInit() {
     this.deviceType = ['io:TemperatureIOSystemSensor'];
 
     /*** TEMPERATURE TRIGGERS ***/

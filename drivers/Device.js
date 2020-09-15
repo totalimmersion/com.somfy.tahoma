@@ -8,8 +8,11 @@ const Homey = require('homey');
  */
 class Device extends Homey.Device {
 
-  onInit() {
+  async onInit() {
+    this._ready = false;
     this.log('Device init:', this.getName(), 'class:', this.getClass());
+
+    setTimeout(() => {this._ready = true}, Math.floor(Math.random() * 5000));
   }
 
   onAdded() {
@@ -21,22 +24,26 @@ class Device extends Homey.Device {
   }
 
   /**
-	 * Returns the TaHoma device url
-	 * @return {String}
-	 */
+   * Returns the TaHoma device url
+   * @return {String}
+   */
   getDeviceUrl() {
     return this.getData().deviceURL;
   }
 
   /**
-	 * Returns the io controllable name(s) of TaHoma
-	 * @return {Array} deviceType
-	 */
+   * Returns the io controllable name(s) of TaHoma
+   * @return {Array} deviceType
+   */
   getDeviceType() {
     return this.getDriver().getDeviceType();
   }
 
-  sync() {
+  isReady(){
+    return this._ready;
+  }
+
+  async sync() {
     throw new Error('sync() not implemented for device');
   }
 }

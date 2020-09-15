@@ -9,7 +9,7 @@ const Driver = require( "../Driver" );
  */
 class RollerShutterQuietDriver extends Driver {
 
-    onInit() {
+    async onInit() {
         this.deviceType = ["io:RollerShutterWithLowSpeedManagementIOComponent"];
 
         this.setQuietModeAction = new Homey.FlowCardAction("set_quiet_mode");

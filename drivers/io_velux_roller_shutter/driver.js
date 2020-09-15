@@ -8,7 +8,7 @@ const Driver = require('../Driver');
  */
 class VeluxRollerShutterDriver extends Driver {
 
-  onInit() {
+  async onInit() {
     this.deviceType = ['io:RollerShutterVeluxIOComponent'];
   }
 

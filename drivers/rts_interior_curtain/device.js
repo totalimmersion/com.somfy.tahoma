@@ -8,7 +8,7 @@ const WindowCoveringsDevice = require( '../WindowCoveringsDevice' );
  */
 class InteriorCurtainDevice extends WindowCoveringsDevice
 {
-    onInit()
+    async onInit()
     {
         super.onInit();
 

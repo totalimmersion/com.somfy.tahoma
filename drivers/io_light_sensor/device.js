@@ -9,7 +9,7 @@ const Tahoma = require('../../lib/Tahoma');
  */
 class LightSensorDevice extends SensorDevice {
 
-  onInit() {
+  async onInit() {
     this.registerCapabilityListener('measure_luminance', this.onCapabilityMeasureLuminance.bind(this));
 
     super.onInit();
@@ -43,7 +43,7 @@ class LightSensorDevice extends SensorDevice {
    * Gets the sensor data from the TaHoma cloud
    * @param {Array} data - device data from all the devices in the TaHoma cloud
    */
-  sync(data) {
+  async sync(data) {
     let thisId = this.getData().id;
     const device = data.find(device => device.oid === thisId);
     if (!device) {

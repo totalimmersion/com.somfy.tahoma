@@ -7,7 +7,7 @@ const WindowCoveringsDevice = require('../WindowCoveringsDevice');
  * @extends {WindowCoveringsDevice}
  */
 class RoofWindowDevice extends WindowCoveringsDevice {
-    onInit() {
+    async onInit() {
         super.onInit();
 
         if (!this.hasCapability("quick_open")) {

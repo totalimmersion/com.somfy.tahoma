@@ -8,7 +8,7 @@ const Driver = require('../Driver');
  */
 class HorizontalAwningDriver extends Driver {
 
-  onInit() {
+  async onInit() {
     this.deviceType = ['io:HorizontalAwningIOComponent', 'io:AwningValanceIOComponent'];
   }
 

@@ -8,7 +8,7 @@ const Driver = require('../Driver');
  */
 class VeluxInteriorBlindDriver extends Driver {
 
-  onInit() {
+  async onInit() {
     this.deviceType = ['io:VerticalInteriorBlindVeluxIOComponent'];
   }
 

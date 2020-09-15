@@ -8,7 +8,7 @@ const WindowCoveringsDevice = require( '../WindowCoveringsDevice' );
  */
 class InteriorVenetianBlindDevice extends WindowCoveringsDevice
 {
-    onInit()
+    async onInit()
     {
         super.onInit();
 

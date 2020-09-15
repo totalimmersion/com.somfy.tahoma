@@ -9,7 +9,7 @@ const Driver = require('../Driver');
  */
 class MotionDetectorDriver extends Driver {
 
-  onInit() {
+  async onInit() {
     this.deviceType = ['io:SomfyOccupancyIOSystemSensor'];
 
     /*** MOTION TRIGGERS ***/
