@@ -3,12 +3,12 @@
   "sdk": 2,
   "brandColor": "#FAB800",
   "name": {
-    "en": "Somfy TaHoma",
-    "nl": "Somfy TaHoma"
+    "en": "Somfy TaHoma & Connexoon",
+    "nl": "Somfy TaHoma & Connexoon"
   },
   "description": {
-    "en": "Somfy TaHoma for Homey",
-    "nl": "Somfy TaHoma voor Homey"
+    "en": "Somfy TaHoma & Connexoon for Homey",
+    "nl": "Somfy TaHoma & Connexoon voor Homey"
   },
   "version": "1.6.20",
   "compatibility": ">=2.0.0",
@@ -40,8 +40,8 @@
     "climate"
   ],
   "tags": {
-        "en": ["Somfy TaHoma", "io-homecontrol", "io", "Sunis Wirefree", "lightsensor", "Thermis WireFree", "temperature sensor","exterior blinds", "screens", "Velux", "roof window", "One Alarm", "Outdoor Camera"],
-        "nl": ["Somfy TaHoma", "io-homecontrol", "io", "Sunis Wirefree", "lichtsensor", "Thermis WireFree", "temperatuur sensor", "zonwering", "screens", "Velux", "dakraam", "One Alarm", "Outdoor Camera"]
+        "en": ["Somfy TaHoma", "Somfy Connexoon", "io-homecontrol", "io", "Sunis Wirefree", "lightsensor", "Thermis WireFree", "temperature sensor","exterior blinds", "screens", "Velux", "roof window", "One Alarm", "Outdoor Camera"],
+        "nl": ["Somfy TaHoma", "Somfy Connexoon", "io-homecontrol", "io", "Sunis Wirefree", "lichtsensor", "Thermis WireFree", "temperatuur sensor", "zonwering", "screens", "Velux", "dakraam", "One Alarm", "Outdoor Camera"]
   },
   "capabilities": {
     "my_position": {
