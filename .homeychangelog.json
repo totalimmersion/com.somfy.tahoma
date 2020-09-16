@@ -158,5 +158,9 @@
     "1.6.21":
     {
         "en": "* Added Lock State capability and flow trigger when io:PriorityLockOriginatorState is available"
+    },
+    "1.6.22":
+    {
+        "en": "* Inverted io:AwningValanceIOComponent so Up/Down buttons match io:HorizontalAwningIOComponent when Extended / retracted."
     }
 }
