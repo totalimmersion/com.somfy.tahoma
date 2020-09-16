@@ -34,7 +34,10 @@ class myApp extends Homey.App {
         Homey.ManagerSettings.set('diagLog', "");
         Homey.ManagerSettings.set('logEnabled', false);
         let logData = [];
-        Homey.ManagerSettings.set('errorLog', logData);
+        Homey.ManagerSettings.set('diagLog', "");
+
+        Homey.ManagerSettings.set('statusLogEnabled', false);
+        Homey.ManagerSettings.set('statusLog', "");
 
         process.on('unhandledRejection', (reason, p) => {
             this.logError('Unhandled Rejection', {
@@ -104,6 +107,13 @@ class myApp extends Homey.App {
             logData.splice(0, 1);
         }
         Homey.ManagerSettings.set('errorLog', logData);
+    }
+
+    logStates(txt){
+        if (Homey.ManagerSettings.get('stateLogEnabled')) {
+            let log = Homey.ManagerSettings.get('stateLog') + txt + "\n";
+            Homey.ManagerSettings.set('stateLog', log);
+        }
     }
 
     async sendLog(logType) {
@@ -184,7 +194,11 @@ class myApp extends Homey.App {
             if (data.devices) {
 
                 this.logDevices(data.devices);
-
+                
+                if (Homey.ManagerSettings.get('stateLogEnabled')) {
+                    Homey.ManagerSettings.unset('stateLog');
+                }
+                
                 const drivers = Homey.ManagerDrivers.getDrivers();
                 for (const driver in drivers) {
                     Homey.ManagerDrivers.getDriver(driver).getDevices().forEach(device => {

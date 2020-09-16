@@ -10,7 +10,7 @@ const Tahoma = require('../../lib/Tahoma');
 
 class myFoxLightControllerDevice extends SensorDevice {
     async onInit() {
-        super.onInit();
+        await super.onInit();
         this.lightState = {
             off: false,
             on: true

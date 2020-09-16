@@ -10,7 +10,7 @@ class InteriorVenetianBlindDevice extends WindowCoveringsDevice
 {
     async onInit()
     {
-        super.onInit();
+        await super.onInit();
 
         this.closureStateName = '';
     }

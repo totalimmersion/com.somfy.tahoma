@@ -112,8 +112,9 @@
         <button class="tablinks" onclick="setPage(event, 'settings')" id="defaultOpen">Settings</button>
         <button class="tablinks" onclick="setPage(event, 'errorLog')">Error Log</button>
         <button class="tablinks" onclick="setPage(event, 'log')">Device Log</button>
+        <button class="tablinks" onclick="setPage(event, 'stateLog')">State Log</button>
         <button class="tablinks" onclick="setPage(event, 'simulator')">Simulation Data</button>
-    </div>
+   </div>
 
     <!-- SETTINGS PAGE -->
     <div id="settings" class="tabcontent">
@@ -197,6 +198,20 @@
         </fieldset>
     </div>
 
+    <!--STATE LOG PAGE -->
+    <div id="stateLog" class="tabcontent">
+        <fieldset>
+            <h1>Recorded state values</h1>
+            <div class="field row">
+                <label for="stateLogEnabled">Log Enabled</label>
+                <input id="stateLogEnabled" type="checkbox" value="logEnabled" />
+            </div>
+            <div class="field row">
+                <textarea id="stateLogData"></textarea>
+            </div>
+        </fieldset>
+    </div>
+
     <script type="text/javascript">
         var errorLogElement = document.getElementById('errorLogData');
         var clearErrorLogElement = document.getElementById('clearErrorLog');
@@ -209,6 +224,9 @@
         var useSimElement = document.getElementById('useSim');
         var clearSimElement = document.getElementById('clearSim');
         var simDataElement = document.getElementById('simData');
+
+        var stateLogElement = document.getElementById('stateLogData');
+        var stateLogEnabledElement = document.getElementById('stateLogEnabled');
 
         function doStuff() {
             document.getElementById("defaultOpen").click();
@@ -225,6 +243,10 @@
                 Homey.get('logEnabled', function (err, logEnabled) {
                     if (err) return Homey.alert(err);
                     logEnabledElement.checked = logEnabled;
+                });
+                Homey.get('stateLog', function (err, stateLog) {
+                    if (err) return Homey.alert(err);
+                    stateLogElement.value = stateLog;
                 });
             });
 
@@ -295,6 +317,12 @@
                     }
                 });
             });
+
+            stateLogEnabledElement.addEventListener('click', function (e) {
+                Homey.set('stateLogEnabled', stateLogEnabledElement.checked, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+            });
         };
 
         function setPage(evt, tabPage) {
@@ -354,6 +382,17 @@
                 // Make the simulator text box fill the page
                 simDataElement.setAttribute('cols', simDataElement.parentElement.clientWidth / 8);
                 simDataElement.style.height = (window.innerHeight - simDataElement.offsetTop - 20) + 'px';
+            }
+
+            if (tabPage == 'stateLog') {
+                Homey.get('stateLog', function (err, stateLogData) {
+                    if (err) return Homey.alert(err);
+                    stateLogElement.checked = stateLogData;
+                });
+
+                // Make the simulator text box fill the page
+                stateLogElement.setAttribute('cols', stateLogElement.parentElement.clientWidth / 8);
+                stateLogElement.style.height = (window.innerHeight - stateLogElement.offsetTop - 20) + 'px';
             }
         };
     </script>

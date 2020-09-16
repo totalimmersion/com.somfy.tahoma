@@ -8,7 +8,7 @@ const WindowCoveringsDevice = require("../WindowCoveringsDevice");
  */
 class GarageDoorIODevice extends WindowCoveringsDevice {
   async onInit() {
-    super.onInit();
+    await super.onInit();
 
     if ( !this.hasCapability("windowcoverings_set")) {
       this.addCapability("windowcoverings_set");

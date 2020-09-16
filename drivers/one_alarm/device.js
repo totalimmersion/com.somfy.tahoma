@@ -10,7 +10,7 @@ const Tahoma = require('../../lib/Tahoma');
 
 class OneAlarmDevice extends SensorDevice {
     async onInit() {
-        super.onInit();
+        await super.onInit();
         this.alarmArmedState = {
             armed: 'armed',
             disarmed: 'disarmed',

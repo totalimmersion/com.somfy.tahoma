@@ -12,7 +12,7 @@ class LightSensorDevice extends SensorDevice {
   async onInit() {
     this.registerCapabilityListener('measure_luminance', this.onCapabilityMeasureLuminance.bind(this));
 
-    super.onInit();
+    await super.onInit();
   }
 
   onCapabilityMeasureLuminance(value) {

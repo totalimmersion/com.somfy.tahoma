@@ -44,7 +44,7 @@ class WindowCoveringsDevice extends Device {
         this.registerCapabilityListener('windowcoverings_tilt_down', this.onCapabilityWindowcoveringsTiltDown.bind(this));
         this.registerCapabilityListener('my_position', this.onCapabilityMyPosition.bind(this));
         this.registerCapabilityListener('quick_open', this.onCapabilityWindowcoveringsClosed.bind(this));
-        super.onInit();
+        await super.onInit();
     }
 
     async onCapabilityWindowcoveringsState(value, opts) {
@@ -206,6 +206,7 @@ class WindowCoveringsDevice extends Device {
                             .register()
                     }
 
+                    Homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + lockState.value);
                     this.setCapabilityValue("lock_state", lockState.value);
                 }
                 else{
@@ -218,7 +219,14 @@ class WindowCoveringsDevice extends Device {
                 const closureState = device.states.find(state => state.name === this.closureStateName);
                 const openClosedState = device.states.find(state => state.name === this.openClosedStateName);
 
+                if (this.unavailable) {
+                    this.unavailable = false;
+                    this.setAvailable();
+                }
+
                 if (openClosedState) {
+                    Homey.app.logStates(this.getName() + ": " + this.openClosedStateName + " = " + openClosedState.value);
+
                     // Convert Tahoma states to Homey equivalent
                     if (closureState && (closureState.value !== 0) && (closureState.value !== 100)) {
                         // Not fully open or closed
@@ -226,22 +234,15 @@ class WindowCoveringsDevice extends Device {
                     } else {
                         openClosedState.value = this.windowcoveringsStatesMap[openClosedState.value];
                     }
-                }
-
-                if (this.unavailable) {
-                    this.unavailable = false;
-                    this.setAvailable();
-                }
-
-                this.log(this.getName(), 'state', openClosedState ? openClosedState.value : 'N/A', closureState ? closureState.value : 'N/A');
-
-                if (openClosedState) {
+    
                     this.triggerCapabilityListener('windowcoverings_state', openClosedState.value, {
                         fromCloudSync: true
                     });
                 }
 
                 if (closureState) {
+                    Homey.app.logStates(this.getName() + ": " + this.closureStateName + " = " + closureState.value);
+
                     this.triggerCapabilityListener('windowcoverings_set', 1 - (closureState.value / 100), {
                         fromCloudSync: true
                     });

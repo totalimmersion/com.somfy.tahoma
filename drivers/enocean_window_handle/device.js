@@ -10,7 +10,7 @@ const Tahoma = require('../../lib/Tahoma');
 class WindowHandleDevice extends SensorDevice {
 
 	async onInit() {
-		super.onInit();
+		await super.onInit();
 
 		this.registerCapabilityListener('alarm_contact', this.onCapabilityAlarmContact.bind(this));
 	}

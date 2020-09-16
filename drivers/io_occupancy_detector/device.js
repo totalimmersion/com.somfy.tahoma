@@ -10,7 +10,7 @@ const Tahoma = require('../../lib/Tahoma');
 class OccupancyDetectorDevice extends SensorDevice {
 
   async onInit() {
-    super.onInit();
+    await super.onInit();
 
     this.registerCapabilityListener('alarm_motion', this.onCapabilityAlarmMotion.bind(this));
   }
