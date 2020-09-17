@@ -21,7 +21,7 @@ class myFoxLightControllerDevice extends SensorDevice {
 
     onCapabilityOnOff(value, opts, callback) {
         const deviceData = this.getData();
-        if (!opts.fromCloudSync) {
+        if (!opts || !opts.fromCloudSync) {
             var action;
             if (value == false) {
                 action = {

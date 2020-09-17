@@ -46,7 +46,7 @@ class OneAlarmDevice extends SensorDevice {
 
     onCapabilityAlarmArmedState(value, opts, callback) {
         const deviceData = this.getData();
-        if (!opts.fromCloudSync) {
+        if (!opts || !opts.fromCloudSync) {
             var action;
             if (value == 'armed') {
                 action = {
