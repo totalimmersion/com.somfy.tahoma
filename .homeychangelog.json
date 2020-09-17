@@ -162,5 +162,9 @@
     "1.6.22":
     {
         "en": "* Inverted io:AwningValanceIOComponent so Up/Down buttons match io:HorizontalAwningIOComponent when Extended / retracted."
+    },
+    "1.6.23":
+    {
+        "en": "* Fix error when tapping on the tile for the io roller shutters with slow speed."
     }
 }
