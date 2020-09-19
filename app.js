@@ -6,14 +6,7 @@ if (process.env.DEBUG === '1') {
 
 const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
-//const syncManager = require('./lib/sync');
 const nodemailer = require("nodemailer");
-const {
-    isArray
-} = require('util');
-const {
-    setTimeout
-} = require('timers');
 
 const INITIAL_SYNC_INTERVAL = 10; //interval of 10 seconds
 

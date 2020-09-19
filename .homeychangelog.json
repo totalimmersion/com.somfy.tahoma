@@ -166,5 +166,9 @@
     "1.6.23":
     {
         "en": "* Fix error when tapping on the tile for the io roller shutters with slow speed."
+    },
+    "1.6.24":
+    {
+        "en": "* Tidy up to reduce app size"
     }
 }
