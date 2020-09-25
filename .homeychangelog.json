@@ -170,5 +170,9 @@
     "1.6.24":
     {
         "en": "* Tidy up to reduce app size"
+    },
+    "1.6.25":
+    {
+        "en": "* Optimized images sizes\n* Converted to use axios library to reduce size and improve performance"
     }
 }
