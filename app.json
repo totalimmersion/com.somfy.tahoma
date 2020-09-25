@@ -561,8 +561,8 @@
         "en": "Interior Blind (RTS)"
       },
       "images": {
-        "large": "/drivers/rts_interior_curtain/assets/images/large.png",
-        "small": "/drivers/rts_interior_curtain/assets/images/small.png"
+        "large": "/drivers/rts_interior_blind/assets/images/large.png",
+        "small": "/drivers/rts_interior_blind/assets/images/small.png"
       },
       "class": "blinds",
       "capabilities": [
