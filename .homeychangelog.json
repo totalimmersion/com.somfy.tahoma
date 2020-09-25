@@ -174,5 +174,9 @@
     "1.6.25":
     {
         "en": "* Optimized images sizes\n* Converted to use axios library to reduce size and improve performance"
+    },
+    "2.0.0":
+    {
+        "en": "* Optimized app so it is smaller and more efficient. * Added support more devices. * Fixed issues that stopped it working"
     }
 }

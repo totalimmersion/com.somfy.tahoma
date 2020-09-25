@@ -10,7 +10,7 @@
     "en": "Somfy TaHoma & Connexoon for Homey",
     "nl": "Somfy TaHoma & Connexoon voor Homey"
   },
-  "version": "1.6.25",
+  "version": "2.0.0",
   "compatibility": ">=2.0.0",
   "author": {
     "name": "Immersion Apps"
@@ -42,7 +42,8 @@
   },
   "category": [
     "appliances",
-    "climate"
+    "climate",
+    "security"
   ],
   "tags": {
         "en": ["Somfy TaHoma", "Somfy Connexoon", "io-homecontrol", "io", "Sunis Wirefree", "lightsensor", "Thermis WireFree", "temperature sensor","exterior blinds", "screens", "Velux", "roof window", "One Alarm", "Outdoor Camera"],

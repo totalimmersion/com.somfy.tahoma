@@ -13,8 +13,6 @@ Supported devices / services with most common parameters:
 * Thermis wirefree IO sensor
 * Opening Detector IO sensor
 * TaHoma scenarios
-
-Add by Adrian Rockall (for support with these devices contact @Adrian_Rockall on the community forum)
 * Somfy One Alarm
 * Outdoor Camera Light Controller
 * Enocean Window Handle (requires Enocean USB module)
@@ -28,9 +26,4 @@ Add by Adrian Rockall (for support with these devices contact @Adrian_Rockall on
 * RTS interior venetian blind
 
 Suggestions or problems?
-Do you have a suggestion for (or a problem with) this app that you would like implemented?
-Please go to the github page and create an issue or pull request with your suggestion/problem.
-
-Why is this app in the Community Store?
-This app was written by Lennart Kuijs. As Lennart is currently unable to work on the app I (Adrian Rockall) will try to maintain it for now.
-So version 1.6.0 onwards has additional devices and bug fixes by me and those submitted to GitHub by other developers.
+If you have a suggestion or a problem with this app please go to the forum or the github page linked on this page and let me know.
