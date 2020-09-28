@@ -34,8 +34,8 @@ class myApp extends Homey.App {
 
         process.on('unhandledRejection', (reason, p) => {
             this.logError('Unhandled Rejection', {
-                'reason': reason,
-                'promise': p
+                'message': reason,
+                'stack': p
             });
         });
 

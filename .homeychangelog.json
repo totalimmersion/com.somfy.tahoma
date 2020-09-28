@@ -177,6 +177,10 @@
     },
     "2.0.0":
     {
-        "en": "* Optimized app so it is smaller and more efficient. * Added support more devices. * Fixed issues that stopped it working"
+        "en": "* Published in Athom store"
+    },
+    "2.0.1":
+    {
+        "en": "* Added more detail to the generic error handler message."
     }
 }

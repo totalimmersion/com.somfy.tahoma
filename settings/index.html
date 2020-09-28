@@ -114,7 +114,7 @@
         <button class="tablinks" onclick="setPage(event, 'log')">Device Log</button>
         <button class="tablinks" onclick="setPage(event, 'stateLog')">State Log</button>
         <button class="tablinks" onclick="setPage(event, 'simulator')">Simulation Data</button>
-   </div>
+    </div>
 
     <!-- SETTINGS PAGE -->
     <div id="settings" class="tabcontent">
@@ -299,13 +299,17 @@
             });
 
             useSimElement.addEventListener('click', function (e) {
-                Homey.set('simData', JSON.parse(simDataElement.value), function (err) {
-                    if (err) {
-                        return Homey.alert(err);
-                    } else {
-                        return Homey.alert("Simulator On");
-                    }
-                });
+                try {
+                    Homey.set('simData', JSON.parse(simDataElement.value), function (err) {
+                        if (err) {
+                            return Homey.alert(err);
+                        } else {
+                            return Homey.alert("Simulator On");
+                        }
+                    });
+                } catch (err) {
+                    return Homey.alert(err);
+                }
             });
 
             clearSimElement.addEventListener('click', function (e) {
