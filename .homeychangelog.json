@@ -182,5 +182,9 @@
     "2.0.1":
     {
         "en": "* Added more detail to the generic error handler message."
+    },
+    "2.0.2":
+    {
+        "en": "* Fixed a possible error when the access token expires that could cause flows to fail. Added options to reverse the open / close directions of the controls for each device."
     }
 }
