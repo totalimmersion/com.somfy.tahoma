@@ -8,12 +8,16 @@ const WindowCoveringsDevice = require("../WindowCoveringsDevice");
  */
 class RollerShutterDeviceQuiet extends WindowCoveringsDevice {
   async onInit() {
+    if (this.hasCapability("lock_state")) {
+      this.removeCapability("lock_state");
+    }
+
     await super.onInit();
 
     if (!this.hasCapability("my_position")) {
       this.addCapability("my_position");
     }
-    
+
     if (!this.hasCapability("quick_open")) {
       this.addCapability("quick_open");
     }

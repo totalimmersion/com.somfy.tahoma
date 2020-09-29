@@ -13,25 +13,45 @@ class WindowCoveringsDevice extends Device {
 
         this._driver = this.getDriver();
 
-        try{
-            await this.addCapability("lock_state");
-        }
-        catch(err){
-            this.log( err );
+        if (this.hasCapability("lock_state")) {
+            this._driver.lock_state_changedTrigger = new Homey.FlowCardTriggerDevice('lock_state_changed')
+                .register()
         }
 
+        this.invertPosition = this.getSetting('invertPosition');
+        if (this.invertPosition === null) {
+            this.invertPosition = false;
+        }
 
-        this.windowcoveringsActions = {
-            up: 'open',
-            idle: null,
-            down: 'close'
-        };
+        this.invertUpDown = this.getSetting('invertUpDown');
+        if (this.invertUpDown === null) {
+            this.invertUpDown = false;
+        }
 
-        this.windowcoveringsStatesMap = {
-            open: 'up',
-            closed: 'down',
-            unknown: 'idle'
-        };
+        if (this.invertUpDown) {
+            this.windowcoveringsActions = {
+                up: 'close',
+                idle: null,
+                down: 'open'
+            };
+
+            this.windowcoveringsStatesMap = {
+                open: 'down',
+                closed: 'up'
+            };
+        } else {
+            this.windowcoveringsActions = {
+                up: 'open',
+                idle: null,
+                down: 'close'
+            };
+
+            this.windowcoveringsStatesMap = {
+                open: 'up',
+                closed: 'down',
+                unknown: 'idle'
+            };
+        }
 
         this.closureStateName = 'core:ClosureState';
         this.setPositionActionName = 'setClosure';
@@ -45,6 +65,40 @@ class WindowCoveringsDevice extends Device {
         this.registerCapabilityListener('my_position', this.onCapabilityMyPosition.bind(this));
         this.registerCapabilityListener('quick_open', this.onCapabilityWindowcoveringsClosed.bind(this));
         await super.onInit();
+    }
+
+    async onSettings(oldSettingsObj, newSettingsObj, changedKeysArr) {
+        if (changedKeysArr.indexOf("reverseDirection") >= 0) {
+            this.invertUpDown = newSettingsObj.reverseDirection;
+
+            if (this.invertUpDown) {
+                this.windowcoveringsActions = {
+                    up: 'close',
+                    idle: null,
+                    down: 'open'
+                };
+
+                this.windowcoveringsStatesMap = {
+                    open: 'down',
+                    closed: 'up',
+                    unknown: 'idle'
+                };
+            } else {
+                this.windowcoveringsActions = {
+                    up: 'open',
+                    idle: null,
+                    down: 'close'
+                };
+
+                this.windowcoveringsStatesMap = {
+                    open: 'up',
+                    closed: 'down'
+                };
+            }
+        }
+        if (changedKeysArr.indexOf("invertPosition") >= 0) {
+            this.invertPosition = newSettingsObj.invertPosition;
+        }
     }
 
     async onCapabilityWindowcoveringsState(value, opts) {
@@ -89,6 +143,9 @@ class WindowCoveringsDevice extends Device {
     async onCapabilityWindowcoveringsSet(value, opts) {
         if (!opts || !opts.fromCloudSync) {
             const deviceData = this.getData();
+            if (this.invertPosition) {
+                value = 1 - value;
+            }
             const action = {
                 name: this.setPositionActionName, // Anders pull request
                 parameters: [Math.round((1 - value) * 100)]
@@ -194,27 +251,14 @@ class WindowCoveringsDevice extends Device {
 
         if (device) {
             if (device.states) {
-
-                const lockState = device.states.find(state => state.name === "io:PriorityLockOriginatorState");
-                if (lockState) {
-                    if (!this.hasCapability("lock_state")) {
-                        await this.addCapability("lock_state");
-                    }
-
-                    if (!this._driver.lock_state_changedTrigger) {
-                        this._driver.lock_state_changedTrigger = new Homey.FlowCardTriggerDevice('lock_state_changed')
-                            .register()
-                    }
-
-                    Homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + lockState.value);
-                    this.setCapabilityValue("lock_state", lockState.value);
-                }
-                else{
-                    if (this.hasCapability("lock_state")) {
-                        await this.removeCapability("lock_state");
+                if (this.hasCapability("lock_state")) {
+                    const lockState = device.states.find(state => state.name === "io:PriorityLockOriginatorState");
+                    if (lockState) {
+                        Homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + lockState.value);
+                        this.setCapabilityValue("lock_state", lockState.value);
                     }
                 }
-                //lock_state
+
                 //device exists -> let's sync the state of the device
                 const closureState = device.states.find(state => state.name === this.closureStateName);
                 const openClosedState = device.states.find(state => state.name === this.openClosedStateName);
@@ -234,7 +278,7 @@ class WindowCoveringsDevice extends Device {
                     } else {
                         openClosedState.value = this.windowcoveringsStatesMap[openClosedState.value];
                     }
-    
+
                     this.triggerCapabilityListener('windowcoverings_state', openClosedState.value, {
                         fromCloudSync: true
                     });
@@ -243,6 +287,9 @@ class WindowCoveringsDevice extends Device {
                 if (closureState) {
                     Homey.app.logStates(this.getName() + ": " + this.closureStateName + " = " + closureState.value);
 
+                    if (this.invertPosition) {
+                        closureState.value = 100 - closureState.value;
+                    }
                     this.triggerCapabilityListener('windowcoverings_set', 1 - (closureState.value / 100), {
                         fromCloudSync: true
                     });

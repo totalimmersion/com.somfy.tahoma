@@ -120,7 +120,35 @@
           "id": "add_my_devices",
           "template": "add_devices"
         }
-      ]
+      ],
+      "settings": [
+        {
+            "id": "invertUpDown",
+            "type": "checkbox",
+            "label":
+            {
+                "en": "Invert Up / Down"
+            },
+            "value": false,
+            "hint":
+            {
+                "en": "Reverse the Up / Down direction controls"
+            }
+        },
+        {
+          "id": "invertPosition",
+          "type": "checkbox",
+          "label":
+          {
+              "en": "Invert Position"
+          },
+          "value": false,
+          "hint":
+          {
+              "en": "Reverse the position control."
+          }
+      } ]
+
     },
     {
       "id": "io_exterior_venetian_blind",
@@ -150,7 +178,34 @@
           "id": "add_my_devices",
           "template": "add_devices"
         }
-      ]
+      ],
+      "settings": [
+        {
+            "id": "invertUpDown",
+            "type": "checkbox",
+            "label":
+            {
+                "en": "Invert Up / Down"
+            },
+            "value": false,
+            "hint":
+            {
+                "en": "Reverse the Up / Down direction controls"
+            }
+        },
+        {
+          "id": "invertPosition",
+          "type": "checkbox",
+          "label":
+          {
+              "en": "Invert Position"
+          },
+          "value": false,
+          "hint":
+          {
+              "en": "Reverse the position control."
+          }
+      } ]
     },
     {
       "id": "io_horizontal_awning",
@@ -166,7 +221,8 @@
       "capabilities": [
         "windowcoverings_state",
         "windowcoverings_set",
-        "quick_open"
+        "quick_open",
+        "lock_state"
       ],
       "pair": [
         {
@@ -180,7 +236,34 @@
           "id": "add_my_devices",
           "template": "add_devices"
         }
-      ]
+      ],
+      "settings": [
+        {
+            "id": "invertUpDown",
+            "type": "checkbox",
+            "label":
+            {
+                "en": "Invert Up / Down"
+            },
+            "value": false,
+            "hint":
+            {
+                "en": "Reverse the Up / Down direction controls"
+            }
+        },
+        {
+          "id": "invertPosition",
+          "type": "checkbox",
+          "label":
+          {
+              "en": "Invert Position"
+          },
+          "value": false,
+          "hint":
+          {
+              "en": "Reverse the position control."
+          }
+      } ]
     },
     {
       "id": "io_roller_shutter",
@@ -210,7 +293,34 @@
           "id": "add_my_devices",
           "template": "add_devices"
         }
-      ]
+      ],
+      "settings": [
+        {
+            "id": "invertUpDown",
+            "type": "checkbox",
+            "label":
+            {
+                "en": "Invert Up / Down"
+            },
+            "value": false,
+            "hint":
+            {
+                "en": "Reverse the Up / Down direction controls"
+            }
+        },
+        {
+          "id": "invertPosition",
+          "type": "checkbox",
+          "label":
+          {
+              "en": "Invert Position"
+          },
+          "value": false,
+          "hint":
+          {
+              "en": "Reverse the position control."
+          }
+      } ]
     },
     {
       "id": "io_roller_shutter_quiet",
@@ -242,7 +352,34 @@
           "id": "add_my_devices",
           "template": "add_devices"
         }
-      ]
+      ],
+      "settings": [
+        {
+            "id": "invertUpDown",
+            "type": "checkbox",
+            "label":
+            {
+                "en": "Invert Up / Down"
+            },
+            "value": false,
+            "hint":
+            {
+                "en": "Reverse the Up / Down direction controls"
+            }
+        },
+        {
+          "id": "invertPosition",
+          "type": "checkbox",
+          "label":
+          {
+              "en": "Invert Position"
+          },
+          "value": false,
+          "hint":
+          {
+              "en": "Reverse the position control."
+          }
+      } ]
     },
     {
       "id": "io_velux_roller_shutter",
@@ -272,7 +409,34 @@
           "id": "add_my_devices",
           "template": "add_devices"
         }
-      ]
+      ],
+      "settings": [
+        {
+            "id": "invertUpDown",
+            "type": "checkbox",
+            "label":
+            {
+                "en": "Invert Up / Down"
+            },
+            "value": false,
+            "hint":
+            {
+                "en": "Reverse the Up / Down direction controls"
+            }
+        },
+        {
+          "id": "invertPosition",
+          "type": "checkbox",
+          "label":
+          {
+              "en": "Invert Position"
+          },
+          "value": false,
+          "hint":
+          {
+              "en": "Reverse the position control."
+          }
+      } ]
     },
     {
       "id": "io_velux_roof_window",
@@ -302,7 +466,34 @@
           "id": "add_my_devices",
           "template": "add_devices"
         }
-      ]
+      ],
+      "settings": [
+        {
+            "id": "invertUpDown",
+            "type": "checkbox",
+            "label":
+            {
+                "en": "Invert Up / Down"
+            },
+            "value": false,
+            "hint":
+            {
+                "en": "Reverse the Up / Down direction controls"
+            }
+        },
+        {
+          "id": "invertPosition",
+          "type": "checkbox",
+          "label":
+          {
+              "en": "Invert Position"
+          },
+          "value": false,
+          "hint":
+          {
+              "en": "Reverse the position control."
+          }
+      } ]
     },
     {
       "id": "io_velux_interior_blind",
@@ -332,7 +523,34 @@
           "id": "add_my_devices",
           "template": "add_devices"
         }
-      ]
+      ],
+      "settings": [
+        {
+            "id": "invertUpDown",
+            "type": "checkbox",
+            "label":
+            {
+                "en": "Invert Up / Down"
+            },
+            "value": false,
+            "hint":
+            {
+                "en": "Reverse the Up / Down direction controls"
+            }
+        },
+        {
+          "id": "invertPosition",
+          "type": "checkbox",
+          "label":
+          {
+              "en": "Invert Position"
+          },
+          "value": false,
+          "hint":
+          {
+              "en": "Reverse the position control."
+          }
+      } ]
     },
     {
       "id": "io_light_sensor",
@@ -553,7 +771,21 @@
           "id": "add_my_devices",
           "template": "add_devices"
         }
-      ]
+      ],
+      "settings": [
+        {
+            "id": "invertUpDown",
+            "type": "checkbox",
+            "label":
+            {
+                "en": "Invert Up / Down"
+            },
+            "value": false,
+            "hint":
+            {
+                "en": "Reverse the Up / Down direction controls"
+            }
+      } ]
     },
     {
       "id": "rts_interior_blind",
@@ -580,7 +812,21 @@
           "id": "add_my_devices",
           "template": "add_devices"
         }
-      ]
+      ],
+      "settings": [
+        {
+            "id": "invertUpDown",
+            "type": "checkbox",
+            "label":
+            {
+                "en": "Invert Up / Down"
+            },
+            "value": false,
+            "hint":
+            {
+                "en": "Reverse the Up / Down direction controls"
+            }
+      } ]
     },
     {
       "id": "rts_interior_curtain",
@@ -607,7 +853,21 @@
           "id": "add_my_devices",
           "template": "add_devices"
         }
-      ]
+      ],
+      "settings": [
+        {
+            "id": "invertUpDown",
+            "type": "checkbox",
+            "label":
+            {
+                "en": "Invert Up / Down"
+            },
+            "value": false,
+            "hint":
+            {
+                "en": "Reverse the Up / Down direction controls"
+            }
+      } ]
     },
     {
       "id": "io_vertical_interior_blind",
@@ -636,7 +896,34 @@
           "id": "add_my_devices",
           "template": "add_devices"
         }
-      ]
+      ],
+      "settings": [
+        {
+            "id": "invertUpDown",
+            "type": "checkbox",
+            "label":
+            {
+                "en": "Invert Up / Down"
+            },
+            "value": false,
+            "hint":
+            {
+                "en": "Reverse the Up / Down direction controls"
+            }
+        },
+        {
+          "id": "invertPosition",
+          "type": "checkbox",
+          "label":
+          {
+              "en": "Invert Position"
+          },
+          "value": false,
+          "hint":
+          {
+              "en": "Reverse the position control."
+          }
+      } ]
     },
     {
       "id": "io_garage_door",
@@ -664,7 +951,34 @@
           "id": "add_my_devices",
           "template": "add_devices"
         }
-      ]
+      ],
+      "settings": [
+        {
+            "id": "invertUpDown",
+            "type": "checkbox",
+            "label":
+            {
+                "en": "Invert Up / Down"
+            },
+            "value": false,
+            "hint":
+            {
+                "en": "Reverse the Up / Down direction controls"
+            }
+        },
+        {
+          "id": "invertPosition",
+          "type": "checkbox",
+          "label":
+          {
+              "en": "Invert Position"
+          },
+          "value": false,
+          "hint":
+          {
+              "en": "Reverse the position control."
+          }
+      } ]
     }
 ],
   "flow": {
@@ -884,7 +1198,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=io_horizontal_awning&capabilities=lock_state"
+            "filter": "driver_id=io_horizontal_awning"
           }
         ]
       }

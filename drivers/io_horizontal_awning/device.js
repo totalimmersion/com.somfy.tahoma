@@ -9,6 +9,10 @@ const WindowCoveringsDevice = require('../WindowCoveringsDevice');
 class HorizontalAwningDevice extends WindowCoveringsDevice {
 
   async onInit() {
+    if (!this.hasCapability("lock_state")) {
+      this.addCapability("lock_state");
+    }
+
     await super.onInit();
 
     if (!this.hasCapability("quick_open")) {
@@ -17,21 +21,10 @@ class HorizontalAwningDevice extends WindowCoveringsDevice {
 
     let dd = this.getData();
 
-    if (!dd.controllableName || dd.controllableName != 'io:AwningValanceIOComponent') {
+    if (!dd.controllableName || dd.controllableName !== 'io:AwningValanceIOComponent') {
       // From Anders pull request
       this.setPositionActionName = 'setPosition';
       this.closureStateName = 'core:DeploymentState';
-    } else {
-      this.windowcoveringsActions = {
-        up: 'close',
-        idle: null,
-        down: 'open'
-      };
-
-      this.windowcoveringsStatesMap = {
-        open: 'down',
-        closed: 'up'
-      };
     }
   }
 }
