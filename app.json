@@ -10,7 +10,7 @@
     "en": "Somfy TaHoma & Connexoon for Homey",
     "nl": "Somfy TaHoma & Connexoon voor Homey"
   },
-  "version": "2.0.2",
+  "version": "2.0.3",
   "compatibility": ">=2.0.0",
   "author": {
     "name": "Immersion Apps"
@@ -252,7 +252,7 @@
           "label": {
             "en": "Invert Up / Down"
           },
-          "value": false,
+          "value": true,
           "hint": {
             "en": "Reverse the Up / Down direction controls"
           }
@@ -263,7 +263,7 @@
           "label": {
             "en": "Invert Tile Action"
           },
-          "value": false,
+          "value": true,
           "hint": {
             "en": "Reverse the Open / Close state of the Tile"
           }
@@ -274,7 +274,7 @@
           "label": {
             "en": "Invert Position"
           },
-          "value": false,
+          "value": true,
           "hint": {
             "en": "Reverse the position control."
           }

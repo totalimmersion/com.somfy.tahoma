@@ -185,6 +185,10 @@
     },
     "2.0.2":
     {
-        "en": "* Fixed a possible error when the access token expires that could cause flows to fail. Added options to reverse the open / close directions of the controls for each device."
+        "en": "* Fixed a possible error when the access token expires that could cause flows to fail. Added options to reverse the open / close directions of the controls for each cover device."
+    },
+    "2.0.3":
+    {
+        "en": "* Fixed options to reverse the open / close directions of the controls for each device. Added option to invert the tile action for cover devices that provide position information."
     }
 }
