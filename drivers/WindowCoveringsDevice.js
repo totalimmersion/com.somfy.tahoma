@@ -23,6 +23,11 @@ class WindowCoveringsDevice extends Device {
             this.invertPosition = false;
         }
 
+        this.invertTile = this.getSetting('invertTile');
+        if (this.invertTile === null) {
+            this.invertTile = false;
+        }
+
         this.invertUpDown = this.getSetting('invertUpDown');
         if (this.invertUpDown === null) {
             this.invertUpDown = false;
@@ -68,8 +73,8 @@ class WindowCoveringsDevice extends Device {
     }
 
     async onSettings(oldSettingsObj, newSettingsObj, changedKeysArr) {
-        if (changedKeysArr.indexOf("reverseDirection") >= 0) {
-            this.invertUpDown = newSettingsObj.reverseDirection;
+        if (changedKeysArr.indexOf("invertUpDown") >= 0) {
+            this.invertUpDown = newSettingsObj.invertUpDown;
 
             if (this.invertUpDown) {
                 this.windowcoveringsActions = {
@@ -96,6 +101,11 @@ class WindowCoveringsDevice extends Device {
                 };
             }
         }
+
+        if (changedKeysArr.indexOf("invertTile") >= 0) {
+            this.invertTile = newSettingsObj.invertTile;
+        }
+
         if (changedKeysArr.indexOf("invertPosition") >= 0) {
             this.invertPosition = newSettingsObj.invertPosition;
         }
@@ -135,7 +145,11 @@ class WindowCoveringsDevice extends Device {
             // New value from Tahoma
             this.setCapabilityValue('windowcoverings_state', value);
             if (this.hasCapability("quick_open")) {
-                this.setCapabilityValue("quick_open", value !== "down")
+                if (this.invertTile){
+                    this.setCapabilityValue("quick_open", value !== "up")
+                } else {
+                    this.setCapabilityValue("quick_open", value !== "down")
+                }
             }
         }
     }
@@ -238,7 +252,11 @@ class WindowCoveringsDevice extends Device {
     }
 
     async onCapabilityWindowcoveringsClosed(value, opts) {
-        return this.onCapabilityWindowcoveringsState(value ? 'up' : 'down', null)
+        if (this.invertTile){
+            return this.onCapabilityWindowcoveringsState(value ? 'down' : 'up', null)
+        } else {
+            return this.onCapabilityWindowcoveringsState(value ? 'up' : 'down', null)
+        }
     }
 
     /**
