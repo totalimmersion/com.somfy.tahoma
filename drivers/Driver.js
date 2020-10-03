@@ -14,6 +14,12 @@ class Driver extends Homey.Driver {
     socket
       .on('list_devices', (data, callback) => {
         this.log('list_devices');
+        const username = Homey.ManagerSettings.get('username');
+        const password = Homey.ManagerSettings.get('password');
+        if (!username || !password){
+          callback( "Please enter your username and password in the Configure App page.");
+        }
+
         Tahoma.setup()
           .then((tahomaData) => {
             this.onReceiveSetupData(tahomaData, callback);

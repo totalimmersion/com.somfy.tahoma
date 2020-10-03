@@ -3,7 +3,6 @@
 if (process.env.DEBUG === '1') {
     require('inspector').open(9222, '0.0.0.0', true)
 }
-
 const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
 const nodemailer = require("nodemailer");
@@ -52,7 +51,9 @@ class myApp extends Homey.App {
         }
 
         Homey.ManagerSettings.on('set', (setting) => {
-            if (setting === 'syncInterval') this.initSync();
+            if ((setting === 'syncInterval') || (setting === 'username') || (setting === 'password')){
+                this.initSync();
+            }
         });
 
         Homey.on('settings.set', this.initSync);
@@ -169,6 +170,12 @@ class myApp extends Homey.App {
     initSync() {
         if (this.timerId) {
             clearInterval(this.timerId);
+        }
+
+        const username = Homey.ManagerSettings.get('username');
+        const password = Homey.ManagerSettings.get('password');
+        if (!username || !password){
+            return;
         }
 
         let interval = null;
