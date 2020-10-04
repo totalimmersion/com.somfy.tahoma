@@ -19,10 +19,17 @@ class myApp extends Homey.App {
     /**
      * Initializes the app
      */
-    onInit() {
+    async onInit() {
         this.log(`${Homey.app.manifest.id} running...`);
         this.timerId = null;
 
+        if (process.env.DEBUG === '1') {
+            Homey.ManagerSettings.set('debugMode', true);
+        }
+        else{
+            Homey.ManagerSettings.set('debugMode', false);
+        }
+        
         Homey.ManagerSettings.set('diagLog', "");
         Homey.ManagerSettings.set('logEnabled', false);
         let logData = [];
@@ -30,6 +37,9 @@ class myApp extends Homey.App {
 
         Homey.ManagerSettings.set('statusLogEnabled', false);
         Homey.ManagerSettings.set('statusLog', "");
+
+        this.homeyHash = await Homey.ManagerCloud.getHomeyId();
+        this.homeyHash = this.hashCode(this.homeyHash).toString();
 
         process.on('unhandledRejection', (reason, p) => {
             this.logError('Unhandled Rejection', {
@@ -51,7 +61,7 @@ class myApp extends Homey.App {
         }
 
         Homey.ManagerSettings.on('set', (setting) => {
-            if ((setting === 'syncInterval') || (setting === 'username') || (setting === 'password')){
+            if ((setting === 'syncInterval') || (setting === 'username') || (setting === 'password') || (setting === 'linkurl')) {
                 this.initSync();
             }
         });
@@ -60,7 +70,12 @@ class myApp extends Homey.App {
 
         this.initSync();
     }
-
+    
+    hashCode(s) {
+        for(var i = 0, h = 0; i < s.length; i++)
+            h = Math.imul(31, h) + s.charCodeAt(i) | 0;
+        return h;
+    }
     logDevices(devices) {
         if (Homey.ManagerSettings.get('logEnabled')) {
             // Do a deep copy
@@ -93,7 +108,9 @@ class myApp extends Homey.App {
         if (!Array.isArray(logData)) {
             logData = [];
         }
+        const nowTime = new Date(Date.now());
         logData.push({
+            'time': nowTime.toJSON(),
             'source': source,
             'error': err
         });
@@ -103,7 +120,7 @@ class myApp extends Homey.App {
         Homey.ManagerSettings.set('errorLog', logData);
     }
 
-    logStates(txt){
+    logStates(txt) {
         if (Homey.ManagerSettings.get('stateLogEnabled')) {
             let log = Homey.ManagerSettings.get('stateLog') + txt + "\n";
             Homey.ManagerSettings.set('stateLog', log);
@@ -120,26 +137,29 @@ class myApp extends Homey.App {
                 let text = "";
                 if (logType === 'errorLog') {
                     subject = "Tahoma error log";
-                    text = JSON.stringify(Homey.ManagerSettings.get('errorLog'), null, 2);
+                    text = JSON.stringify(Homey.ManagerSettings.get('errorLog'), null, 2).replace(/\\n/g, ' \n           ');
                 } else {
                     subject = "Tahoma device log";
-                    text = JSON.stringify(Homey.ManagerSettings.get('diagLog'), null, 2);
+                    text = JSON.stringify(Homey.ManagerSettings.get('diagLog'), null, 2).replace(/\\n/g, '\n            ');
                 }
-                // create reusable transporter object using the default SMTP transport
-                let transporter = nodemailer.createTransport({
-                    host: Homey.env.MAIL_HOST, //Homey.env.MAIL_HOST,
-                    port: 465,
-                    ignoreTLS: false,
-                    secure: true, // true for 465, false for other ports
-                    auth: {
-                        user: Homey.env.MAIL_USER, // generated ethereal user
-                        pass: Homey.env.MAIL_SECRET // generated ethereal password
-                    },
-                    tls: {
-                        // do not fail on invalid certs
-                        rejectUnauthorized: false
-                    }
-                });
+
+                subject += "(" + this.homeyHash + ")";
+
+                    // create reusable transporter object using the default SMTP transport
+                    let transporter = nodemailer.createTransport({
+                        host: Homey.env.MAIL_HOST, //Homey.env.MAIL_HOST,
+                        port: 465,
+                        ignoreTLS: false,
+                        secure: true, // true for 465, false for other ports
+                        auth: {
+                            user: Homey.env.MAIL_USER, // generated ethereal user
+                            pass: Homey.env.MAIL_SECRET // generated ethereal password
+                        },
+                        tls: {
+                            // do not fail on invalid certs
+                            rejectUnauthorized: false
+                        }
+                    });
 
                 // send mail with defined transport object
                 await transporter.sendMail({
@@ -167,38 +187,47 @@ class myApp extends Homey.App {
      * Initializes synchronization between Homey and TaHoma
      * with the interval as defined in the settings.
      */
-    initSync() {
-        if (this.timerId) {
-            clearInterval(this.timerId);
-        }
+    async initSync() {
+        this.stopSync();
 
         const username = Homey.ManagerSettings.get('username');
         const password = Homey.ManagerSettings.get('password');
-        if (!username || !password){
+        if (!username || !password) {
             return;
         }
 
-        let interval = null;
-        try {
-            interval = Number(Homey.ManagerSettings.get('syncInterval'));
-        } catch (e) {
-            interval = INITIAL_SYNC_INTERVAL;
-        }
+        Tahoma.login(username, password, Homey.ManagerSettings.get('linkurl'))
+        .then(result => {
+            let interval = null;
+            try {
+                interval = Number(Homey.ManagerSettings.get('syncInterval'));
+            } catch (e) {
+                interval = INITIAL_SYNC_INTERVAL;
+            }
 
-        this.syncWithCloud(interval * 1000);
+            this.syncWithCloud(interval * 1000);
+        });
+    }
+
+    stopSync()
+    {
+        if (this.timerId) {
+            clearInterval(this.timerId);
+            this.timerId = null;
+        }
     }
 
     async syncWithCloud(interval) {
         try {
-            let data = await Tahoma.setup();
+            let data = await Tahoma.getDeviceData();
             if (data.devices) {
 
                 this.logDevices(data.devices);
-                
+
                 if (Homey.ManagerSettings.get('stateLogEnabled')) {
-                    Homey.ManagerSettings.unset('stateLog');
+                    Homey.ManagerSettings.set('stateLog', "");
                 }
-                
+
                 const drivers = Homey.ManagerDrivers.getDrivers();
                 for (const driver in drivers) {
                     Homey.ManagerDrivers.getDriver(driver).getDevices().forEach(device => {
@@ -207,7 +236,7 @@ class myApp extends Homey.App {
                                 device.sync(data.devices)
                             }
                         } catch (error) {
-                            this.logError("Tahoma.setup", error);
+                            this.logError("Tahoma.getDeviceData", error);
                         }
                     })
                 }

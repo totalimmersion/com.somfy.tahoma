@@ -190,5 +190,9 @@
     "2.0.3":
     {
         "en": "* Fixed options to reverse the open / close directions of the controls for each device. Added option to invert the tile action for cover devices that provide position information."
+    },
+    "2.0.4":
+    {
+        "en": "* Added options for alternate server addresses."
     }
 }

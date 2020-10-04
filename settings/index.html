@@ -2,7 +2,8 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="/manager/webserver/assets/css/font.awesome.css">
+    <link rel="stylesheet" type="text/css" href="lwsa.css">
+
     <script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
     <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
 
@@ -17,6 +18,7 @@
             var response = $('#response');
             var usernameEl = $('#username');
             var passwordEl = $('#password');
+            var linkurlE1 = $('#linkurl');
             var syncSpeedEl = $('#sync_speed');
             var logoutEl = $('#logoutElement');
             var hasUsername = false;
@@ -42,20 +44,36 @@
                 }
             });
 
+            Homey.get('linkurl', function (err, linkurl) {
+                if (err) return Homey.alert(err);
+                linkurlE1.val(linkurl);
+            });
+
             Homey.get('syncInterval', function (err, interval) {
                 if (err) return Homey.alert(err);
                 syncSpeedEl.val(interval);
             });
 
             saveButton.on('click', function () {
+                Object.values(document.querySelectorAll('*')).forEach(element => element.style.cursor = "wait");
+                response.html(__('settings.save_verifying'));
                 var username = usernameEl.val();
                 var password = passwordEl.val();
+                var linkurl = linkurlE1.val();
 
                 Homey.api('POST', '/login/', {
                     "username": username,
-                    "password": password
+                    "password": password,
+                    "linkurl": linkurl
                 }, function (err, result) {
-                    if (err) return Homey.alert(err);
+                    Object.values(document.querySelectorAll('*')).forEach(element => element.style.cursor = "default");
+                    if (err){
+                        response.css({
+                            color: 'red'
+                        });
+                        response.html(__('settings.login_failure') + '<br/>' + err);
+                        return Homey.alert(err);
+                    }
 
                     if (result.success) {
                         response.css({
@@ -113,7 +131,8 @@
         <button class="tablinks" onclick="setPage(event, 'errorLog')">Error Log</button>
         <button class="tablinks" onclick="setPage(event, 'log')">Device Log</button>
         <button class="tablinks" onclick="setPage(event, 'stateLog')">State Log</button>
-        <button class="tablinks" onclick="setPage(event, 'simulator')">Simulation Data</button>
+        <button class="tablinks" onclick="setPage(event, 'simulator')" id="simlogtab"
+            style="visibility:hidden">Simulation Data</button>
     </div>
 
     <!-- SETTINGS PAGE -->
@@ -135,13 +154,27 @@
                     <label for="password" data-i18n="settings.password"></label>
                     <input id="password" type="password" value="" />
                 </div>
+                <div class="field row">
+                    <label for="linkurl" data-i18n="settings.linkurl"></label>
+                    <select id="linkurl">
+                        <option value="default">Default (www.tahomalink.com)</option>
+                        <option value="alt1">ConnexoonRTS (ha201-1.overkiz.com)</option>
+                        <option value="alt2">Alternaive (ha110-1.overkiz.com)</option>
+                    </select>
+                </div>
 
-                <button id="saveButton" class="left" style="display:block" data-i18n="settings.save"></button>
+                <div class="field row">
+                    <button id="saveButton" class="left"
+                        style="display:block;background-color:#0f9e16;color:white;margin:15px 20px 5px 5px;"
+                        data-i18n="settings.save"></button>
+                </div>
             </fieldset>
 
             <fieldset id="logoutElement" style="display: none;">
                 <legend data-i18n="settings.logouttitle"></legend>
-                <button id="logoutButton" class="left" style="display:block" data-i18n="settings.logout"></button>
+                <button id="logoutButton" class="left"
+                    style="display:block;background-color:#a5510d;color:white;margin:15px 20px 5px 5px;"
+                    data-i18n="settings.logout"></button>
             </fieldset>
 
             <fieldset id="preferences">
@@ -152,7 +185,8 @@
                     &nbsp;<span data-i18n="settings.sync_tooltip"></span>
                 </div>
 
-                <button id="savePreferencesButton" class="left" style="display:block"
+                <button id="savePreferencesButton" class="left"
+                    style="display:block;background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;"
                     data-i18n="settings.save_preferences"></button>
             </fieldset>
         </fieldset>
@@ -162,7 +196,9 @@
     <div id="errorLog" class="tabcontent">
         <fieldset>
             <p>Shows error encountered.</p>
-            <p><button id="clearErrorLog">Clear Log</button><button id="sendErrorLog">Send Log</button></p>
+            <p><button id="clearErrorLog" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear
+                    Log</button><button id="sendErrorLog"
+                    style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;">Send Log</button></p>
             <div class="field row">
                 <textarea id="errorLogData"></textarea>
             </div>
@@ -180,7 +216,9 @@
                 <label for="logEnabled">Log Enabled</label>
                 <input id="logEnabled" type="checkbox" value="logEnabled" />
             </div>
-            <p><button id="clearLog">Clear Log</button><button id="sendDeviceLog">Send Log</button></p>
+            <p><button id="clearLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;">Clear
+                    Log</button><button id="sendDeviceLog"
+                    style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;">Send Log</button></p>
             <div class="field row">
                 <textarea id="diagLog"></textarea>
             </div>
@@ -191,7 +229,10 @@
     <div id="simulator" class="tabcontent">
         <fieldset>
             <h1>For debug use only</h1>
-            <p><button id="useSim">Activate</button><button id="clearSim">Clear Sim</button></p>
+            <p><button id="useSim"
+                    style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;">Activate</button><button
+                    id="clearSim" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear
+                    Sim</button></p>
             <div class="field row">
                 <textarea id="simData"></textarea>
             </div>
@@ -229,12 +270,20 @@
         var stateLogEnabledElement = document.getElementById('stateLogEnabled');
 
         function doStuff() {
+            Homey.get('debugMode', function (err, debugMode) {
+                if (err) return Homey.alert(err);
+                if (debugMode) {
+                    document.getElementById("simlogtab").style.visibility = "visible";
+                }
+            });
+
             document.getElementById("defaultOpen").click();
 
             Homey.on('settings.set', function () {
                 Homey.get('errorLog', function (err, errorLog) {
                     if (err) return Homey.alert(err);
-                    errorLogElement.value = JSON.stringify(errorLog, null, 2);
+                    errorLogElement.value = JSON.stringify(errorLog, null, 2).replace(/\\n/g,
+                        '\n            ');
                 });
                 Homey.get('diagLog', function (err, diagLog) {
                     if (err) return Homey.alert(err);
@@ -352,7 +401,8 @@
                 // Refresh the log data
                 Homey.get('errorLog', function (err, errorLog) {
                     if (err) return Homey.alert(err);
-                    errorLogElement.value = errorLog ? JSON.stringify(errorLog, null, 2) : "";
+                    errorLogElement.value = errorLog ? JSON.stringify(errorLog, null, 2).replace(/\\n/g,
+                        '\n            ') : "";
                 });
 
                 // Make the log text area fill the page

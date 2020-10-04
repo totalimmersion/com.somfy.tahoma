@@ -2,6 +2,7 @@
 
 const SensorDevice = require('../SensorDevice');
 const Tahoma = require('../../lib/Tahoma');
+const Homey = require('homey');
 
 /**
  * Device class for the opening detector with the io:SomfymotionIOSystemSensor controllable name in TaHoma
@@ -52,6 +53,7 @@ class OccupancyDetectorDevice extends SensorDevice {
     if (device.states) {
       const contactState = device.states.find(state => state.name === 'core:OccupancyState');
       if (contactState) {
+        Homey.app.logStates(this.getName() + ": core:OccupancyState = " + contactState.value);
         this.log(this.getName(), contactState.value);
         this.triggerCapabilityListener('alarm_motion', contactState.value === 'personInside');
       }

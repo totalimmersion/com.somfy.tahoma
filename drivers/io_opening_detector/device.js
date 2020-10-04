@@ -2,6 +2,7 @@
 
 const SensorDevice = require('../SensorDevice');
 const Tahoma = require('../../lib/Tahoma');
+const Homey = require('homey');
 
 /**
  * Device class for the opening detector with the io:SomfyContactIOSystemSensor controllable name in TaHoma
@@ -53,7 +54,7 @@ class OpeningDetectorDevice extends SensorDevice {
     if (device.states) {
       const contactState = device.states.find(state => state.name === 'core:ContactState');
       if (contactState) {
-        this.log(this.getName(), contactState.value);
+        Homey.app.logStates(this.getName() + ": core:ContactState = " + contactState.value);
         this.triggerCapabilityListener('alarm_contact', contactState.value === 'open');
       }
     }

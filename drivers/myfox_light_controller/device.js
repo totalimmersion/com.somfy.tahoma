@@ -2,6 +2,7 @@
 
 const SensorDevice = require('../SensorDevice');
 const Tahoma = require('../../lib/Tahoma');
+const Homey = require('homey');
 
 /**
  * Device class for the light controller with the myfox:LightController controllable name in TaHoma
@@ -65,7 +66,7 @@ class myFoxLightControllerDevice extends SensorDevice {
 
         const OnOffState = device.states.find(state => state.name === 'core:OnOffState');
         if (OnOffState) {
-            this.log(this.getName(), OnOffState.value);
+            Homey.app.logStates(this.getName() + ": core:OnOffState = " + OnOffState.value);
             this.triggerCapabilityListener('onoff', (OnOffState.value === 'on'), {
                 fromCloudSync: true
             });

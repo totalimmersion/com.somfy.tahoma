@@ -2,6 +2,7 @@
 
 const SensorDevice = require('../SensorDevice');
 const Tahoma = require('../../lib/Tahoma');
+const Homey = require('homey');
 
 /**
  * Device class for the temperature sensor with the io:TemperatureIOSystemSensor controllable name in TaHoma
@@ -55,7 +56,7 @@ class TemperatureSensorDevice extends SensorDevice {
     if (device.states) {
       const temperatureState = device.states.find(state => state.name === 'core:TemperatureState');
       if (temperatureState) {
-        this.log(this.getName(), temperatureState.value);
+        Homey.app.logStates(this.getName() + ": core:TemperatureState = " + temperatureState.value);
         this.triggerCapabilityListener('measure_temperature', temperatureState.value);
       }
     }

@@ -20,7 +20,7 @@ class Driver extends Homey.Driver {
           callback( "Please enter your username and password in the Configure App page.");
         }
 
-        Tahoma.setup()
+        Tahoma.getDeviceData()
           .then((tahomaData) => {
             this.onReceiveSetupData(tahomaData, callback);
           })

@@ -8,15 +8,37 @@ module.exports = [{
     method: 'POST',
     path: '/login/',
     fn: function (args, callback) {
-      Tahoma.login(args.body.username, args.body.password)
+      Homey.app.stopSync();
+      Tahoma.logout()
         .then(result => {
-          Homey.ManagerSettings.set('username', args.body.username);
-          Homey.ManagerSettings.set('password', args.body.password);
-          callback(null, result);
+          console.log("Logout OK", result);
         })
-        .catch(error => {
-          Homey.app.logError("API POST login", error);
-          callback(error);
+        .catch((err) => {
+          console.log("Logout Failed", err);
+        })
+        .then(() => {
+          setTimeout(() => {
+            Tahoma.login(args.body.username, args.body.password, args.body.linkurl)
+              .then(result => {
+                Homey.ManagerSettings.set('username', args.body.username);
+                Homey.ManagerSettings.set('password', args.body.password);
+                Homey.ManagerSettings.set('linkurl', args.body.linkurl);
+
+                let interval = null;
+                try {
+                  interval = Number(Homey.ManagerSettings.get('syncInterval'));
+                } catch (e) {
+                  interval = 10;
+                }
+                Homey.app.syncWithCloud(interval * 1000);
+
+                callback(null, result);
+              })
+              .catch(error => {
+                Homey.app.logError("API POST login", error);
+                callback(error);
+              });
+          }, 1000);
         });
     }
   },
@@ -25,6 +47,7 @@ module.exports = [{
     method: 'POST',
     path: '/logout/',
     fn: function (args, callback) {
+      Homey.app.stopSync();
       Tahoma.logout()
         .then(result => {
           Homey.ManagerSettings.unset('username');
@@ -43,12 +66,12 @@ module.exports = [{
     path: '/SendDeviceLog/',
     fn: function (args, callback) {
       Homey.app.sendLog('deviceLog')
-      .then( result => {
-        return callback(result.error, result.message);
-      })
-      .catch( error => {
-        return callback(error, null );
-      });
+        .then(result => {
+          return callback(result.error, result.message);
+        })
+        .catch(error => {
+          return callback(error, null);
+        });
     }
   },
   {
@@ -57,12 +80,12 @@ module.exports = [{
     path: '/SendErrorLog/',
     fn: function (args, callback) {
       Homey.app.sendLog('errorLog')
-      .then( result => {
-        return callback(result.error, result.message);
-      })
-      .catch( error => {
-        return callback(error, null );
-      });
+        .then(result => {
+          return callback(result.error, result.message);
+        })
+        .catch(error => {
+          return callback(error, null);
+        });
     }
   }
 ];

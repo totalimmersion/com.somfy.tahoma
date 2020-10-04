@@ -2,6 +2,7 @@
 
 const SensorDevice = require('../SensorDevice');
 const Tahoma = require('../../lib/Tahoma');
+const Homey = require('homey');
 
 /**
  * Device class for the light sensor with the io:LightIOSystemSensor controllable name in TaHoma
@@ -54,7 +55,7 @@ class LightSensorDevice extends SensorDevice {
     if (device.states) {
       const luminance = device.states.find(state => state.name === 'core:LuminanceState');
       if (luminance) {
-        this.log(this.getName(), luminance.value);
+        Homey.app.logStates(this.getName() + ": core:LuminanceState = " + luminance.value);
         const oldLuminance = this.getState().measure_luminance;
         if (oldLuminance !== luminance.value) {
             this.triggerCapabilityListener('measure_luminance', luminance.value);
