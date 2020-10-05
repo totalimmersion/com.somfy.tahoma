@@ -194,5 +194,9 @@
     "2.0.4":
     {
         "en": "* Added options for alternate server addresses."
+    },
+    "2.0.5":
+    {
+        "en": "* Added options for new OAuth login."
     }
 }

@@ -25,11 +25,10 @@ class myApp extends Homey.App {
 
         if (process.env.DEBUG === '1') {
             Homey.ManagerSettings.set('debugMode', true);
-        }
-        else{
+        } else {
             Homey.ManagerSettings.set('debugMode', false);
         }
-        
+
         Homey.ManagerSettings.set('diagLog', "");
         Homey.ManagerSettings.set('logEnabled', false);
         let logData = [];
@@ -70,9 +69,9 @@ class myApp extends Homey.App {
 
         this.initSync();
     }
-    
+
     hashCode(s) {
-        for(var i = 0, h = 0; i < s.length; i++)
+        for (var i = 0, h = 0; i < s.length; i++)
             h = Math.imul(31, h) + s.charCodeAt(i) | 0;
         return h;
     }
@@ -145,21 +144,21 @@ class myApp extends Homey.App {
 
                 subject += "(" + this.homeyHash + ")";
 
-                    // create reusable transporter object using the default SMTP transport
-                    let transporter = nodemailer.createTransport({
-                        host: Homey.env.MAIL_HOST, //Homey.env.MAIL_HOST,
-                        port: 465,
-                        ignoreTLS: false,
-                        secure: true, // true for 465, false for other ports
-                        auth: {
-                            user: Homey.env.MAIL_USER, // generated ethereal user
-                            pass: Homey.env.MAIL_SECRET // generated ethereal password
-                        },
-                        tls: {
-                            // do not fail on invalid certs
-                            rejectUnauthorized: false
-                        }
-                    });
+                // create reusable transporter object using the default SMTP transport
+                let transporter = nodemailer.createTransport({
+                    host: Homey.env.MAIL_HOST, //Homey.env.MAIL_HOST,
+                    port: 465,
+                    ignoreTLS: false,
+                    secure: true, // true for 465, false for other ports
+                    auth: {
+                        user: Homey.env.MAIL_USER, // generated ethereal user
+                        pass: Homey.env.MAIL_SECRET // generated ethereal password
+                    },
+                    tls: {
+                        // do not fail on invalid certs
+                        rejectUnauthorized: false
+                    }
+                });
 
                 // send mail with defined transport object
                 await transporter.sendMail({
@@ -196,8 +195,8 @@ class myApp extends Homey.App {
             return;
         }
 
-        Tahoma.login(username, password, Homey.ManagerSettings.get('linkurl'))
-        .then(result => {
+        try {
+            await Tahoma.login(username, password, Homey.ManagerSettings.get('linkurl'), Homey.ManagerSettings.get('loginMethod'));
             let interval = null;
             try {
                 interval = Number(Homey.ManagerSettings.get('syncInterval'));
@@ -206,13 +205,14 @@ class myApp extends Homey.App {
             }
 
             this.syncWithCloud(interval * 1000);
-        });
+        } catch (error) {
+            this.logError("Login", error);
+        }
     }
 
-    stopSync()
-    {
+    stopSync() {
         if (this.timerId) {
-            clearInterval(this.timerId);
+            clearTimeout(this.timerId);
             this.timerId = null;
         }
     }

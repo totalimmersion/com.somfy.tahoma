@@ -18,6 +18,7 @@
             var response = $('#response');
             var usernameEl = $('#username');
             var passwordEl = $('#password');
+            var loginMethodEl = $('#loginMethod');
             var linkurlE1 = $('#linkurl');
             var syncSpeedEl = $('#sync_speed');
             var logoutEl = $('#logoutElement');
@@ -44,6 +45,11 @@
                 }
             });
 
+            Homey.get('loginMethod', function (err, loginMethod) {
+                if (err) return Homey.alert(err);
+                loginMethodEl.prop("checked", loginMethod);
+            });
+
             Homey.get('linkurl', function (err, linkurl) {
                 if (err) return Homey.alert(err);
                 linkurlE1.val(linkurl);
@@ -60,14 +66,17 @@
                 var username = usernameEl.val();
                 var password = passwordEl.val();
                 var linkurl = linkurlE1.val();
+                var loginMethod = loginMethodEl.is(':checked');
 
                 Homey.api('POST', '/login/', {
                     "username": username,
                     "password": password,
-                    "linkurl": linkurl
+                    "linkurl": linkurl,
+                    "loginMethod": loginMethod
                 }, function (err, result) {
-                    Object.values(document.querySelectorAll('*')).forEach(element => element.style.cursor = "default");
-                    if (err){
+                    Object.values(document.querySelectorAll('*')).forEach(element => element.style
+                        .cursor = "default");
+                    if (err) {
                         response.css({
                             color: 'red'
                         });
@@ -75,20 +84,11 @@
                         return Homey.alert(err);
                     }
 
-                    if (result.success) {
-                        response.css({
-                            color: 'green'
-                        });
-                        response.html(__('settings.login_success'));
-                        logoutEl.show();
-                    } else {
-                        response.css({
-                            color: 'red'
-                        });
-                        response.html(__('settings.login_failure') + '<br/>' + result.error);
-                        Homey.unset('username');
-                        Homey.unset('password');
-                    }
+                    response.css({
+                        color: 'green'
+                    });
+                    response.html(__('settings.login_success'));
+                    logoutEl.show();
                 });
             });
 
@@ -163,6 +163,11 @@
                     </select>
                 </div>
 
+                <div class="field row">
+                    <label for="loginMethod">Use new OAuth login method</label>
+                    <input id="loginMethod" type="checkbox" value="loginMethod" />
+                </div>
+    
                 <div class="field row">
                     <button id="saveButton" class="left"
                         style="display:block;background-color:#0f9e16;color:white;margin:15px 20px 5px 5px;"

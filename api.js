@@ -18,11 +18,12 @@ module.exports = [{
         })
         .then(() => {
           setTimeout(() => {
-            Tahoma.login(args.body.username, args.body.password, args.body.linkurl)
+            Tahoma.login(args.body.username, args.body.password, args.body.linkurl, args.body.loginMethod)
               .then(result => {
                 Homey.ManagerSettings.set('username', args.body.username);
                 Homey.ManagerSettings.set('password', args.body.password);
-                Homey.ManagerSettings.set('linkurl', args.body.linkurl);
+                Homey.ManagerSettings.set('linkups', args.body.linkurl);
+                Homey.ManagerSettings.set('loginMethod', args.body.loginMethod);
 
                 let interval = null;
                 try {
