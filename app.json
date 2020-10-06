@@ -10,7 +10,7 @@
     "en": "Somfy TaHoma & Connexoon for Homey",
     "nl": "Somfy TaHoma & Connexoon voor Homey"
   },
-  "version": "2.0.5",
+  "version": "2.0.6",
   "compatibility": ">=2.0.0",
   "author": {
     "name": "Immersion Apps"
@@ -21,7 +21,8 @@
   "source": "https://github.com/AdyRock/com.somfy.tahoma",
   "homeyCommunityTopicId": 35206,
   "contributors": {
-    "developers": [{
+    "developers": [
+      {
         "name": "Lennart Kuijs",
         "email": "info@totalimmersion.nl"
       },
@@ -45,8 +46,38 @@
     "security"
   ],
   "tags": {
-    "en": ["Somfy TaHoma", "Somfy Connexoon", "io-homecontrol", "io", "Sunis Wirefree", "lightsensor", "Thermis WireFree", "temperature sensor", "exterior blinds", "screens", "Velux", "roof window", "One Alarm", "Outdoor Camera"],
-    "nl": ["Somfy TaHoma", "Somfy Connexoon", "io-homecontrol", "io", "Sunis Wirefree", "lichtsensor", "Thermis WireFree", "temperatuur sensor", "zonwering", "screens", "Velux", "dakraam", "One Alarm", "Outdoor Camera"]
+    "en": [
+      "Somfy TaHoma",
+      "Somfy Connexoon",
+      "io-homecontrol",
+      "io",
+      "Sunis Wirefree",
+      "lightsensor",
+      "Thermis WireFree",
+      "temperature sensor",
+      "exterior blinds",
+      "screens",
+      "Velux",
+      "roof window",
+      "One Alarm",
+      "Outdoor Camera"
+    ],
+    "nl": [
+      "Somfy TaHoma",
+      "Somfy Connexoon",
+      "io-homecontrol",
+      "io",
+      "Sunis Wirefree",
+      "lichtsensor",
+      "Thermis WireFree",
+      "temperatuur sensor",
+      "zonwering",
+      "screens",
+      "Velux",
+      "dakraam",
+      "One Alarm",
+      "Outdoor Camera"
+    ]
   },
   "capabilities": {
     "my_position": {
@@ -90,7 +121,8 @@
       "icon": "/assets/security.svg"
     }
   },
-  "drivers": [{
+  "drivers": [
+    {
       "id": "io_vertical_exterior_blind",
       "name": {
         "en": "Exterior vertical blind (io)",
@@ -106,7 +138,8 @@
         "windowcoverings_set",
         "quick_open"
       ],
-      "pair": [{
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -118,7 +151,8 @@
           "template": "add_devices"
         }
       ],
-      "settings": [{
+      "settings": [
+        {
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
@@ -152,7 +186,6 @@
           }
         }
       ]
-
     },
     {
       "id": "io_exterior_venetian_blind",
@@ -170,7 +203,8 @@
         "windowcoverings_set",
         "quick_open"
       ],
-      "pair": [{
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -182,7 +216,8 @@
           "template": "add_devices"
         }
       ],
-      "settings": [{
+      "settings": [
+        {
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
@@ -234,7 +269,8 @@
         "quick_open",
         "lock_state"
       ],
-      "pair": [{
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -246,7 +282,8 @@
           "template": "add_devices"
         }
       ],
-      "settings": [{
+      "settings": [
+        {
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
@@ -297,7 +334,8 @@
         "windowcoverings_set",
         "quick_open"
       ],
-      "pair": [{
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -309,7 +347,8 @@
           "template": "add_devices"
         }
       ],
-      "settings": [{
+      "settings": [
+        {
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
@@ -362,7 +401,8 @@
         "quiet_mode",
         "quick_open"
       ],
-      "pair": [{
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -374,7 +414,8 @@
           "template": "add_devices"
         }
       ],
-      "settings": [{
+      "settings": [
+        {
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
@@ -425,7 +466,8 @@
         "windowcoverings_set",
         "quick_open"
       ],
-      "pair": [{
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -437,7 +479,8 @@
           "template": "add_devices"
         }
       ],
-      "settings": [{
+      "settings": [
+        {
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
@@ -488,7 +531,8 @@
         "windowcoverings_set",
         "quick_open"
       ],
-      "pair": [{
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -500,7 +544,8 @@
           "template": "add_devices"
         }
       ],
-      "settings": [{
+      "settings": [
+        {
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
@@ -551,7 +596,8 @@
         "windowcoverings_set",
         "quick_open"
       ],
-      "pair": [{
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -563,7 +609,8 @@
           "template": "add_devices"
         }
       ],
-      "settings": [{
+      "settings": [
+        {
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
@@ -609,8 +656,11 @@
         "small": "/drivers/io_light_sensor/assets/images/small.png"
       },
       "class": "sensor",
-      "capabilities": ["measure_luminance"],
-      "pair": [{
+      "capabilities": [
+        "measure_luminance"
+      ],
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -634,8 +684,11 @@
         "small": "/drivers/io_temperature_sensor/assets/images/small.png"
       },
       "class": "sensor",
-      "capabilities": ["measure_temperature"],
-      "pair": [{
+      "capabilities": [
+        "measure_temperature"
+      ],
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -659,8 +712,11 @@
         "small": "/drivers/io_opening_detector/assets/images/small.png"
       },
       "class": "sensor",
-      "capabilities": ["alarm_contact"],
-      "pair": [{
+      "capabilities": [
+        "alarm_contact"
+      ],
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -683,8 +739,11 @@
         "small": "/drivers/io_occupancy_detector/assets/images/small.png"
       },
       "class": "sensor",
-      "capabilities": ["alarm_motion"],
-      "pair": [{
+      "capabilities": [
+        "alarm_motion"
+      ],
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -711,7 +770,8 @@
       "capabilities": [
         "alarm_contact"
       ],
-      "pair": [{
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -738,7 +798,8 @@
         "large": "/drivers/one_alarm/assets/images/large.png",
         "small": "/drivers/one_alarm/assets/images/small.png"
       },
-      "pair": [{
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -764,7 +825,8 @@
         "large": "/drivers/myfox_light_controller/assets/images/large.png",
         "small": "/drivers/myfox_light_controller/assets/images/small.png"
       },
-      "pair": [{
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -798,7 +860,8 @@
           "setable": false
         }
       },
-      "pair": [{
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -810,17 +873,19 @@
           "template": "add_devices"
         }
       ],
-      "settings": [{
-        "id": "invertUpDown",
-        "type": "checkbox",
-        "label": {
-          "en": "Invert Up / Down"
-        },
-        "value": false,
-        "hint": {
-          "en": "Reverse the Up / Down direction controls"
+      "settings": [
+        {
+          "id": "invertUpDown",
+          "type": "checkbox",
+          "label": {
+            "en": "Invert Up / Down"
+          },
+          "value": false,
+          "hint": {
+            "en": "Reverse the Up / Down direction controls"
+          }
         }
-      }]
+      ]
     },
     {
       "id": "rts_interior_blind",
@@ -835,7 +900,8 @@
       "capabilities": [
         "windowcoverings_state"
       ],
-      "pair": [{
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -847,17 +913,19 @@
           "template": "add_devices"
         }
       ],
-      "settings": [{
-        "id": "invertUpDown",
-        "type": "checkbox",
-        "label": {
-          "en": "Invert Up / Down"
-        },
-        "value": false,
-        "hint": {
-          "en": "Reverse the Up / Down direction controls"
+      "settings": [
+        {
+          "id": "invertUpDown",
+          "type": "checkbox",
+          "label": {
+            "en": "Invert Up / Down"
+          },
+          "value": false,
+          "hint": {
+            "en": "Reverse the Up / Down direction controls"
+          }
         }
-      }]
+      ]
     },
     {
       "id": "rts_interior_curtain",
@@ -872,7 +940,8 @@
       "capabilities": [
         "windowcoverings_state"
       ],
-      "pair": [{
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -884,17 +953,19 @@
           "template": "add_devices"
         }
       ],
-      "settings": [{
-        "id": "invertUpDown",
-        "type": "checkbox",
-        "label": {
-          "en": "Invert Up / Down"
-        },
-        "value": false,
-        "hint": {
-          "en": "Reverse the Up / Down direction controls"
+      "settings": [
+        {
+          "id": "invertUpDown",
+          "type": "checkbox",
+          "label": {
+            "en": "Invert Up / Down"
+          },
+          "value": false,
+          "hint": {
+            "en": "Reverse the Up / Down direction controls"
+          }
         }
-      }]
+      ]
     },
     {
       "id": "io_vertical_interior_blind",
@@ -911,7 +982,8 @@
         "windowcoverings_set",
         "quick_open"
       ],
-      "pair": [{
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -923,7 +995,8 @@
           "template": "add_devices"
         }
       ],
-      "settings": [{
+      "settings": [
+        {
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
@@ -972,7 +1045,8 @@
         "windowcoverings_state",
         "windowcoverings_set"
       ],
-      "pair": [{
+      "pair": [
+        {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
@@ -984,7 +1058,8 @@
           "template": "add_devices"
         }
       ],
-      "settings": [{
+      "settings": [
+        {
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
@@ -1010,13 +1085,15 @@
     }
   ],
   "flow": {
-    "triggers": [{
+    "triggers": [
+      {
         "id": "change_luminance_more_than",
         "title": {
           "en": "The luminance is more than",
           "nl": "De lichtsterkte is meer dan"
         },
-        "args": [{
+        "args": [
+          {
             "name": "device",
             "type": "device",
             "filter": "driver_id=io_light_sensor"
@@ -1037,7 +1114,8 @@
           "en": "The luminance is less than",
           "nl": "De lichtsterkte is minder dan"
         },
-        "args": [{
+        "args": [
+          {
             "name": "device",
             "type": "device",
             "filter": "driver_id=io_light_sensor"
@@ -1058,7 +1136,8 @@
           "en": "The luminance is between",
           "nl": "De lichtsterkte is tussen"
         },
-        "args": [{
+        "args": [
+          {
             "name": "device",
             "type": "device",
             "filter": "driver_id=io_light_sensor"
@@ -1087,7 +1166,8 @@
           "en": "The temperature is more than",
           "nl": "De temperatuur is meer dan"
         },
-        "args": [{
+        "args": [
+          {
             "name": "device",
             "type": "device",
             "filter": "driver_id=io_temperature_sensor"
@@ -1108,7 +1188,8 @@
           "en": "The temperature is less than",
           "nl": "De temperatuur is minder dan"
         },
-        "args": [{
+        "args": [
+          {
             "name": "device",
             "type": "device",
             "filter": "driver_id=io_temperature_sensor"
@@ -1129,7 +1210,8 @@
           "en": "The temperature is between",
           "nl": "De temperatuur is tussen"
         },
-        "args": [{
+        "args": [
+          {
             "name": "device",
             "type": "device",
             "filter": "driver_id=io_temperature_sensor"
@@ -1158,67 +1240,81 @@
           "en": "The state of the opening detector has changed",
           "nl": "De staat van de openingsmelder is veranderd"
         },
-        "tokens": [{
-          "name": "isOpen",
-          "type": "boolean",
-          "title": {
-            "en": "is open?",
-            "nl": "is open?"
-          },
-          "example": "open"
-        }],
-        "args": [{
-          "name": "device",
-          "type": "device",
-          "filter": "driver_id=io_opening_detector"
-        }]
+        "tokens": [
+          {
+            "name": "isOpen",
+            "type": "boolean",
+            "title": {
+              "en": "is open?",
+              "nl": "is open?"
+            },
+            "example": "open"
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=io_opening_detector"
+          }
+        ]
       },
       {
         "id": "motion_has_changed",
         "title": {
           "en": "The state of the motion detector has changed"
         },
-        "tokens": [{
-          "name": "isMotion",
-          "type": "boolean",
-          "title": {
-            "en": "is motion?"
-          },
-          "example": "motion"
-        }],
-        "args": [{
-          "name": "device",
-          "type": "device",
-          "filter": "driver_id=io_motion_detector"
-        }]
+        "tokens": [
+          {
+            "name": "isMotion",
+            "type": "boolean",
+            "title": {
+              "en": "is motion?"
+            },
+            "example": "motion"
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=io_motion_detector"
+          }
+        ]
       },
       {
         "id": "lock_state_changed",
         "title": {
           "en": "The lock state changed"
         },
-        "tokens": [{
-          "name": "lock_state",
-          "type": "string",
-          "title": {
-            "en": "Lock state"
-          },
-          "example": "wind"
-        }],
-        "args": [{
-          "name": "device",
-          "type": "device",
-          "filter": "driver_id=io_horizontal_awning"
-        }]
+        "tokens": [
+          {
+            "name": "lock_state",
+            "type": "string",
+            "title": {
+              "en": "Lock state"
+            },
+            "example": "wind"
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=io_horizontal_awning"
+          }
+        ]
       }
     ],
-    "conditions": [{
+    "conditions": [
+      {
         "id": "has_luminance_more_than",
         "title": {
           "en": "The luminance !{{is|isn't}} more than",
           "nl": "De lichtsterkte !{{is|is niet}} meer dan"
         },
-        "args": [{
+        "args": [
+          {
             "name": "device",
             "type": "device",
             "filter": "driver_id=io_light_sensor"
@@ -1239,7 +1335,8 @@
           "en": "The luminance !{{is|isn't}} less than",
           "nl": "De lichtsterkte !{{is|is niet}} minder dan"
         },
-        "args": [{
+        "args": [
+          {
             "name": "device",
             "type": "device",
             "filter": "driver_id=io_light_sensor"
@@ -1260,7 +1357,8 @@
           "en": "The luminance !{{is|isn't}} between",
           "nl": "De lichtsterkte !{{is|is niet}} tussen"
         },
-        "args": [{
+        "args": [
+          {
             "name": "device",
             "type": "device",
             "filter": "driver_id=io_light_sensor"
@@ -1289,7 +1387,8 @@
           "en": "The temperature !{{is|isn't}} more than",
           "nl": "De temperatuur !{{is|is niet}} meer dan"
         },
-        "args": [{
+        "args": [
+          {
             "name": "device",
             "type": "device",
             "filter": "driver_id=io_temperature_sensor"
@@ -1310,7 +1409,8 @@
           "en": "The temperature !{{is|isn't}} less than",
           "nl": "De temperatuur !{{is|is niet}} minder dan"
         },
-        "args": [{
+        "args": [
+          {
             "name": "device",
             "type": "device",
             "filter": "driver_id=io_temperature_sensor"
@@ -1331,7 +1431,8 @@
           "en": "The temperature !{{is|isn't}} between",
           "nl": "De temperatuur !{{is|is niet}} tussen"
         },
-        "args": [{
+        "args": [
+          {
             "name": "device",
             "type": "device",
             "filter": "driver_id=io_temperature_sensor"
@@ -1355,16 +1456,19 @@
         ]
       }
     ],
-    "actions": [{
+    "actions": [
+      {
         "id": "activate_scenario",
         "title": {
           "en": "Play scenario",
           "nl": "Scenario afspelen"
         },
-        "args": [{
-          "name": "scenario",
-          "type": "autocomplete"
-        }]
+        "args": [
+          {
+            "name": "scenario",
+            "type": "autocomplete"
+          }
+        ]
       },
       {
         "id": "set_my_position",
@@ -1372,11 +1476,13 @@
           "en": "Move to MY position",
           "nl": "Zet de positie naar MY"
         },
-        "args": [{
-          "name": "device",
-          "type": "device",
-          "filter": "driver_id=rts_interior_venetian_blind|io_roller_shutter_quiet"
-        }]
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=rts_interior_venetian_blind|io_roller_shutter_quiet"
+          }
+        ]
       },
       {
         "id": "set_quiet_mode",
@@ -1384,7 +1490,8 @@
           "en": "Quiet mode",
           "nl": "Stille modus"
         },
-        "args": [{
+        "args": [
+          {
             "name": "device",
             "type": "device",
             "filter": "driver_id=io_roller_shutter_quiet"
@@ -1392,7 +1499,8 @@
           {
             "name": "newQuietMode",
             "type": "dropdown",
-            "values": [{
+            "values": [
+              {
                 "id": "on",
                 "label": {
                   "en": "On",
