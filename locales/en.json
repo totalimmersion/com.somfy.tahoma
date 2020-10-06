@@ -18,7 +18,9 @@
 		"save_preferences": "Save preferences",
 		"linkurl": "Connection URL",
 		"save_verifying": "Attempting to login. Please wait...",
-		"logout_description": "This will logout from Tahoma and remove your credentials from the app."
+		"logout_description": "This will logout from Tahoma and remove your credentials from the app.",
+		"min_sync_speed": "Minimum Sync Speed value is 10",
+		"pref_saved": "The preferences have been saved"
 	},
   "errors": {
     "on_pair_login_failure": "Unable to login. Please go to the settings screen and provide access to TaHoma for Homey."

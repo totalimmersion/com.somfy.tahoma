@@ -7,7 +7,8 @@ const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
 const nodemailer = require("nodemailer");
 
-const INITIAL_SYNC_INTERVAL = 10; //interval of 10 seconds
+const INITIAL_SYNC_INTERVAL = 30; //interval of 10 seconds
+const MIN_SYNC_INTERVAL = 10;
 
 /**
  * This class is the starting point of the app and initializes the necessary
@@ -44,9 +45,13 @@ class myApp extends Homey.App {
 
         try {
             this.interval = Number(Homey.ManagerSettings.get('syncInterval'));
+            if (this.interval < MIN_SYNC_INTERVAL) {
+                this.interval = MIN_SYNC_INTERVAL;
+                Homey.ManagerSettings.set('syncInterval', this.interval);
+            }
         } catch (e) {
             this.interval = INITIAL_SYNC_INTERVAL;
-            Homey.ManagerSettings.set('syncInterval', this.interval)
+            Homey.ManagerSettings.set('syncInterval', this.interval);
         }
 
         var linkURL = Homey.ManagerSettings.get('linkurl');
@@ -81,13 +86,10 @@ class myApp extends Homey.App {
                     this.interval = INITIAL_SYNC_INTERVAL;
                     Homey.ManagerSettings.set('syncInterval', this.interval)
                 }
-            }
-            if ((setting === 'syncInterval') || (setting === 'username') || (setting === 'password') || (setting === 'linkurl')) {
-                this.initSync();
+
+                this.restartSync();
             }
         });
-
-        Homey.on('settings.set', this.initSync);
 
         this.initSync();
     }
@@ -281,6 +283,11 @@ class myApp extends Homey.App {
         while (this.syncing) {
             await new Promise(resolve => setTimeout(resolve, 500));
         }
+    }
+
+    async restartSync(){
+        await this.stopSync();
+        this.syncWithCloud(this.interval * 1000);
     }
 
     async syncWithCloud(interval) {

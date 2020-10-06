@@ -112,8 +112,19 @@
             });
 
             preferencesButton.on('click', function () {
+                if (syncSpeedEl.val() < 10) {
+                    response.css({
+                        color: 'red'
+                    });
+                    response.html(__('settings.min_sync_speed'));
+                    return Homey.alert(__('settings.min_sync_speed'));
+                }
                 Homey.set('syncInterval', syncSpeedEl.val(), function (err) {
                     if (err) return Homey.alert(err);
+                    response.css({
+                        color: 'green'
+                    });
+                    response.html(__('settings.pref_saved'));
                 });
             });
 
@@ -185,7 +196,7 @@
                 <legend data-i18n="settings.preferences"></legend>
                 <div class="field row">
                     <label for="sync_speed" data-i18n="settings.sync_speed"></label>
-                    <input id="sync_speed" type="text" value="" />
+                    <input id="sync_speed" type="number" min="10" value="" />
                     &nbsp;<span data-i18n="settings.sync_tooltip"></span>
                 </div>
 
@@ -217,9 +228,12 @@
             <p>Contact @Adrian_Rockall on the community forum to describe which device is not supported.</p>
             <p>No personal data is captured or sent so if you don't contact me I will not be able to respond.</p>
             <p>
-                <button id="getLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;">Get Log</button>
-                <button id="clearLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;">Clear Log</button>
-                <button id="sendDeviceLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;">Send Log</button>
+                <button id="getLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;">Get
+                    Log</button>
+                <button id="clearLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;">Clear
+                    Log</button>
+                <button id="sendDeviceLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;">Send
+                    Log</button>
             </p>
             <div class="field row">
                 <textarea id="diagLog"></textarea>
