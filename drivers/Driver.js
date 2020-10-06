@@ -17,7 +17,8 @@ class Driver extends Homey.Driver {
         const username = Homey.ManagerSettings.get('username');
         const password = Homey.ManagerSettings.get('password');
         if (!username || !password){
-          callback( "Please enter your username and password in the Configure App page.");
+          callback( new Error(Homey.__("errors.on_pair_login_failure")));
+          return;
         }
 
         Tahoma.getDeviceData()

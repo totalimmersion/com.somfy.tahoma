@@ -30,7 +30,7 @@
 
                 console.log('username: ', username);
                 usernameEl.val(username);
-                if (username.length > 0) {
+                if (username && username.length > 0) {
                     logoutEl.show();
                 }
             });
@@ -40,7 +40,7 @@
 
                 console.log('password: ', password);
                 passwordEl.val(password);
-                if (password.length > 0) {
+                if (password && password.length > 0) {
                     logoutEl.show();
                 }
             });
@@ -93,9 +93,7 @@
             });
 
             logoutButton.on('click', function () {
-                var response = $('#response');
-
-                Homey.api('POST', '/logout/', function (err, result) {
+                Homey.api('POST', '/logout/', {}, function (err, result) {
                     if (err) {
                         response.css({
                             color: 'red'
@@ -167,7 +165,7 @@
                     <label for="loginMethod">Use new OAuth login method</label>
                     <input id="loginMethod" type="checkbox" value="loginMethod" />
                 </div>
-    
+
                 <div class="field row">
                     <button id="saveButton" class="left"
                         style="display:block;background-color:#0f9e16;color:white;margin:15px 20px 5px 5px;"
@@ -177,6 +175,7 @@
 
             <fieldset id="logoutElement" style="display: none;">
                 <legend data-i18n="settings.logouttitle"></legend>
+                <p id="logoutText" data-i18n="settings.logout_description"></p>
                 <button id="logoutButton" class="left"
                     style="display:block;background-color:#a5510d;color:white;margin:15px 20px 5px 5px;"
                     data-i18n="settings.logout"></button>

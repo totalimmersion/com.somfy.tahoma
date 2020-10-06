@@ -5,7 +5,6 @@
 		"logintitle": "TaHoma login credentials",
 		"username": "Username",
 		"password": "Password",
-		"linkurl": "Connection URL",
 		"save": "Save credentials",
 		"login_success": "Successfully logged in.",
 		"login_failure": "Failed to log in.",
@@ -17,7 +16,9 @@
 		"sync_speed": "Sync speed",
 		"sync_tooltip": "(seconds)",
 		"save_preferences": "Save preferences",
-		"save_verifying": "Attempting to login. Please wait..."
+		"linkurl": "Connection URL",
+		"save_verifying": "Attempting to login. Please wait...",
+		"logout_description": "This will logout from Tahoma and remove your credentials from the app."
 	},
   "errors": {
     "on_pair_login_failure": "Unable to login. Please go to the settings screen and provide access to TaHoma for Homey."

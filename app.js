@@ -21,6 +21,8 @@ class myApp extends Homey.App {
      */
     async onInit() {
         this.log(`${Homey.app.manifest.id} running...`);
+        this.loggedIn = false;
+        this.syncing = false;
         this.timerId = null;
 
         if (process.env.DEBUG === '1') {
@@ -39,6 +41,18 @@ class myApp extends Homey.App {
 
         this.homeyHash = await Homey.ManagerCloud.getHomeyId();
         this.homeyHash = this.hashCode(this.homeyHash).toString();
+
+        try {
+            this.interval = Number(Homey.ManagerSettings.get('syncInterval'));
+        } catch (e) {
+            this.interval = INITIAL_SYNC_INTERVAL;
+            Homey.ManagerSettings.set('syncInterval', this.interval)
+        }
+
+        var linkURL = Homey.ManagerSettings.get('linkurl');
+        if (!linkURL) {
+            linkurl = "default";
+        }
 
         process.on('unhandledRejection', (reason, p) => {
             this.logError('Unhandled Rejection', {
@@ -60,6 +74,14 @@ class myApp extends Homey.App {
         }
 
         Homey.ManagerSettings.on('set', (setting) => {
+            if (setting === 'syncInterval') {
+                try {
+                    this.interval = Number(Homey.ManagerSettings.get('syncInterval'));
+                } catch (e) {
+                    this.interval = INITIAL_SYNC_INTERVAL;
+                    Homey.ManagerSettings.set('syncInterval', this.interval)
+                }
+            }
             if ((setting === 'syncInterval') || (setting === 'username') || (setting === 'password') || (setting === 'linkurl')) {
                 this.initSync();
             }
@@ -75,6 +97,52 @@ class myApp extends Homey.App {
             h = Math.imul(31, h) + s.charCodeAt(i) | 0;
         return h;
     }
+
+    // Throws and exception if the login fails
+    async newLogin(args) {
+
+        // Stop the timer so periodic updates don't happen while changing login
+        this.loggedIn = false;
+        await this.stopSync();
+
+        // make sure we logout from old method first
+        await Tahoma.logout();
+
+        // Allow s short delay before loging back in
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        // Login with supplied credentials. An error is thrown if the login fails
+        try {
+            await Tahoma.login(args.body.username, args.body.password, args.body.linkurl, args.body.loginMethod);
+
+            // All good so save the credentials
+            Homey.ManagerSettings.set('username', args.body.username);
+            Homey.ManagerSettings.set('password', args.body.password);
+            Homey.ManagerSettings.set('linkups', args.body.linkurl);
+            Homey.ManagerSettings.set('loginMethod', args.body.loginMethod);
+            this.loggedIn = true;
+
+            // Start collection data again
+            this.syncWithCloud(this.interval * 1000);
+        } catch (error) {
+            throw (error);
+        }
+        return true;
+    }
+
+    async logOut() {
+        this.loggedIn = false;
+        await Homey.app.stopSync();
+        try {
+            await Tahoma.logout();
+            Homey.ManagerSettings.unset('username');
+            Homey.ManagerSettings.unset('password');
+        } catch (error) {
+            throw (error);
+        }
+        return true;
+    }
+
     logDevices(devices) {
         if (Homey.ManagerSettings.get('logEnabled')) {
             // Do a deep copy
@@ -187,7 +255,7 @@ class myApp extends Homey.App {
      * with the interval as defined in the settings.
      */
     async initSync() {
-        this.stopSync();
+        await this.stopSync();
 
         const username = Homey.ManagerSettings.get('username');
         const password = Homey.ManagerSettings.get('password');
@@ -197,54 +265,57 @@ class myApp extends Homey.App {
 
         try {
             await Tahoma.login(username, password, Homey.ManagerSettings.get('linkurl'), Homey.ManagerSettings.get('loginMethod'));
-            let interval = null;
-            try {
-                interval = Number(Homey.ManagerSettings.get('syncInterval'));
-            } catch (e) {
-                interval = INITIAL_SYNC_INTERVAL;
-            }
-
-            this.syncWithCloud(interval * 1000);
+            this.loggedIn = true;
+            this.syncWithCloud(this.interval * 1000);
         } catch (error) {
             this.logError("Login", error);
         }
     }
 
-    stopSync() {
+    async stopSync() {
         if (this.timerId) {
             clearTimeout(this.timerId);
             this.timerId = null;
+        }
+        while (this.syncing){
+            await new Promise(resolve => setTimeout(resolve, 500));
         }
     }
 
     async syncWithCloud(interval) {
         try {
-            let data = await Tahoma.getDeviceData();
-            if (data.devices) {
+            if (this.loggedIn) {
+                this.syncing = true;
+                let data = await Tahoma.getDeviceData();
+                if (data.devices) {
 
-                this.logDevices(data.devices);
+                    this.logDevices(data.devices);
 
-                if (Homey.ManagerSettings.get('stateLogEnabled')) {
-                    Homey.ManagerSettings.set('stateLog', "");
-                }
+                    if (Homey.ManagerSettings.get('stateLogEnabled')) {
+                        Homey.ManagerSettings.set('stateLog', "");
+                    }
 
-                const drivers = Homey.ManagerDrivers.getDrivers();
-                for (const driver in drivers) {
-                    Homey.ManagerDrivers.getDriver(driver).getDevices().forEach(device => {
-                        try {
-                            if (device.isReady()) {
-                                device.sync(data.devices)
+                    const drivers = Homey.ManagerDrivers.getDrivers();
+                    for (const driver in drivers) {
+                        Homey.ManagerDrivers.getDriver(driver).getDevices().forEach(device => {
+                            try {
+                                if (device.isReady()) {
+                                    device.sync(data.devices)
+                                }
+                            } catch (error) {
+                                this.logError("Tahoma.getDeviceData", error);
                             }
-                        } catch (error) {
-                            this.logError("Tahoma.getDeviceData", error);
-                        }
-                    })
+                        })
+                    }
                 }
+                this.syncing = false;
             }
         } catch (error) {
             console.log(error.message, error.stack);
         }
-        this.timerId = setTimeout(() => this.syncWithCloud(interval), interval);
+        if (this.loggedIn) {
+            this.timerId = setTimeout(() => this.syncWithCloud(interval), interval);
+        }
     };
 
     /**

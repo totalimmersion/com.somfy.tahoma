@@ -8,38 +8,13 @@ module.exports = [{
     method: 'POST',
     path: '/login/',
     fn: function (args, callback) {
-      Homey.app.stopSync();
-      Tahoma.logout()
+      Homey.app.newLogin(args)
         .then(result => {
-          console.log("Logout OK", result);
+          callback(null, result);
         })
-        .catch((err) => {
-          console.log("Logout Failed", err);
-        })
-        .then(() => {
-          setTimeout(() => {
-            Tahoma.login(args.body.username, args.body.password, args.body.linkurl, args.body.loginMethod)
-              .then(result => {
-                Homey.ManagerSettings.set('username', args.body.username);
-                Homey.ManagerSettings.set('password', args.body.password);
-                Homey.ManagerSettings.set('linkups', args.body.linkurl);
-                Homey.ManagerSettings.set('loginMethod', args.body.loginMethod);
-
-                let interval = null;
-                try {
-                  interval = Number(Homey.ManagerSettings.get('syncInterval'));
-                } catch (e) {
-                  interval = 10;
-                }
-                Homey.app.syncWithCloud(interval * 1000);
-
-                callback(null, result);
-              })
-              .catch(error => {
-                Homey.app.logError("API POST login", error);
-                callback(error);
-              });
-          }, 1000);
+        .catch(error => {
+          Homey.app.logError("API POST login", error);
+          callback(error);
         });
     }
   },
@@ -48,11 +23,8 @@ module.exports = [{
     method: 'POST',
     path: '/logout/',
     fn: function (args, callback) {
-      Homey.app.stopSync();
-      Tahoma.logout()
+      Homey.app.logOut()
         .then(result => {
-          Homey.ManagerSettings.unset('username');
-          Homey.ManagerSettings.unset('password');
           callback(null, result);
         })
         .catch(error => {
