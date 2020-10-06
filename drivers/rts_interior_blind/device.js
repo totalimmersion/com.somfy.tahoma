@@ -16,6 +16,10 @@ class InteriorBlindDevice extends WindowCoveringsDevice {
 
         this.closureStateName = '';
     }
+
+    async sync() {
+        // No states are available so no need to call anything
+    }
 }
 
 module.exports = InteriorBlindDevice;

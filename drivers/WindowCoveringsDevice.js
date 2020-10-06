@@ -145,7 +145,7 @@ class WindowCoveringsDevice extends Device {
             // New value from Tahoma
             this.setCapabilityValue('windowcoverings_state', value);
             if (this.hasCapability("quick_open")) {
-                if (this.invertTile){
+                if (this.invertTile) {
                     this.setCapabilityValue("quick_open", value !== "up")
                 } else {
                     this.setCapabilityValue("quick_open", value !== "down")
@@ -252,7 +252,7 @@ class WindowCoveringsDevice extends Device {
     }
 
     async onCapabilityWindowcoveringsClosed(value, opts) {
-        if (this.invertTile){
+        if (this.invertTile) {
             return this.onCapabilityWindowcoveringsState(value ? 'down' : 'up', null)
         } else {
             return this.onCapabilityWindowcoveringsState(value ? 'up' : 'down', null)
@@ -261,16 +261,13 @@ class WindowCoveringsDevice extends Device {
 
     /**
      * Sync the state of the devices from the TaHoma cloud with Homey
-     * @param {Array} data - device data from all the devices in the TaHoma cloud
      */
-    async sync(data) {
-        let thisId = this.getData().id;
-        const device = data.find(device => device.oid === thisId);
-
-        if (device) {
-            if (device.states) {
+    async sync() {
+        try {
+            const states = await super.sync();
+            if (states) {
                 if (this.hasCapability("lock_state")) {
-                    const lockState = device.states.find(state => state.name === "io:PriorityLockOriginatorState");
+                    const lockState = states.find(state => state.name === "io:PriorityLockOriginatorState");
                     if (lockState) {
                         Homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + lockState.value);
                         this.setCapabilityValue("lock_state", lockState.value);
@@ -278,8 +275,8 @@ class WindowCoveringsDevice extends Device {
                 }
 
                 //device exists -> let's sync the state of the device
-                const closureState = device.states.find(state => state.name === this.closureStateName);
-                const openClosedState = device.states.find(state => state.name === this.openClosedStateName);
+                const closureState = states.find(state => state.name === this.closureStateName);
+                const openClosedState = states.find(state => state.name === this.openClosedStateName);
 
                 if (this.unavailable) {
                     this.unavailable = false;
@@ -323,13 +320,13 @@ class WindowCoveringsDevice extends Device {
 
                 this.setCapabilityValue('windowcoverings_state', null);
             }
-        } else {
-            //device was not found in TaHoma response
-            if (!this.unavailable) {
-                this.unavailable = true;
-                this.setUnavailable("Data not detected");
-            }
-            this.log(this.getName(), " No device data");
+        } catch (error) {
+            this.setUnavailable(null);
+            Homey.app.logError(this.getName(), {
+                message: error.message,
+                stack: error.stack
+            });
+
         }
     }
 }

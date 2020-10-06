@@ -85,31 +85,31 @@ class OneAlarmDevice extends SensorDevice {
 
     /**
      * Gets the sensor data from the TaHoma cloud
-     * @param {Array} data - device data from all the devices in the TaHoma cloud
      */
-    async sync(data) {
-        let thisId = this.getData().id;
-        const device = data.find(device => device.oid === thisId);
+    async sync() {
+        try {
+            const states = await super.sync();
+            if (states) {
+                const intrusionState = states.find(state => state.name === 'core:IntrusionState');
+                if (intrusionState) {
+                    Homey.app.logStates(this.getName() + ": core:IntrusionState = " + intrusionState.value);
+                    this.triggerCapabilityListener('alarm_generic', intrusionState.value === 'detected');
+                }
 
-        if (!device) {
+                const alarmStatusState = states.find(state => state.name === 'myfox:AlarmStatusState');
+                if (alarmStatusState) {
+                    Homey.app.logStates(this.getName() + ": myfox:AlarmStatusState = " + alarmStatusState.value);
+                    this.triggerCapabilityListener('homealarm_state', this.alarmArmedState[alarmStatusState.value], {
+                        fromCloudSync: true
+                    });
+                }
+            }
+        } catch (error) {
             this.setUnavailable(null);
-            return;
-        }
-
-        if (device.states) {
-            const intrusionState = device.states.find(state => state.name === 'core:IntrusionState');
-            if (intrusionState) {
-                Homey.app.logStates(this.getName() + ": core:IntrusionState = " + intrusionState.value);
-                this.triggerCapabilityListener('alarm_generic', intrusionState.value === 'detected');
-            }
-
-            const alarmStatusState = device.states.find(state => state.name === 'myfox:AlarmStatusState');
-            if (alarmStatusState) {
-                Homey.app.logStates(this.getName() + ": myfox:AlarmStatusState = " + alarmStatusState.value);
-                this.triggerCapabilityListener('homealarm_state', this.alarmArmedState[alarmStatusState.value], {
-                    fromCloudSync: true
-                });
-            }
+            Homey.app.logError(this.getName(), {
+                message: error.message,
+                stack: error.stack
+            });
         }
     }
 }

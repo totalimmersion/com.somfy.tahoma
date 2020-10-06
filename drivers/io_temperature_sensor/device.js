@@ -42,23 +42,24 @@ class TemperatureSensorDevice extends SensorDevice {
 
   /**
    * Gets the sensor data from the TaHoma cloud
-   * @param {Array} data - device data from all the devices in the TaHoma cloud
    */
-  async sync(data) {
-    let thisId = this.getData().id;
-    const device = data.find(device => device.oid === thisId);
-
-    if (!device) {
-      this.setUnavailable(null);
-      return;
-    }
-
-    if (device.states) {
-      const temperatureState = device.states.find(state => state.name === 'core:TemperatureState');
-      if (temperatureState) {
-        Homey.app.logStates(this.getName() + ": core:TemperatureState = " + temperatureState.value);
-        this.triggerCapabilityListener('measure_temperature', temperatureState.value);
+  async sync() {
+    try {
+      const states = await super.sync();
+      if (states) {
+        const temperatureState = states.find(state => state.name === 'core:TemperatureState');
+        if (temperatureState) {
+          Homey.app.logStates(this.getName() + ": core:TemperatureState = " + temperatureState.value);
+          this.triggerCapabilityListener('measure_temperature', temperatureState.value);
+        }
       }
+    } catch (error) {
+      this.setUnavailable(null);
+      Homey.app.logError(this.getName(), {
+        message: error.message,
+        stack: error.stack
+      });
+
     }
   }
 }

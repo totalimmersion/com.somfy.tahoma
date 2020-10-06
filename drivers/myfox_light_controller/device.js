@@ -53,22 +53,24 @@ class myFoxLightControllerDevice extends SensorDevice {
 
     /**
      * Gets the data from the TaHoma cloud
-     * @param {Array} data - device data from all the devices in the TaHoma cloud
      */
-    async sync(data) {
-        let thisId = this.getData().id;
-        const device = data.find(device => device.oid === thisId);
-
-        if (!device) {
+    async sync() {
+        try {
+            const states = await super.sync();
+            if (states) {
+                const OnOffState = states.find(state => state.name === 'core:OnOffState');
+                if (OnOffState) {
+                    Homey.app.logStates(this.getName() + ": core:OnOffState = " + OnOffState.value);
+                    this.triggerCapabilityListener('onoff', (OnOffState.value === 'on'), {
+                        fromCloudSync: true
+                    });
+                }
+            }
+        } catch (error) {
             this.setUnavailable(null);
-            return;
-        }
-
-        const OnOffState = device.states.find(state => state.name === 'core:OnOffState');
-        if (OnOffState) {
-            Homey.app.logStates(this.getName() + ": core:OnOffState = " + OnOffState.value);
-            this.triggerCapabilityListener('onoff', (OnOffState.value === 'on'), {
-                fromCloudSync: true
+            Homey.app.logError(this.getName(), {
+                message: error.message,
+                stack: error.stack
             });
         }
     }

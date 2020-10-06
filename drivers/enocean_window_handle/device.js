@@ -41,21 +41,23 @@ class WindowHandleDevice extends SensorDevice {
 	 * Gets the sensor data from the TaHoma cloud
 	 * @param {Array} data - device data from all the devices in the TaHoma cloud
 	 */
-	async sync(data) {
-		let thisId = this.getData().id;
-		const device = data.find(device => device.oid === thisId);
-
-		if (!device) {
-			this.setUnavailable(null);
-			return;
-		}
-
-		if (device.states) {
-			const contactState = device.states.find(state => state.name === 'core:ThreeWayHandleDirectionState');
-			if (contactState) {
-                Homey.app.logStates(this.getName() + ": myfox:ThreeWayHandleDirectionState = " + contactState.value);
-				this.triggerCapabilityListener('alarm_contact', contactState.value != 'closed');
+	async sync() {
+		try {
+			const states = await super.sync();
+			if (states) {
+				const contactState = device.states.find(state => state.name === 'core:ThreeWayHandleDirectionState');
+				if (contactState) {
+					Homey.app.logStates(this.getName() + ": myfox:ThreeWayHandleDirectionState = " + contactState.value);
+					this.triggerCapabilityListener('alarm_contact', contactState.value != 'closed');
+				}
 			}
+		} catch (error) {
+			this.setUnavailable(null);
+			Homey.app.logError(this.getName(), {
+				message: error.message,
+				stack: error.stack
+			});
+
 		}
 	}
 }

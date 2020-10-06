@@ -143,10 +143,12 @@ class myApp extends Homey.App {
         return true;
     }
 
-    logDevices(devices) {
-        if (Homey.ManagerSettings.get('logEnabled')) {
-            // Do a deep copy
-            let logData = JSON.parse(JSON.stringify(devices));
+    async logDevices() {
+        const devices = await Tahoma.getDeviceData();
+        // Do a deep copy
+        let logData = JSON.parse(JSON.stringify(devices));
+        if (process.env.DEBUG !== '1') {
+
             let i = 1;
             logData.forEach(element => {
                 delete element["creationTime"];
@@ -156,12 +158,11 @@ class myApp extends Homey.App {
                 delete element["placeOID"];
                 element["oid"] = "temp" + i++;
             });
-            Homey.ManagerSettings.set('diagLog', {
-                "devices": logData
-            });
-            Homey.ManagerSettings.set('logEnabled', false);
-            Homey.ManagerSettings.unset('sendLog');
         }
+        Homey.ManagerSettings.set('diagLog', {
+            "devices": logData
+        });
+        Homey.ManagerSettings.unset('sendLog');
     }
 
     logError(source, error) {
@@ -277,7 +278,7 @@ class myApp extends Homey.App {
             clearTimeout(this.timerId);
             this.timerId = null;
         }
-        while (this.syncing){
+        while (this.syncing) {
             await new Promise(resolve => setTimeout(resolve, 500));
         }
     }
@@ -286,27 +287,22 @@ class myApp extends Homey.App {
         try {
             if (this.loggedIn) {
                 this.syncing = true;
-                let data = await Tahoma.getDeviceData();
-                if (data.devices) {
 
-                    this.logDevices(data.devices);
+                if (Homey.ManagerSettings.get('stateLogEnabled')) {
+                    Homey.ManagerSettings.set('stateLog', "");
+                }
 
-                    if (Homey.ManagerSettings.get('stateLogEnabled')) {
-                        Homey.ManagerSettings.set('stateLog', "");
-                    }
-
-                    const drivers = Homey.ManagerDrivers.getDrivers();
-                    for (const driver in drivers) {
-                        Homey.ManagerDrivers.getDriver(driver).getDevices().forEach(device => {
-                            try {
-                                if (device.isReady()) {
-                                    device.sync(data.devices)
-                                }
-                            } catch (error) {
-                                this.logError("Tahoma.getDeviceData", error);
+                const drivers = Homey.ManagerDrivers.getDrivers();
+                for (const driver in drivers) {
+                    Homey.ManagerDrivers.getDriver(driver).getDevices().forEach(device => {
+                        try {
+                            if (device.isReady()) {
+                                device.sync();
                             }
-                        })
-                    }
+                        } catch (error) {
+                            this.logError("Tahoma.getDeviceData", error);
+                        }
+                    })
                 }
                 this.syncing = false;
             }

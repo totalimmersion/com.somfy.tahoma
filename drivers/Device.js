@@ -1,6 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
+const Tahoma = require('./../lib/Tahoma');
 
 /**
  * Base class for devices
@@ -44,7 +45,7 @@ class Device extends Homey.Device {
   }
 
   async sync() {
-    throw new Error('sync() not implemented for device');
+    return await Tahoma.getDeviceStates( this.getDeviceUrl());
   }
 }
 

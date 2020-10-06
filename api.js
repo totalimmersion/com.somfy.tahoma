@@ -34,6 +34,20 @@ module.exports = [{
     }
   },
   {
+    description: 'Get device log',
+    method: 'POST',
+    path: '/GetDeviceLog/',
+    fn: function (args, callback) {
+      Homey.app.logDevices()
+        .then(result => {
+          return callback(null, true);
+        })
+        .catch(error => {
+          return callback(error, null);
+        });
+    }
+  },
+  {
     description: 'Send device log',
     method: 'POST',
     path: '/SendDeviceLog/',

@@ -216,13 +216,11 @@
             <p>Set the Log Enable option and wait for the data to appear. Then send the log.</p>
             <p>Contact @Adrian_Rockall on the community forum to describe which device is not supported.</p>
             <p>No personal data is captured or sent so if you don't contact me I will not be able to respond.</p>
-            <div class="field row">
-                <label for="logEnabled">Log Enabled</label>
-                <input id="logEnabled" type="checkbox" value="logEnabled" />
-            </div>
-            <p><button id="clearLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;">Clear
-                    Log</button><button id="sendDeviceLog"
-                    style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;">Send Log</button></p>
+            <p>
+                <button id="getLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;">Get Log</button>
+                <button id="clearLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;">Clear Log</button>
+                <button id="sendDeviceLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;">Send Log</button>
+            </p>
             <div class="field row">
                 <textarea id="diagLog"></textarea>
             </div>
@@ -262,7 +260,7 @@
         var clearErrorLogElement = document.getElementById('clearErrorLog');
         var sendErrorLogElement = document.getElementById('sendErrorLog');
         var diagLogElement = document.getElementById('diagLog');
-        var logEnabledElement = document.getElementById('logEnabled');
+        var getLogElement = document.getElementById('getLog');
         var clearLogElement = document.getElementById('clearLog');
         var sendDeviceLogElement = document.getElementById('sendDeviceLog');
 
@@ -293,13 +291,20 @@
                     if (err) return Homey.alert(err);
                     diagLogElement.value = JSON.stringify(diagLog, null, 2);
                 });
-                Homey.get('logEnabled', function (err, logEnabled) {
-                    if (err) return Homey.alert(err);
-                    logEnabledElement.checked = logEnabled;
-                });
                 Homey.get('stateLog', function (err, stateLog) {
                     if (err) return Homey.alert(err);
                     stateLogElement.value = stateLog;
+                });
+            });
+
+            getLogElement.addEventListener('click', function (e) {
+                Homey.api('POST', '/GetDeviceLog/', {}, function (err, result) {
+                    if (err) {
+                        response.css({
+                            color: 'red'
+                        });
+                        response.html(err.message);
+                    }
                 });
             });
 
@@ -308,12 +313,6 @@
                     if (err) return Homey.alert(err);
                 });
                 errorLogElement.value = "";
-            });
-
-            logEnabledElement.addEventListener('click', function (e) {
-                Homey.set('logEnabled', logEnabledElement.checked, function (err) {
-                    if (err) return Homey.alert(err);
-                });
             });
 
             clearLogElement.addEventListener('click', function (e) {
@@ -416,11 +415,6 @@
 
             if (tabPage == 'log') {
                 // Refresh the log data
-                Homey.get('logEnabled', function (err, logEnabled) {
-                    if (err) return Homey.alert(err);
-                    logEnabledElement.checked = logEnabled;
-                });
-
                 Homey.get('diagLog', function (err, diagLog) {
                     if (err) return Homey.alert(err);
                     diagLogElement.value = diagLog ? JSON.stringify(diagLog, null, 2) : "";
