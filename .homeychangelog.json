@@ -151,5 +151,8 @@
   },
   "2.0.6": {
     "en": "More error checking."
+  },
+  "2.0.7": {
+    "en": "Converted \\setup endpoint to individual fetch in compliance with email from Somfy"
   }
 }
