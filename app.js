@@ -148,7 +148,7 @@ class myApp extends Homey.App {
     async logDevices() {
         const devices = await Tahoma.getDeviceData();
         // Do a deep copy
-        let logData = JSON.parse(JSON.stringify(devices));
+        let logData = JSON.parse(JSON.stringify(devices.devices));
         if (process.env.DEBUG !== '1') {
 
             let i = 1;
