@@ -7,7 +7,7 @@ const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
 const nodemailer = require("nodemailer");
 
-const INITIAL_SYNC_INTERVAL = 30; //interval of 10 seconds
+const INITIAL_SYNC_INTERVAL = 30; //interval of 30 seconds
 const MIN_SYNC_INTERVAL = 10;
 
 /**
@@ -43,6 +43,10 @@ class myApp extends Homey.App {
         this.homeyHash = await Homey.ManagerCloud.getHomeyId();
         this.homeyHash = this.hashCode(this.homeyHash).toString();
 
+
+        if (!Homey.ManagerSettings.get('syncInterval')) {
+            Homey.ManagerSettings.set('syncInterval', INITIAL_SYNC_INTERVAL);
+        }
         try {
             this.interval = Number(Homey.ManagerSettings.get('syncInterval'));
             if (this.interval < MIN_SYNC_INTERVAL) {
@@ -73,10 +77,6 @@ class myApp extends Homey.App {
         });
 
         this.addScenarioActionListeners();
-
-        if (!Homey.ManagerSettings.get('syncInterval')) {
-            Homey.ManagerSettings.set('syncInterval', INITIAL_SYNC_INTERVAL);
-        }
 
         Homey.ManagerSettings.on('set', (setting) => {
             if (setting === 'syncInterval') {
