@@ -37,7 +37,7 @@ class myApp extends Homey.App {
         let logData = [];
         Homey.ManagerSettings.set('diagLog', "");
 
-        Homey.ManagerSettings.set('statusLogEnabled', false);
+        //Homey.ManagerSettings.set('statusLogEnabled', false);
         Homey.ManagerSettings.set('statusLog', "");
 
         this.homeyHash = await Homey.ManagerCloud.getHomeyId();
@@ -64,7 +64,7 @@ class myApp extends Homey.App {
         }
 
         process.on('unhandledRejection', (reason, p) => {
-            this.logError('Unhandled Rejection', {
+            this.logInformation('Unhandled Rejection', {
                 'message': reason,
                 'stack': p
             });
@@ -88,10 +88,6 @@ class myApp extends Homey.App {
                 }
 
                 this.restartSync();
-            } else if (setting === 'stateLogEnabled') {
-                if (Homey.ManagerSettings.get('stateLogEnabled')) {
-                    Homey.ManagerSettings.set('stateLog', "");
-                }
             }
         });
 
@@ -171,9 +167,9 @@ class myApp extends Homey.App {
         Homey.ManagerSettings.unset('sendLog');
     }
 
-    logError(source, error) {
+    logInformation(source, error) {
         console.log(source, error);
-        let err = {
+        let data = {
             message: error.message,
             stack: error.stack
         };
@@ -186,7 +182,7 @@ class myApp extends Homey.App {
         logData.push({
             'time': nowTime.toJSON(),
             'source': source,
-            'error': err
+            'data': data
         });
         if (logData.length > 50) {
             logData.splice(0, 1);
@@ -255,7 +251,7 @@ class myApp extends Homey.App {
                     message: "OK"
                 };
             } catch (err) {
-                this.logError("Send log error", err);
+                this.logInformation("Send log error", err);
                 return {
                     error: err,
                     message: null
@@ -278,18 +274,33 @@ class myApp extends Homey.App {
         }
 
         try {
+            Homey.app.logInformation("Log in", {
+                message: "Starting",
+                stack: ""
+              });
+        
             await Tahoma.login(username, password, Homey.ManagerSettings.get('linkurl'), Homey.ManagerSettings.get('loginMethod'));
             this.loggedIn = true;
 
             // Sync all devices to start with
+            Homey.app.logInformation("Device states", {
+                message: "Initialising",
+                stack: ""
+              });
+        
             this.syncing = true;
             await this.syncDevices();
             this.syncing = false;
 
-            // Start to Sync devices that have had an event
+            Homey.app.logInformation("Sync.", {
+                message: "Initialising",
+                stack: ""
+              });
+
+              // Start to Sync devices that have had an event
             this.syncWithCloud(this.interval * 1000);
         } catch (error) {
-            this.logError("Login", error);
+            this.logInformation("Login", error);
         }
     }
 
@@ -348,7 +359,7 @@ class myApp extends Homey.App {
                             }
                         }
                     } catch (error) {
-                        this.logError("Tahoma.getDeviceData", error);
+                        this.logInformation("Sync Devices", error);
                     }
                 })
             }
@@ -371,7 +382,7 @@ class myApp extends Homey.App {
                             device.sync();
                         }
                     } catch (error) {
-                        this.logError("Tahoma.getDeviceData", error);
+                        this.logInformation("Tahoma.getDeviceData", error);
                     }
                 })
             }
@@ -405,7 +416,7 @@ class myApp extends Homey.App {
                             name
                         }) => name.toLowerCase().indexOf(query.toLowerCase()) > -1))
                     .catch(error => {
-                        this.logError("addScenarioActionListeners", error);
+                        this.logInformation("addScenarioActionListeners", error);
                     });
             });
     }

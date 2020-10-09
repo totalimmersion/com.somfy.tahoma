@@ -137,7 +137,7 @@
     <!-- Tab links -->
     <div class="tab">
         <button class="tablinks" onclick="setPage(event, 'settings')" id="defaultOpen">Settings</button>
-        <button class="tablinks" onclick="setPage(event, 'errorLog')">Error Log</button>
+        <button class="tablinks" onclick="setPage(event, 'errorLog')">Information Log</button>
         <button class="tablinks" onclick="setPage(event, 'log')">Device Log</button>
         <button class="tablinks" onclick="setPage(event, 'stateLog')">State Log</button>
         <button class="tablinks" onclick="setPage(event, 'simulator')" id="simlogtab"
@@ -207,10 +207,10 @@
         </fieldset>
     </div>
 
-    <!-- ERROR LOG PAGE -->
+    <!-- Information LOG PAGE -->
     <div id="errorLog" class="tabcontent">
         <fieldset>
-            <p>Shows error encountered.</p>
+            <p>Shows Diagnostic Information</p>
             <p><button id="clearErrorLog" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear
                     Log</button><button id="sendErrorLog"
                     style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;">Send Log</button></p>
@@ -260,6 +260,8 @@
         <fieldset>
             <h1>Recorded state values</h1>
             <div class="field row">
+                <button id="clearStateLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;">Clear
+                    Log</button>
                 <label for="stateLogEnabled">Log Enabled</label>
                 <input id="stateLogEnabled" type="checkbox" value="logEnabled" />
             </div>
@@ -284,6 +286,7 @@
 
         var stateLogElement = document.getElementById('stateLogData');
         var stateLogEnabledElement = document.getElementById('stateLogEnabled');
+        var clearStateLogElement = document.getElementById('clearStateLog');
 
         function doStuff() {
             Homey.get('debugMode', function (err, debugMode) {
@@ -302,14 +305,12 @@
                         errorLogElement.value = JSON.stringify(errorLog, null, 2).replace(/\\n/g,
                             '\n            ');
                     });
-                }
-                else if (param == 'diagLog') {
+                } else if (param == 'diagLog') {
                     Homey.get('diagLog', function (err, diagLog) {
                         if (err) return Homey.alert(err);
                         diagLogElement.value = JSON.stringify(diagLog, null, 2);
                     });
-                }
-                else if (param == 'stateLog') {
+                } else if (param == 'stateLog') {
                     Homey.get('stateLog', function (err, stateLogData) {
                         if (err) return Homey.alert(err);
                         stateLogElement.value = stateLogData;
@@ -333,6 +334,13 @@
                     if (err) return Homey.alert(err);
                 });
                 errorLogElement.value = "";
+            });
+
+            clearStateLogElement.addEventListener('click', function (e) {
+                Homey.set('stateLog', "", function (err) {
+                    if (err) return Homey.alert(err);
+                });
+                stateLogElement.value = "";
             });
 
             clearLogElement.addEventListener('click', function (e) {
@@ -430,7 +438,7 @@
 
                 // Make the log text area fill the page
                 errorLogElement.setAttribute('cols', errorLogElement.parentElement.clientWidth / 8);
-                errorLogElement.style.height = (window.innerHeight - errorLogElement.offsetTop - 20) + 'px';
+                errorLogElement.style.height = (window.innerHeight - errorLogElement.offsetTop - 40) + 'px';
             }
 
             if (tabPage == 'log') {
@@ -442,7 +450,7 @@
 
                 // Make the log text area fill the page
                 diagLogElement.setAttribute('cols', diagLogElement.parentElement.clientWidth / 8);
-                diagLogElement.style.height = (window.innerHeight - diagLogElement.offsetTop - 20) + 'px';
+                diagLogElement.style.height = (window.innerHeight - diagLogElement.offsetTop - 40) + 'px';
             }
 
             if (tabPage == 'simulator') {
@@ -453,7 +461,7 @@
 
                 // Make the simulator text box fill the page
                 simDataElement.setAttribute('cols', simDataElement.parentElement.clientWidth / 8);
-                simDataElement.style.height = (window.innerHeight - simDataElement.offsetTop - 20) + 'px';
+                simDataElement.style.height = (window.innerHeight - simDataElement.offsetTop - 40) + 'px';
             }
 
             if (tabPage == 'stateLog') {
@@ -468,7 +476,7 @@
 
                 // Make the simulator text box fill the page
                 stateLogElement.setAttribute('cols', stateLogElement.parentElement.clientWidth / 8);
-                stateLogElement.style.height = (window.innerHeight - stateLogElement.offsetTop - 20) + 'px';
+                stateLogElement.style.height = (window.innerHeight - stateLogElement.offsetTop - 40) + 'px';
             }
         };
     </script>

@@ -13,7 +13,10 @@ class Device extends Homey.Device {
     this._ready = false;
     this.log('Device init:', this.getName(), 'class:', this.getClass());
 
-    setTimeout(() => {this._ready = true}, Math.floor(Math.random() * 5000));
+    setTimeout(() => {
+      this._ready = true;
+      this.sync();
+    }, Math.floor(Math.random() * 5000) + 5000);
   }
 
   onAdded() {

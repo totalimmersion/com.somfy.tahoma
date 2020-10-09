@@ -13,7 +13,7 @@ module.exports = [{
           callback(null, result);
         })
         .catch(error => {
-          Homey.app.logError("API POST login", error);
+          Homey.app.logInformation("API POST login", error);
           callback(error);
         });
     }
@@ -28,7 +28,7 @@ module.exports = [{
           callback(null, result);
         })
         .catch(error => {
-          Homey.app.logError("API POST logout", error);
+          Homey.app.logInformation("API POST logout", error);
           callback(error);
         });
     }

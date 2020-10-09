@@ -45,7 +45,7 @@ class Driver extends Homey.Driver {
         callback(null, homeyDevices);
       }
     } catch (error) {
-      Homey.app.logError("OnReceiveSetupData", error);
+      Homey.app.logInformation("OnReceiveSetupData", error);
       callback(error);
     }
   }
@@ -63,7 +63,7 @@ class Driver extends Homey.Driver {
         .trigger(device, tokens, state)
         .then(this.log)
         .catch(error => {
-          Homey.app.logError("triggerFlow", error);
+          Homey.app.logInformation("triggerFlow", error);
         });
     }
   }

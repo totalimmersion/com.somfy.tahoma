@@ -58,7 +58,7 @@ class LightSensorDevice extends SensorDevice {
       }
     } catch (error) {
       this.setUnavailable(null);
-      Homey.app.logError(this.getName(), {
+      Homey.app.logInformation(this.getName(), {
         message: error.message,
         stack: error.stack
       });

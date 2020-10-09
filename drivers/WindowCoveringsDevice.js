@@ -126,7 +126,7 @@ class WindowCoveringsDevice extends Device {
                 let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
                 if (result.errorCode) {
                     this.setWarning(result.errorCode + result.error);
-                    Homey.app.logError(this.getName(), {
+                    Homey.app.logInformation(this.getName(), {
                         message: result.error,
                         stack: result.errorCode
                     });
@@ -173,7 +173,7 @@ class WindowCoveringsDevice extends Device {
             let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
             if (result.errorCode) {
                 this.setWarning(result.errorCode + result.error);
-                Homey.app.logError(this.getName(), {
+                Homey.app.logInformation(this.getName(), {
                     message: result.error,
                     stack: result.errorCode
                 });
@@ -199,7 +199,7 @@ class WindowCoveringsDevice extends Device {
             let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
             if (result.errorCode) {
                 this.setWarning(result.errorCode + result.error);
-                Homey.app.logError(this.getName(), {
+                Homey.app.logInformation(this.getName(), {
                     message: result.error,
                     stack: result.errorCode
                 });
@@ -220,7 +220,7 @@ class WindowCoveringsDevice extends Device {
             };
             let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
             if (result.errorCode) {
-                Homey.app.logError(this.getName(), {
+                Homey.app.logInformation(this.getName(), {
                     message: result.error,
                     stack: result.errorCode
                 });
@@ -240,7 +240,7 @@ class WindowCoveringsDevice extends Device {
             };
             let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result.errorCode) {
-                Homey.app.logError(this.getName(), {
+                Homey.app.logInformation(this.getName(), {
                     message: result.error,
                     stack: result.errorCode
                 });
@@ -322,7 +322,7 @@ class WindowCoveringsDevice extends Device {
             }
         } catch (error) {
             this.setUnavailable(null);
-            Homey.app.logError(this.getName(), {
+            Homey.app.logInformation(this.getName(), {
                 message: error.message,
                 stack: error.stack
             });
@@ -391,7 +391,7 @@ class WindowCoveringsDevice extends Device {
             }
         } catch (error) {
             this.setUnavailable(error.message);
-            Homey.app.logError(this.getName(), {
+            Homey.app.logInformation(this.getName(), {
                 message: error.message,
                 stack: error.stack
             });
