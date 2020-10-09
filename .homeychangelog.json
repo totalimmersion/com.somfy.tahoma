@@ -157,5 +157,8 @@
   },
   "2.0.8": {
     "en": "Implemented Event method of updating capabilities"
+  },
+  "2.0.9": {
+    "en": "Added more logging for events"
   }
 }
