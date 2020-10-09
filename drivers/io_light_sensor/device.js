@@ -64,5 +64,30 @@ class LightSensorDevice extends SensorDevice {
       });
     }
   }
+
+  // look for updates in the events array
+  async syncEvents(events) {
+    const myURL = this.getDeviceUrl();
+
+    // Process events sequentially so they are in the correct order
+    for (var i = 0; i < events.length; i++) {
+      const element = events[i];
+      if (element['name'] === 'DeviceStateChangedEvent') {
+        if ((element['deviceURL'] === myURL) && element['deviceStates']) {
+          // Got what we need to update the device so lets find it
+          for (var x = 0; x < element.deviceStates.length; x++) {
+            const deviceState = element.deviceStates[x];
+            if (deviceState.name === 'core:LuminanceState') {
+              Homey.app.logStates(this.getName() + ": core:LuminanceState = " + deviceState.value);
+              const oldState = this.getState().measure_luminance;
+              if (oldState !== deviceState.value) {
+                this.triggerCapabilityListener('measure_luminance', parseInt(deviceState.value));
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 module.exports = LightSensorDevice;

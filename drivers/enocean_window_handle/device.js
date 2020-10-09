@@ -47,7 +47,7 @@ class WindowHandleDevice extends SensorDevice {
 			if (states) {
 				const contactState = device.states.find(state => state.name === 'core:ThreeWayHandleDirectionState');
 				if (contactState) {
-					Homey.app.logStates(this.getName() + ": myfox:ThreeWayHandleDirectionState = " + contactState.value);
+					Homey.app.logStates(this.getName() + ": core:ThreeWayHandleDirectionState = " + contactState.value);
 					this.triggerCapabilityListener('alarm_contact', contactState.value != 'closed');
 				}
 			}
@@ -58,6 +58,31 @@ class WindowHandleDevice extends SensorDevice {
 				stack: error.stack
 			});
 
+		}
+	}
+
+	// look for updates in the events array
+	async syncEvents(events) {
+		const myURL = this.getDeviceUrl();
+
+		// Process events sequentially so they are in the correct order
+		for (var i = 0; i < events.length; i++) {
+			const element = events[i];
+			if (element['name'] === 'DeviceStateChangedEvent') {
+				if ((element['deviceURL'] === myURL) && element['deviceStates']) {
+					// Got what we need to update the device so lets find it
+					for (var x = 0; x < element.deviceStates.length; x++) {
+						const deviceState = element.deviceStates[x];
+						if (deviceState.name === 'core:ThreeWayHandleDirectionState') {
+							Homey.app.logStates(this.getName() + ": core:ThreeWayHandleDirectionState = " + deviceState.value);
+							const oldState = this.getState().alarm_contact;
+							if (oldState !== deviceState.value) {
+								this.triggerCapabilityListener('alarm_contact', (deviceState.value != 'closed'));
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }

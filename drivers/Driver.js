@@ -16,39 +16,31 @@ class Driver extends Homey.Driver {
         this.log('list_devices');
         const username = Homey.ManagerSettings.get('username');
         const password = Homey.ManagerSettings.get('password');
-        if (!username || !password){
-          callback( new Error(Homey.__("errors.on_pair_login_failure")));
+        if (!username || !password) {
+          callback(new Error(Homey.__("errors.on_pair_login_failure")));
           return;
         }
 
-        Tahoma.getDeviceData()
-          .then((tahomaData) => {
-            this.onReceiveSetupData(tahomaData, callback);
-          })
-          .catch(error => {
-            Homey.app.logError("OnPair", error);
-            callback(error);
-          });
+        this.onReceiveSetupData(callback);
       })
   }
 
-  onReceiveSetupData({ devices }, callback) {
+  async onReceiveSetupData(callback) {
     try {
-      this.log('setup resolve');
+      const devices = await Tahoma.getDeviceData();
       if (devices) {
+        this.log('setup resolve');
         const homeyDevices = devices
           .filter(device => this.deviceType.indexOf(device.controllableName) !== -1)
-          .map(device => (
-            {
-              name: device.label,
-              data: {
-                id: device.oid,
-                deviceURL: device.deviceURL,
-                label: device.label,
-                controllableName: device.controllableName
-              }
+          .map(device => ({
+            name: device.label,
+            data: {
+              id: device.oid,
+              deviceURL: device.deviceURL,
+              label: device.label,
+              controllableName: device.controllableName
             }
-          ));
+          }));
 
         callback(null, homeyDevices);
       }
@@ -59,12 +51,12 @@ class Driver extends Homey.Driver {
   }
 
   /**
-	 * Triggers a flow
-	 * @param {Homey.FlowCardTriggerDevice} trigger - A Homey.FlowCardTriggerDevice instance
-	 * @param {Device} device - A Device instance
-	 * @param {Object} tokens - An object with tokens and their typed values, as defined in the app.json
-	 * @param {Object} state - An object with properties which are accessible throughout the Flow
-	 */
+   * Triggers a flow
+   * @param {Homey.FlowCardTriggerDevice} trigger - A Homey.FlowCardTriggerDevice instance
+   * @param {Device} device - A Device instance
+   * @param {Object} tokens - An object with tokens and their typed values, as defined in the app.json
+   * @param {Object} state - An object with properties which are accessible throughout the Flow
+   */
   triggerFlow(trigger, device, tokens, state) {
     if (trigger) {
       trigger
@@ -77,9 +69,9 @@ class Driver extends Homey.Driver {
   }
 
   /**
-	 * Returns the io controllable name(s) of TaHoma
-	 * @return {Array} deviceType
-	 */
+   * Returns the io controllable name(s) of TaHoma
+   * @return {Array} deviceType
+   */
   getDeviceType() {
     return this.deviceType ? this.deviceType : false;
   }

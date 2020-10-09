@@ -26,13 +26,9 @@ class OpeningDetectorDevice extends SensorDevice {
         'isOpen': value
       };
 
-      const state = {
-        'alarm_contact': value
-      };
-
       //trigger flows
       this.getDriver()
-        .triggerContactChange(device, tokens, state);
+        .triggerContactChange(device, tokens);
     }
 
     return Promise.resolve();
@@ -58,6 +54,31 @@ class OpeningDetectorDevice extends SensorDevice {
         stack: error.stack
       });
 
+    }
+  }
+
+  // look for updates in the events array
+  async syncEvents(events) {
+    const myURL = this.getDeviceUrl();
+
+    // Process events sequentially so they are in the correct order
+    for (var i = 0; i < events.length; i++) {
+      const element = events[i];
+      if (element['name'] === 'DeviceStateChangedEvent') {
+        if ((element['deviceURL'] === myURL) && element['deviceStates']) {
+          // Got what we need to update the device so lets find it
+          for (var x = 0; x < element.deviceStates.length; x++) {
+            const deviceState = element.deviceStates[x];
+            if (deviceState.name === 'core:ContactState') {
+              Homey.app.logStates(this.getName() + ": core:ContactState = " + deviceState.value);
+              const oldState = this.getState().measure_luminance;
+              if (oldState !== deviceState.value) {
+                this.triggerCapabilityListener('alarm_contact', deviceState.value === 'open');
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

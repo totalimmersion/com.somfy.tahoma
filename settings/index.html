@@ -295,20 +295,26 @@
 
             document.getElementById("defaultOpen").click();
 
-            Homey.on('settings.set', function () {
-                Homey.get('errorLog', function (err, errorLog) {
-                    if (err) return Homey.alert(err);
-                    errorLogElement.value = JSON.stringify(errorLog, null, 2).replace(/\\n/g,
-                        '\n            ');
-                });
-                Homey.get('diagLog', function (err, diagLog) {
-                    if (err) return Homey.alert(err);
-                    diagLogElement.value = JSON.stringify(diagLog, null, 2);
-                });
-                Homey.get('stateLog', function (err, stateLog) {
-                    if (err) return Homey.alert(err);
-                    stateLogElement.value = stateLog;
-                });
+            Homey.on('settings.set', function (param) {
+                if (param == 'errorLog') {
+                    Homey.get('errorLog', function (err, errorLog) {
+                        if (err) return Homey.alert(err);
+                        errorLogElement.value = JSON.stringify(errorLog, null, 2).replace(/\\n/g,
+                            '\n            ');
+                    });
+                }
+                else if (param == 'diagLog') {
+                    Homey.get('diagLog', function (err, diagLog) {
+                        if (err) return Homey.alert(err);
+                        diagLogElement.value = JSON.stringify(diagLog, null, 2);
+                    });
+                }
+                else if (param == 'stateLog') {
+                    Homey.get('stateLog', function (err, stateLogData) {
+                        if (err) return Homey.alert(err);
+                        stateLogElement.value = stateLogData;
+                    });
+                }
             });
 
             getLogElement.addEventListener('click', function (e) {
@@ -453,7 +459,11 @@
             if (tabPage == 'stateLog') {
                 Homey.get('stateLog', function (err, stateLogData) {
                     if (err) return Homey.alert(err);
-                    stateLogElement.checked = stateLogData;
+                    stateLogElement.value = stateLogData;
+                });
+                Homey.get('stateLogEnabled', function (err, enable) {
+                    if (err) return Homey.alert(err);
+                    stateLogEnabledElement.checked = enable;
                 });
 
                 // Make the simulator text box fill the page

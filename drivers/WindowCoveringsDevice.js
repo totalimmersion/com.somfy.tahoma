@@ -329,6 +329,75 @@ class WindowCoveringsDevice extends Device {
 
         }
     }
+
+    /**
+     * Sync the state of the devices from the TaHoma cloud with Homey
+     */
+    async syncEvents(events) {
+        try {
+            const myURL = this.getDeviceUrl();
+
+            // Process events sequentially so they are in the correct order
+            for (var i = 0; i < events.length; i++) {
+                const element = events[i];
+                if (element['name'] === 'DeviceStateChangedEvent') {
+                    if ((element['deviceURL'] === myURL) && element['deviceStates']) {
+                        // Got what we need to update the device so lets find it
+                        if (this.unavailable) {
+                            this.unavailable = false;
+                            this.setAvailable();
+                        }
+                        for (var x = 0; x < element.deviceStates.length; x++) {
+                            const deviceState = element.deviceStates[x];
+
+                            if (deviceState.name === 'io:PriorityLockOriginatorState') {
+                                // Device lock state
+                                if (this.hasCapability("lock_state")) {
+                                    Homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + deviceState.value);
+                                    this.setCapabilityValue("lock_state", deviceState.value);
+                                }
+                            } else if (deviceState.name === this.closureStateName) {
+                                // Device position
+                                var closureStateValue = parseInt(deviceState.value);
+                                Homey.app.logStates(this.getName() + ": " + this.closureStateName + " = " + closureStateValue);
+
+                                if (this.invertPosition) {
+                                    closureStateValue = 100 - closureStateValue;
+                                }
+                                this.triggerCapabilityListener('windowcoverings_set', 1 - (closureStateValue / 100), {
+                                    fromCloudSync: true
+                                });
+                                if ((closureStateValue !== 0) && (closureStateValue !== 100)) {
+                                    // Not fully open or closed
+                                    this.triggerCapabilityListener('windowcoverings_state', 'idle', {
+                                        fromCloudSync: true
+                                    });
+                                }
+                            } else if (deviceState.name === this.openClosedStateName) {
+                                // Device Open / Closed state
+                                var openClosedStateValue = parseInt(deviceState.value);
+                                Homey.app.logStates(this.getName() + ": " + this.openClosedStateName + " = " + openClosedStateValue);
+
+                                // Convert Tahoma states to Homey equivalent
+                                openClosedStateValue = this.windowcoveringsStatesMap[openClosedStateValue];
+
+                                this.triggerCapabilityListener('windowcoverings_state', openClosedStateValue, {
+                                    fromCloudSync: true
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (error) {
+            this.setUnavailable(error.message);
+            Homey.app.logError(this.getName(), {
+                message: error.message,
+                stack: error.stack
+            });
+
+        }
+    }
 }
 
 module.exports = WindowCoveringsDevice;

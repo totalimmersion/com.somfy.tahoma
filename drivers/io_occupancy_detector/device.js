@@ -60,6 +60,31 @@ class OccupancyDetectorDevice extends SensorDevice {
 
     }
   }
+
+  // look for updates in the events array
+  async syncEvents(events) {
+    const myURL = this.getDeviceUrl();
+
+    // Process events sequentially so they are in the correct order
+    for (var i = 0; i < events.length; i++) {
+      const element = events[i];
+      if (element['name'] === 'DeviceStateChangedEvent') {
+        if ((element['deviceURL'] === myURL) && element['deviceStates']) {
+          // Got what we need to update the device so lets find it
+          for (var x = 0; x < element.deviceStates.length; x++) {
+            const deviceState = element.deviceStates[x];
+            if (deviceState.name === 'core:OccupancyState') {
+              Homey.app.logStates(this.getName() + ": core:OccupancyState = " + deviceState.value);
+              const oldState = this.getState().alarm_motion;
+              if (oldState !== deviceState.value) {
+                this.triggerCapabilityListener('alarm_motion', deviceState.value === 'personInside');
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 module.exports = OccupancyDetectorDevice;

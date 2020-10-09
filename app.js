@@ -88,6 +88,10 @@ class myApp extends Homey.App {
                 }
 
                 this.restartSync();
+            } else if (setting === 'stateLogEnabled') {
+                if (Homey.ManagerSettings.get('stateLogEnabled')) {
+                    Homey.ManagerSettings.set('stateLog', "");
+                }
             }
         });
 
@@ -148,7 +152,7 @@ class myApp extends Homey.App {
     async logDevices() {
         const devices = await Tahoma.getDeviceData();
         // Do a deep copy
-        let logData = JSON.parse(JSON.stringify(devices.devices));
+        let logData = JSON.parse(JSON.stringify(devices));
         if (process.env.DEBUG !== '1') {
 
             let i = 1;
@@ -191,6 +195,13 @@ class myApp extends Homey.App {
     }
 
     logStates(txt) {
+        // if (Homey.ManagerSettings.get('stateLogEnabled')) {
+        //     let log = Homey.ManagerSettings.get('stateLog') + txt + "\n";
+        //     Homey.ManagerSettings.set('stateLog', log);
+        // }
+    }
+
+    logEvents(txt) {
         if (Homey.ManagerSettings.get('stateLogEnabled')) {
             let log = Homey.ManagerSettings.get('stateLog') + txt + "\n";
             Homey.ManagerSettings.set('stateLog', log);
@@ -269,6 +280,13 @@ class myApp extends Homey.App {
         try {
             await Tahoma.login(username, password, Homey.ManagerSettings.get('linkurl'), Homey.ManagerSettings.get('loginMethod'));
             this.loggedIn = true;
+
+            // Sync all devices to start with
+            this.syncing = true;
+            await this.syncDevices();
+            this.syncing = false;
+
+            // Start to Sync devices that have had an event
             this.syncWithCloud(this.interval * 1000);
         } catch (error) {
             this.logError("Login", error);
@@ -285,7 +303,7 @@ class myApp extends Homey.App {
         }
     }
 
-    async restartSync(){
+    async restartSync() {
         await this.stopSync();
         this.syncWithCloud(this.interval * 1000);
     }
@@ -295,29 +313,70 @@ class myApp extends Homey.App {
             if (this.loggedIn) {
                 this.syncing = true;
 
-                if (Homey.ManagerSettings.get('stateLogEnabled')) {
-                    Homey.ManagerSettings.set('stateLog', "");
+                const events = await Tahoma.getEvents();
+                if (events.length > 0) {
+                    console.log(events);
+                    await this.syncEvents(events);
                 }
+            }
+        } catch (error) {
 
-                const drivers = Homey.ManagerDrivers.getDrivers();
-                for (const driver in drivers) {
-                    Homey.ManagerDrivers.getDriver(driver).getDevices().forEach(device => {
-                        try {
-                            if (device.isReady()) {
-                                device.sync();
+        }
+
+        this.syncing = false;
+
+        if (this.loggedIn) {
+            this.timerId = setTimeout(() => this.syncWithCloud(interval), interval);
+        }
+    }
+
+    async syncEvents(events) {
+        try {
+            // if (Homey.ManagerSettings.get('stateLogEnabled')) {
+            //     Homey.ManagerSettings.set('stateLog', "");
+            // }
+
+            this.logEvents(JSON.stringify(events, null, 2));
+
+            const drivers = Homey.ManagerDrivers.getDrivers();
+            for (const driver in drivers) {
+                Homey.ManagerDrivers.getDriver(driver).getDevices().forEach(device => {
+                    try {
+                        if (device.isReady()) {
+                            if (device.syncEvents) {
+                                device.syncEvents(events);
                             }
-                        } catch (error) {
-                            this.logError("Tahoma.getDeviceData", error);
                         }
-                    })
-                }
-                this.syncing = false;
+                    } catch (error) {
+                        this.logError("Tahoma.getDeviceData", error);
+                    }
+                })
             }
         } catch (error) {
             console.log(error.message, error.stack);
         }
-        if (this.loggedIn) {
-            this.timerId = setTimeout(() => this.syncWithCloud(interval), interval);
+    };
+
+    async syncDevices() {
+        try {
+            // if (Homey.ManagerSettings.get('stateLogEnabled')) {
+            //     Homey.ManagerSettings.set('stateLog', "");
+            // }
+
+            const drivers = Homey.ManagerDrivers.getDrivers();
+            for (const driver in drivers) {
+                Homey.ManagerDrivers.getDriver(driver).getDevices().forEach(device => {
+                    try {
+                        if (device.isReady()) {
+                            device.sync();
+                        }
+                    } catch (error) {
+                        this.logError("Tahoma.getDeviceData", error);
+                    }
+                })
+            }
+        } catch (error) {
+            console.log(error.message, error.stack);
         }
     };
 
