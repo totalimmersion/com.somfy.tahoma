@@ -160,5 +160,8 @@
   },
   "2.0.9": {
     "en": "Added more logging for events"
+  },
+  "2.0.10": {
+    "en": "Fix missing return data after reauthenticating"
   }
 }

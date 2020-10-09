@@ -10,7 +10,7 @@
     "en": "Somfy TaHoma & Connexoon for Homey",
     "nl": "Somfy TaHoma & Connexoon voor Homey"
   },
-  "version": "2.0.9",
+  "version": "2.0.10",
   "compatibility": ">=2.0.0",
   "author": {
     "name": "Immersion Apps"
