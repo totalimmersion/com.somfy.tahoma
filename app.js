@@ -56,9 +56,10 @@ class myApp extends Homey.App {
             Homey.ManagerSettings.set('syncInterval', this.interval);
         }
 
-        var linkURL = Homey.ManagerSettings.get('linkurl');
-        if (!linkURL) {
+        var linkurl = Homey.ManagerSettings.get('linkurl');
+        if (!linkurl) {
             linkurl = "default";
+            Homey.ManagerSettings.set('linkurl', linkurl);
         }
 
         process.on('unhandledRejection', (reason, p) => {
@@ -118,7 +119,7 @@ class myApp extends Homey.App {
             // All good so save the credentials
             Homey.ManagerSettings.set('username', args.body.username);
             Homey.ManagerSettings.set('password', args.body.password);
-            Homey.ManagerSettings.set('linkups', args.body.linkurl);
+            Homey.ManagerSettings.set('linkurl', args.body.linkurl);
             Homey.ManagerSettings.set('loginMethod', args.body.loginMethod);
             this.loggedIn = true;
             this.log(`${Homey.app.manifest.id} Logged in`);
