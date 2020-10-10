@@ -9,11 +9,10 @@ const Homey = require('homey');
  * @extends {SensorDevice}
  */
 class WindowHandleDevice extends SensorDevice {
-
 	async onInit() {
-		await super.onInit();
-
 		this.registerCapabilityListener('alarm_contact', this.onCapabilityAlarmContact.bind(this));
+		
+		await super.onInit();
 	}
 
 	onCapabilityAlarmContact(value) {

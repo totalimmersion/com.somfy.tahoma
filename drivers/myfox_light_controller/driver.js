@@ -12,6 +12,7 @@ class myFoxLightControllerDriver extends Driver
     async onInit()
     {
         this.deviceType = [ 'myfox:LightController' ];
+        await super.onInit();
     }
 
     /**

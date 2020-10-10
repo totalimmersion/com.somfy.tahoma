@@ -11,9 +11,9 @@ const Homey = require('homey');
 class OccupancyDetectorDevice extends SensorDevice {
 
   async onInit() {
-    await super.onInit();
-
     this.registerCapabilityListener('alarm_motion', this.onCapabilityAlarmMotion.bind(this));
+
+    await super.onInit();
   }
 
   onCapabilityAlarmMotion(value) {

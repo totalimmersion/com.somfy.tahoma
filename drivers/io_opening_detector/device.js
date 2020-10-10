@@ -11,9 +11,9 @@ const Homey = require('homey');
 class OpeningDetectorDevice extends SensorDevice {
 
   async onInit() {
-    await super.onInit();
-
     this.registerCapabilityListener('alarm_contact', this.onCapabilityAlarmContact.bind(this));
+
+    await super.onInit();
   }
 
   onCapabilityAlarmContact(value) {

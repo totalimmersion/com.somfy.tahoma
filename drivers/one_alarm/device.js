@@ -11,7 +11,6 @@ const Homey = require('homey');
 
 class OneAlarmDevice extends SensorDevice {
     async onInit() {
-        await super.onInit();
         this.alarmArmedState = {
             armed: 'armed',
             disarmed: 'disarmed',
@@ -25,6 +24,8 @@ class OneAlarmDevice extends SensorDevice {
 
         this.registerCapabilityListener('homealarm_state', this.onCapabilityAlarmArmedState.bind(this));
         this.registerCapabilityListener('alarm_generic', this.onCapabilityAlarmTriggeredState.bind(this));
+
+        await super.onInit();
     }
 
     onCapabilityAlarmTriggeredState(value) {

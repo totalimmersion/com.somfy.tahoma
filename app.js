@@ -34,15 +34,13 @@ class myApp extends Homey.App {
 
         Homey.ManagerSettings.set('diagLog', "");
         Homey.ManagerSettings.set('logEnabled', false);
-        let logData = [];
-        Homey.ManagerSettings.set('diagLog', "");
+        Homey.ManagerSettings.set('errorLog', "");
 
         //Homey.ManagerSettings.set('statusLogEnabled', false);
         Homey.ManagerSettings.set('statusLog', "");
 
         this.homeyHash = await Homey.ManagerCloud.getHomeyId();
         this.homeyHash = this.hashCode(this.homeyHash).toString();
-
 
         if (!Homey.ManagerSettings.get('syncInterval')) {
             Homey.ManagerSettings.set('syncInterval', INITIAL_SYNC_INTERVAL);
@@ -76,8 +74,6 @@ class myApp extends Homey.App {
             }
         });
 
-        this.addScenarioActionListeners();
-
         Homey.ManagerSettings.on('set', (setting) => {
             if (setting === 'syncInterval') {
                 try {
@@ -91,7 +87,9 @@ class myApp extends Homey.App {
             }
         });
 
+        this.addScenarioActionListeners();
         this.initSync();
+        this.log(`${Homey.app.manifest.id} Initialised`);
     }
 
     hashCode(s) {
@@ -100,7 +98,7 @@ class myApp extends Homey.App {
         return h;
     }
 
-    // Throws and exception if the login fails
+    // Throws an exception if the login fails
     async newLogin(args) {
 
         // Stop the timer so periodic updates don't happen while changing login
@@ -123,6 +121,7 @@ class myApp extends Homey.App {
             Homey.ManagerSettings.set('linkups', args.body.linkurl);
             Homey.ManagerSettings.set('loginMethod', args.body.loginMethod);
             this.loggedIn = true;
+            this.log(`${Homey.app.manifest.id} Logged in`);
 
             // Start collection data again
             this.syncWithCloud(this.interval * 1000);
@@ -220,7 +219,7 @@ class myApp extends Homey.App {
                     text = JSON.stringify(Homey.ManagerSettings.get('diagLog'), null, 2).replace(/\\n/g, '\n            ');
                 }
 
-                subject += "(" + this.homeyHash + ")";
+                subject += "(" + this.homeyHash + " : " + Homey.manifest.version + ")";
 
                 // create reusable transporter object using the default SMTP transport
                 let transporter = nodemailer.createTransport({
@@ -274,33 +273,33 @@ class myApp extends Homey.App {
         }
 
         try {
-            Homey.app.logInformation("Log in", {
+            this.logInformation("initSync", {
                 message: "Starting",
                 stack: ""
-              });
-        
+            });
+
             await Tahoma.login(username, password, Homey.ManagerSettings.get('linkurl'), Homey.ManagerSettings.get('loginMethod'));
             this.loggedIn = true;
-
-            // Sync all devices to start with
-            Homey.app.logInformation("Device states", {
-                message: "Initialising",
+            this.logInformation("initSync", {
+                message: "Logged in",
                 stack: ""
-              });
-        
-            this.syncing = true;
-            await this.syncDevices();
-            this.syncing = false;
+            });
 
-            Homey.app.logInformation("Sync.", {
-                message: "Initialising",
+            this.logInformation("initSync", {
+                message: "Starting Event Polling",
                 stack: ""
-              });
+            });
 
-              // Start to Sync devices that have had an event
+            // Start to Sync devices that have had an event
             this.syncWithCloud(this.interval * 1000);
         } catch (error) {
-            this.logInformation("Login", error);
+            this.logInformation("initSync", {
+                message: "Error",
+                stack: error
+            });
+
+            // Try again later
+            this.timerId = setTimeout(() => this.initSync(), 2000);
         }
     }
 
@@ -308,6 +307,11 @@ class myApp extends Homey.App {
         if (this.timerId) {
             clearTimeout(this.timerId);
             this.timerId = null;
+
+            this.logInformation("stopSync", {
+                message: "Stopping Event Polling",
+                stack: ""
+            });
         }
         while (this.syncing) {
             await new Promise(resolve => setTimeout(resolve, 500));
@@ -343,46 +347,15 @@ class myApp extends Homey.App {
 
     async syncEvents(events) {
         try {
-            // if (Homey.ManagerSettings.get('stateLogEnabled')) {
-            //     Homey.ManagerSettings.set('stateLog', "");
-            // }
-
             this.logEvents(JSON.stringify(events, null, 2));
 
             const drivers = Homey.ManagerDrivers.getDrivers();
             for (const driver in drivers) {
                 Homey.ManagerDrivers.getDriver(driver).getDevices().forEach(device => {
                     try {
-                        if (device.isReady()) {
-                            if (device.syncEvents) {
-                                device.syncEvents(events);
-                            }
-                        }
+                        device.syncEvents(events);
                     } catch (error) {
                         this.logInformation("Sync Devices", error);
-                    }
-                })
-            }
-        } catch (error) {
-            console.log(error.message, error.stack);
-        }
-    };
-
-    async syncDevices() {
-        try {
-            // if (Homey.ManagerSettings.get('stateLogEnabled')) {
-            //     Homey.ManagerSettings.set('stateLog', "");
-            // }
-
-            const drivers = Homey.ManagerDrivers.getDrivers();
-            for (const driver in drivers) {
-                Homey.ManagerDrivers.getDriver(driver).getDevices().forEach(device => {
-                    try {
-                        if (device.isReady()) {
-                            device.sync();
-                        }
-                    } catch (error) {
-                        this.logInformation("Tahoma.getDeviceData", error);
                     }
                 })
             }

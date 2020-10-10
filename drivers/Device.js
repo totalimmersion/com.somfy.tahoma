@@ -8,15 +8,9 @@ const Tahoma = require('./../lib/Tahoma');
  * @extends {Homey.Device}
  */
 class Device extends Homey.Device {
-
   async onInit() {
-    this._ready = false;
     this.log('Device init:', this.getName(), 'class:', this.getClass());
-
-    setTimeout(() => {
-      this._ready = true;
-      this.sync();
-    }, Math.floor(Math.random() * 5000) + 5000);
+    this.sync();
   }
 
   onAdded() {
@@ -24,6 +18,9 @@ class Device extends Homey.Device {
   }
 
   onDeleted() {
+    if (this.timerId) {
+      clearTimeout(this.timerId);
+    }
     this.log('device deleted');
   }
 
@@ -43,12 +40,31 @@ class Device extends Homey.Device {
     return this.getDriver().getDeviceType();
   }
 
-  isReady(){
+  isReady() {
     return this._ready;
   }
 
   async sync() {
-    return await Tahoma.getDeviceStates( this.getDeviceUrl());
+    try {
+      if (Homey.app.loggedIn) {
+        Homey.app.logInformation("Device initial sync.", {
+          message: this.getName(),
+          stack: ""
+        });
+    
+        return await Tahoma.getDeviceStates(this.getDeviceUrl());
+      }
+    } catch (error) {
+      Homey.app.logInformation("Device initial sync.", {
+        message: this.getName(),
+        stack: error
+      });
+  }
+
+    // Try again later
+    this.log('Device sync delayed:', this.getName(), 'class:', this.getClass());
+    this.timerId = setTimeout(() => this.sync(), 1000);
+    return null;
   }
 }
 
