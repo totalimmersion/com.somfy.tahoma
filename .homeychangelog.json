@@ -166,5 +166,8 @@
   },
   "2.0.11": {
     "en": "Added flags to control startup sequence"
+  },
+  "2.0.12": {
+    "en": "Fix variable name error in app init."
   }
 }
