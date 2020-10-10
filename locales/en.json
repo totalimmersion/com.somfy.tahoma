@@ -20,7 +20,20 @@
 		"save_verifying": "Attempting to login. Please wait...",
 		"logout_description": "This will logout from Tahoma and remove your credentials from the app.",
 		"min_sync_speed": "Minimum Sync Speed value is 10",
-		"pref_saved": "The preferences have been saved"
+		"pref_saved": "The preferences have been saved",
+		"settings": "Settings",
+		"information_log": "Information Log",
+		"device_log": "Device log",
+		"state_log": "State Log",
+		"oauth_method": "Use new OAuth login method",
+		"intro1": "Use this if you have a device that is not supported.",
+		"intro2": "Set the Log Enable option and wait for the data to appear. Then send the log.",
+		"intro3": "Contact @Adrian_Rockall on the community forum to describe which device is not supported.",
+		"intro4": "No personal data is captured or sent so if you don't contact me I will not be able to respond.",
+		"get": "Get Log",
+		"clear": "Clear Log",
+		"send": "Send Log",
+		"log_enabled": "Log Enabled"
 	},
   "errors": {
     "on_pair_login_failure": "Unable to login. Please go to the settings screen and provide access to TaHoma for Homey."

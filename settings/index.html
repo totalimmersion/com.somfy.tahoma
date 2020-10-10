@@ -136,12 +136,11 @@
 <body>
     <!-- Tab links -->
     <div class="tab">
-        <button class="tablinks" onclick="setPage(event, 'settings')" id="defaultOpen">Settings</button>
-        <button class="tablinks" onclick="setPage(event, 'errorLog')">Information Log</button>
-        <button class="tablinks" onclick="setPage(event, 'log')">Device Log</button>
-        <button class="tablinks" onclick="setPage(event, 'stateLog')">State Log</button>
-        <button class="tablinks" onclick="setPage(event, 'simulator')" id="simlogtab"
-            style="visibility:hidden">Simulation Data</button>
+        <button class="tablinks" onclick="setPage(event, 'settings')" id="defaultOpen"><span data-i18n="settings.settings"></span></button>
+        <button class="tablinks" onclick="setPage(event, 'errorLog')"><span data-i18n="settings.information_log"></span></button>
+        <button class="tablinks" onclick="setPage(event, 'log')"><span data-i18n="settings.device_log"></span></button>
+        <button class="tablinks" onclick="setPage(event, 'stateLog')"><span data-i18n="settings.state_log"></span></button>
+        <button class="tablinks" onclick="setPage(event, 'simulator')" id="simlogtab" style="visibility:hidden">Simulation Data</button>
     </div>
 
     <!-- SETTINGS PAGE -->
@@ -173,7 +172,7 @@
                 </div>
 
                 <div class="field row">
-                    <label for="loginMethod">Use new OAuth login method</label>
+                    <label for="loginMethod" data-i18n="settings.oauth_method"></label>
                     <input id="loginMethod" type="checkbox" value="loginMethod" />
                 </div>
 
@@ -210,10 +209,10 @@
     <!-- Information LOG PAGE -->
     <div id="errorLog" class="tabcontent">
         <fieldset>
-            <p>Shows Diagnostic Information</p>
-            <p><button id="clearErrorLog" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear
-                    Log</button><button id="sendErrorLog"
-                    style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;">Send Log</button></p>
+            <p><button id="clearErrorLog" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;"
+                data-i18n="settings.clear"></button>
+                <button id="sendErrorLog" style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;"
+                data-i18n="settings.send"></button></p>
             <div class="field row">
                 <textarea id="errorLogData"></textarea>
             </div>
@@ -223,17 +222,17 @@
     <!-- DEVICE LOG PAGE -->
     <div id="log" class="tabcontent">
         <fieldset>
-            <p>Use this if you have a device that is not supported.</p>
-            <p>Set the Log Enable option and wait for the data to appear. Then send the log.</p>
-            <p>Contact @Adrian_Rockall on the community forum to describe which device is not supported.</p>
-            <p>No personal data is captured or sent so if you don't contact me I will not be able to respond.</p>
+            <p data-i18n="settings.intro1"></p>
+            <p data-i18n="settings.intro2"></p>
+            <p data-i18n="settings.intro3"></p>
+            <p data-i18n="settings.intro4"></p>
             <p>
-                <button id="getLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;">Get
-                    Log</button>
-                <button id="clearLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;">Clear
-                    Log</button>
-                <button id="sendDeviceLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;">Send
-                    Log</button>
+                <button id="getLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;"
+                data-i18n="settings.get"></button>
+                <button id="clearLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;"
+                data-i18n="settings.clear"></button>
+                <button id="sendDeviceLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;"
+                data-i18n="settings.send"></button>
             </p>
             <div class="field row">
                 <textarea id="diagLog"></textarea>
@@ -247,8 +246,7 @@
             <h1>For debug use only</h1>
             <p><button id="useSim"
                     style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;">Activate</button><button
-                    id="clearSim" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear
-                    Sim</button></p>
+                    id="clearSim" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear Sim</button></p>
             <div class="field row">
                 <textarea id="simData"></textarea>
             </div>
@@ -258,11 +256,11 @@
     <!--STATE LOG PAGE -->
     <div id="stateLog" class="tabcontent">
         <fieldset>
-            <h1>Recorded state values</h1>
             <div class="field row">
-                <button id="clearStateLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;">Clear
-                    Log</button>
-                <label for="stateLogEnabled">Log Enabled</label>
+                <button id="clearStateLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;"
+                data-i18n="settings.clear"></button>
+                <label for="stateLogEnabled"
+                data-i18n="settings.enabled"></label>
                 <input id="stateLogEnabled" type="checkbox" value="logEnabled" />
             </div>
             <div class="field row">
