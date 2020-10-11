@@ -72,8 +72,9 @@ class OpeningDetectorDevice extends SensorDevice {
             if (deviceState.name === 'core:ContactState') {
               Homey.app.logStates(this.getName() + ": core:ContactState = " + deviceState.value);
               const oldState = this.getState().measure_luminance;
-              if (oldState !== deviceState.value) {
-                this.triggerCapabilityListener('alarm_contact', deviceState.value === 'open');
+              const newSate = (deviceState.value === 'open');
+              if (oldState !== newSate) {
+                this.triggerCapabilityListener('alarm_contact', newSate);
               }
             }
           }

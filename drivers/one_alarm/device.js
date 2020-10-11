@@ -129,15 +129,17 @@ class OneAlarmDevice extends SensorDevice {
                         if (deviceState.name === 'core:IntrusionState') {
                             Homey.app.logStates(this.getName() + ": core:IntrusionState = " + deviceState.value);
                             const oldState = this.getState().alarm_generic;
-                            if (oldState !== deviceState.value) {
-                                this.triggerCapabilityListener('alarm_generic', (deviceState.value === 'detected'));
+                            const newState = (deviceState.value === 'detected');
+                            if (oldState !== newState) {
+                                this.triggerCapabilityListener('alarm_generic', newState);
                             }
                         }
                         else if (deviceState.name === 'myfox:AlarmStatusState') {
                             Homey.app.logStates(this.getName() + ": myfox:AlarmStatusState = " + deviceState.value);
                             const oldState = this.getState().homealarm_state;
-                            if (oldState !== deviceState.value) {
-                                this.triggerCapabilityListener('homealarm_state', this.alarmArmedState[deviceState.value], {
+                            const newState = this.alarmArmedState[deviceState.value];
+                            if (oldState !== newState) {
+                                this.triggerCapabilityListener('homealarm_state', newState, {
                                     fromCloudSync: true
                                 });
                             }

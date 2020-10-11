@@ -76,8 +76,9 @@ class OccupancyDetectorDevice extends SensorDevice {
             if (deviceState.name === 'core:OccupancyState') {
               Homey.app.logStates(this.getName() + ": core:OccupancyState = " + deviceState.value);
               const oldState = this.getState().alarm_motion;
-              if (oldState !== deviceState.value) {
-                this.triggerCapabilityListener('alarm_motion', deviceState.value === 'personInside');
+              const newState = (deviceState.value === 'personInside');
+              if (oldState !== newState) {
+                this.triggerCapabilityListener('alarm_motion', newState);
               }
             }
           }

@@ -75,8 +75,9 @@ class WindowHandleDevice extends SensorDevice {
 						if (deviceState.name === 'core:ThreeWayHandleDirectionState') {
 							Homey.app.logStates(this.getName() + ": core:ThreeWayHandleDirectionState = " + deviceState.value);
 							const oldState = this.getState().alarm_contact;
-							if (oldState !== deviceState.value) {
-								this.triggerCapabilityListener('alarm_contact', (deviceState.value != 'closed'));
+							const newState = (deviceState.value != 'closed');
+							if (oldState !== newState) {
+								this.triggerCapabilityListener('alarm_contact', newState);
 							}
 						}
 					}

@@ -89,9 +89,12 @@ class myFoxLightControllerDevice extends SensorDevice {
 						const deviceState = element.deviceStates[x];
 						if (deviceState.name === 'core:OnOffState') {
 							Homey.app.logStates(this.getName() + ": core:OnOffState = " + deviceState.value);
-							const oldState = this.getState().onoff;
-							if (oldState !== deviceState.value) {
-								this.triggerCapabilityListener('onoff', (deviceState.value  === 'on'));
+                            const oldState = this.getState().onoff;
+                            const newSate = (deviceState.value  === 'on');
+							if (oldState !== newSate) {
+								this.triggerCapabilityListener('onoff', newSate, {
+                                    fromCloudSync: true
+                                });
 							}
 						}
 					}
