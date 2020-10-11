@@ -62,10 +62,11 @@ class myApp extends Homey.App {
             Homey.ManagerSettings.set('linkurl', linkurl);
         }
 
-        process.on('unhandledRejection', (reason, p) => {
+        process.on('unhandledRejection', (reason, promise) => {
+            console.log('Unhandled Rejection at:', promise, 'reason:', reason);
             this.logInformation('Unhandled Rejection', {
-                'message': reason,
-                'stack': p
+                'message': promise,
+                'stack': reason
             });
         });
 
