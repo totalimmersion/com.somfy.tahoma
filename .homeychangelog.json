@@ -172,5 +172,8 @@
   },
   "2.0.13": {
     "en": "Changed unhandledRejection report to show more information."
+  },
+  "2.0.14": {
+    "en": "Fixed erroneous convertion of Open / Close state to int."
   }
 }
