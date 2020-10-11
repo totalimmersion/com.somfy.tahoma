@@ -15,6 +15,13 @@
   "author": {
     "name": "Immersion Apps"
   },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "adyrock"
+      }
+    }
+  },
   "bugs": {
     "url": "https://github.com/AdyRock/com.somfy.tahoma/issues"
   },

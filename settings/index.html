@@ -3,18 +3,15 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="lwsa.css">
-
     <script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
     <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
-
     <script type="text/javascript">
-        function onHomeyReady(Homey) {
+        function onHomeyReady(Homey)
+        {
             var saveButton = $('#saveButton');
             var logoutButton = $('#logoutButton');
             var preferencesButton = $('#savePreferencesButton');
-
             Homey.ready();
-
             var response = $('#response');
             var usernameEl = $('#username');
             var passwordEl = $('#password');
@@ -24,110 +21,121 @@
             var logoutEl = $('#logoutElement');
             var hasUsername = false;
             var hasPassword = false;
-
-            Homey.get('username', function (err, username) {
+            Homey.get('username', function(err, username)
+            {
                 if (err) return Homey.alert(err);
-
                 console.log('username: ', username);
                 usernameEl.val(username);
-                if (username && username.length > 0) {
+                if (username && username.length > 0)
+                {
                     logoutEl.show();
                 }
             });
-
-            Homey.get('password', function (err, password) {
+            Homey.get('password', function(err, password)
+            {
                 if (err) return Homey.alert(err);
-
                 console.log('password: ', password);
                 passwordEl.val(password);
-                if (password && password.length > 0) {
+                if (password && password.length > 0)
+                {
                     logoutEl.show();
                 }
             });
-
-            Homey.get('loginMethod', function (err, loginMethod) {
+            Homey.get('loginMethod', function(err, loginMethod)
+            {
                 if (err) return Homey.alert(err);
                 loginMethodEl.prop("checked", loginMethod);
             });
-
-            Homey.get('linkurl', function (err, linkurl) {
+            Homey.get('linkurl', function(err, linkurl)
+            {
                 if (err) return Homey.alert(err);
                 linkurlE1.val(linkurl);
             });
-
-            Homey.get('syncInterval', function (err, interval) {
+            Homey.get('syncInterval', function(err, interval)
+            {
                 if (err) return Homey.alert(err);
                 syncSpeedEl.val(interval);
             });
-
-            saveButton.on('click', function () {
+            saveButton.on('click', function()
+            {
                 Object.values(document.querySelectorAll('*')).forEach(element => element.style.cursor = "wait");
                 response.html(__('settings.save_verifying'));
                 var username = usernameEl.val();
                 var password = passwordEl.val();
                 var linkurl = linkurlE1.val();
                 var loginMethod = loginMethodEl.is(':checked');
-
-                Homey.api('POST', '/login/', {
-                    "username": username,
-                    "password": password,
-                    "linkurl": linkurl,
-                    "loginMethod": loginMethod
-                }, function (err, result) {
-                    Object.values(document.querySelectorAll('*')).forEach(element => element.style
-                        .cursor = "default");
-                    if (err) {
-                        response.css({
+                Homey.api('POST', '/login/'
+                , {
+                    "username": username
+                    , "password": password
+                    , "linkurl": linkurl
+                    , "loginMethod": loginMethod
+                }, function(err, result)
+                {
+                    Object.values(document.querySelectorAll('*')).forEach(element => element.style.cursor = "default");
+                    if (err)
+                    {
+                        response.css(
+                        {
                             color: 'red'
                         });
                         response.html(__('settings.login_failure') + '<br/>' + err);
                         return Homey.alert(err);
                     }
-
-                    response.css({
+                    response.css(
+                    {
                         color: 'green'
                     });
                     response.html(__('settings.login_success'));
                     logoutEl.show();
                 });
             });
-
-            logoutButton.on('click', function () {
-                Homey.api('POST', '/logout/', {}, function (err, result) {
-                    if (err) {
-                        response.css({
+            logoutButton.on('click', function()
+            {
+                Homey.api('POST', '/logout/'
+                , {}, function(err, result)
+                {
+                    if (err)
+                    {
+                        response.css(
+                        {
                             color: 'red'
                         });
                         response.html(__('settings.logout_failure') + '<br/>' + err.message);
-                    } else {
-                        response.css({
+                    }
+                    else
+                    {
+                        response.css(
+                        {
                             color: 'green'
                         });
                         response.html(__('settings.logout_success'));
-
                         usernameEl.val('');
                         passwordEl.val('');
                     }
                 });
             });
-
-            preferencesButton.on('click', function () {
-                if (syncSpeedEl.val() < 10) {
-                    response.css({
+            preferencesButton.on('click', function()
+            {
+                if (syncSpeedEl.val() < 10)
+                {
+                    response.css(
+                    {
                         color: 'red'
                     });
                     response.html(__('settings.min_sync_speed'));
                     return Homey.alert(__('settings.min_sync_speed'));
                 }
-                Homey.set('syncInterval', syncSpeedEl.val(), function (err) {
+                Homey.set('syncInterval', syncSpeedEl.val(), function(err)
+                {
                     if (err) return Homey.alert(err);
-                    response.css({
+                    response.css(
+                    {
                         color: 'green'
                     });
                     response.html(__('settings.pref_saved'));
                 });
             });
-
             doStuff();
         }
     </script>
@@ -136,25 +144,18 @@
 <body>
     <!-- Tab links -->
     <div class="tab">
-        <button class="tablinks" onclick="setPage(event, 'settings')" id="defaultOpen"><span
-                data-i18n="settings.settings"></span></button>
-        <button class="tablinks" onclick="setPage(event, 'infoLog')"><span
-                data-i18n="settings.information_log"></span></button>
+        <button class="tablinks" onclick="setPage(event, 'settings')" id="defaultOpen"><span data-i18n="settings.settings"></span></button>
+        <button class="tablinks" onclick="setPage(event, 'infoLog')"><span data-i18n="settings.information_log"></span></button>
         <button class="tablinks" onclick="setPage(event, 'log')"><span data-i18n="settings.device_log"></span></button>
-        <button class="tablinks" onclick="setPage(event, 'stateLog')"><span
-                data-i18n="settings.state_log"></span></button>
-        <button class="tablinks" onclick="setPage(event, 'simulator')" id="simlogtab"
-            style="visibility:hidden">Simulation Data</button>
+        <button class="tablinks" onclick="setPage(event, 'stateLog')"><span data-i18n="settings.state_log"></span></button>
+        <button class="tablinks" onclick="setPage(event, 'simulator')" id="simlogtab" style="visibility:hidden">Simulation Data</button>
     </div>
-
     <!-- SETTINGS PAGE -->
     <div id="settings" class="tabcontent">
         <fieldset>
             <h1 data-i18n="settings.title"></h1>
             <p id="introText" data-i18n="settings.intro"></p>
-
             <p id="response"></p>
-
             <fieldset>
                 <legend data-i18n="settings.logintitle"></legend>
                 <span id="response"></span>
@@ -174,42 +175,29 @@
                         <option value="alt2">Alternaive (ha110-1.overkiz.com)</option>
                     </select>
                 </div>
-
                 <div class="field row">
                     <label for="loginMethod" data-i18n="settings.oauth_method"></label>
                     <input id="loginMethod" type="checkbox" value="loginMethod" />
                 </div>
-
                 <div class="field row">
-                    <button id="saveButton" class="left"
-                        style="display:block;background-color:#0f9e16;color:white;margin:15px 20px 5px 5px;"
-                        data-i18n="settings.save"></button>
+                    <button id="saveButton" class="left" style="display:block;background-color:#0f9e16;color:white;margin:15px 20px 5px 5px;" data-i18n="settings.save"></button>
                 </div>
             </fieldset>
-
             <fieldset id="logoutElement" style="display: none;">
                 <legend data-i18n="settings.logouttitle"></legend>
                 <p id="logoutText" data-i18n="settings.logout_description"></p>
-                <button id="logoutButton" class="left"
-                    style="display:block;background-color:#a5510d;color:white;margin:15px 20px 5px 5px;"
-                    data-i18n="settings.logout"></button>
+                <button id="logoutButton" class="left" style="display:block;background-color:#a5510d;color:white;margin:15px 20px 5px 5px;" data-i18n="settings.logout"></button>
             </fieldset>
-
             <fieldset id="preferences">
                 <legend data-i18n="settings.preferences"></legend>
                 <div class="field row">
                     <label for="sync_speed" data-i18n="settings.sync_speed"></label>
-                    <input id="sync_speed" type="number" min="10" value="" />
-                    &nbsp;<span data-i18n="settings.sync_tooltip"></span>
+                    <input id="sync_speed" type="number" min="10" value="" /> &nbsp;<span data-i18n="settings.sync_tooltip"></span>
                 </div>
-
-                <button id="savePreferencesButton" class="left"
-                    style="display:block;background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;"
-                    data-i18n="settings.save_preferences"></button>
+                <button id="savePreferencesButton" class="left" style="display:block;background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;" data-i18n="settings.save_preferences"></button>
             </fieldset>
         </fieldset>
     </div>
-
     <!-- Information LOG PAGE -->
     <div id="infoLog" class="tabcontent">
         <fieldset>
@@ -217,18 +205,13 @@
                 <label for="InfoLogEnabled" data-i18n="settings.log_enabled"></label>
                 <input id="InfoLogEnabled" type="checkbox" value="logEnabled" />
             </div>
-
-            <button id="clearErrorLog" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;"
-                data-i18n="settings.clear"></button>
-            <button id="sendErrorLog" style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;"
-                data-i18n="settings.send"></button>
-
+            <button id="clearErrorLog" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;" data-i18n="settings.clear"></button>
+            <button id="sendErrorLog" style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;" data-i18n="settings.send"></button>
             <div class="field row">
                 <textarea id="errorLogData"></textarea>
             </div>
         </fieldset>
     </div>
-
     <!-- DEVICE LOG PAGE -->
     <div id="log" class="tabcontent">
         <fieldset>
@@ -237,33 +220,25 @@
             <p data-i18n="settings.intro3"></p>
             <p data-i18n="settings.intro4"></p>
             <p>
-                <button id="getLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;"
-                    data-i18n="settings.get"></button>
-                <button id="clearLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;"
-                    data-i18n="settings.clear"></button>
-                <button id="sendDeviceLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;"
-                    data-i18n="settings.send"></button>
+                <button id="getLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;" data-i18n="settings.get"></button>
+                <button id="clearLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;" data-i18n="settings.clear"></button>
+                <button id="sendDeviceLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;" data-i18n="settings.send"></button>
             </p>
             <div class="field row">
                 <textarea id="diagLog"></textarea>
             </div>
         </fieldset>
     </div>
-
     <!--SIMULATION PAGE -->
     <div id="simulator" class="tabcontent">
         <fieldset>
             <h1>For debug use only</h1>
-            <p><button id="useSim"
-                    style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;">Activate</button><button
-                    id="clearSim" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear
-                    Sim</button></p>
+            <p><button id="useSim" style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;">Activate</button><button id="clearSim" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear Sim</button></p>
             <div class="field row">
                 <textarea id="simData"></textarea>
             </div>
         </fieldset>
     </div>
-
     <!--STATE LOG PAGE -->
     <div id="stateLog" class="tabcontent">
         <fieldset>
@@ -271,230 +246,264 @@
                 <label for="stateLogEnabled" data-i18n="settings.log_enabled"></label>
                 <input id="stateLogEnabled" type="checkbox" value="logEnabled" />
             </div>
-            <button id="clearStateLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;"
-                data-i18n="settings.clear"></button>
+            <button id="clearStateLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;" data-i18n="settings.clear"></button>
             <div class="field row">
                 <textarea id="stateLogData"></textarea>
             </div>
         </fieldset>
     </div>
-
     <script type="text/javascript">
         var errorLogElement = document.getElementById('errorLogData');
         var clearErrorLogElement = document.getElementById('clearErrorLog');
         var sendErrorLogElement = document.getElementById('sendErrorLog');
         var infoLogEnabledElement = document.getElementById('InfoLogEnabled');
-
         var diagLogElement = document.getElementById('diagLog');
         var getLogElement = document.getElementById('getLog');
         var clearLogElement = document.getElementById('clearLog');
         var sendDeviceLogElement = document.getElementById('sendDeviceLog');
-
         var useSimElement = document.getElementById('useSim');
         var clearSimElement = document.getElementById('clearSim');
         var simDataElement = document.getElementById('simData');
-
         var stateLogElement = document.getElementById('stateLogData');
         var stateLogEnabledElement = document.getElementById('stateLogEnabled');
         var clearStateLogElement = document.getElementById('clearStateLog');
 
-        function doStuff() {
-            Homey.get('debugMode', function (err, debugMode) {
+        function doStuff()
+        {
+            Homey.get('debugMode', function(err, debugMode)
+            {
                 if (err) return Homey.alert(err);
-                if (debugMode) {
+                if (debugMode)
+                {
                     document.getElementById("simlogtab").style.visibility = "visible";
                 }
             });
-
             document.getElementById("defaultOpen").click();
-
-            Homey.on('settings.set', function (param) {
-                if (param == 'infoLog') {
-                    Homey.get('infoLog', function (err, infoLog) {
+            Homey.on('settings.set', function(param)
+            {
+                if (param == 'infoLog')
+                {
+                    Homey.get('infoLog', function(err, infoLog)
+                    {
                         if (err) return Homey.alert(err);
-                        errorLogElement.value = JSON.stringify(infoLog, null, 2).replace(/\\n/g,
-                            '\n            ');
+                        errorLogElement.value = JSON.stringify(infoLog, null, 2).replace(/\\n/g, '\n            ');
                     });
-                } else if (param == 'diagLog') {
-                    Homey.get('diagLog', function (err, diagLog) {
+                }
+                else if (param == 'diagLog')
+                {
+                    Homey.get('diagLog', function(err, diagLog)
+                    {
                         if (err) return Homey.alert(err);
                         diagLogElement.value = JSON.stringify(diagLog, null, 2);
                     });
-                } else if (param == 'stateLog') {
-                    Homey.get('stateLog', function (err, stateLogData) {
+                }
+                else if (param == 'stateLog')
+                {
+                    Homey.get('stateLog', function(err, stateLogData)
+                    {
                         if (err) return Homey.alert(err);
                         stateLogElement.value = stateLogData;
                     });
                 }
             });
-
-            getLogElement.addEventListener('click', function (e) {
-                Homey.api('POST', '/GetDeviceLog/', {}, function (err, result) {
-                    if (err) {
-                        response.css({
+            getLogElement.addEventListener('click', function(e)
+            {
+                Homey.api('POST', '/GetDeviceLog/'
+                , {}, function(err, result)
+                {
+                    if (err)
+                    {
+                        response.css(
+                        {
                             color: 'red'
                         });
                         response.html(err.message);
                     }
                 });
             });
-
-            clearErrorLogElement.addEventListener('click', function (e) {
-                Homey.set('infoLog', "", function (err) {
+            clearErrorLogElement.addEventListener('click', function(e)
+            {
+                Homey.set('infoLog', "", function(err)
+                {
                     if (err) return Homey.alert(err);
                 });
                 errorLogElement.value = "";
             });
-
-            clearStateLogElement.addEventListener('click', function (e) {
-                Homey.set('stateLog', "", function (err) {
+            clearStateLogElement.addEventListener('click', function(e)
+            {
+                Homey.set('stateLog', "", function(err)
+                {
                     if (err) return Homey.alert(err);
                 });
                 stateLogElement.value = "";
             });
-
-            clearLogElement.addEventListener('click', function (e) {
-                Homey.set('diagLog', "", function (err) {
+            clearLogElement.addEventListener('click', function(e)
+            {
+                Homey.set('diagLog', "", function(err)
+                {
                     if (err) return Homey.alert(err);
                 });
                 diagLogElement.value = "";
             });
-
-            sendDeviceLogElement.addEventListener('click', function (e) {
-                Homey.confirm("Send the device log contents to the developer?", null, function (e, ok) {
-                    if (ok) {
-                        Homey.api('POST', '/SendDeviceLog/', {
+            sendDeviceLogElement.addEventListener('click', function(e)
+            {
+                Homey.confirm("Send the device log contents to the developer?", null, function(e, ok)
+                {
+                    if (ok)
+                    {
+                        Homey.api('POST', '/SendDeviceLog/'
+                        , {
                             notify: true
-                        }, function (err, result) {
-                            if (err) {
+                        }, function(err, result)
+                        {
+                            if (err)
+                            {
                                 return Homey.alert(err);
                             }
                         });
                     }
                 });
             });
-
-            sendErrorLogElement.addEventListener('click', function (e) {
-                Homey.confirm("Send the error log contents to the developer?", null, function (e, ok) {
-                    if (ok) {
-                        Homey.api('POST', '/SendErrorLog/', {
+            sendErrorLogElement.addEventListener('click', function(e)
+            {
+                Homey.confirm("Send the error log contents to the developer?", null, function(e, ok)
+                {
+                    if (ok)
+                    {
+                        Homey.api('POST', '/SendErrorLog/'
+                        , {
                             notify: true
-                        }, function (err, result) {
-                            if (err) {
+                        }, function(err, result)
+                        {
+                            if (err)
+                            {
                                 return Homey.alert(err);
                             }
                         });
                     }
                 });
             });
-
-            useSimElement.addEventListener('click', function (e) {
-                try {
-                    Homey.set('simData', JSON.parse(simDataElement.value), function (err) {
-                        if (err) {
+            useSimElement.addEventListener('click', function(e)
+            {
+                try
+                {
+                    Homey.set('simData', JSON.parse(simDataElement.value), function(err)
+                    {
+                        if (err)
+                        {
                             return Homey.alert(err);
-                        } else {
+                        }
+                        else
+                        {
                             return Homey.alert("Simulator On");
                         }
                     });
-                } catch (err) {
+                }
+                catch (err)
+                {
                     return Homey.alert(err);
                 }
             });
-
-            clearSimElement.addEventListener('click', function (e) {
-                Homey.set('simData', "", function (err) {
-                    if (err) {
+            clearSimElement.addEventListener('click', function(e)
+            {
+                Homey.set('simData', "", function(err)
+                {
+                    if (err)
+                    {
                         return Homey.alert(err);
-                    } else {
+                    }
+                    else
+                    {
                         return Homey.alert("Simulator Off");
                     }
                 });
             });
-
-            stateLogEnabledElement.addEventListener('click', function (e) {
-                Homey.set('stateLogEnabled', stateLogEnabledElement.checked, function (err) {
+            stateLogEnabledElement.addEventListener('click', function(e)
+            {
+                Homey.set('stateLogEnabled', stateLogEnabledElement.checked, function(err)
+                {
                     if (err) return Homey.alert(err);
                 });
             });
-
-            infoLogEnabledElement.addEventListener('click', function (e) {
-                Homey.set('infoLogEnabled', infoLogEnabledElement.checked, function (err) {
+            infoLogEnabledElement.addEventListener('click', function(e)
+            {
+                Homey.set('infoLogEnabled', infoLogEnabledElement.checked, function(err)
+                {
                     if (err) return Homey.alert(err);
                 });
             });
         };
 
-        function setPage(evt, tabPage) {
+        function setPage(evt, tabPage)
+        {
             var i, tabcontent, tablinks;
-
             // Get all elements with class="tabcontent" and hide them
             tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
+            for (i = 0; i < tabcontent.length; i++)
+            {
                 tabcontent[i].style.display = "none";
             }
-
             // Get all elements with class="tablinks" and remove the class "active"
             tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
+            for (i = 0; i < tablinks.length; i++)
+            {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
-
             // Show the current tab, and add an "active" class to the button that opened the tab
             document.getElementById(tabPage).style.display = "block";
             evt.currentTarget.className += " active";
-
-            if (tabPage == 'infoLog') {
+            if (tabPage == 'infoLog')
+            {
                 // Refresh the log data
-                Homey.get('infoLog', function (err, infoLog) {
+                Homey.get('infoLog', function(err, infoLog)
+                {
                     if (err) return Homey.alert(err);
-                    errorLogElement.value = infoLog ? JSON.stringify(infoLog, null, 2).replace(/\\n/g,
-                        '\n            ') : "";
+                    errorLogElement.value = infoLog ? JSON.stringify(infoLog, null, 2).replace(/\\n/g, '\n            ') : "";
                 });
-
-                Homey.get('infoLogEnabled', function (err, enable) {
+                Homey.get('infoLogEnabled', function(err, enable)
+                {
                     if (err) return Homey.alert(err);
                     infoLogEnabledElement.checked = enable;
                 });
-
                 // Make the log text area fill the page
                 errorLogElement.setAttribute('cols', errorLogElement.parentElement.clientWidth / 8);
                 errorLogElement.style.height = (window.innerHeight - errorLogElement.offsetTop - 40) + 'px';
             }
-
-            if (tabPage == 'log') {
+            if (tabPage == 'log')
+            {
                 // Refresh the log data
-                Homey.get('diagLog', function (err, diagLog) {
+                Homey.get('diagLog', function(err, diagLog)
+                {
                     if (err) return Homey.alert(err);
                     diagLogElement.value = diagLog ? JSON.stringify(diagLog, null, 2) : "";
                 });
-
                 // Make the log text area fill the page
                 diagLogElement.setAttribute('cols', diagLogElement.parentElement.clientWidth / 8);
                 diagLogElement.style.height = (window.innerHeight - diagLogElement.offsetTop - 40) + 'px';
             }
-
-            if (tabPage == 'simulator') {
-                Homey.get('simData', function (err, simData) {
+            if (tabPage == 'simulator')
+            {
+                Homey.get('simData', function(err, simData)
+                {
                     if (err) return Homey.alert(err);
                     simDataElement.value = simData ? JSON.stringify(simData, null, 2) : "";
                 });
-
                 // Make the simulator text box fill the page
                 simDataElement.setAttribute('cols', simDataElement.parentElement.clientWidth / 8);
                 simDataElement.style.height = (window.innerHeight - simDataElement.offsetTop - 40) + 'px';
             }
-
-            if (tabPage == 'stateLog') {
-                Homey.get('stateLog', function (err, stateLogData) {
+            if (tabPage == 'stateLog')
+            {
+                Homey.get('stateLog', function(err, stateLogData)
+                {
                     if (err) return Homey.alert(err);
                     stateLogElement.value = stateLogData;
                 });
-                Homey.get('stateLogEnabled', function (err, enable) {
+                Homey.get('stateLogEnabled', function(err, enable)
+                {
                     if (err) return Homey.alert(err);
                     stateLogEnabledElement.checked = enable;
                 });
-
                 // Make the simulator text box fill the page
                 stateLogElement.setAttribute('cols', stateLogElement.parentElement.clientWidth / 8);
                 stateLogElement.style.height = (window.innerHeight - stateLogElement.offsetTop - 40) + 'px';
