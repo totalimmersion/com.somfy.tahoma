@@ -175,5 +175,8 @@
   },
   "2.0.14": {
     "en": "Fixed erroneous convertion of Open / Close state to int."
+  },
+  "2.0.15": {
+    "en": "fixed event value issue with openning sensor and light controler sensor, added option to switch off Information log."
   }
 }
