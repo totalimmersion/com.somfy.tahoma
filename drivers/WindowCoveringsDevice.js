@@ -375,7 +375,7 @@ class WindowCoveringsDevice extends Device {
                                 }
                             } else if (deviceState.name === this.openClosedStateName) {
                                 // Device Open / Closed state
-                                var openClosedStateValue = parseInt(deviceState.value);
+                                var openClosedStateValue = deviceState.value;
                                 Homey.app.logStates(this.getName() + ": " + this.openClosedStateName + " = " + openClosedStateValue);
 
                                 // Convert Tahoma states to Homey equivalent
