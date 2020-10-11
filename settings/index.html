@@ -136,11 +136,15 @@
 <body>
     <!-- Tab links -->
     <div class="tab">
-        <button class="tablinks" onclick="setPage(event, 'settings')" id="defaultOpen"><span data-i18n="settings.settings"></span></button>
-        <button class="tablinks" onclick="setPage(event, 'errorLog')"><span data-i18n="settings.information_log"></span></button>
+        <button class="tablinks" onclick="setPage(event, 'settings')" id="defaultOpen"><span
+                data-i18n="settings.settings"></span></button>
+        <button class="tablinks" onclick="setPage(event, 'infoLog')"><span
+                data-i18n="settings.information_log"></span></button>
         <button class="tablinks" onclick="setPage(event, 'log')"><span data-i18n="settings.device_log"></span></button>
-        <button class="tablinks" onclick="setPage(event, 'stateLog')"><span data-i18n="settings.state_log"></span></button>
-        <button class="tablinks" onclick="setPage(event, 'simulator')" id="simlogtab" style="visibility:hidden">Simulation Data</button>
+        <button class="tablinks" onclick="setPage(event, 'stateLog')"><span
+                data-i18n="settings.state_log"></span></button>
+        <button class="tablinks" onclick="setPage(event, 'simulator')" id="simlogtab"
+            style="visibility:hidden">Simulation Data</button>
     </div>
 
     <!-- SETTINGS PAGE -->
@@ -207,12 +211,18 @@
     </div>
 
     <!-- Information LOG PAGE -->
-    <div id="errorLog" class="tabcontent">
+    <div id="infoLog" class="tabcontent">
         <fieldset>
-            <p><button id="clearErrorLog" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;"
+            <div class="field row">
+                <label for="InfoLogEnabled" data-i18n="settings.log_enabled"></label>
+                <input id="InfoLogEnabled" type="checkbox" value="logEnabled" />
+            </div>
+
+            <button id="clearErrorLog" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;"
                 data-i18n="settings.clear"></button>
-                <button id="sendErrorLog" style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;"
-                data-i18n="settings.send"></button></p>
+            <button id="sendErrorLog" style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;"
+                data-i18n="settings.send"></button>
+
             <div class="field row">
                 <textarea id="errorLogData"></textarea>
             </div>
@@ -228,11 +238,11 @@
             <p data-i18n="settings.intro4"></p>
             <p>
                 <button id="getLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;"
-                data-i18n="settings.get"></button>
+                    data-i18n="settings.get"></button>
                 <button id="clearLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;"
-                data-i18n="settings.clear"></button>
+                    data-i18n="settings.clear"></button>
                 <button id="sendDeviceLog" style="background-color:#0f9e16;color:white;margin:10px 20px 5px 5px;"
-                data-i18n="settings.send"></button>
+                    data-i18n="settings.send"></button>
             </p>
             <div class="field row">
                 <textarea id="diagLog"></textarea>
@@ -246,7 +256,8 @@
             <h1>For debug use only</h1>
             <p><button id="useSim"
                     style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;">Activate</button><button
-                    id="clearSim" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear Sim</button></p>
+                    id="clearSim" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;">Clear
+                    Sim</button></p>
             <div class="field row">
                 <textarea id="simData"></textarea>
             </div>
@@ -257,12 +268,11 @@
     <div id="stateLog" class="tabcontent">
         <fieldset>
             <div class="field row">
-                <button id="clearStateLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;"
-                data-i18n="settings.clear"></button>
-                <label for="stateLogEnabled"
-                data-i18n="settings.enabled"></label>
+                <label for="stateLogEnabled" data-i18n="settings.log_enabled"></label>
                 <input id="stateLogEnabled" type="checkbox" value="logEnabled" />
             </div>
+            <button id="clearStateLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;"
+                data-i18n="settings.clear"></button>
             <div class="field row">
                 <textarea id="stateLogData"></textarea>
             </div>
@@ -273,6 +283,8 @@
         var errorLogElement = document.getElementById('errorLogData');
         var clearErrorLogElement = document.getElementById('clearErrorLog');
         var sendErrorLogElement = document.getElementById('sendErrorLog');
+        var infoLogEnabledElement = document.getElementById('InfoLogEnabled');
+
         var diagLogElement = document.getElementById('diagLog');
         var getLogElement = document.getElementById('getLog');
         var clearLogElement = document.getElementById('clearLog');
@@ -297,10 +309,10 @@
             document.getElementById("defaultOpen").click();
 
             Homey.on('settings.set', function (param) {
-                if (param == 'errorLog') {
-                    Homey.get('errorLog', function (err, errorLog) {
+                if (param == 'infoLog') {
+                    Homey.get('infoLog', function (err, infoLog) {
                         if (err) return Homey.alert(err);
-                        errorLogElement.value = JSON.stringify(errorLog, null, 2).replace(/\\n/g,
+                        errorLogElement.value = JSON.stringify(infoLog, null, 2).replace(/\\n/g,
                             '\n            ');
                     });
                 } else if (param == 'diagLog') {
@@ -328,7 +340,7 @@
             });
 
             clearErrorLogElement.addEventListener('click', function (e) {
-                Homey.set('errorLog', "", function (err) {
+                Homey.set('infoLog', "", function (err) {
                     if (err) return Homey.alert(err);
                 });
                 errorLogElement.value = "";
@@ -405,6 +417,12 @@
                     if (err) return Homey.alert(err);
                 });
             });
+
+            infoLogEnabledElement.addEventListener('click', function (e) {
+                Homey.set('infoLogEnabled', infoLogEnabledElement.checked, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+            });
         };
 
         function setPage(evt, tabPage) {
@@ -426,12 +444,17 @@
             document.getElementById(tabPage).style.display = "block";
             evt.currentTarget.className += " active";
 
-            if (tabPage == 'errorLog') {
+            if (tabPage == 'infoLog') {
                 // Refresh the log data
-                Homey.get('errorLog', function (err, errorLog) {
+                Homey.get('infoLog', function (err, infoLog) {
                     if (err) return Homey.alert(err);
-                    errorLogElement.value = errorLog ? JSON.stringify(errorLog, null, 2).replace(/\\n/g,
+                    errorLogElement.value = infoLog ? JSON.stringify(infoLog, null, 2).replace(/\\n/g,
                         '\n            ') : "";
+                });
+
+                Homey.get('infoLogEnabled', function (err, enable) {
+                    if (err) return Homey.alert(err);
+                    infoLogEnabledElement.checked = enable;
                 });
 
                 // Make the log text area fill the page

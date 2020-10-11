@@ -34,13 +34,20 @@ class myApp extends Homey.App {
 
         Homey.ManagerSettings.set('diagLog', "");
         Homey.ManagerSettings.set('logEnabled', false);
-        Homey.ManagerSettings.set('errorLog', "");
+        Homey.ManagerSettings.set('errorLog', ""); // Clean out obsolete entry
+        Homey.ManagerSettings.set('infoLog', "");
 
         //Homey.ManagerSettings.set('statusLogEnabled', false);
         Homey.ManagerSettings.set('statusLog', "");
 
         this.homeyHash = await Homey.ManagerCloud.getHomeyId();
         this.homeyHash = this.hashCode(this.homeyHash).toString();
+
+        this.infoLogEnabled = Homey.ManagerSettings.get('infoLogEnabled')
+        if (this.infoLogEnabled === null) {
+            this.infoLogEnabled = false;
+            Homey.ManagerSettings.set('infoLogEnabled', this.infoLogEnabled);
+        }
 
         if (!Homey.ManagerSettings.get('syncInterval')) {
             Homey.ManagerSettings.set('syncInterval', INITIAL_SYNC_INTERVAL);
@@ -86,6 +93,8 @@ class myApp extends Homey.App {
                 }
 
                 this.restartSync();
+            } else if (setting === 'infoLogEnabled') {
+                this.infoLogEnabled = Homey.ManagerSettings.get('infoLogEnabled');
             }
         });
 
@@ -169,26 +178,28 @@ class myApp extends Homey.App {
     }
 
     logInformation(source, error) {
-        console.log(source, error);
-        let data = {
-            message: error.message,
-            stack: error.stack
-        };
+        if (this.infoLogEnabled) {
+            console.log(source, error);
+            let data = {
+                message: error.message,
+                stack: error.stack
+            };
 
-        let logData = Homey.ManagerSettings.get('errorLog');
-        if (!Array.isArray(logData)) {
-            logData = [];
+            let logData = Homey.ManagerSettings.get('infoLog');
+            if (!Array.isArray(logData)) {
+                logData = [];
+            }
+            const nowTime = new Date(Date.now());
+            logData.push({
+                'time': nowTime.toJSON(),
+                'source': source,
+                'data': data
+            });
+            if (logData.length > 50) {
+                logData.splice(0, 1);
+            }
+            Homey.ManagerSettings.set('infoLog', logData);
         }
-        const nowTime = new Date(Date.now());
-        logData.push({
-            'time': nowTime.toJSON(),
-            'source': source,
-            'data': data
-        });
-        if (logData.length > 50) {
-            logData.splice(0, 1);
-        }
-        Homey.ManagerSettings.set('errorLog', logData);
     }
 
     logStates(txt) {
@@ -213,9 +224,9 @@ class myApp extends Homey.App {
             try {
                 let subject = "";
                 let text = "";
-                if (logType === 'errorLog') {
-                    subject = "Tahoma error log";
-                    text = JSON.stringify(Homey.ManagerSettings.get('errorLog'), null, 2).replace(/\\n/g, ' \n           ');
+                if (logType === 'infoLog') {
+                    subject = "Tahoma Information log";
+                    text = JSON.stringify(Homey.ManagerSettings.get('infoLog'), null, 2).replace(/\\n/g, ' \n           ');
                 } else {
                     subject = "Tahoma device log";
                     text = JSON.stringify(Homey.ManagerSettings.get('diagLog'), null, 2).replace(/\\n/g, '\n            ');
