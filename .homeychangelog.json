@@ -169,5 +169,8 @@
   },
   "2.0.12": {
     "en": "Fix variable name error in app init."
+  },
+  "2.0.13": {
+    "en": "Changed unhandledRejection report to show more information."
   }
 }
