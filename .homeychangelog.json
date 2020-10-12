@@ -181,5 +181,8 @@
   },
   "2.0.16": {
     "en": "Prevent excesive login attempts."
+  },
+  "2.0.17": {
+    "en": "Updated Dutch translations"
   }
 }
