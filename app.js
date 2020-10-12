@@ -128,7 +128,7 @@ class myApp extends Homey.App
         // Login with supplied credentials. An error is thrown if the login fails
         try
         {
-            await Tahoma.login(args.body.username, args.body.password, args.body.linkurl, args.body.loginMethod);
+            await Tahoma.login(args.body.username, args.body.password, args.body.linkurl, args.body.loginMethod, true);
             // All good so save the credentials
             Homey.ManagerSettings.set('username', args.body.username);
             Homey.ManagerSettings.set('password', args.body.password);
@@ -187,9 +187,9 @@ class myApp extends Homey.App
     }
     logInformation(source, error)
     {
+        console.log(source, error);
         if (this.infoLogEnabled)
         {
-            console.log(source, error);
             let data = {
                 message: error.message
                 , stack: error.stack

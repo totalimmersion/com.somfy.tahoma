@@ -61,7 +61,15 @@ class Driver extends Homey.Driver
     {
         if (trigger)
         {
-            trigger.trigger(device, tokens, state).then(this.log).catch(error =>
+            trigger.trigger(device, tokens, state)
+            .then(result =>
+            {
+                if (result)
+                {
+                    this.log(result);
+                }
+            })
+            .catch(error =>
             {
                 Homey.app.logInformation("triggerFlow", error);
             });

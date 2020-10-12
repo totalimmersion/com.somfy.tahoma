@@ -4,3 +4,4 @@ node_modules/
 .vs/
 *.gz
 package-lock.json
+.cpuprofile
