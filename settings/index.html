@@ -134,6 +134,7 @@
                         color: 'green'
                     });
                     response.html(__('settings.pref_saved'));
+                    return Homey.alert(__('settings.pref_saved'));
                 });
             });
             doStuff();

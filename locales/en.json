@@ -27,7 +27,7 @@
 		"state_log": "State Log",
 		"oauth_method": "Use new OAuth login method",
 		"intro1": "Use this if you have a device that is not supported.",
-		"intro2": "Set the Log Enable option and wait for the data to appear. Then send the log.",
+		"intro2": "Tap on Get Log and wait for the data to appear. Then send the log.",
 		"intro3": "Contact @Adrian_Rockall on the community forum to describe which device is not supported.",
 		"intro4": "No personal data is captured or sent so if you don't contact me I will not be able to respond.",
 		"get": "Get Log",
