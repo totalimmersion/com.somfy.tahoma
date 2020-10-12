@@ -178,5 +178,8 @@
   },
   "2.0.15": {
     "en": "fixed event value issue with openning sensor and light controler sensor, added option to switch off Information log."
+  },
+  "2.0.16": {
+    "en": "Prevent excesive login attempts."
   }
 }
