@@ -184,5 +184,8 @@
   },
   "2.0.17": {
     "en": "Updated Dutch translations"
+  },
+  "2.1.0": {
+    "en": "Reduced the load on the Somfy servers as per the email from Somfy. Added an option for new login method to fix issues with loging in to some accounts. Added extra log tabs for diagnostics."
   }
 }
