@@ -190,5 +190,8 @@
   },
   "2.1.1": {
     "en": "Fix crash on old Homeys, Reduced the load on the Somfy servers as per the email from Somfy. Added an option for new login method to fix issues with loging in to some accounts. Added extra log tabs for diagnostics."
+  },
+  "2.1.2": {
+    "en": "Fix crash on old Homeys, Reduced the load on the Somfy servers as per the email from Somfy. Added an option for new login method to fix issues with loging in to some accounts. Added extra log tabs for diagnostics. Fixed issue with expired access tokens."
   }
 }
