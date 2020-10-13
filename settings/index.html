@@ -92,8 +92,7 @@
             });
             logoutButton.on('click', function()
             {
-                Homey.api('POST', '/logout/'
-                , {}, function(err, result)
+                Homey.api('POST', '/logout/', {}, function(err, result)
                 {
                     if (err)
                     {
@@ -119,21 +118,11 @@
             {
                 if (syncSpeedEl.val() < 10)
                 {
-                    response.css(
-                    {
-                        color: 'red'
-                    });
-                    response.html(__('settings.min_sync_speed'));
                     return Homey.alert(__('settings.min_sync_speed'));
                 }
                 Homey.set('syncInterval', syncSpeedEl.val(), function(err)
                 {
                     if (err) return Homey.alert(err);
-                    response.css(
-                    {
-                        color: 'green'
-                    });
-                    response.html(__('settings.pref_saved'));
                     return Homey.alert(__('settings.pref_saved'));
                 });
             });
