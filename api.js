@@ -62,11 +62,11 @@ module.exports = [{
     }
   },
   {
-    description: 'Send error log',
+    description: 'Send information log',
     method: 'POST',
-    path: '/SendErrorLog/',
+    path: '/SendInfoLog/',
     fn: function (args, callback) {
-      Homey.app.sendLog('errorLog')
+      Homey.app.sendLog('infoLog')
         .then(result => {
           return callback(result.error, result.message);
         })

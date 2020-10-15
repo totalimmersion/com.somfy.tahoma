@@ -32,13 +32,15 @@ class myApp extends Homey.App
         {
             Homey.ManagerSettings.set('debugMode', false);
         }
-        Homey.ManagerSettings.set('diagLog', "");
-        Homey.ManagerSettings.set('logEnabled', false);
-        Homey.ManagerSettings.set('errorLog', ""); // Clean out obsolete entry
-        Homey.ManagerSettings.set('infoLog', "");
+        Homey.ManagerSettings.unset('errorLog'); // Clean out obsolete entry
+        Homey.ManagerSettings.unset('diagLog');
+        Homey.ManagerSettings.unset('logEnabled');
 
-        //Homey.ManagerSettings.set('statusLogEnabled', false);
+        Homey.ManagerSettings.set('deviceLog', "");
+        Homey.ManagerSettings.set('infoLog', "");
+        Homey.ManagerSettings.set('statusLogEnabled', false);
         Homey.ManagerSettings.set('statusLog', "");
+        
         this.homeyHash = await Homey.ManagerCloud.getHomeyId();
         this.homeyHash = this.hashCode(this.homeyHash).toString();
 
@@ -217,7 +219,7 @@ class myApp extends Homey.App
                 element["oid"] = "temp" + i++;
             });
         }
-        Homey.ManagerSettings.set('diagLog',
+        Homey.ManagerSettings.set('deviceLog',
         {
             "devices": logData
         });
@@ -288,7 +290,7 @@ class myApp extends Homey.App
                 else
                 {
                     subject = "Tahoma device log";
-                    text = JSON.stringify(Homey.ManagerSettings.get('diagLog'), null, 2).replace(/\\n/g, '\n            ');
+                    text = JSON.stringify(Homey.ManagerSettings.get('deviceLog'), null, 2).replace(/\\n/g, '\n            ');
                 }
                 subject += "(" + this.homeyHash + " : " + Homey.manifest.version + ")";
                 // create reusable transporter object using the default SMTP transport
