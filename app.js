@@ -36,16 +36,25 @@ class myApp extends Homey.App
         Homey.ManagerSettings.set('logEnabled', false);
         Homey.ManagerSettings.set('errorLog', ""); // Clean out obsolete entry
         Homey.ManagerSettings.set('infoLog', "");
+
         //Homey.ManagerSettings.set('statusLogEnabled', false);
         Homey.ManagerSettings.set('statusLog', "");
         this.homeyHash = await Homey.ManagerCloud.getHomeyId();
         this.homeyHash = this.hashCode(this.homeyHash).toString();
+
+        // Default to old login method if not already setup
+        if (Homey.ManagerSettings.get('loginMethod') === null)
+        {
+            Homey.ManagerSettings.set('loginMethod', false);
+        }
+        
         this.infoLogEnabled = Homey.ManagerSettings.get('infoLogEnabled')
         if (this.infoLogEnabled === null)
         {
             this.infoLogEnabled = false;
             Homey.ManagerSettings.set('infoLogEnabled', this.infoLogEnabled);
         }
+
         if (!Homey.ManagerSettings.get('syncInterval'))
         {
             Homey.ManagerSettings.set('syncInterval', INITIAL_SYNC_INTERVAL);
@@ -64,21 +73,24 @@ class myApp extends Homey.App
             this.interval = INITIAL_SYNC_INTERVAL;
             Homey.ManagerSettings.set('syncInterval', this.interval);
         }
+
         var linkurl = Homey.ManagerSettings.get('linkurl');
         if (!linkurl)
         {
             linkurl = "default";
             Homey.ManagerSettings.set('linkurl', linkurl);
         }
+
         process.on('unhandledRejection', (reason, promise) =>
         {
             console.log('Unhandled Rejection at:', promise, 'reason:', reason);
-            this.logInformation('Unhandled Rejection'
-            , {
-                'message': promise
-                , 'stack': reason
+            this.logInformation('Unhandled Rejection',
+            {
+                'message': promise,
+                'stack': reason
             });
         });
+
         Homey.on('unload', () =>
         {
             if (this.timerId)
@@ -86,6 +98,7 @@ class myApp extends Homey.App
                 clearInterval(this.timerId);
             }
         });
+
         Homey.ManagerSettings.on('set', (setting) =>
         {
             if (setting === 'syncInterval')
@@ -106,45 +119,69 @@ class myApp extends Homey.App
                 this.infoLogEnabled = Homey.ManagerSettings.get('infoLogEnabled');
             }
         });
+
         this.addScenarioActionListeners();
         this.initSync();
         this.log(`${Homey.app.manifest.id} Initialised`);
     }
+
     hashCode(s)
     {
         for (var i = 0, h = 0; i < s.length; i++) h = Math.imul(31, h) + s.charCodeAt(i) | 0;
         return h;
     }
+
     // Throws an exception if the login fails
     async newLogin(args)
     {
         // Stop the timer so periodic updates don't happen while changing login
         this.loggedIn = false;
         await this.stopSync();
+
         // make sure we logout from old method first
         await Tahoma.logout();
+
         // Allow s short delay before loging back in
         await new Promise(resolve => setTimeout(resolve, 1000));
+
+        var loginMethod = Homey.ManagerSettings.get('loginMethod');
+
         // Login with supplied credentials. An error is thrown if the login fails
         try
         {
-            await Tahoma.login(args.body.username, args.body.password, args.body.linkurl, args.body.loginMethod, true);
-            // All good so save the credentials
-            Homey.ManagerSettings.set('username', args.body.username);
-            Homey.ManagerSettings.set('password', args.body.password);
-            Homey.ManagerSettings.set('linkurl', args.body.linkurl);
-            Homey.ManagerSettings.set('loginMethod', args.body.loginMethod);
+            await Tahoma.login(args.body.username, args.body.password, args.body.linkurl, loginMethod, true);
             this.loggedIn = true;
-            this.log(`${Homey.app.manifest.id} Logged in`);
-            // Start collection data again
-            this.syncWithCloud(this.interval * 1000);
         }
         catch (error)
         {
-            throw (error);
+            // Try other log in method
+            loginMethod = !loginMethod;
         }
+        if (!this.loggedIn)
+        {
+            try
+            {
+                await Tahoma.login(args.body.username, args.body.password, args.body.linkurl, loginMethod, true);
+                this.loggedIn = true;
+            }
+            catch (error)
+            {
+                throw (error);
+            }
+        }
+
+        // All good so save the credentials
+        Homey.ManagerSettings.set('username', args.body.username);
+        Homey.ManagerSettings.set('password', args.body.password);
+        Homey.ManagerSettings.set('linkurl', args.body.linkurl);
+        Homey.ManagerSettings.set('loginMethod', loginMethod);
+        this.log(`${Homey.app.manifest.id} Logged in`);
+
+        // Start collection data again
+        this.syncWithCloud(this.interval * 1000);
         return true;
     }
+
     async logOut()
     {
         this.loggedIn = false;
@@ -161,6 +198,7 @@ class myApp extends Homey.App
         }
         return true;
     }
+
     async logDevices()
     {
         const devices = await Tahoma.getDeviceData();
@@ -179,20 +217,21 @@ class myApp extends Homey.App
                 element["oid"] = "temp" + i++;
             });
         }
-        Homey.ManagerSettings.set('diagLog'
-        , {
+        Homey.ManagerSettings.set('diagLog',
+        {
             "devices": logData
         });
         Homey.ManagerSettings.unset('sendLog');
     }
+
     logInformation(source, error)
     {
         console.log(source, error);
         if (this.infoLogEnabled)
         {
             let data = {
-                message: error.message
-                , stack: error.stack
+                message: error.message,
+                stack: error.stack
             };
             let logData = Homey.ManagerSettings.get('infoLog');
             if (!Array.isArray(logData))
@@ -202,9 +241,9 @@ class myApp extends Homey.App
             const nowTime = new Date(Date.now());
             logData.push(
             {
-                'time': nowTime.toJSON()
-                , 'source': source
-                , 'data': data
+                'time': nowTime.toJSON(),
+                'source': source,
+                'data': data
             });
             if (logData.length > 50)
             {
@@ -213,6 +252,7 @@ class myApp extends Homey.App
             Homey.ManagerSettings.set('infoLog', logData);
         }
     }
+    
     logStates(txt)
     {
         // if (Homey.ManagerSettings.get('stateLogEnabled')) {
@@ -220,6 +260,7 @@ class myApp extends Homey.App
         //     Homey.ManagerSettings.set('stateLog', log);
         // }
     }
+
     logEvents(txt)
     {
         if (Homey.ManagerSettings.get('stateLogEnabled'))
@@ -228,6 +269,7 @@ class myApp extends Homey.App
             Homey.ManagerSettings.set('stateLog', log);
         }
     }
+
     async sendLog(logType)
     {
         let tries = 5;
@@ -253,15 +295,15 @@ class myApp extends Homey.App
                 let transporter = nodemailer.createTransport(
                 {
                     host: Homey.env.MAIL_HOST, //Homey.env.MAIL_HOST,
-                    port: 465
-                    , ignoreTLS: false
-                    , secure: true, // true for 465, false for other ports
+                    port: 465,
+                    ignoreTLS: false,
+                    secure: true, // true for 465, false for other ports
                     auth:
                     {
                         user: Homey.env.MAIL_USER, // generated ethereal user
                         pass: Homey.env.MAIL_SECRET // generated ethereal password
-                    }
-                    , tls:
+                    },
+                    tls:
                     {
                         // do not fail on invalid certs
                         rejectUnauthorized: false
@@ -276,20 +318,21 @@ class myApp extends Homey.App
                     text: text // plain text body
                 });
                 return {
-                    error: null
-                    , message: "OK"
+                    error: null,
+                    message: "OK"
                 };
             }
             catch (err)
             {
                 this.logInformation("Send log error", err);
                 return {
-                    error: err
-                    , message: null
+                    error: err,
+                    message: null
                 };
             };
         }
     }
+
     /**
      * Initializes synchronization between Homey and TaHoma
      * with the interval as defined in the settings.
@@ -305,47 +348,48 @@ class myApp extends Homey.App
         }
         try
         {
-            this.logInformation("initSync"
-            , {
-                message: "Starting"
-                , stack: ""
+            this.logInformation("initSync",
+            {
+                message: "Starting",
+                stack: ""
             });
             await Tahoma.login(username, password, Homey.ManagerSettings.get('linkurl'), Homey.ManagerSettings.get('loginMethod'));
             this.loggedIn = true;
-            this.logInformation("initSync"
-            , {
-                message: "Logged in"
-                , stack: ""
+            this.logInformation("initSync",
+            {
+                message: "Logged in",
+                stack: ""
             });
-            this.logInformation("initSync"
-            , {
-                message: "Starting Event Polling"
-                , stack: ""
+            this.logInformation("initSync",
+            {
+                message: "Starting Event Polling",
+                stack: ""
             });
             // Start to Sync devices that have had an event
             this.syncWithCloud(this.interval * 1000);
         }
         catch (error)
         {
-            this.logInformation("initSync"
-            , {
-                message: "Error"
-                , stack: error
+            this.logInformation("initSync",
+            {
+                message: "Error",
+                stack: error
             });
             // Try again later
             this.timerId = setTimeout(() => this.initSync(), 2000);
         }
     }
+
     async stopSync()
     {
         if (this.timerId)
         {
             clearTimeout(this.timerId);
             this.timerId = null;
-            this.logInformation("stopSync"
-            , {
-                message: "Stopping Event Polling"
-                , stack: ""
+            this.logInformation("stopSync",
+            {
+                message: "Stopping Event Polling",
+                stack: ""
             });
         }
         while (this.syncing)
@@ -353,11 +397,13 @@ class myApp extends Homey.App
             await new Promise(resolve => setTimeout(resolve, 500));
         }
     }
+
     async restartSync()
     {
         await this.stopSync();
         this.syncWithCloud(this.interval * 1000);
     }
+
     async syncWithCloud(interval)
     {
         try
@@ -373,14 +419,14 @@ class myApp extends Homey.App
                 }
             }
         }
-        catch (error)
-        {}
+        catch (error) {}
         this.syncing = false;
         if (this.loggedIn)
         {
             this.timerId = setTimeout(() => this.syncWithCloud(interval), interval);
         }
     }
+
     async syncEvents(events)
     {
         try
@@ -407,6 +453,7 @@ class myApp extends Homey.App
             console.log(error.message, error.stack);
         }
     };
+
     /**
      * Adds a listener for flowcard scenario actions
      */
@@ -420,12 +467,12 @@ class myApp extends Homey.App
         {
             return Tahoma.getActionGroups().then(data => data.map((
             {
-                oid
-                , label
+                oid,
+                label
             }) => (
             {
-                oid
-                , name: label
+                oid,
+                name: label
             })).filter((
             {
                 name
