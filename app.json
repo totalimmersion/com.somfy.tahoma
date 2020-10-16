@@ -1524,6 +1524,35 @@
             ]
           }
         ]
+      },
+      {
+        "id": "set_polling_mode",
+        "title": {
+          "en": "Polling mode",
+          "nl": "Polling modus"
+        },
+        "args": [
+          {
+            "name": "newPollingMode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "on",
+                "label": {
+                  "en": "On",
+                  "nl": "aan"
+                }
+              },
+              {
+                "id": "off",
+                "label": {
+                  "en": "Off",
+                  "nl": "uit"
+                }
+              }
+            ]
+          }
+        ]
       }
     ]
   }

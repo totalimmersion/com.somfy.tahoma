@@ -40,7 +40,7 @@ class myApp extends Homey.App
         Homey.ManagerSettings.set('infoLog', "");
         Homey.ManagerSettings.set('statusLogEnabled', false);
         Homey.ManagerSettings.set('statusLog', "");
-        
+
         this.homeyHash = await Homey.ManagerCloud.getHomeyId();
         this.homeyHash = this.hashCode(this.homeyHash).toString();
 
@@ -49,7 +49,7 @@ class myApp extends Homey.App
         {
             Homey.ManagerSettings.set('loginMethod', false);
         }
-        
+
         this.infoLogEnabled = Homey.ManagerSettings.get('infoLogEnabled')
         if (this.infoLogEnabled === null)
         {
@@ -123,6 +123,7 @@ class myApp extends Homey.App
         });
 
         this.addScenarioActionListeners();
+        this.addPollingActionListeners();
         this.initSync();
         this.log(`${Homey.app.manifest.id} Initialised`);
     }
@@ -254,7 +255,7 @@ class myApp extends Homey.App
             Homey.ManagerSettings.set('infoLog', logData);
         }
     }
-    
+
     logStates(txt)
     {
         // if (Homey.ManagerSettings.get('stateLogEnabled')) {
@@ -483,6 +484,24 @@ class myApp extends Homey.App
                 this.logInformation("addScenarioActionListeners", error);
             });
         });
+    }
+
+    /**
+     * Adds a listener for polling flowcard actions
+     */
+    addPollingActionListeners()
+    {
+        new Homey.FlowCardAction('set_polling_mode').register().registerRunListener(args =>
+        {
+            if (args.newPollingMode === 'on')
+            {
+                return this.restartSync();
+            }
+            else
+            {
+                return this.stopSync();
+            }
+        })
     }
 }
 module.exports = myApp;
