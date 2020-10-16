@@ -196,5 +196,8 @@
   },
   "2.1.3": {
     "en": "App now automatically chooses the login method"
+  },
+  "2.1.4": {
+    "en": "Added flow card to switch polling on / off"
   }
 }
