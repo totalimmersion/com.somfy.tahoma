@@ -23,7 +23,11 @@ class myApp extends Homey.App
         this.log(`${Homey.app.manifest.id} running...`);
         this.loggedIn = false;
         this.syncing = false;
+        this.stoppingSync = false;
         this.timerId = null;
+        this.boostTimerId = null;
+        this.commandsQueued = 0;
+
         if (process.env.DEBUG === '1')
         {
             Homey.ManagerSettings.set('debugMode', true);
@@ -55,6 +59,13 @@ class myApp extends Homey.App
         {
             this.infoLogEnabled = false;
             Homey.ManagerSettings.set('infoLogEnabled', this.infoLogEnabled);
+        }
+
+        this.pollingEnabled = Homey.ManagerSettings.get('pollingEnabled')
+        if (this.pollingEnabled === null)
+        {
+            this.pollingEnabled = true;
+            Homey.ManagerSettings.set('pollingEnabled', this.pollingEnabled);
         }
 
         if (!Homey.ManagerSettings.get('syncInterval'))
@@ -103,7 +114,20 @@ class myApp extends Homey.App
 
         Homey.ManagerSettings.on('set', (setting) =>
         {
-            if (setting === 'syncInterval')
+            if (setting === 'pollingEnabled')
+            {
+                this.pollingEnabled = Homey.ManagerSettings.get('pollingEnabled');
+
+                if (this.pollingEnabled)
+                {
+                    this.restartSync();
+                }
+                else
+                {
+                    this.stopSync();
+                }
+            }
+            else if (setting === 'syncInterval')
             {
                 try
                 {
@@ -114,7 +138,11 @@ class myApp extends Homey.App
                     this.interval = INITIAL_SYNC_INTERVAL;
                     Homey.ManagerSettings.set('syncInterval', this.interval)
                 }
-                this.restartSync();
+
+                if (this.pollingEnabled)
+                {
+                    this.restartSync();
+                }
             }
             else if (setting === 'infoLogEnabled')
             {
@@ -181,8 +209,11 @@ class myApp extends Homey.App
         Homey.ManagerSettings.set('loginMethod', loginMethod);
         this.log(`${Homey.app.manifest.id} Logged in`);
 
-        // Start collection data again
-        this.syncWithCloud(this.interval * 1000);
+        if (this.pollingEnabled)
+        {
+            // Start collection data again
+            this.syncLoop(this.interval * 1000);
+        }
         return true;
     }
 
@@ -364,13 +395,17 @@ class myApp extends Homey.App
                 message: "Logged in",
                 stack: ""
             });
-            this.logInformation("initSync",
+
+            if (this.pollingEnabled)
             {
-                message: "Starting Event Polling",
-                stack: ""
-            });
-            // Start to Sync devices that have had an event
-            this.syncWithCloud(this.interval * 1000);
+                this.logInformation("initSync",
+                {
+                    message: "Starting Event Polling",
+                    stack: ""
+                });
+                // Start to Sync devices that have had an event
+                this.syncLoop(this.interval * 1000);
+            }
         }
         catch (error)
         {
@@ -384,10 +419,71 @@ class myApp extends Homey.App
         }
     }
 
+    // Boost the sync speed when a command is executed that has status feedback
+    async boostSync()
+    {
+        this.commandsQueued++;
+
+        if (this.boostTimerId)
+        {
+            clearTimeout(this.boostTimerId);
+            this.boostTimerId = null;
+        }
+
+        // Set a time limit in case the command complete signal is missed
+        this.boostTimerId = setTimeout(() => this.unBoostSync(true), 45000);
+
+        if (this.commandsQueued === 1)
+        {
+            this.logInformation("Boost Sync",
+            {
+                message: "Increased Polling",
+                stack: { syncInterval: 3 }
+            });
+
+            await this.stopSync();
+            this.timerId = setTimeout(() => this.syncLoop(3000), 3000);
+        }
+    }
+
+    async unBoostSync(immediate = false)
+    {
+        if (immediate)
+        {
+            this.commandsQueued = 0;
+        }
+
+        if (this.commandsQueued > 0)
+        {
+            this.commandsQueued--;
+        }
+
+        if (this.commandsQueued === 0)
+        {
+            clearTimeout(this.boostTimerId);
+            this.boostTimerId = null;
+            this.logInformation("UnBoost Sync",
+            {
+                message: "Reverting to previous Polling",
+                stack: { timeOut: immediate, pollingMode: this.pollingEnabled, syncInterval: this.interval }
+            });
+
+            if (this.pollingEnabled)
+            {
+                await this.restartSync();
+            }
+            else
+            {
+                await this.stopSync();
+            }
+        }
+    }
+
     async stopSync()
     {
         if (this.timerId)
         {
+            this.stoppingSync = this.syncing;
             clearTimeout(this.timerId);
             this.timerId = null;
             this.logInformation("stopSync",
@@ -396,21 +492,25 @@ class myApp extends Homey.App
                 stack: ""
             });
         }
-        while (this.syncing)
-        {
-            await new Promise(resolve => setTimeout(resolve, 500));
-        }
     }
 
     async restartSync()
     {
         await this.stopSync();
-        this.syncWithCloud(this.interval * 1000);
+        this.timerId = setTimeout(() => this.syncLoop(this.interval * 1000), this.interval * 1000);
     }
 
     // The main polling loop that fetches events and sends tem to the devices
-    async syncWithCloud(interval)
+    async syncLoop(interval)
     {
+        if (this.syncing)
+        {
+            // Still processing a previous sync
+            this.stoppingSync = this.syncing;
+            this.timerId = setTimeout(() => this.syncLoop(interval), interval);
+            return;
+        }
+
         try
         {
             if (this.loggedIn)
@@ -425,11 +525,15 @@ class myApp extends Homey.App
             }
         }
         catch (error) {}
-        this.syncing = false;
-        if (this.loggedIn)
+        if (this.loggedIn && !this.stoppingSync)
         {
-            this.timerId = setTimeout(() => this.syncWithCloud(interval), interval);
+            this.timerId = setTimeout(() => this.syncLoop(interval), interval);
         }
+        else
+        {
+            this.stoppingSync = false;
+        }
+        this.syncing = false;
     }
 
     // Pass the new events to each device so they can update their status
@@ -525,7 +629,13 @@ class myApp extends Homey.App
     {
         new Homey.FlowCardAction('set_polling_speed').register().registerRunListener(args =>
         {
-            Homey.ManagerSettings.set('syncInterval', args.newPollingMode);
+            this.interval = args.syncSpeed;
+            Homey.ManagerSettings.set('syncInterval', this.interval.toString());
+            if (!this.pollingEnabled)
+            {
+                this.pollingEnabled = true;
+                Homey.ManagerSettings.set('pollingEnabled', this.pollingEnabled);
+            }
             return this.restartSync();
         })
     }
@@ -537,7 +647,9 @@ class myApp extends Homey.App
     {
         new Homey.FlowCardAction('set_polling_mode').register().registerRunListener(args =>
         {
-            if (args.newPollingMode === 'on')
+            this.pollingEnabled = args.newPollingMode === 'on';
+            Homey.ManagerSettings.set('pollingEnabled', this.pollingEnabled);
+            if (this.pollingEnabled)
             {
                 return this.restartSync();
             }

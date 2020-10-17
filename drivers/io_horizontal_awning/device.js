@@ -21,7 +21,7 @@ class HorizontalAwningDevice extends WindowCoveringsDevice {
 
     let dd = this.getData();
 
-    if (!dd.controllableName || dd.controllableName !== 'io:AwningValanceIOComponent') {
+    if (!dd.controllableName || dd.controllableName.toLowersCase() !== 'io:awningvalanceiocomponent') {
       // From Anders pull request
       this.setPositionActionName = 'setPosition';
       this.closureStateName = 'core:DeploymentState';

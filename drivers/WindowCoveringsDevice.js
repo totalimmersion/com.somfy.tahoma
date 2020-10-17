@@ -8,32 +8,39 @@ const Tahoma = require('../lib/Tahoma');
  * Base class for window coverings devices
  * @extends {Device}
  */
-class WindowCoveringsDevice extends Device {
-    async onInit() {
+class WindowCoveringsDevice extends Device
+{
+    async onInit()
+    {
 
         this._driver = this.getDriver();
 
-        if (this.hasCapability("lock_state")) {
+        if (this.hasCapability("lock_state"))
+        {
             this._driver.lock_state_changedTrigger = new Homey.FlowCardTriggerDevice('lock_state_changed')
                 .register()
         }
 
         this.invertPosition = this.getSetting('invertPosition');
-        if (this.invertPosition === null) {
+        if (this.invertPosition === null)
+        {
             this.invertPosition = false;
         }
 
         this.invertTile = this.getSetting('invertTile');
-        if (this.invertTile === null) {
+        if (this.invertTile === null)
+        {
             this.invertTile = false;
         }
 
         this.invertUpDown = this.getSetting('invertUpDown');
-        if (this.invertUpDown === null) {
+        if (this.invertUpDown === null)
+        {
             this.invertUpDown = false;
         }
 
-        if (this.invertUpDown) {
+        if (this.invertUpDown)
+        {
             this.windowcoveringsActions = {
                 up: 'close',
                 idle: null,
@@ -45,7 +52,9 @@ class WindowCoveringsDevice extends Device {
                 closed: 'up',
                 unknown: 'idle'
             };
-        } else {
+        }
+        else
+        {
             this.windowcoveringsActions = {
                 up: 'open',
                 idle: null,
@@ -73,14 +82,17 @@ class WindowCoveringsDevice extends Device {
         await super.onInit();
     }
 
-    async onSettings(oldSettingsObj, newSettingsObj, changedKeysArr) {
-        if (changedKeysArr.indexOf("invertUpDown") >= 0) {
+    async onSettings(oldSettingsObj, newSettingsObj, changedKeysArr)
+    {
+        if (changedKeysArr.indexOf("invertUpDown") >= 0)
+        {
             this.invertUpDown = newSettingsObj.invertUpDown;
 
-            if (this.invertUpDown) {
+            if (this.invertUpDown)
+            {
                 this.windowcoveringsActions = {
                     up: 'close',
-                    idle: null,
+                    idle: 'stop',
                     down: 'open'
                 };
 
@@ -89,76 +101,110 @@ class WindowCoveringsDevice extends Device {
                     closed: 'up',
                     unknown: 'idle'
                 };
-            } else {
+            }
+            else
+            {
                 this.windowcoveringsActions = {
                     up: 'open',
-                    idle: null,
+                    idle: 'stop',
                     down: 'close'
                 };
 
                 this.windowcoveringsStatesMap = {
                     open: 'up',
-                    closed: 'down'
+                    closed: 'down',
+                    unknown: 'idle'
                 };
             }
         }
 
-        if (changedKeysArr.indexOf("invertTile") >= 0) {
+        if (changedKeysArr.indexOf("invertTile") >= 0)
+        {
             this.invertTile = newSettingsObj.invertTile;
         }
 
-        if (changedKeysArr.indexOf("invertPosition") >= 0) {
+        if (changedKeysArr.indexOf("invertPosition") >= 0)
+        {
             this.invertPosition = newSettingsObj.invertPosition;
         }
     }
 
-    async onCapabilityWindowcoveringsState(value, opts) {
-        if (!opts || !opts.fromCloudSync) {
+    async onCapabilityWindowcoveringsState(value, opts)
+    {
+        if (!opts || !opts.fromCloudSync)
+        {
             const deviceData = this.getData();
-            if (value === 'idle' && this.getStoreValue('executionId')) {
-                Tahoma.cancelExecution(this.getStoreValue('executionId'));
-            } else {
-                await Tahoma.cancelExecution(this.getStoreValue('executionId'));
+
+            const executionId = this.getStoreValue('executionId');
+            if (value === 'idle' && (executionId !== undefined) && (executionId !== null))
+            {
+                await Tahoma.cancelExecution(executionId);
+            }
+            else
+            {
+                if ((executionId !== undefined) && (executionId !== null))
+                {
+                    await Tahoma.cancelExecution(executionId);
+                }
 
                 const action = {
                     name: this.windowcoveringsActions[value],
                     parameters: []
                 }
                 let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-                if (result.errorCode) {
-                    this.setWarning(result.errorCode + result.error);
-                    Homey.app.logInformation(this.getName(), {
-                        message: result.error,
-                        stack: result.errorCode
-                    });
-                    return Promise.reject(new Error(result.error));
-                } else {
-                    this.setStoreValue('executionId', result.execId);
+                if (result !== undefined)
+                {
+                    if (result.errorCode)
+                    {
+                        this.setWarning(result.errorCode + result.error);
+                        Homey.app.logInformation(this.getName(),
+                        {
+                            message: result.error,
+                            stack: result.errorCode
+                        });
+                        return Promise.reject(new Error(result.error));
+                    }
+                    else
+                    {
+                        this.setStoreValue('executionId', result.execId);
+                        await Homey.app.boostSync();
+                    }
                 }
             };
 
-            if (!this.closureStateName) {
-                setTimeout(() => {
+            if (!this.closureStateName)
+            {
+                setTimeout(() =>
+                {
                     this.setCapabilityValue('windowcoverings_state', null);
                 }, 500);
             }
-        } else {
+        }
+        else
+        {
             // New value from Tahoma
             this.setCapabilityValue('windowcoverings_state', value);
-            if (this.hasCapability("quick_open")) {
-                if (this.invertTile) {
+            if (this.hasCapability("quick_open"))
+            {
+                if (this.invertTile)
+                {
                     this.setCapabilityValue("quick_open", value !== "up")
-                } else {
+                }
+                else
+                {
                     this.setCapabilityValue("quick_open", value !== "down")
                 }
             }
         }
     }
 
-    async onCapabilityWindowcoveringsSet(value, opts) {
-        if (!opts || !opts.fromCloudSync) {
+    async onCapabilityWindowcoveringsSet(value, opts)
+    {
+        if (!opts || !opts.fromCloudSync)
+        {
             const deviceData = this.getData();
-            if (this.invertPosition) {
+            if (this.invertPosition)
+            {
                 value = 1 - value;
             }
             const action = {
@@ -166,96 +212,155 @@ class WindowCoveringsDevice extends Device {
                 parameters: [Math.round((1 - value) * 100)]
             };
 
-            if (this.setPositionActionName === 'setPositionAndLinearSpeed') {
+            if (this.setPositionActionName === 'setPositionAndLinearSpeed')
+            {
                 // Add low speed option if quiet mode is selected
                 action.parameters.push("lowspeed");
             }
 
             let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
-            if (result.errorCode) {
-                this.setWarning(result.errorCode + result.error);
-                Homey.app.logInformation(this.getName(), {
-                    message: result.error,
-                    stack: result.errorCode
-                });
-                return Promise.reject(new Error(result.error));
-            } else {
-                this.setStoreValue('executionId', result.execId);
+            if (result !== undefined)
+            {
+                if (result.errorCode)
+                {
+                    this.setWarning(result.errorCode + result.error);
+                    Homey.app.logInformation(this.getName(),
+                    {
+                        message: result.error,
+                        stack: result.errorCode
+                    });
+                    return Promise.reject(new Error(result.error));
+                }
+                else
+                {
+                    this.setStoreValue('executionId', result.execId);
+                    await Homey.app.boostSync();
+                }
             }
-        } else {
+        }
+        else
+        {
             // New value from Tahoma
             this.setCapabilityValue('windowcoverings_set', value);
         }
     }
 
-    async onCapabilityWindowcoveringsTiltUp(value, opts) {
-        if (!opts || !opts.fromCloudSync) {
+    async onCapabilityWindowcoveringsTiltUp(value, opts)
+    {
+        if (!opts || !opts.fromCloudSync)
+        {
             const deviceData = this.getData();
-            await Tahoma.cancelExecution(this.getStoreValue('executionId'));
+            const executionId = this.getStoreValue('executionId');
+            if ((executionId !== undefined) && (executionId !== null))
+            {
+                await Tahoma.cancelExecution(executionId);
+            }
 
             const action = {
                 name: 'tiltPositive',
                 parameters: [3, 1]
             };
             let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
-            if (result.errorCode) {
-                this.setWarning(result.errorCode + result.error);
-                Homey.app.logInformation(this.getName(), {
-                    message: result.error,
-                    stack: result.errorCode
-                });
-                return Promise.reject(new Error(result.error));
-            } else {
-                this.setStoreValue('executionId', result.execId);
+            if (result !== undefined)
+            {
+                if (result.errorCode)
+                {
+                    this.setWarning(result.errorCode + result.error);
+                    Homey.app.logInformation(this.getName(),
+                    {
+                        message: result.error,
+                        stack: result.errorCode
+                    });
+                    return Promise.reject(new Error(result.error));
+                }
+                else
+                {
+                    this.setStoreValue('executionId', result.execId);
+                    await Homey.app.boostSync();
+                }
             }
         }
     }
 
-    async onCapabilityWindowcoveringsTiltDown(value, opts) {
-        if (!opts || !opts.fromCloudSync) {
+    async onCapabilityWindowcoveringsTiltDown(value, opts)
+    {
+        if (!opts || !opts.fromCloudSync)
+        {
             const deviceData = this.getData();
-            await Tahoma.cancelExecution(this.getStoreValue('executionId'));
+            const executionId = this.getStoreValue('executionId');
+            if ((executionId !== undefined) && (executionId !== null))
+            {
+                await Tahoma.cancelExecution(executionId);
+            }
+
             const action = {
                 name: 'tiltNegative',
                 parameters: [3, 1]
             };
             let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
-            if (result.errorCode) {
-                Homey.app.logInformation(this.getName(), {
-                    message: result.error,
-                    stack: result.errorCode
-                });
-                return Promise.reject(new Error(result.error));
-            } else {
-                this.setStoreValue('executionId', result.execId);
+            if (result !== undefined)
+            {
+                if (result.errorCode)
+                {
+                    Homey.app.logInformation(this.getName(),
+                    {
+                        message: result.error,
+                        stack: result.errorCode
+                    });
+                    return Promise.reject(new Error(result.error));
+                }
+                else
+                {
+                    this.setStoreValue('executionId', result.execId);
+                    await Homey.app.boostSync();
+                }
             }
         }
     }
 
-    async onCapabilityMyPosition(value, opts) {
-        if (!opts || !opts.fromCloudSync) {
+    async onCapabilityMyPosition(value, opts)
+    {
+        if (!opts || !opts.fromCloudSync)
+        {
             const deviceData = this.getData();
-            await Tahoma.cancelExecution(this.getStoreValue('executionId'));
+            const executionId = this.getStoreValue('executionId');
+            if ((executionId !== undefined) && (executionId !== null))
+            {
+                await Tahoma.cancelExecution(executionId);
+            }
+
             const action = {
                 name: 'my'
             };
             let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result.errorCode) {
-                Homey.app.logInformation(this.getName(), {
-                    message: result.error,
-                    stack: result.errorCode
-                });
-                return Promise.reject(new Error(result.error));
-            } else {
-                this.setStoreValue('executionId', result.execId);
+            if (result !== undefined)
+            {
+                if (result.errorCode)
+                {
+                    Homey.app.logInformation(this.getName(),
+                    {
+                        message: result.error,
+                        stack: result.errorCode
+                    });
+                    return Promise.reject(new Error(result.error));
+                }
+                else
+                {
+                    this.setStoreValue('executionId', result.execId);
+                    await Homey.app.boostSync();
+                }
             }
         }
     }
 
-    async onCapabilityWindowcoveringsClosed(value, opts) {
-        if (this.invertTile) {
+    async onCapabilityWindowcoveringsClosed(value, opts)
+    {
+        if (this.invertTile)
+        {
             return this.onCapabilityWindowcoveringsState(value ? 'down' : 'up', null)
-        } else {
+        }
+        else
+        {
             return this.onCapabilityWindowcoveringsState(value ? 'up' : 'down', null)
         }
     }
@@ -263,56 +368,76 @@ class WindowCoveringsDevice extends Device {
     /**
      * Sync the state of the devices from the TaHoma cloud with Homey
      */
-    async sync() {
-        try {
+    async sync()
+    {
+        try
+        {
             const states = await super.sync();
-            if (states) {
-                if (this.hasCapability("lock_state")) {
+            if (states)
+            {
+                if (this.hasCapability("lock_state"))
+                {
                     const lockState = states.find(state => state.name === "io:PriorityLockOriginatorState");
-                    if (lockState) {
+                    if (lockState)
+                    {
                         Homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + lockState.value);
                         this.setCapabilityValue("lock_state", lockState.value);
                     }
                 }
 
+                const myPosition = states.find(state => state.name === "core:Memorized1PositionState");
+                if (myPosition) {}
+
                 //device exists -> let's sync the state of the device
                 const closureState = states.find(state => state.name === this.closureStateName);
                 const openClosedState = states.find(state => state.name === this.openClosedStateName);
 
-                if (this.unavailable) {
+                if (this.unavailable)
+                {
                     this.unavailable = false;
                     this.setAvailable();
                 }
 
-                if (openClosedState) {
+                if (openClosedState)
+                {
                     Homey.app.logStates(this.getName() + ": " + this.openClosedStateName + " = " + openClosedState.value);
 
                     // Convert Tahoma states to Homey equivalent
-                    if (closureState && (closureState.value !== 0) && (closureState.value !== 100)) {
+                    if (closureState && (closureState.value !== 0) && (closureState.value !== 100))
+                    {
                         // Not fully open or closed
                         openClosedState.value = 'idle';
-                    } else {
+                    }
+                    else
+                    {
                         openClosedState.value = this.windowcoveringsStatesMap[openClosedState.value];
                     }
 
-                    this.triggerCapabilityListener('windowcoverings_state', openClosedState.value, {
+                    this.triggerCapabilityListener('windowcoverings_state', openClosedState.value,
+                    {
                         fromCloudSync: true
                     });
                 }
 
-                if (closureState) {
+                if (closureState)
+                {
                     Homey.app.logStates(this.getName() + ": " + this.closureStateName + " = " + closureState.value);
 
-                    if (this.invertPosition) {
+                    if (this.invertPosition)
+                    {
                         closureState.value = 100 - closureState.value;
                     }
-                    this.triggerCapabilityListener('windowcoverings_set', 1 - (closureState.value / 100), {
+                    this.triggerCapabilityListener('windowcoverings_set', 1 - (closureState.value / 100),
+                    {
                         fromCloudSync: true
                     });
                 }
-            } else if (this.hasCapability('windowcoverings_state')) {
+            }
+            else if (this.hasCapability('windowcoverings_state'))
+            {
                 // RTS devices have no feedback
-                if (this.unavailable) {
+                if (this.unavailable)
+                {
                     this.unavailable = false;
                     this.setAvailable();
                 }
@@ -321,9 +446,12 @@ class WindowCoveringsDevice extends Device {
 
                 this.setCapabilityValue('windowcoverings_state', null);
             }
-        } catch (error) {
+        }
+        catch (error)
+        {
             this.setUnavailable(null);
-            Homey.app.logInformation(this.getName(), {
+            Homey.app.logInformation(this.getName(),
+            {
                 message: error.message,
                 stack: error.stack
             });
@@ -334,50 +462,65 @@ class WindowCoveringsDevice extends Device {
     /**
      * Sync the state of the devices from the TaHoma cloud with Homey
      */
-    async syncEvents(events) {
+    async syncEvents(events)
+    {
         if (events === null)
         {
             return this.sync();
         }
-        
-        try {
+
+        try
+        {
             const myURL = this.getDeviceUrl();
 
             var lastPosition = null;
 
             // Process events sequentially so they are in the correct order
-            for (var i = 0; i < events.length; i++) {
+            for (var i = 0; i < events.length; i++)
+            {
                 const element = events[i];
-                if (element['name'] === 'DeviceStateChangedEvent') {
-                    if ((element['deviceURL'] === myURL) && element['deviceStates']) {
+                if (element['name'] === 'DeviceStateChangedEvent')
+                {
+                    if ((element['deviceURL'] === myURL) && element['deviceStates'])
+                    {
                         // Got what we need to update the device so lets find it
-                        if (this.unavailable) {
+                        if (this.unavailable)
+                        {
                             this.unavailable = false;
                             this.setAvailable();
                         }
-                        for (var x = 0; x < element.deviceStates.length; x++) {
+                        for (var x = 0; x < element.deviceStates.length; x++)
+                        {
                             const deviceState = element.deviceStates[x];
 
-                            if (deviceState.name === 'io:PriorityLockOriginatorState') {
+                            if (deviceState.name === 'io:PriorityLockOriginatorState')
+                            {
                                 // Device lock state
-                                if (this.hasCapability("lock_state")) {
+                                if (this.hasCapability("lock_state"))
+                                {
                                     Homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + deviceState.value);
                                     this.setCapabilityValue("lock_state", deviceState.value);
                                 }
-                            } else if (deviceState.name === this.closureStateName) {
+                            }
+                            else if (deviceState.name === this.closureStateName)
+                            {
                                 // Device position
                                 var closureStateValue = parseInt(deviceState.value);
                                 Homey.app.logStates(this.getName() + ": " + this.closureStateName + " = " + closureStateValue);
 
-                                if (this.invertPosition) {
+                                if (this.invertPosition)
+                                {
                                     closureStateValue = 100 - closureStateValue;
                                 }
-                                this.triggerCapabilityListener('windowcoverings_set', 1 - (closureStateValue / 100), {
+                                this.triggerCapabilityListener('windowcoverings_set', 1 - (closureStateValue / 100),
+                                {
                                     fromCloudSync: true
                                 });
-                                if ((closureStateValue !== 0) && (closureStateValue !== 100)) {
+                                if ((closureStateValue !== 0) && (closureStateValue !== 100))
+                                {
                                     // Not fully open or closed
-                                    this.triggerCapabilityListener('windowcoverings_state', 'idle', {
+                                    this.triggerCapabilityListener('windowcoverings_state', 'idle',
+                                    {
                                         fromCloudSync: true
                                     });
 
@@ -387,7 +530,9 @@ class WindowCoveringsDevice extends Device {
                                 {
                                     lastPosition = null;
                                 }
-                            } else if (deviceState.name === this.openClosedStateName) {
+                            }
+                            else if (deviceState.name === this.openClosedStateName)
+                            {
                                 // Device Open / Closed state. Only process if the last position was 0 or 100
                                 if (lastPosition === null)
                                 {
@@ -397,20 +542,36 @@ class WindowCoveringsDevice extends Device {
                                     // Convert Tahoma states to Homey equivalent
                                     openClosedStateValue = this.windowcoveringsStatesMap[openClosedStateValue];
 
-                                    this.triggerCapabilityListener('windowcoverings_state', openClosedStateValue, {
+                                    this.triggerCapabilityListener('windowcoverings_state', openClosedStateValue,
+                                    {
                                         fromCloudSync: true
                                     });
                                 }
-                                
+
                                 lastPosition = null;
                             }
                         }
                     }
                 }
+                else if (element['name'] === 'ExecutionStateChangedEvent')
+                {
+                    if ((element['newState'] === 'COMPLETED') || (element['newState'] === 'FAILED'))
+                    {
+                        const executionId = this.getStoreValue('executionId');
+                        if (executionId === element['execId'])
+                        {
+                            this.unsetStoreValue('executionId');
+                            await Homey.app.unBoostSync();
+                        }
+                    }
+                }
             }
-        } catch (error) {
+        }
+        catch (error)
+        {
             this.setUnavailable(error.message);
-            Homey.app.logInformation(this.getName(), {
+            Homey.app.logInformation(this.getName(),
+            {
                 message: error.message,
                 stack: error.stack
             });

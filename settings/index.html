@@ -53,6 +53,10 @@
             <fieldset id="preferences">
                 <legend data-i18n="settings.preferences"></legend>
                 <div class="field row">
+                    <label for="pollingEnabled" data-i18n="settings.polling_enabled"></label>
+                    <input id="pollingEnabled" type="checkbox" value="pollingEnabled" />
+                </div>
+                    <div class="field row">
                     <label for="sync_speed" data-i18n="settings.sync_speed"></label>
                     <input id="sync_speed" type="number" min="10" value="" /> &nbsp;<span data-i18n="settings.sync_tooltip"></span>
                 </div>
@@ -128,6 +132,7 @@
         var usernameEl = document.getElementById('username');
         var passwordEl = document.getElementById('password');
         var linkurlE1 = document.getElementById('linkurl');
+        var pollingEnabledEl = document.getElementById('pollingEnabled');
         var syncSpeedEl = document.getElementById('sync_speed');
         var logoutEl = document.getElementById('logoutElement');
 
@@ -198,6 +203,12 @@
                 linkurlE1.value = linkurl;
             });
 
+            Homey.get('pollingEnabled', function(err, pollingEnabled)
+            {
+                if (err) return Homey.alert(err);
+                pollingEnabledEl.checked = pollingEnabled;
+            });
+
             Homey.get('syncInterval', function(err, interval)
             {
                 if (err) return Homey.alert(err);
@@ -252,6 +263,11 @@
 
             preferencesButton.addEventListener('click', function()
             {
+                Homey.set('pollingEnabled', pollingEnabledEl.checked, function(err)
+                {
+                    if (err) return Homey.alert(err);
+                });
+
                 if (syncSpeedEl.value < 10)
                 {
                     return Homey.alert(__('settings.min_sync_speed'));
@@ -259,13 +275,13 @@
                 Homey.set('syncInterval', syncSpeedEl.value, function(err)
                 {
                     if (err) return Homey.alert(err);
-                    return Homey.alert(__('settings.pref_saved'));
                 });
+                return Homey.alert(__('settings.pref_saved'));
             });
 
             Homey.on('settings.set', function(param)
             {
-                if (param == 'infoLog')
+                if (param === 'infoLog')
                 {
                     Homey.get('infoLog', function(err, infoLog)
                     {
@@ -273,7 +289,7 @@
                         infoLogElement.value = JSON.stringify(infoLog, null, 2).replace(/\\n/g, '\n            ');
                     });
                 }
-                else if (param == 'deviceLog')
+                else if (param === 'deviceLog')
                 {
                     Homey.get('deviceLog', function(err, deviceLog)
                     {
@@ -281,12 +297,28 @@
                         deviceLogElement.value = JSON.stringify(deviceLog, null, 2);
                     });
                 }
-                else if (param == 'stateLog')
+                else if (param === 'stateLog')
                 {
                     Homey.get('stateLog', function(err, stateLogData)
                     {
                         if (err) return Homey.alert(err);
                         stateLogElement.value = stateLogData;
+                    });
+                }
+                else if (param === 'pollingEnabled')
+                {
+                    Homey.get('pollingEnabled', function(err, pollingEnabled)
+                    {
+                        if (err) return Homey.alert(err);
+                        pollingEnabledEl.checked = pollingEnabled;
+                    });
+                }
+                else if (param === 'syncInterval')
+                {
+                    Homey.get('syncInterval', function(err, syncInterval)
+                    {
+                        if (err) return Homey.alert(err);
+                        syncSpeedEl.value = syncInterval;
                     });
                 }
             });
