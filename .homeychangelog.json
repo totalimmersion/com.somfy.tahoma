@@ -199,5 +199,9 @@
   },
   "2.1.4": {
     "en": "Added flow card to switch polling on / off"
+  },
+  "2.1.5": {
+    "en": "Added flow card to change sync speed. Forced refresh of status if login token expires. Fix for idle state when cover is partially open"
   }
+
 }

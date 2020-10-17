@@ -9,8 +9,10 @@ const Homey = require('homey');
  * @extends {SensorDevice}
  */
 
-class myFoxLightControllerDevice extends SensorDevice {
-    async onInit() {
+class myFoxLightControllerDevice extends SensorDevice
+{
+    async onInit()
+    {
         await super.onInit();
         this.lightState = {
             off: false,
@@ -20,31 +22,40 @@ class myFoxLightControllerDevice extends SensorDevice {
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
     }
 
-    onCapabilityOnOff(value, opts, callback) {
+    onCapabilityOnOff(value, opts, callback)
+    {
         const deviceData = this.getData();
-        if (!opts || !opts.fromCloudSync) {
+        if (!opts || !opts.fromCloudSync)
+        {
             var action;
-            if (value == false) {
+            if (value == false)
+            {
                 action = {
                     name: 'off',
                     parameters: []
                 };
-            } else {
+            }
+            else
+            {
                 action = {
                     name: 'on',
                     parameters: []
                 };
             }
             Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
-                .then(result => {
+                .then(result =>
+                {
                     this.setStoreValue('executionId', result.execId);
                     this.setCapabilityValue('onoff', (value == true));
                     if (callback) callback(null, value);
                 })
-                .catch(error => {
+                .catch(error =>
+                {
                     Homey.app.logInformation(this.getName() + ": onCapabilityOnOff", error);
                 });
-        } else {
+        }
+        else
+        {
             this.setCapabilityValue('onoff', (value == true));
         }
 
@@ -54,54 +65,75 @@ class myFoxLightControllerDevice extends SensorDevice {
     /**
      * Gets the data from the TaHoma cloud
      */
-    async sync() {
-        try {
+    async sync()
+    {
+        try
+        {
             const states = await super.sync();
-            if (states) {
+            if (states)
+            {
                 const OnOffState = states.find(state => state.name === 'core:OnOffState');
-                if (OnOffState) {
+                if (OnOffState)
+                {
                     Homey.app.logStates(this.getName() + ": core:OnOffState = " + OnOffState.value);
-                    this.triggerCapabilityListener('onoff', (OnOffState.value === 'on'), {
+                    this.triggerCapabilityListener('onoff', (OnOffState.value === 'on'),
+                    {
                         fromCloudSync: true
                     });
                 }
             }
-        } catch (error) {
+        }
+        catch (error)
+        {
             this.setUnavailable(null);
-            Homey.app.logInformation(this.getName(), {
+            Homey.app.logInformation(this.getName(),
+            {
                 message: error.message,
                 stack: error.stack
             });
         }
     }
 
-	// look for updates in the events array
-	async syncEvents(events) {
-		const myURL = this.getDeviceUrl();
+    // look for updates in the events array
+    async syncEvents(events)
+    {
+        if (events === null)
+        {
+            return this.sync();
+        }
 
-		// Process events sequentially so they are in the correct order
-		for (var i = 0; i < events.length; i++) {
-			const element = events[i];
-			if (element['name'] === 'DeviceStateChangedEvent') {
-				if ((element['deviceURL'] === myURL) && element['deviceStates']) {
-					// Got what we need to update the device so lets find it
-					for (var x = 0; x < element.deviceStates.length; x++) {
-						const deviceState = element.deviceStates[x];
-						if (deviceState.name === 'core:OnOffState') {
-							Homey.app.logStates(this.getName() + ": core:OnOffState = " + deviceState.value);
+        const myURL = this.getDeviceUrl();
+
+        // Process events sequentially so they are in the correct order
+        for (var i = 0; i < events.length; i++)
+        {
+            const element = events[i];
+            if (element['name'] === 'DeviceStateChangedEvent')
+            {
+                if ((element['deviceURL'] === myURL) && element['deviceStates'])
+                {
+                    // Got what we need to update the device so lets find it
+                    for (var x = 0; x < element.deviceStates.length; x++)
+                    {
+                        const deviceState = element.deviceStates[x];
+                        if (deviceState.name === 'core:OnOffState')
+                        {
+                            Homey.app.logStates(this.getName() + ": core:OnOffState = " + deviceState.value);
                             const oldState = this.getState().onoff;
-                            const newSate = (deviceState.value  === 'on');
-							if (oldState !== newSate) {
-								this.triggerCapabilityListener('onoff', newSate, {
+                            const newSate = (deviceState.value === 'on');
+                            if (oldState !== newSate)
+                            {
+                                this.triggerCapabilityListener('onoff', newSate,
+                                {
                                     fromCloudSync: true
                                 });
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 module.exports = myFoxLightControllerDevice;

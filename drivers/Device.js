@@ -66,9 +66,9 @@ class Device extends Homey.Device
                 , stack: error
             });
         }
-        // Try again later
-        this.log('Device sync delayed:', this.getName(), 'class:', this.getClass());
-        this.timerId = setTimeout(() => this.sync(), 1000);
+        // // Try again later
+        // this.log('Device sync delayed:', this.getName(), 'class:', this.getClass());
+        // this.timerId = setTimeout(() => this.sync(), 1000);
         return null;
     }
 }

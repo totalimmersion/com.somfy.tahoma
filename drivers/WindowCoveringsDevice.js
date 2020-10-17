@@ -42,7 +42,8 @@ class WindowCoveringsDevice extends Device {
 
             this.windowcoveringsStatesMap = {
                 open: 'down',
-                closed: 'up'
+                closed: 'up',
+                unknown: 'idle'
             };
         } else {
             this.windowcoveringsActions = {
@@ -334,8 +335,15 @@ class WindowCoveringsDevice extends Device {
      * Sync the state of the devices from the TaHoma cloud with Homey
      */
     async syncEvents(events) {
+        if (events === null)
+        {
+            return this.sync();
+        }
+        
         try {
             const myURL = this.getDeviceUrl();
+
+            var lastPosition = null;
 
             // Process events sequentially so they are in the correct order
             for (var i = 0; i < events.length; i++) {
@@ -372,18 +380,29 @@ class WindowCoveringsDevice extends Device {
                                     this.triggerCapabilityListener('windowcoverings_state', 'idle', {
                                         fromCloudSync: true
                                     });
+
+                                    lastPosition = closureStateValue;
+                                }
+                                else
+                                {
+                                    lastPosition = null;
                                 }
                             } else if (deviceState.name === this.openClosedStateName) {
-                                // Device Open / Closed state
-                                var openClosedStateValue = deviceState.value;
-                                Homey.app.logStates(this.getName() + ": " + this.openClosedStateName + " = " + openClosedStateValue);
+                                // Device Open / Closed state. Only process if the last position was 0 or 100
+                                if (lastPosition === null)
+                                {
+                                    var openClosedStateValue = deviceState.value;
+                                    Homey.app.logStates(this.getName() + ": " + this.openClosedStateName + " = " + openClosedStateValue);
 
-                                // Convert Tahoma states to Homey equivalent
-                                openClosedStateValue = this.windowcoveringsStatesMap[openClosedStateValue];
+                                    // Convert Tahoma states to Homey equivalent
+                                    openClosedStateValue = this.windowcoveringsStatesMap[openClosedStateValue];
 
-                                this.triggerCapabilityListener('windowcoverings_state', openClosedStateValue, {
-                                    fromCloudSync: true
-                                });
+                                    this.triggerCapabilityListener('windowcoverings_state', openClosedStateValue, {
+                                        fromCloudSync: true
+                                    });
+                                }
+                                
+                                lastPosition = null;
                             }
                         }
                     }

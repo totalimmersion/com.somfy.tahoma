@@ -123,6 +123,7 @@ class myApp extends Homey.App
         });
 
         this.addScenarioActionListeners();
+        this.addPollingSpeedActionListeners();
         this.addPollingActionListeners();
         this.initSync();
         this.log(`${Homey.app.manifest.id} Initialised`);
@@ -407,6 +408,7 @@ class myApp extends Homey.App
         this.syncWithCloud(this.interval * 1000);
     }
 
+    // The main polling loop that fetches events and sends tem to the devices
     async syncWithCloud(interval)
     {
         try
@@ -415,7 +417,7 @@ class myApp extends Homey.App
             {
                 this.syncing = true;
                 const events = await Tahoma.getEvents();
-                if (events.length > 0)
+                if (events === null || events.length > 0)
                 {
                     console.log(events);
                     await this.syncEvents(events);
@@ -430,11 +432,31 @@ class myApp extends Homey.App
         }
     }
 
+    // Pass the new events to each device so they can update their status
     async syncEvents(events)
     {
         try
         {
-            this.logEvents(JSON.stringify(events, null, 2));
+            if (events)
+            {
+                this.logInformation("Device status update",
+                {
+                    message: "Refreshing",
+                    stack: events
+                });
+                this.logEvents(JSON.stringify(events, null, 2));
+            }
+            else
+            {
+                this.logInformation("Device status update",
+                {
+                    message: "Renewing",
+                    stack: events
+                });
+            }
+
+            let promises = [];
+
             const drivers = Homey.ManagerDrivers.getDrivers();
             for (const driver in drivers)
             {
@@ -442,7 +464,7 @@ class myApp extends Homey.App
                 {
                     try
                     {
-                        device.syncEvents(events);
+                        promises.push(device.syncEvents(events));
                     }
                     catch (error)
                     {
@@ -450,6 +472,16 @@ class myApp extends Homey.App
                     }
                 })
             }
+
+            // Wait for all the checks to complete
+            await Promise.allSettled(promises);
+
+            this.logInformation("Device status update",
+            {
+                message: "Complete",
+                stack: events
+            });
+
         }
         catch (error)
         {
@@ -487,7 +519,19 @@ class myApp extends Homey.App
     }
 
     /**
-     * Adds a listener for polling flowcard actions
+     * Adds a listener for polling speed flowcard actions
+     */
+    addPollingSpeedActionListeners()
+    {
+        new Homey.FlowCardAction('set_polling_speed').register().registerRunListener(args =>
+        {
+            Homey.ManagerSettings.set('syncInterval', args.newPollingMode);
+            return this.restartSync();
+        })
+    }
+
+    /**
+     * Adds a listener for polling mode flowcard actions
      */
     addPollingActionListeners()
     {

@@ -62,6 +62,11 @@ class WindowHandleDevice extends SensorDevice {
 
 	// look for updates in the events array
 	async syncEvents(events) {
+        if (events === null)
+        {
+            return this.sync();
+        }
+        
 		const myURL = this.getDeviceUrl();
 
 		// Process events sequentially so they are in the correct order

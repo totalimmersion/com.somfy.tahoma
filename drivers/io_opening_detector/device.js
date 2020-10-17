@@ -8,80 +8,103 @@ const Homey = require('homey');
  * Device class for the opening detector with the io:SomfyContactIOSystemSensor controllable name in TaHoma
  * @extends {SensorDevice}
  */
-class OpeningDetectorDevice extends SensorDevice {
+class OpeningDetectorDevice extends SensorDevice
+{
 
-  async onInit() {
-    this.registerCapabilityListener('alarm_contact', this.onCapabilityAlarmContact.bind(this));
+    async onInit()
+    {
+        this.registerCapabilityListener('alarm_contact', this.onCapabilityAlarmContact.bind(this));
 
-    await super.onInit();
-  }
-
-  onCapabilityAlarmContact(value) {
-    const oldContactState = this.getState().alarm_contact;
-    if (oldContactState !== value) {
-      this.setCapabilityValue('alarm_contact', value);
-
-      const device = this;
-      const tokens = {
-        'isOpen': value
-      };
-
-      //trigger flows
-      this.getDriver()
-        .triggerContactChange(device, tokens);
+        await super.onInit();
     }
 
-    return Promise.resolve();
-  }
+    onCapabilityAlarmContact(value)
+    {
+        const oldContactState = this.getState().alarm_contact;
+        if (oldContactState !== value)
+        {
+            this.setCapabilityValue('alarm_contact', value);
 
-  /**
-   * Gets the sensor data from the TaHoma cloud
-   */
-  async sync() {
-    try {
-      const states = await super.sync();
-      if (states) {
-        const contactState = states.find(state => state.name === 'core:ContactState');
-        if (contactState) {
-          Homey.app.logStates(this.getName() + ": core:ContactState = " + contactState.value);
-          this.triggerCapabilityListener('alarm_contact', contactState.value === 'open');
+            const device = this;
+            const tokens = {
+                'isOpen': value
+            };
+
+            //trigger flows
+            this.getDriver()
+                .triggerContactChange(device, tokens);
         }
-      }
-    } catch (error) {
-      this.setUnavailable(null);
-      Homey.app.logInformation(this.getName(), {
-        message: error.message,
-        stack: error.stack
-      });
 
+        return Promise.resolve();
     }
-  }
 
-  // look for updates in the events array
-  async syncEvents(events) {
-    const myURL = this.getDeviceUrl();
-
-    // Process events sequentially so they are in the correct order
-    for (var i = 0; i < events.length; i++) {
-      const element = events[i];
-      if (element['name'] === 'DeviceStateChangedEvent') {
-        if ((element['deviceURL'] === myURL) && element['deviceStates']) {
-          // Got what we need to update the device so lets find it
-          for (var x = 0; x < element.deviceStates.length; x++) {
-            const deviceState = element.deviceStates[x];
-            if (deviceState.name === 'core:ContactState') {
-              Homey.app.logStates(this.getName() + ": core:ContactState = " + deviceState.value);
-              const oldState = this.getState().measure_luminance;
-              const newSate = (deviceState.value === 'open');
-              if (oldState !== newSate) {
-                this.triggerCapabilityListener('alarm_contact', newSate);
-              }
+    /**
+     * Gets the sensor data from the TaHoma cloud
+     */
+    async sync()
+    {
+        try
+        {
+            const states = await super.sync();
+            if (states)
+            {
+                const contactState = states.find(state => state.name === 'core:ContactState');
+                if (contactState)
+                {
+                    Homey.app.logStates(this.getName() + ": core:ContactState = " + contactState.value);
+                    this.triggerCapabilityListener('alarm_contact', contactState.value === 'open');
+                }
             }
-          }
         }
-      }
+        catch (error)
+        {
+            this.setUnavailable(null);
+            Homey.app.logInformation(this.getName(),
+            {
+                message: error.message,
+                stack: error.stack
+            });
+
+        }
     }
-  }
+
+    // look for updates in the events array
+    async syncEvents(events)
+    {
+        if (events === null)
+        {
+            return this.sync();
+        }
+
+        const myURL = this.getDeviceUrl();
+
+        // Process events sequentially so they are in the correct order
+        for (var i = 0; i < events.length; i++)
+        {
+            const element = events[i];
+            if (element['name'] === 'DeviceStateChangedEvent')
+            {
+                if ((element['deviceURL'] === myURL) && element['deviceStates'])
+                {
+                    // Got what we need to update the device so lets find it
+                    for (var x = 0; x < element.deviceStates.length; x++)
+                    {
+                        const deviceState = element.deviceStates[x];
+                        if (deviceState.name === 'core:ContactState')
+                        {
+                            Homey.app.logStates(this.getName() + ": core:ContactState = " + deviceState.value);
+                            const oldState = this.getState().measure_luminance;
+                            const newSate = (deviceState.value === 'open');
+                            if (oldState !== newSate)
+                            {
+                                this.triggerCapabilityListener('alarm_contact', newSate);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 module.exports = OpeningDetectorDevice;
