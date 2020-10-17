@@ -72,6 +72,7 @@ class WindowCoveringsDevice extends Device
         this.setPositionActionName = 'setClosure';
         this.openClosedStateName = 'core:OpenClosedState';
         this.quietMode = false;
+        this.boostSync = true;
 
         this.registerCapabilityListener('windowcoverings_state', this.onCapabilityWindowcoveringsState.bind(this));
         this.registerCapabilityListener('windowcoverings_set', this.onCapabilityWindowcoveringsSet.bind(this));
@@ -167,7 +168,10 @@ class WindowCoveringsDevice extends Device
                     else
                     {
                         this.setStoreValue('executionId', result.execId);
-                        await Homey.app.boostSync();
+                        if (this.boostSync)
+                        {
+                            await Homey.app.boostSync();
+                        }
                     }
                 }
             };
@@ -234,7 +238,10 @@ class WindowCoveringsDevice extends Device
                 else
                 {
                     this.setStoreValue('executionId', result.execId);
-                    await Homey.app.boostSync();
+                    if (this.boostSync)
+                    {
+                        await Homey.app.boostSync();
+                    }
                 }
             }
         }
@@ -276,7 +283,10 @@ class WindowCoveringsDevice extends Device
                 else
                 {
                     this.setStoreValue('executionId', result.execId);
-                    await Homey.app.boostSync();
+                    if (this.boostSync)
+                    {
+                        await Homey.app.boostSync();
+                    }
                 }
             }
         }
@@ -312,7 +322,10 @@ class WindowCoveringsDevice extends Device
                 else
                 {
                     this.setStoreValue('executionId', result.execId);
-                    await Homey.app.boostSync();
+                    if (this.boostSync)
+                    {
+                        await Homey.app.boostSync();
+                    }
                 }
             }
         }
@@ -347,7 +360,10 @@ class WindowCoveringsDevice extends Device
                 else
                 {
                     this.setStoreValue('executionId', result.execId);
-                    await Homey.app.boostSync();
+                    if (this.boostSync)
+                    {
+                        await Homey.app.boostSync();
+                    }
                 }
             }
         }
@@ -561,7 +577,10 @@ class WindowCoveringsDevice extends Device
                         if (executionId === element['execId'])
                         {
                             this.unsetStoreValue('executionId');
-                            await Homey.app.unBoostSync();
+                            if (this.boostSync)
+                            {
+                                await Homey.app.unBoostSync();
+                            }
                         }
                     }
                 }

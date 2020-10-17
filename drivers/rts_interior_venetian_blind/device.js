@@ -16,6 +16,7 @@ class InteriorVenetianBlindDevice extends WindowCoveringsDevice {
         await super.onInit();
 
         this.closureStateName = '';
+        this.boostSync = false;
     }
 
     async sync() {
