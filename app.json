@@ -1258,6 +1258,36 @@
                 "en": "Reverse the position control."
             }
         }]
+    },
+    {
+        "id": "io_dimmable_light",
+        "name":
+        {
+            "en": "Dimmable Light Controllers (io)"
+        },
+        "class": "light",
+        "capabilities": [
+            "onoff",
+            "dim"
+        ],
+        "images":
+        {
+            "large": "/drivers/io_dimmable_light/assets/images/large.png",
+            "small": "/drivers/io_dimmable_light/assets/images/small.png"
+        },
+        "pair": [
+        {
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation":
+            {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }]
     }],
     "flow":
     {
@@ -1713,8 +1743,8 @@
             "id": "set_polling_speed",
             "title":
             {
-                "en": "Sync speed",
-                "nl": "Synchronisatiesnelheid"
+                "en": "Sync speed (seconds)",
+                "nl": "Synchronisatiesnelheid (Seconden)"
             },
             "args": [
             {
