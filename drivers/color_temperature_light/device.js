@@ -9,7 +9,7 @@ const Homey = require('homey');
  * @extends {SensorDevice}
  */
 
-class ioDimmableLightControllerDevice extends SensorDevice
+class ColourTemperatureLightControllerDevice extends SensorDevice
 {
     async onInit()
     {
@@ -21,6 +21,7 @@ class ioDimmableLightControllerDevice extends SensorDevice
 
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
         this.registerCapabilityListener('dim', this.onCapabilityDim.bind(this));
+        this.registerCapabilityListener('light_temperature', this.onCapabilityLight_temperature.bind(this));
     }
 
     async onCapabilityOnOff(value, opts, callback)
@@ -64,7 +65,6 @@ class ioDimmableLightControllerDevice extends SensorDevice
                 else
                 {
                     this.setStoreValue('executionId', result.execId);
-                    this.setCapabilityValue('onoff', (value == true));
                 }
             }
             else
@@ -110,7 +110,6 @@ class ioDimmableLightControllerDevice extends SensorDevice
                 else
                 {
                     this.setStoreValue('executionId', result.execId);
-                    this.setCapabilityValue('onoff', (value == true));
                 }
             }
             else
@@ -121,7 +120,54 @@ class ioDimmableLightControllerDevice extends SensorDevice
         }
         else
         {
-            this.setCapabilityValue('dim', value / 100);
+            this.setCapabilityValue('dim', value);
+        }
+    }
+
+    async onCapabilityLight_temperature(value, opts)
+    {
+        if (!opts || !opts.fromCloudSync)
+        {
+            const deviceData = this.getData();
+            const executionId = this.getStoreValue('executionId');
+            if ((executionId !== undefined) && (executionId !== null))
+            {
+                await Tahoma.cancelExecution(executionId);
+            }
+
+            const minTemperature = this.getSetting('minTemperature');
+            const maxTemperature = this.getSetting('maxTemperature');
+            var action;
+            action = {
+                name: 'setColorTemperature',
+                parameters: [Math.round(value * (maxTemperature - minTemperature) + minTemperature)]
+            };
+            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            if (result !== undefined)
+            {
+                if (result.errorCode)
+                {
+                    Homey.app.logInformation(this.getName(),
+                    {
+                        message: result.error,
+                        stack: result.errorCode
+                    });
+                    throw (new Error(result.error));
+                }
+                else
+                {
+                    this.setStoreValue('executionId', result.execId);
+                }
+            }
+            else
+            {
+                Homey.app.logInformation(this.getName() + ": onCapabilityDim", "Failed to send command");
+                throw (new Error("Failed to send command"));
+            };
+        }
+        else
+        {
+            this.setCapabilityValue('light_temperature', value);
         }
     }
 
@@ -152,6 +198,20 @@ class ioDimmableLightControllerDevice extends SensorDevice
                 {
                     Homey.app.logStates(this.getName() + ": core:dimState = " + dimState.value);
                     this.triggerCapabilityListener('dim', (dimState.value / 100),
+                    {
+                        fromCloudSync: true
+                    });
+                }
+
+                // Color level
+                const colorState = states.find(state => state.name === 'core:ColorTemperatureState');
+                if (colorState)
+                {
+                    const minTemperature = this.getSetting('minTemperature');
+                    const maxTemperature = this.getSetting('maxTemperature');
+        
+                    Homey.app.logStates(this.getName() + ": core:ColorTemperatureState = " + colorState.value);
+                    this.triggerCapabilityListener('light_temperature', ((colorState.value - minTemperature) / (maxTemperature - minTemperature)),
                     {
                         fromCloudSync: true
                     });
@@ -217,6 +277,19 @@ class ioDimmableLightControllerDevice extends SensorDevice
                                 });
                             }
                         }
+                        else if (deviceState.name === 'core:ColorTemperatureState')
+                        {
+                            Homey.app.logStates(this.getName() + ": core:ColorTemperatureState = " + deviceState.value);
+                            const oldState = this.getState().light_temperature;
+                            const newSate = ((parseInt(deviceState.value) - minTemperature) / (maxTemperature - minTemperature));
+                            if (oldState !== newSate)
+                            {
+                                this.triggerCapabilityListener('light_temperature', newSate,
+                                {
+                                    fromCloudSync: true
+                                });
+                            }
+                        }
                     }
                 }
             }
@@ -224,4 +297,4 @@ class ioDimmableLightControllerDevice extends SensorDevice
     }
 }
 
-module.exports = ioDimmableLightControllerDevice;
+module.exports = ColourTemperatureLightControllerDevice;

@@ -442,7 +442,7 @@ class myApp extends Homey.App
             });
 
             await this.stopSync();
-            this.timerId = setTimeout(() => this.syncLoop(3000), 3000);
+            this.timerId = setTimeout(() => this.syncLoop(3000), 10000);
         }
     }
 
