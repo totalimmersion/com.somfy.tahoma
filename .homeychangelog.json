@@ -205,6 +205,8 @@
   },
   "2.1.6": {
     "en": "Added setting to switch off polling. Changes to polling mode and sync speed now show in app settings. Added Boost mode to temporarily increase polling speed when a cover command is sent. Added support for io:SimpleBioclimaticPergolaIOComponent"
+  },
+  "2.1.7": {
+    "en": "Added support for hue:GenericExtendedColorLightHUEComponent, hue:HueLuxHUEComponent, hue:ExtendedColorLightCandleHUEComponent, hue:LightStripsPlusHUEComponent, hue:ColorTemperatureLightBulbHUEComponent, io:DimmableLightIOComponent"
   }
-
 }
