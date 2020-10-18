@@ -4,16 +4,16 @@ const Homey = require( 'homey' );
 const Driver = require( '../Driver' );
 
 /**
- * Driver class for the opening detector with the hue:ColorTemperatureLightBulbHUEComponent controllable name in TaHoma
+ * Driver class for the opening detector with the hue:GenericExtendedColorLightHUEComponent controllable name in TaHoma
  * @extends {Driver}
  */
-class ColourTemperatureLightControllerDriver extends Driver
+class ColorTemperatureLightControllerDriver extends Driver
 {
     async onInit()
     {
-        this.deviceType = [ 'hue:ColorTemperatureLightBulbHUEComponent' ];
+        this.deviceType = [ 'hue:GenericExtendedColorLightHUEComponent', 'hue:ExtendedColorLightCandleHUEComponent', 'hue:LightStripsPlusHUEComponent' ];
         await super.onInit();
     }
 }
 
-module.exports = ColourTemperatureLightControllerDriver;
+module.exports = ColorTemperatureLightControllerDriver;
