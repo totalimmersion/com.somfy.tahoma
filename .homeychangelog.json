@@ -202,6 +202,9 @@
   },
   "2.1.5": {
     "en": "Added flow card to change sync speed. Forced refresh of status if login token expires. Fix for idle state when cover is partially open"
+  },
+  "2.1.6": {
+    "en": "Added setting to switch off polling. Changes to polling mode and sync speed now show in app settings. Added Boost mode to temporarily increase polling speed when a cover command is sent. Added support for io:SimpleBioclimaticPergolaIOComponent"
   }
 
 }

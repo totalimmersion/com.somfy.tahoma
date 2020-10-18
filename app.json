@@ -12,7 +12,7 @@
         "en": "Somfy TaHoma & Connexoon for Homey",
         "nl": "Somfy TaHoma & Connexoon voor Homey"
     },
-    "version": "2.1.5",
+    "version": "2.1.6",
     "compatibility": ">=2.0.0",
     "author":
     {
@@ -1155,6 +1155,63 @@
         {
             "large": "/drivers/io_garage_door/assets/images/large.png",
             "small": "/drivers/io_garage_door/assets/images/small.png"
+        },
+        "class": "blinds",
+        "capabilities": [
+            "windowcoverings_state",
+            "windowcoverings_set"
+        ],
+        "pair": [
+        {
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation":
+            {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }],
+        "settings": [
+        {
+            "id": "invertUpDown",
+            "type": "checkbox",
+            "label":
+            {
+                "en": "Invert Up / Down"
+            },
+            "value": false,
+            "hint":
+            {
+                "en": "Reverse the Up / Down direction controls"
+            }
+        },
+        {
+            "id": "invertPosition",
+            "type": "checkbox",
+            "label":
+            {
+                "en": "Invert Position"
+            },
+            "value": false,
+            "hint":
+            {
+                "en": "Reverse the position control."
+            }
+        }]
+    },
+    {
+        "id": "io_pergola",
+        "name":
+        {
+            "en": "Pergola (io)"
+        },
+        "images":
+        {
+            "large": "/drivers/io_pergola/assets/images/large.png",
+            "small": "/drivers/io_pergola/assets/images/small.png"
         },
         "class": "blinds",
         "capabilities": [
