@@ -41,12 +41,14 @@ class WindowCoveringsDevice extends Device
 
         if (this.invertUpDown)
         {
+            // Homey capability to Somfy command map
             this.windowcoveringsActions = {
                 up: 'close',
                 idle: null,
                 down: 'open'
             };
 
+            // Somfy state to Homey capability map
             this.windowcoveringsStatesMap = {
                 open: 'down',
                 closed: 'up',
@@ -68,9 +70,11 @@ class WindowCoveringsDevice extends Device
             };
         }
 
-        this.closureStateName = 'core:ClosureState';
-        this.setPositionActionName = 'setClosure';
-        this.openClosedStateName = 'core:OpenClosedState';
+        this.positionStateName = 'core:ClosureState';       // Name of state to get the current position
+        this.setPositionActionName = 'setClosure';          // Name of the command to set the current position
+        this.openClosedStateName = 'core:OpenClosedState';  // Name of the state to get open / closed state
+        this.myCommand = 'my';                              // Name of the command to set the My position
+
         this.quietMode = false;
         this.boostSync = true;
 
@@ -176,7 +180,7 @@ class WindowCoveringsDevice extends Device
                 }
             };
 
-            if (!this.closureStateName)
+            if (!this.positionStateName)
             {
                 setTimeout(() =>
                 {
@@ -343,7 +347,7 @@ class WindowCoveringsDevice extends Device
             }
 
             const action = {
-                name: 'my'
+                name: this.myCommand
             };
             let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
@@ -402,10 +406,19 @@ class WindowCoveringsDevice extends Device
                 }
 
                 const myPosition = states.find(state => state.name === "core:Memorized1PositionState");
-                if (myPosition) {}
+                if (myPosition)
+                {
+                    if (!this.hasCapability("my_value"))
+                    {
+                        this.addCapability('my_value');
+                    }
+
+                    Homey.app.logStates(this.getName() + ": core:Memorized1PositionState = " + myPosition.value);
+                    this.setCapabilityValue("my_value", myPosition.value);
+                }
 
                 //device exists -> let's sync the state of the device
-                const closureState = states.find(state => state.name === this.closureStateName);
+                const closureState = states.find(state => state.name === this.positionStateName);
                 const openClosedState = states.find(state => state.name === this.openClosedStateName);
 
                 if (this.unavailable)
@@ -437,7 +450,7 @@ class WindowCoveringsDevice extends Device
 
                 if (closureState)
                 {
-                    Homey.app.logStates(this.getName() + ": " + this.closureStateName + " = " + closureState.value);
+                    Homey.app.logStates(this.getName() + ": " + this.positionStateName + " = " + closureState.value);
 
                     if (this.invertPosition)
                     {
@@ -518,11 +531,11 @@ class WindowCoveringsDevice extends Device
                                     this.setCapabilityValue("lock_state", deviceState.value);
                                 }
                             }
-                            else if (deviceState.name === this.closureStateName)
+                            else if (deviceState.name === this.positionStateName)
                             {
                                 // Device position
                                 var closureStateValue = parseInt(deviceState.value);
-                                Homey.app.logStates(this.getName() + ": " + this.closureStateName + " = " + closureStateValue);
+                                Homey.app.logStates(this.getName() + ": " + this.positionStateName + " = " + closureStateValue);
 
                                 if (this.invertPosition)
                                 {

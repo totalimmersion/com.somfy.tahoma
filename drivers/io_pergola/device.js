@@ -20,7 +20,7 @@ class PergolaDevice extends WindowCoveringsDevice {
             down: 'closeSlats'
         };
 
-        this.closureStateName = 'core:SlatsOrientationState';
+        this.positionStateName = 'core:SlatsOrientationState';
         this.setPositionActionName = 'setOrientation';
         this.openClosedStateName = 'core:SlatsOpenClosedState';
 

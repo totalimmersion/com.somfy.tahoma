@@ -210,6 +210,6 @@
     "en": "Added support for hue:GenericExtendedColorLightHUEComponent, hue:HueLuxHUEComponent, hue:ExtendedColorLightCandleHUEComponent, hue:LightStripsPlusHUEComponent, hue:ColorTemperatureLightBulbHUEComponent, io:DimmableLightIOComponent"
   },
   "2.1.8": {
-    "en": "Changed Sync Speed to Sync Interval. Limited size of Information log."
+    "en": "Changed Sync Speed to Sync Interval. Limited size of Information log. Added io:DiscreteGarageOpenerWithPartialPositionIOComponent"
   }
 }

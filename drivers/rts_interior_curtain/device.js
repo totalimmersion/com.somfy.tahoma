@@ -14,7 +14,7 @@ class InteriorCurtainDevice extends WindowCoveringsDevice {
 
         await super.onInit();
 
-        this.closureStateName = '';
+        this.positionStateName = '';
         this.boostSync = false;
     }
 
