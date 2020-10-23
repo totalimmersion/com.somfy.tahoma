@@ -1,7 +1,7 @@
 'use strict';
-if (process.env.DEBUG === '1')
+//if (process.env.DEBUG === '1')
 {
-    require('inspector').open(9222, '0.0.0.0', true)
+    require('inspector').open(9222, '0.0.0.0', false)
 }
 const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
@@ -301,7 +301,14 @@ class myApp extends Homey.App
         if (Homey.ManagerSettings.get('stateLogEnabled'))
         {
             let log = Homey.ManagerSettings.get('stateLog') + txt + "\n";
-            Homey.ManagerSettings.set('stateLog', log);
+            if (log.length > 30000)
+            {
+                Homey.ManagerSettings.set('stateLogEnabled', false);
+            }
+            else
+            {
+                Homey.ManagerSettings.set('stateLog', log);
+            }
         }
     }
 

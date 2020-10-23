@@ -13,7 +13,7 @@
 		"logout_success": "Succesvol uitgelogd.",
 		"logout_failure": "Uitloggen niet gelukt.",
 		"preferences": "Voorkeuren",
-		"sync_speed": "Synchronisatiesnelheid",
+		"sync_speed": "Synchronisatie-interval",
 		"sync_tooltip": "(seconden)",
 		"save_preferences": "Voorkeuren opslaan",
 		"linkurl": "Verbindings-URL",
