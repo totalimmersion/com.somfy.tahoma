@@ -56,7 +56,7 @@
                     <label for="pollingEnabled" data-i18n="settings.polling_enabled"></label>
                     <input id="pollingEnabled" type="checkbox" value="pollingEnabled" />
                 </div>
-                    <div class="field row">
+                <div class="field row">
                     <label for="sync_speed" data-i18n="settings.sync_speed"></label>
                     <input id="sync_speed" type="number" min="10" value="" /> &nbsp;<span data-i18n="settings.sync_tooltip"></span>
                 </div>
@@ -161,9 +161,6 @@
         // a method named 'onHomeyReady' must be present in your code
         function onHomeyReady(Homey)
         {
-            // Tell Homey we're ready to be displayed
-            Homey.ready();
-
             Homey.get('debugMode', function(err, debugMode)
             {
                 if (err) return Homey.alert(err);
@@ -454,6 +451,9 @@
                     if (err) return Homey.alert(err);
                 });
             });
+
+            // Tell Homey we're ready to be displayed
+            Homey.ready();
         };
 
         function setPage(evt, tabPage)
