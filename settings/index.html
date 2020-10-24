@@ -32,6 +32,9 @@
                 <div class="field row">
                     <label for="password" data-i18n="settings.password"></label>
                     <input id="password" type="password" value="" />
+                    <label for="showPassword" data-i18n="settings.show_password"></label>
+                    <input id="showPassword" type="checkbox" value="showPassword" />
+                    <p></p>
                 </div>
                 <div class="field row">
                     <label for="linkurl" data-i18n="settings.linkurl"></label>
@@ -52,6 +55,9 @@
             </fieldset>
             <fieldset id="preferences">
                 <legend data-i18n="settings.preferences"></legend>
+                <p id="preferencesText1" data-i18n="settings.pref_intro1"></p>
+                <p id="preferencesText2" data-i18n="settings.pref_intro2"></p>
+                <p id="preferencesText3" data-i18n="settings.pref_intro3"></p>
                 <div class="field row">
                     <label for="pollingEnabled" data-i18n="settings.polling_enabled"></label>
                     <input id="pollingEnabled" type="checkbox" value="pollingEnabled" />
@@ -131,6 +137,7 @@
         var response = document.getElementById('response');
         var usernameEl = document.getElementById('username');
         var passwordEl = document.getElementById('password');
+        var showPasswordEl = document.getElementById('showPassword');
         var linkurlE1 = document.getElementById('linkurl');
         var pollingEnabledEl = document.getElementById('pollingEnabled');
         var syncSpeedEl = document.getElementById('sync_speed');
@@ -256,6 +263,18 @@
                         passwordEl.val('');
                     }
                 });
+            });
+
+            showPasswordEl.addEventListener('click', function(e)
+            {
+                if (passwordEl.type === "password")
+                {
+                    passwordEl.type = "text";
+                }
+                else
+                {
+                    passwordEl.type = "password";
+                }
             });
 
             preferencesButton.addEventListener('click', function()
@@ -505,7 +524,7 @@
                 });
                 // Make the log text area fill the page
                 deviceLogElement.setAttribute('cols', deviceLogElement.parentElement.clientWidth / 8);
-                deviceLogElement.style.height = (window.innerHeight - deviceLogElement.offsetTop - 40) + 'px';
+                deviceLogElement.style.height = (window.innerHeight - 40) + 'px';
             }
 
             if (tabPage == 'simulator')

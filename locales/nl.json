@@ -13,7 +13,7 @@
 		"logout_success": "Succesvol uitgelogd.",
 		"logout_failure": "Uitloggen niet gelukt.",
 		"preferences": "Voorkeuren",
-		"sync_speed": "Synchronisatie-interval",
+		"sync_speed": "Update frequentie",
 		"sync_tooltip": "(seconden)",
 		"save_preferences": "Voorkeuren opslaan",
 		"linkurl": "Verbindings-URL",
@@ -33,7 +33,12 @@
 		"get": "Log ophalen",
 		"clear": "Log wissen",
 		"send": "Log verzenden",
-		"log_enabled": "Log ingeschakeld"
+		"log_enabled": "Log ingeschakeld",
+        "polling_enabled": "Status updates",
+        "show_password": "Toon wachtwoord",
+        "pref_intro1": "Om Homey gesynchroniseerd te houden met uw apparaten, kan de app status updates doen.",
+        "pref_intro2": "Dit zorgt voor een belasting op de Somfy servers, dus gelieve de optie uit te laten indien mogelijk.",
+        "pref_intro3": "Als je updates nodig hebt ten behoeve van sensoren, hou de update frequentie dan zo hoog mogelijk."
 	},
   "errors": {
     "on_pair_login_failure": "Inloggen niet gelukt. Ga a.u.b. naar het instellingen scherm en geef Homey toegang tot TaHoma."
