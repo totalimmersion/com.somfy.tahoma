@@ -380,6 +380,10 @@
 
             sendDeviceLogElement.addEventListener('click', function(e)
             {
+                if (deviceLogElement.value.length < 15)
+                {
+                    return Homey.alert("No Data to send");
+                }
                 Homey.confirm("Send the device log contents to the developer?", null, function(e, ok)
                 {
                     if (ok)
@@ -400,6 +404,11 @@
 
             sendInfoLogElement.addEventListener('click', function(e)
             {
+                if (infoLogElement.value.length < 15)
+                {
+                    return Homey.alert("No Data to send");
+                }
+
                 Homey.confirm("Send the error log contents to the developer?", null, function(e, ok)
                 {
                     if (ok)
