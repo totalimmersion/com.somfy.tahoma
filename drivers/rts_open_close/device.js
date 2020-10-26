@@ -1,6 +1,6 @@
 "use strict";
 
-const SensorDevice = require('../SensorDevice');
+const Device = require('../Device');
 const Tahoma = require('../../lib/Tahoma');
 const Homey = require('homey');
 
