@@ -214,5 +214,8 @@
   },
   "2.1.9": {
     "en": "Added io:AwningReceiverUnoIOComponent, rts:GarageDoor4TRTSComponent, rts:SlidingGateOpener4TRTSComponent"
+  },
+  "2.1.10": {
+    "en": "Added io:AwningReceiverUnoIOComponent, rts:GarageDoor4TRTSComponent, rts:SlidingGateOpener4TRTSComponent"
   }
 }
