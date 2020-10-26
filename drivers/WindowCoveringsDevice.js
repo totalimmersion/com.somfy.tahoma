@@ -180,7 +180,7 @@ class WindowCoveringsDevice extends Device
                 }
             };
 
-            if (!this.positionStateName)
+            if (!this.openClosedStateName)
             {
                 setTimeout(() =>
                 {

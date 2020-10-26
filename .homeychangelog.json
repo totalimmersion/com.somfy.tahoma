@@ -211,5 +211,8 @@
   },
   "2.1.8": {
     "en": "Changed Sync Speed to Sync Interval. Limited size of Information log. Added io:DiscreteGarageOpenerWithPartialPositionIOComponent"
+  },
+  "2.1.9": {
+    "en": "Added io:AwningReceiverUnoIOComponent, rts:GarageDoor4TRTSComponent, rts:SlidingGateOpener4TRTSComponent"
   }
 }

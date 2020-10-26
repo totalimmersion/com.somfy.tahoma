@@ -1463,6 +1463,35 @@
                 "en": "Max colour temperature of the light"
             }
         }]
+    },
+    {
+        "id": "rts_open_close",
+        "name":
+        {
+            "en": "Open / Close (RTS)"
+        },
+        "images":
+        {
+            "large": "/drivers/io_pergola/assets/images/large.png",
+            "small": "/drivers/io_pergola/assets/images/small.png"
+        },
+        "class": "button",
+        "capabilities": [
+            "button"
+        ],
+        "pair": [
+        {
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation":
+            {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }]
     }],
     "flow":
     {

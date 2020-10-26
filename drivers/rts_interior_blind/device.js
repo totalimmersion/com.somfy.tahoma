@@ -15,6 +15,7 @@ class InteriorBlindDevice extends WindowCoveringsDevice {
         await super.onInit();
 
         this.positionStateName = '';
+        this.openClosedStateName = '';
         this.boostSync = false;
     }
 
