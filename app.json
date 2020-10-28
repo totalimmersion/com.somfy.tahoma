@@ -1947,8 +1947,8 @@
             "id": "set_polling_speed",
             "title":
             {
-                "en": "Sync speed (seconds)",
-                "nl": "Synchronisatiesnelheid (Seconden)"
+                "en": "Polling Interval",
+                "nl": "Update frequentie"
             },
             "args": [
             {
@@ -1957,7 +1957,8 @@
                 "min": 10,
                 "placeholder":
                 {
-                    "en": "Seconds"
+                    "en": "Seconds",
+                    "nl": "Seconden"
                 }
             }]
         },
@@ -1965,8 +1966,8 @@
             "id": "set_polling_mode",
             "title":
             {
-                "en": "Polling mode",
-                "nl": "Polling modus"
+                "en": "Poll for status updates",
+                "nl": "Status updates"
             },
             "args": [
             {

@@ -14,7 +14,7 @@
         "logout_success": "Successfully logged out.",
         "logout_failure": "Failed to log out.",
         "preferences": "Preferences",
-        "sync_speed": "Sync interval",
+        "sync_speed": "Update interval",
         "sync_tooltip": "(seconds)",
         "save_preferences": "Save preferences",
         "linkurl": "Connection URL",
