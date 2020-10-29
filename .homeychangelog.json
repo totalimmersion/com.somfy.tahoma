@@ -219,6 +219,6 @@
     "en": "Added io:AwningReceiverUnoIOComponent, rts:GarageDoor4TRTSComponent, rts:SlidingGateOpener4TRTSComponent"
   },
   "2.1.11": {
-    "en": "Added io:LightMicroModuleSomfyIOComponent, rts:LightRTSComponent. Fixed dim and on/off cancelling each other"
+    "en": "Added io:LightMicroModuleSomfyIOComponent, rts:LightRTSComponent. Fixed dim and on/off cancelling each other. Improved boost sync to capture new command events when session had timed out"
   }
 }
