@@ -13,6 +13,8 @@ class OneAlarmDevice extends SensorDevice
 {
     async onInit()
     {
+        this.boostSync = true;
+
         this.alarmArmedState = {
             armed: 'armed',
             disarmed: 'disarmed',
@@ -30,27 +32,16 @@ class OneAlarmDevice extends SensorDevice
         await super.onInit();
     }
 
-    onCapabilityAlarmTriggeredState(value)
+    async onCapabilityAlarmTriggeredState(value)
     {
         const oldTriggeredState = this.getState().alarm_generic;
         if (oldTriggeredState !== value)
         {
             this.setCapabilityValue('alarm_generic', value);
-
-            const device = this;
-            const tokens = {
-                'isTriggered': value
-            };
-
-            const state = {
-                'alarm_generic': value
-            };
         }
-
-        return Promise.resolve();
     }
 
-    onCapabilityAlarmArmedState(value, opts, callback)
+    async onCapabilityAlarmArmedState(value, opts)
     {
         const deviceData = this.getData();
         if (!opts || !opts.fromCloudSync)
@@ -77,24 +68,37 @@ class OneAlarmDevice extends SensorDevice
                     parameters: []
                 };
             }
-            Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
-                .then(result =>
+            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            if (result !== undefined)
+            {
+                if (result.errorCode)
                 {
-                    this.setStoreValue('executionId', result.execId);
-                    this.setCapabilityValue('homealarm_state', value);
-                    if (callback) callback(null, value);
-                })
-                .catch(error =>
+                    Homey.app.logInformation(this.getName(),
+                    {
+                        message: result.error,
+                        stack: result.errorCode
+                    });
+                    throw (new Error(result.error));
+                }
+                else
                 {
-                    Homey.app.logInformation(this.getName() + ": onCapabilityAlarmArmedState", error);
-                });
+                    this.executionId = result.execId;
+                    if (this.boostSync)
+                    {
+                        await Homey.app.boostSync();
+                    }
+                }
+            }
+            else
+            {
+                Homey.app.logInformation(this.getName() + ": onCapabilityAlarmArmedState", "Failed to send command");
+                throw (new Error("Failed to send command"));
+            };
         }
         else
         {
             this.setCapabilityValue('homealarm_state', value);
         }
-
-        return Promise.resolve();
     }
 
     /**

@@ -20,10 +20,9 @@ class OpenCloseDevice extends Device
     async onCapabilityButton(value)
     {
         const deviceData = this.getData();
-        const executionId = this.getStoreValue('executionId');
-        if ((executionId !== undefined) && (executionId !== null))
+        if (this.executionId !== null)
         {
-            await Tahoma.cancelExecution(executionId);
+            await Tahoma.cancelExecution(this.executionId);
             return;
         }
 
@@ -45,7 +44,7 @@ class OpenCloseDevice extends Device
             }
             else
             {
-				this.setStoreValue('executionId', result.execId);
+				this.executionId = result.execId;
 				if (this.boostSync)
 				{
 					await Homey.app.boostSync();
@@ -86,14 +85,13 @@ class OpenCloseDevice extends Device
                 {
                     if ((element['newState'] === 'COMPLETED') || (element['newState'] === 'FAILED'))
                     {
-                        const executionId = this.getStoreValue('executionId');
-                        if (executionId === element['execId'])
+                        if (this.executionId === element['execId'])
                         {
-                            this.unsetStoreValue('executionId');
                             if (this.boostSync)
                             {
                                 await Homey.app.unBoostSync();
                             }
+                            this.executionId = null;
                         }
                     }
                 }

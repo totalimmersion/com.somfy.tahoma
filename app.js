@@ -261,9 +261,10 @@ class myApp extends Homey.App
 
     logInformation(source, error)
     {
-        console.log(source, error);
         if (this.infoLogEnabled)
         {
+            console.log(source, error);
+
             let data = {
                 message: error.message,
                 stack: error.stack
@@ -280,7 +281,7 @@ class myApp extends Homey.App
                 'source': source,
                 'data': data
             });
-            if (logData.length > 50)
+            if (logData.length > 100)
             {
                 logData.splice(0, 1);
             }
@@ -440,21 +441,33 @@ class myApp extends Homey.App
         // Set a time limit in case the command complete signal is missed
         this.boostTimerId = setTimeout(() => this.unBoostSync(true), 45000);
 
+        this.logInformation("Boost Sync",
+        {
+            message: "Increased Polling",
+            stack: { syncInterval: 3, queSize: this.commandsQueued }
+        });
+
         if (this.commandsQueued === 1)
         {
-            this.logInformation("Boost Sync",
-            {
-                message: "Increased Polling",
-                stack: { syncInterval: 3 }
-            });
-
             await this.stopSync();
-            this.timerId = setTimeout(() => this.syncLoop(3000), 10000);
+
+            if (!Tahoma.eventsRegistered())
+            {
+                // The events are not currently registered so do that now
+                await Tahoma.getEvents();
+            }
+            this.timerId = setTimeout(() => this.syncLoop(3000), 1000);
         }
     }
 
     async unBoostSync(immediate = false)
     {
+        this.logInformation("UnBoost Sync",
+        {
+            message: "Reverting to previous Polling ?",
+            stack: { timeOut: immediate, pollingMode: this.pollingEnabled, syncInterval: this.interval, queSize: this.commandsQueued }
+        });
+
         if (immediate)
         {
             this.commandsQueued = 0;
@@ -469,12 +482,6 @@ class myApp extends Homey.App
         {
             clearTimeout(this.boostTimerId);
             this.boostTimerId = null;
-            this.logInformation("UnBoost Sync",
-            {
-                message: "Reverting to previous Polling",
-                stack: { timeOut: immediate, pollingMode: this.pollingEnabled, syncInterval: this.interval }
-            });
-
             if (this.pollingEnabled)
             {
                 await this.restartSync();
@@ -524,8 +531,9 @@ class myApp extends Homey.App
             {
                 this.syncing = true;
                 const events = await Tahoma.getEvents();
-                if (events === null || events.length > 0)
+                if ((events === null && this.boostTimerId === null) || events.length > 0)
                 {
+                    // If events === null and boosTimer !== null then refresh all the devices, but don't do that if the boost is on
                     console.log(events);
                     await this.syncEvents(events);
                 }

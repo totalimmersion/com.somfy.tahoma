@@ -217,5 +217,8 @@
   },
   "2.1.10": {
     "en": "Added io:AwningReceiverUnoIOComponent, rts:GarageDoor4TRTSComponent, rts:SlidingGateOpener4TRTSComponent"
+  },
+  "2.1.11": {
+    "en": "Added io:LightMicroModuleSomfyIOComponent, rts:LightRTSComponent. Fixed dim and on/off cancelling each other"
   }
 }

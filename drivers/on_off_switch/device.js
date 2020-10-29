@@ -5,11 +5,11 @@ const Tahoma = require('../../lib/Tahoma');
 const Homey = require('homey');
 
 /**
- * Device class for the light controller with the io_dimmable_light controllable name in TaHoma
+ * Device class for the light controller with the rts:LightRTSComponent and io:LightMicroModuleSomfyIOComponent controllable name in TaHoma
  * @extends {LightControllerDevice}
  */
 
-class DimmableLightControllerDevice extends LightControllerDevice
+class onOffLightControllerDevice extends LightControllerDevice
 {
     async onInit()
     {
@@ -17,4 +17,4 @@ class DimmableLightControllerDevice extends LightControllerDevice
     }
 }
 
-module.exports = DimmableLightControllerDevice;
+module.exports = onOffLightControllerDevice;

@@ -9,6 +9,8 @@ class Device extends Homey.Device
 {
     async onInit()
     {
+        this.executionId = null;
+
         this.log('Device init:', this.getName(), 'class:', this.getClass());
         this.sync();
     }

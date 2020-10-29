@@ -70,10 +70,10 @@ class WindowCoveringsDevice extends Device
             };
         }
 
-        this.positionStateName = 'core:ClosureState';       // Name of state to get the current position
-        this.setPositionActionName = 'setClosure';          // Name of the command to set the current position
-        this.openClosedStateName = 'core:OpenClosedState';  // Name of the state to get open / closed state
-        this.myCommand = 'my';                              // Name of the command to set the My position
+        this.positionStateName = 'core:ClosureState'; // Name of state to get the current position
+        this.setPositionActionName = 'setClosure'; // Name of the command to set the current position
+        this.openClosedStateName = 'core:OpenClosedState'; // Name of the state to get open / closed state
+        this.myCommand = 'my'; // Name of the command to set the My position
 
         this.quietMode = false;
         this.boostSync = true;
@@ -138,18 +138,22 @@ class WindowCoveringsDevice extends Device
     {
         if (!opts || !opts.fromCloudSync)
         {
+            if (this.boostSync)
+            {
+                await Homey.app.boostSync();
+            }
+
             const deviceData = this.getData();
 
-            const executionId = this.getStoreValue('executionId');
-            if (value === 'idle' && (executionId !== undefined) && (executionId !== null))
+            if (value === 'idle' && (this.executionId !== null))
             {
-                await Tahoma.cancelExecution(executionId);
+                await Tahoma.cancelExecution(this.executionId);
             }
             else
             {
-                if ((executionId !== undefined) && (executionId !== null))
+                if (this.executionId !== null)
                 {
-                    await Tahoma.cancelExecution(executionId);
+                    await Tahoma.cancelExecution(this.executionId);
                 }
 
                 const action = {
@@ -167,17 +171,26 @@ class WindowCoveringsDevice extends Device
                             message: result.error,
                             stack: result.errorCode
                         });
-                        return Promise.reject(new Error(result.error));
+                        if (this.boostSync)
+                        {
+                            await Homey.app.unBoostSync();
+                        }
+                        throw (new Error(result.error));
                     }
                     else
                     {
-                        this.setStoreValue('executionId', result.execId);
-                        if (this.boostSync)
-                        {
-                            await Homey.app.boostSync();
-                        }
+                        this.executionId = result.execId;
                     }
                 }
+                else
+                {
+                    Homey.app.logInformation(this.getName() + ": onCapabilityWindowcoveringsState", "Failed to send command");
+                    if (this.boostSync)
+                    {
+                        await Homey.app.unBoostSync();
+                    }
+                    throw (new Error("Failed to send command"));
+                };
             };
 
             if (!this.openClosedStateName)
@@ -210,6 +223,11 @@ class WindowCoveringsDevice extends Device
     {
         if (!opts || !opts.fromCloudSync)
         {
+            if (this.boostSync)
+            {
+                await Homey.app.boostSync();
+            }
+
             const deviceData = this.getData();
             if (this.invertPosition)
             {
@@ -237,17 +255,26 @@ class WindowCoveringsDevice extends Device
                         message: result.error,
                         stack: result.errorCode
                     });
-                    return Promise.reject(new Error(result.error));
+                    if (this.boostSync)
+                    {
+                        await Homey.app.unBoostSync();
+                    }
+                    throw (new Error(result.error));
                 }
                 else
                 {
-                    this.setStoreValue('executionId', result.execId);
-                    if (this.boostSync)
-                    {
-                        await Homey.app.boostSync();
-                    }
+                    this.executionId = result.execId;
                 }
             }
+            else
+            {
+                Homey.app.logInformation(this.getName() + ": onCapabilityWindowcoveringsSet", "Failed to send command");
+                if (this.boostSync)
+                {
+                    await Homey.app.unBoostSync();
+                }
+                throw (new Error("Failed to send command"));
+            };
         }
         else
         {
@@ -260,11 +287,15 @@ class WindowCoveringsDevice extends Device
     {
         if (!opts || !opts.fromCloudSync)
         {
-            const deviceData = this.getData();
-            const executionId = this.getStoreValue('executionId');
-            if ((executionId !== undefined) && (executionId !== null))
+            if (this.boostSync)
             {
-                await Tahoma.cancelExecution(executionId);
+                await Homey.app.boostSync();
+            }
+
+            const deviceData = this.getData();
+            if (this.executionId !== null)
+            {
+                await Tahoma.cancelExecution(this.executionId);
             }
 
             const action = {
@@ -282,17 +313,26 @@ class WindowCoveringsDevice extends Device
                         message: result.error,
                         stack: result.errorCode
                     });
-                    return Promise.reject(new Error(result.error));
+                    if (this.boostSync)
+                    {
+                        await Homey.app.unBoostSync();
+                    }
+                    throw (new Error(result.error));
                 }
                 else
                 {
-                    this.setStoreValue('executionId', result.execId);
-                    if (this.boostSync)
-                    {
-                        await Homey.app.boostSync();
-                    }
+                    this.executionId = result.execId;
                 }
             }
+            else
+            {
+                Homey.app.logInformation(this.getName() + ": onCapabilityWindowcoveringsTiltUp", "Failed to send command");
+                if (this.boostSync)
+                {
+                    await Homey.app.unBoostSync();
+                }
+                throw (new Error("Failed to send command"));
+            };
         }
     }
 
@@ -300,11 +340,15 @@ class WindowCoveringsDevice extends Device
     {
         if (!opts || !opts.fromCloudSync)
         {
-            const deviceData = this.getData();
-            const executionId = this.getStoreValue('executionId');
-            if ((executionId !== undefined) && (executionId !== null))
+            if (this.boostSync)
             {
-                await Tahoma.cancelExecution(executionId);
+                await Homey.app.boostSync();
+            }
+
+            const deviceData = this.getData();
+            if (this.executionId !== null)
+            {
+                await Tahoma.cancelExecution(this.executionId);
             }
 
             const action = {
@@ -321,17 +365,26 @@ class WindowCoveringsDevice extends Device
                         message: result.error,
                         stack: result.errorCode
                     });
-                    return Promise.reject(new Error(result.error));
+                    if (this.boostSync)
+                    {
+                        await Homey.app.unBoostSync();
+                    }
+                    throw (new Error(result.error));
                 }
                 else
                 {
-                    this.setStoreValue('executionId', result.execId);
-                    if (this.boostSync)
-                    {
-                        await Homey.app.boostSync();
-                    }
+                    this.executionId = result.execId;
                 }
             }
+            else
+            {
+                Homey.app.logInformation(this.getName() + ": onCapabilityWindowcoveringsTiltDown", "Failed to send command");
+                if (this.boostSync)
+                {
+                    await Homey.app.unBoostSync();
+                }
+                throw (new Error("Failed to send command"));
+            };
         }
     }
 
@@ -339,11 +392,15 @@ class WindowCoveringsDevice extends Device
     {
         if (!opts || !opts.fromCloudSync)
         {
-            const deviceData = this.getData();
-            const executionId = this.getStoreValue('executionId');
-            if ((executionId !== undefined) && (executionId !== null))
+            if (this.boostSync)
             {
-                await Tahoma.cancelExecution(executionId);
+                await Homey.app.boostSync();
+            }
+
+            const deviceData = this.getData();
+            if (this.executionId !== null)
+            {
+                await Tahoma.cancelExecution(this.executionId);
             }
 
             const action = {
@@ -359,17 +416,26 @@ class WindowCoveringsDevice extends Device
                         message: result.error,
                         stack: result.errorCode
                     });
-                    return Promise.reject(new Error(result.error));
+                    if (this.boostSync)
+                    {
+                        await Homey.app.unBoostSync();
+                    }
+                    throw (new Error(result.error));
                 }
                 else
                 {
-                    this.setStoreValue('executionId', result.execId);
-                    if (this.boostSync)
-                    {
-                        await Homey.app.boostSync();
-                    }
+                    this.executionId = result.execId;
                 }
             }
+            else
+            {
+                Homey.app.logInformation(this.getName() + ": onCapabilityMyPosition", "Failed to send command");
+                if (this.boostSync)
+                {
+                    await Homey.app.unBoostSync();
+                }
+                throw (new Error("Failed to send command"));
+            };
         }
     }
 
@@ -586,14 +652,13 @@ class WindowCoveringsDevice extends Device
                 {
                     if ((element['newState'] === 'COMPLETED') || (element['newState'] === 'FAILED'))
                     {
-                        const executionId = this.getStoreValue('executionId');
-                        if (executionId === element['execId'])
+                        if (this.executionId === element['execId'])
                         {
-                            this.unsetStoreValue('executionId');
                             if (this.boostSync)
                             {
                                 await Homey.app.unBoostSync();
                             }
+                            this.executionId = null;
                         }
                     }
                 }
