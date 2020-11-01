@@ -220,5 +220,8 @@
   },
   "2.1.11": {
     "en": "Added io:LightMicroModuleSomfyIOComponent, rts:LightRTSComponent. Fixed dim and on/off cancelling each other. Improved boost sync to capture new command events when session had timed out"
+  },
+  "2.1.12": {
+    "en": "Delay sync flow actions if sync is currently boosted. Auto login method is now active all the time and not just when the credentials are saved"
   }
 }

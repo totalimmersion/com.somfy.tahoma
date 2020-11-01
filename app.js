@@ -1,7 +1,7 @@
 'use strict';
-//if (process.env.DEBUG === '1')
+if (process.env.DEBUG === '1')
 {
-    require('inspector').open(9222, '0.0.0.0', false)
+    require('inspector').open(9222, '0.0.0.0', true)
 }
 const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
@@ -150,10 +150,13 @@ class myApp extends Homey.App
             }
         });
 
+        // Setup the flow listeners
         this.addScenarioActionListeners();
         this.addPollingSpeedActionListeners();
         this.addPollingActionListeners();
+
         this.initSync();
+
         this.log(`${Homey.app.manifest.id} Initialised`);
     }
 
@@ -166,6 +169,12 @@ class myApp extends Homey.App
     // Throws an exception if the login fails
     async newLogin(args)
     {
+        await this.newLogin_2(args.body.username, args.body.password, args.body.linkurl);
+    }
+
+    // Throws an exception if the login fails
+    async newLogin_2(username, password, linkurl)
+    {
         // Stop the timer so periodic updates don't happen while changing login
         this.loggedIn = false;
         await this.stopSync();
@@ -173,15 +182,16 @@ class myApp extends Homey.App
         // make sure we logout from old method first
         await Tahoma.logout();
 
-        // Allow s short delay before loging back in
+        // Allow a short delay before logging back in
         await new Promise(resolve => setTimeout(resolve, 1000));
 
+        // Get the last login method to use again
         var loginMethod = Homey.ManagerSettings.get('loginMethod');
 
         // Login with supplied credentials. An error is thrown if the login fails
         try
         {
-            await Tahoma.login(args.body.username, args.body.password, args.body.linkurl, loginMethod, true);
+            await Tahoma.login(username, password, body.linkurl, loginMethod, true);
             this.loggedIn = true;
         }
         catch (error)
@@ -189,23 +199,18 @@ class myApp extends Homey.App
             // Try other log in method
             loginMethod = !loginMethod;
         }
+
         if (!this.loggedIn)
         {
-            try
-            {
-                await Tahoma.login(args.body.username, args.body.password, args.body.linkurl, loginMethod, true);
-                this.loggedIn = true;
-            }
-            catch (error)
-            {
-                throw (error);
-            }
+            // Try once more with the alternative method but let an error break us out of here
+            await Tahoma.login(username, password, linkurl, loginMethod, true);
+            this.loggedIn = true;
         }
 
         // All good so save the credentials
-        Homey.ManagerSettings.set('username', args.body.username);
-        Homey.ManagerSettings.set('password', args.body.password);
-        Homey.ManagerSettings.set('linkurl', args.body.linkurl);
+        Homey.ManagerSettings.set('username', username);
+        Homey.ManagerSettings.set('password', password);
+        Homey.ManagerSettings.set('linkurl', linkurl);
         Homey.ManagerSettings.set('loginMethod', loginMethod);
         this.log(`${Homey.app.manifest.id} Logged in`);
 
@@ -333,7 +338,9 @@ class myApp extends Homey.App
                     subject = "Tahoma device log";
                     text = JSON.stringify(Homey.ManagerSettings.get('deviceLog'), null, 2).replace(/\\n/g, '\n            ');
                 }
+
                 subject += "(" + this.homeyHash + " : " + Homey.manifest.version + ")";
+
                 // create reusable transporter object using the default SMTP transport
                 let transporter = nodemailer.createTransport(
                 {
@@ -385,10 +392,12 @@ class myApp extends Homey.App
         await this.stopSync();
         const username = Homey.ManagerSettings.get('username');
         const password = Homey.ManagerSettings.get('password');
+        const linkurl = Homey.ManagerSettings.get('linkurl');
         if (!username || !password)
         {
             return;
         }
+
         try
         {
             this.logInformation("initSync",
@@ -396,13 +405,8 @@ class myApp extends Homey.App
                 message: "Starting",
                 stack: ""
             });
-            await Tahoma.login(username, password, Homey.ManagerSettings.get('linkurl'), Homey.ManagerSettings.get('loginMethod'));
-            this.loggedIn = true;
-            this.logInformation("initSync",
-            {
-                message: "Logged in",
-                stack: ""
-            });
+
+            await this.newLogin_2(username, password, linkurl)
 
             if (this.pollingEnabled)
             {
@@ -651,6 +655,13 @@ class myApp extends Homey.App
                 this.pollingEnabled = true;
                 Homey.ManagerSettings.set('pollingEnabled', this.pollingEnabled);
             }
+
+            if (this.commandsQueued > 0)
+            {
+                // Sync is currently boosted so don't make any changes now
+                return;
+            }
+
             return this.restartSync();
         })
     }
@@ -664,6 +675,13 @@ class myApp extends Homey.App
         {
             this.pollingEnabled = args.newPollingMode === 'on';
             Homey.ManagerSettings.set('pollingEnabled', this.pollingEnabled);
+
+            if (this.commandsQueued > 0)
+            {
+                // Sync is currently boosted so don't make any changes now
+                return;
+            }
+
             if (this.pollingEnabled)
             {
                 return this.restartSync();
