@@ -223,5 +223,8 @@
   },
   "2.1.12": {
     "en": "Delay sync flow actions if sync is currently boosted. Auto login method is now active all the time and not just when the credentials are saved"
+  },
+  "2.1.13": {
+    "en": "Temporarily removed oauth login as it is causing an issue with Somfy"
   }
 }
