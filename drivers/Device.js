@@ -52,20 +52,23 @@ class Device extends Homey.Device
         {
             if (Homey.app.loggedIn)
             {
-                Homey.app.logInformation("Device initial sync."
-                , {
-                    message: this.getName()
-                    , stack: ""
-                });
+                if (this.infoLogEnabled)
+                {
+                    Homey.app.logInformation("Device initial sync.",
+                    {
+                        message: this.getName(),
+                        stack: ""
+                    });
+                }
                 return await Tahoma.getDeviceStates(this.getDeviceUrl());
             }
         }
         catch (error)
         {
-            Homey.app.logInformation("Device initial sync."
-            , {
-                message: this.getName()
-                , stack: error
+            Homey.app.logInformation("Device initial sync.",
+            {
+                message: this.getName(),
+                stack: error
             });
         }
         // // Try again later

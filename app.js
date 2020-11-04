@@ -266,32 +266,29 @@ class myApp extends Homey.App
 
     logInformation(source, error)
     {
-        if (this.infoLogEnabled)
-        {
-            console.log(source, error);
+        console.log(source, error);
 
-            let data = {
-                message: error.message,
-                stack: error.stack
-            };
-            let logData = Homey.ManagerSettings.get('infoLog');
-            if (!Array.isArray(logData))
-            {
-                logData = [];
-            }
-            const nowTime = new Date(Date.now());
-            logData.push(
-            {
-                'time': nowTime.toJSON(),
-                'source': source,
-                'data': data
-            });
-            if (logData.length > 100)
-            {
-                logData.splice(0, 1);
-            }
-            Homey.ManagerSettings.set('infoLog', logData);
+        let data = {
+            message: error.message,
+            stack: error.stack
+        };
+        let logData = Homey.ManagerSettings.get('infoLog');
+        if (!Array.isArray(logData))
+        {
+            logData = [];
         }
+        const nowTime = new Date(Date.now());
+        logData.push(
+        {
+            'time': nowTime.toJSON(),
+            'source': source,
+            'data': data
+        });
+        if (logData.length > 100)
+        {
+            logData.splice(0, 1);
+        }
+        Homey.ManagerSettings.set('infoLog', logData);
     }
 
     logStates(txt)
@@ -400,21 +397,28 @@ class myApp extends Homey.App
 
         try
         {
-            this.logInformation("initSync",
+            if (this.infoLogEnabled)
             {
-                message: "Starting",
-                stack: ""
-            });
+                this.logInformation("initSync",
+                {
+                    message: "Starting",
+                    stack: ""
+                });
+            }
 
             await this.newLogin_2(username, password, linkurl)
 
             if (this.pollingEnabled)
             {
-                this.logInformation("initSync",
+                if (this.infoLogEnabled)
                 {
-                    message: "Starting Event Polling",
-                    stack: ""
-                });
+                    this.logInformation("initSync",
+                    {
+                        message: "Starting Event Polling",
+                        stack: ""
+                    });
+                }
+
                 // Start to Sync devices that have had an event
                 this.syncLoop(this.interval * 1000);
             }
@@ -426,6 +430,7 @@ class myApp extends Homey.App
                 message: "Error",
                 stack: error
             });
+
             // Try again later
             this.timerId = setTimeout(() => this.initSync(), 2000);
         }
@@ -445,11 +450,14 @@ class myApp extends Homey.App
         // Set a time limit in case the command complete signal is missed
         this.boostTimerId = setTimeout(() => this.unBoostSync(true), 45000);
 
-        this.logInformation("Boost Sync",
+        if (this.infoLogEnabled)
         {
-            message: "Increased Polling",
-            stack: { syncInterval: 3, queSize: this.commandsQueued }
-        });
+            this.logInformation("Boost Sync",
+            {
+                message: "Increased Polling",
+                stack: { syncInterval: 3, queSize: this.commandsQueued }
+            });
+        }
 
         if (this.commandsQueued === 1)
         {
@@ -466,11 +474,14 @@ class myApp extends Homey.App
 
     async unBoostSync(immediate = false)
     {
-        this.logInformation("UnBoost Sync",
+        if (this.infoLogEnabled)
         {
-            message: "Reverting to previous Polling ?",
-            stack: { timeOut: immediate, pollingMode: this.pollingEnabled, syncInterval: this.interval, queSize: this.commandsQueued }
-        });
+            this.logInformation("UnBoost Sync",
+            {
+                message: "Reverting to previous Polling ?",
+                stack: { timeOut: immediate, pollingMode: this.pollingEnabled, syncInterval: this.interval, queSize: this.commandsQueued }
+            });
+        }
 
         if (immediate)
         {
@@ -504,11 +515,14 @@ class myApp extends Homey.App
             this.stoppingSync = this.syncing;
             clearTimeout(this.timerId);
             this.timerId = null;
-            this.logInformation("stopSync",
+            if (this.infoLogEnabled)
             {
-                message: "Stopping Event Polling",
-                stack: ""
-            });
+                this.logInformation("stopSync",
+                {
+                    message: "Stopping Event Polling",
+                    stack: ""
+                });
+            }
         }
     }
 
@@ -553,6 +567,22 @@ class myApp extends Homey.App
             this.stoppingSync = false;
         }
         this.syncing = false;
+
+        if ( global.gc )
+        {
+            try
+            {
+                global.gc();
+            }
+            catch ( err )
+            {
+                console.error( 'ERROR: global.gc() failed:', err );
+            }
+        }
+        else
+        {
+            console.warn( 'WARNING: No GC hook! --expose-gc is not set!' );
+        }
     }
 
     // Pass the new events to each device so they can update their status
@@ -562,14 +592,18 @@ class myApp extends Homey.App
         {
             if (events)
             {
-                this.logInformation("Device status update",
+                if (this.infoLogEnabled)
                 {
-                    message: "Refreshing",
-                    stack: events
-                });
+                    this.logInformation("Device status update",
+                    {
+                        message: "Refreshing",
+                        stack: events
+                    });
+                }
+
                 this.logEvents(JSON.stringify(events, null, 2));
             }
-            else
+            else if (this.infoLogEnabled)
             {
                 this.logInformation("Device status update",
                 {
@@ -599,12 +633,14 @@ class myApp extends Homey.App
             // Wait for all the checks to complete
             await Promise.allSettled(promises);
 
-            this.logInformation("Device status update",
+            if (this.infoLogEnabled)
             {
-                message: "Complete",
-                stack: events
-            });
-
+                this.logInformation("Device status update",
+                {
+                    message: "Complete",
+                    stack: events
+                });
+            }
         }
         catch (error)
         {

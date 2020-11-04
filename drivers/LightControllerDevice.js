@@ -78,6 +78,7 @@ class LightControllerDevice extends Device
                         message: result.error,
                         stack: result.errorCode
                     });
+
                     if (this.boostSync)
                     {
                         await Homey.app.unBoostSync();
@@ -147,6 +148,7 @@ class LightControllerDevice extends Device
                         message: result.error,
                         stack: result.errorCode
                     });
+
                     if (this.boostSync)
                     {
                         await Homey.app.unBoostSync();
@@ -161,7 +163,11 @@ class LightControllerDevice extends Device
             }
             else
             {
-                Homey.app.logInformation(this.getName() + ": onCapabilityDim", "Failed to send command");
+                if (this.infoLogEnabled)
+                {
+                    Homey.app.logInformation(this.getName() + ": onCapabilityDim", "Failed to send command");
+                }
+
                 if (this.boostSync)
                 {
                     await Homey.app.unBoostSync();
@@ -213,11 +219,15 @@ class LightControllerDevice extends Device
             {
                 if (result.errorCode)
                 {
-                    Homey.app.logInformation(this.getName(),
+                    if (this.infoLogEnabled)
                     {
-                        message: result.error,
-                        stack: result.errorCode
-                    });
+                        Homey.app.logInformation(this.getName(),
+                        {
+                            message: result.error,
+                            stack: result.errorCode
+                        });
+                    }
+
                     if (this.boostSync)
                     {
                         await Homey.app.unBoostSync();
