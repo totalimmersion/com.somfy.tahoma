@@ -169,11 +169,11 @@ class myApp extends Homey.App
     // Throws an exception if the login fails
     async newLogin(args)
     {
-        await this.newLogin_2(args.body.username, args.body.password, args.body.linkurl);
+        await this.newLogin_2(args.body.username, args.body.password, args.body.linkurl, true);
     }
 
     // Throws an exception if the login fails
-    async newLogin_2(username, password, linkurl)
+    async newLogin_2(username, password, linkurl, ignoreBlock)
     {
         // Stop the timer so periodic updates don't happen while changing login
         this.loggedIn = false;
@@ -203,7 +203,7 @@ class myApp extends Homey.App
         if (!this.loggedIn)
         {
             // Try once more with the alternative method but let an error break us out of here
-            await Tahoma.login(username, password, linkurl, loginMethod, true);
+            await Tahoma.login(username, password, linkurl, loginMethod, ignoreBlock);
             this.loggedIn = true;
         }
 
@@ -406,7 +406,7 @@ class myApp extends Homey.App
                 });
             }
 
-            await this.newLogin_2(username, password, linkurl)
+            await this.newLogin_2(username, password, linkurl, false)
 
             if (this.pollingEnabled)
             {
@@ -431,8 +431,18 @@ class myApp extends Homey.App
                 stack: error
             });
 
+            var timeout = 2000;
+            if (error.message === "Far Too many login attempts (blocked for 5 minutes)")
+            {
+                timeout = 300000;
+            }
+            else if (error.message === "Too many login attempts (blocked for 20 seconds)")
+            {
+                timeout = 20000;
+            }
+
             // Try again later
-            this.timerId = setTimeout(() => this.initSync(), 2000);
+            this.timerId = setTimeout(() => this.initSync(), timeout);
         }
     }
 
@@ -568,21 +578,21 @@ class myApp extends Homey.App
         }
         this.syncing = false;
 
-        if ( global.gc )
-        {
-            try
-            {
-                global.gc();
-            }
-            catch ( err )
-            {
-                console.error( 'ERROR: global.gc() failed:', err );
-            }
-        }
-        else
-        {
-            console.warn( 'WARNING: No GC hook! --expose-gc is not set!' );
-        }
+        // if ( global.gc )
+        // {
+        //     try
+        //     {
+        //         global.gc();
+        //     }
+        //     catch ( err )
+        //     {
+        //         console.error( 'ERROR: global.gc() failed:', err );
+        //     }
+        // }
+        // else
+        // {
+        //     console.warn( 'WARNING: No GC hook! --expose-gc is not set!' );
+        // }
     }
 
     // Pass the new events to each device so they can update their status

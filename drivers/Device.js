@@ -52,7 +52,7 @@ class Device extends Homey.Device
         {
             if (Homey.app.loggedIn)
             {
-                if (this.infoLogEnabled)
+                if (Homey.app.infoLogEnabled)
                 {
                     Homey.app.logInformation("Device initial sync.",
                     {

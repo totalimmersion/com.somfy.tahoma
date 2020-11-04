@@ -163,7 +163,7 @@ class LightControllerDevice extends Device
             }
             else
             {
-                if (this.infoLogEnabled)
+                if (Homey.app.infoLogEnabled)
                 {
                     Homey.app.logInformation(this.getName() + ": onCapabilityDim", "Failed to send command");
                 }
@@ -219,7 +219,7 @@ class LightControllerDevice extends Device
             {
                 if (result.errorCode)
                 {
-                    if (this.infoLogEnabled)
+                    if (Homey.app.infoLogEnabled)
                     {
                         Homey.app.logInformation(this.getName(),
                         {

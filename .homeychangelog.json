@@ -226,5 +226,8 @@
   },
   "2.1.13": {
     "en": "Temporarily removed oauth login as it is causing an issue with Somfy"
+  },
+  "2.1.14": {
+    "en": "Updated libraries"
   }
 }
