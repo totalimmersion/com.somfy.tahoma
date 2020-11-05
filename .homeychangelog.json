@@ -229,5 +229,8 @@
   },
   "2.1.14": {
     "en": "Updated libraries"
+  },
+  "2.1.15": {
+    "en": "Changes to axios login methods."
   }
 }
