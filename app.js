@@ -186,12 +186,14 @@ class myApp extends Homey.App
         await new Promise(resolve => setTimeout(resolve, 1000));
 
         // Get the last login method to use again
-        var loginMethod = Homey.ManagerSettings.get('loginMethod');
+        //var loginMethod = Homey.ManagerSettings.get('loginMethod');
+
+        var loginMethod = false; // Start with old method
 
         // Login with supplied credentials. An error is thrown if the login fails
         try
         {
-            await Tahoma.login(username, password, body.linkurl, loginMethod, true);
+            await Tahoma.login(username, password, linkurl, loginMethod, ignoreBlock);
             this.loggedIn = true;
         }
         catch (error)
@@ -212,7 +214,6 @@ class myApp extends Homey.App
         Homey.ManagerSettings.set('password', password);
         Homey.ManagerSettings.set('linkurl', linkurl);
         Homey.ManagerSettings.set('loginMethod', loginMethod);
-        this.log(`${Homey.app.manifest.id} Logged in`);
 
         if (this.pollingEnabled)
         {
@@ -432,11 +433,11 @@ class myApp extends Homey.App
             });
 
             var timeout = 2000;
-            if (error.message === "Far Too many login attempts (blocked for 5 minutes)")
+            if (error === "Far Too many login attempts (blocked for 5 minutes)")
             {
                 timeout = 300000;
             }
-            else if (error.message === "Too many login attempts (blocked for 20 seconds)")
+            else if (error === "Too many login attempts (blocked for 20 seconds)")
             {
                 timeout = 20000;
             }
@@ -567,7 +568,15 @@ class myApp extends Homey.App
                 }
             }
         }
-        catch (error) {}
+        catch (error)
+        {
+            this.logInformation("syncLoop",
+            {
+                message: error.message,
+                stack: ""
+            });
+
+        }
         if (this.loggedIn && !this.stoppingSync)
         {
             this.timerId = setTimeout(() => this.syncLoop(interval), interval);
