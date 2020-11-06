@@ -11,7 +11,7 @@ class OnOffLightControllerDriver extends Driver
 {
     async onInit()
     {
-        this.deviceType = [ 'io:DimmableLightIOComponent', "hue:HueLuxHUEComponent" ];
+        this.deviceType = [ 'rts:LightRTSComponent', "io:LightMicroModuleSomfyIOComponent" ];
         await super.onInit();
     }
 }
