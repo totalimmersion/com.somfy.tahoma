@@ -232,5 +232,8 @@
   },
   "2.1.15": {
     "en": "Changes to axios login methods."
+  },
+  "2.1.16": {
+    "en": "Fix rts:LightRTSComponent and io:LightMicroModuleSomfyIOComponent controllable names."
   }
 }
