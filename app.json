@@ -1326,6 +1326,13 @@
             "onoff",
             "dim"
         ],
+        "capabilitiesOptions":
+        {
+            "onoff":
+            {
+                "setOnDim": false
+            }
+        },
         "images":
         {
             "large": "/drivers/dimmable_light/assets/images/large.png",
@@ -1357,6 +1364,13 @@
             "dim",
             "light_temperature"
         ],
+        "capabilitiesOptions":
+        {
+            "onoff":
+            {
+                "setOnDim": false
+            }
+        },
         "images":
         {
             "large": "/drivers/white_temperature_light/assets/images/large.png",
@@ -1418,6 +1432,13 @@
             "light_mode",
             "light_temperature"
         ],
+        "capabilitiesOptions":
+        {
+            "onoff":
+            {
+                "setOnDim": false
+            }
+        },
         "images":
         {
             "large": "/drivers/color_temperature_light/assets/images/large.png",
