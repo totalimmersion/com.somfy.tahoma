@@ -4,13 +4,13 @@ const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
- * Driver class for the temperature sensor with the io:TemperatureIOSystemSensor controllable name in TaHoma
+ * Driver class for the temperature sensor with the io:TemperatureIOSystemSensor and ovp:SomfyPilotWireTemperatureSensorOVPComponent controllable name in TaHoma
  * @extends {Driver}
  */
 class TemperatureSensorDriver extends Driver {
 
   async onInit() {
-    this.deviceType = ['io:TemperatureIOSystemSensor'];
+    this.deviceType = ['io:TemperatureIOSystemSensor', 'ovp:SomfyPilotWireTemperatureSensorOVPComponent'];
 
     /*** TEMPERATURE TRIGGERS ***/
     this._triggerTemperatureMoreThan = new Homey.FlowCardTriggerDevice('change_temperature_more_than').register();

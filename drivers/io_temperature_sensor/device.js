@@ -5,7 +5,7 @@ const Tahoma = require('../../lib/Tahoma');
 const Homey = require('homey');
 
 /**
- * Device class for the temperature sensor with the io:TemperatureIOSystemSensor controllable name in TaHoma
+ * Device class for the temperature sensor with the io:TemperatureIOSystemSensor and ovp:SomfyPilotWireTemperatureSensorOVPComponent controllable name in TaHoma
  * @extends {SensorDevice}
  */
 class TemperatureSensorDevice extends SensorDevice

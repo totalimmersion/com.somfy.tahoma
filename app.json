@@ -157,6 +157,53 @@
             "getable": true,
             "setable": false,
             "icon": "/assets/security.svg"
+        },
+        "heating_mode":
+        {
+            "type": "enum",
+            "title":
+            {
+                "en": "Heating Mode"
+            },
+            "getable": true,
+            "setable": true,
+            "uiComponent": "picker",
+            "values": [
+            {
+                "id": "auto",
+                "title":
+                {
+                    "en": "Auto"
+                }
+            },
+            {
+                "id": "comfort",
+                "title":
+                {
+                    "en": "Comfort"
+                }
+            },
+            {
+                "id": "eco",
+                "title":
+                {
+                    "en": "Eco"
+                }
+            },
+            {
+                "id": "free",
+                "title":
+                {
+                    "en": "Free"
+                }
+            },
+            {
+                "id": "secured",
+                "title":
+                {
+                    "en": "Secured"
+                }
+            }]
         }
     },
     "drivers": [
@@ -773,7 +820,7 @@
         "id": "io_temperature_sensor",
         "name":
         {
-            "en": "Thermis WireFree sensor (io)",
+            "en": "Temperature Sensor (io)",
             "nl": "Thermis WireFree sensor (io)"
         },
         "images":
@@ -1529,6 +1576,36 @@
         "capabilities": [
             "onoff"
         ],
+        "pair": [
+        {
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation":
+            {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }]
+    },
+    {
+        "id": "pilot_wire_programmer",
+        "name":
+        {
+            "en": "Pilot Wire Programmer"
+        },
+        "class": "heater",
+        "capabilities": [
+            "onoff",
+            "heating_mode"
+        ],
+        "images":
+        {
+            "large": "/drivers/pilot_wire_programmer/assets/images/large.png",
+            "small": "/drivers/pilot_wire_programmer/assets/images/small.png"
+        },
         "pair": [
         {
             "id": "list_my_devices",
