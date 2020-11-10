@@ -12,7 +12,7 @@
         "en": "Somfy TaHoma & Connexoon for Homey",
         "nl": "Somfy TaHoma & Connexoon voor Homey"
     },
-    "version": "2.1.17",
+    "version": "2.1.18",
     "compatibility": ">=2.0.0",
     "author":
     {

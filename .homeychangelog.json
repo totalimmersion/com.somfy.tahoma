@@ -238,5 +238,8 @@
   },
   "2.1.17": {
     "en": "Stopped rts:LightRTSComponent and io:LightMicroModuleSomfyIOComponent devices form send On command when dim set. Added ovp:SomfyPilotWireHeatingInterfaceOVPComponent and ovp:SomfyPilotWireTemperatureSensorOVPComponent."
+  },
+  "2.1.18": {
+    "en": "Added support for rts:RollerShutterRTSComponent."
   }
 }
