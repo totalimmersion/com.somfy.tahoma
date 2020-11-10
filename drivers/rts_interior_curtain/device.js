@@ -3,7 +3,7 @@
 const WindowCoveringsDevice = require('../WindowCoveringsDevice');
 
 /**
- * Device class for exterior venetian blinds with the io:ExteriorVenetianBlindIOComponent controllable name in TaHoma
+ * Device class for exterior venetian blinds with the rts:DualCurtainRTSComponent, rts:CurtainRTSComponent controllable name in TaHoma
  * @extends {WindowCoveringsDevice}
  */
 class InteriorCurtainDevice extends WindowCoveringsDevice {
