@@ -244,5 +244,8 @@
   },
   "2.1.19": {
     "en": "Potential fix for failed login attempts at startup. Add logout when app is closed (during update, etc.)"
+  },
+  "2.1.20": {
+    "en": "Fixed issue with OAuth login."
   }
 }

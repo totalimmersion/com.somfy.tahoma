@@ -106,7 +106,7 @@ class myApp extends Homey.App
 
         Homey.on('unload', async () =>
         {
-            await this.logOut( false );
+            await this.logOut(false);
         });
 
         Homey.ManagerSettings.on('set', (setting) =>
@@ -190,6 +190,8 @@ class myApp extends Homey.App
         // Login with supplied credentials. An error is thrown if the login fails
         try
         {
+            // Allow a short delay before logging back in
+            await new Promise(resolve => setTimeout(resolve, 1000));
             await Tahoma.login(username, password, linkurl, loginMethod, ignoreBlock);
             this.loggedIn = true;
         }
@@ -229,7 +231,7 @@ class myApp extends Homey.App
         return true;
     }
 
-    async logOut( ClearCredentials = true )
+    async logOut(ClearCredentials = true)
     {
         this.loggedIn = false;
         await Homey.app.stopSync();
@@ -425,7 +427,7 @@ class myApp extends Homey.App
                 stack: error
             });
 
-            var timeout = 2000;
+            var timeout = 5000;
             if (error === "Far Too many login attempts (blocked for 5 minutes)")
             {
                 timeout = 300000;
