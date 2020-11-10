@@ -104,12 +104,9 @@ class myApp extends Homey.App
             });
         });
 
-        Homey.on('unload', () =>
+        Homey.on('unload', async () =>
         {
-            if (this.timerId)
-            {
-                clearInterval(this.timerId);
-            }
+            await this.logOut( false );
         });
 
         Homey.ManagerSettings.on('set', (setting) =>
@@ -218,20 +215,32 @@ class myApp extends Homey.App
         if (this.pollingEnabled)
         {
             // Start collection data again
+            if (this.infoLogEnabled)
+            {
+                this.logInformation("initSync",
+                {
+                    message: "Starting Event Polling",
+                    stack: ""
+                });
+            }
+
             this.syncLoop(this.interval * 1000);
         }
         return true;
     }
 
-    async logOut()
+    async logOut( ClearCredentials = true )
     {
         this.loggedIn = false;
         await Homey.app.stopSync();
         try
         {
             await Tahoma.logout();
-            Homey.ManagerSettings.unset('username');
-            Homey.ManagerSettings.unset('password');
+            if (ClearCredentials)
+            {
+                Homey.ManagerSettings.unset('username');
+                Homey.ManagerSettings.unset('password');
+            }
         }
         catch (error)
         {
@@ -387,7 +396,6 @@ class myApp extends Homey.App
      */
     async initSync()
     {
-        await this.stopSync();
         const username = Homey.ManagerSettings.get('username');
         const password = Homey.ManagerSettings.get('password');
         const linkurl = Homey.ManagerSettings.get('linkurl');
@@ -408,21 +416,6 @@ class myApp extends Homey.App
             }
 
             await this.newLogin_2(username, password, linkurl, false)
-
-            if (this.pollingEnabled)
-            {
-                if (this.infoLogEnabled)
-                {
-                    this.logInformation("initSync",
-                    {
-                        message: "Starting Event Polling",
-                        stack: ""
-                    });
-                }
-
-                // Start to Sync devices that have had an event
-                this.syncLoop(this.interval * 1000);
-            }
         }
         catch (error)
         {
@@ -479,6 +472,8 @@ class myApp extends Homey.App
                 // The events are not currently registered so do that now
                 await Tahoma.getEvents();
             }
+
+            // We can't run the sync loop from here so fire it from a timer
             this.timerId = setTimeout(() => this.syncLoop(3000), 1000);
         }
     }
@@ -543,22 +538,23 @@ class myApp extends Homey.App
         this.timerId = setTimeout(() => this.syncLoop(this.interval * 1000), this.interval * 1000);
     }
 
-    // The main polling loop that fetches events and sends tem to the devices
+    // The main polling loop that fetches events and sends them to the devices
     async syncLoop(interval)
     {
-        if (this.syncing)
+        this.nextInterval = interval;
+        if (this.loggedIn && !this.syncing)
         {
-            // Still processing a previous sync
-            this.stoppingSync = this.syncing;
-            this.timerId = setTimeout(() => this.syncLoop(interval), interval);
-            return;
-        }
+            this.syncing = true;
 
-        try
-        {
-            if (this.loggedIn)
+            if (this.timerId)
             {
-                this.syncing = true;
+                // make sure any existing timer is canceled
+                clearTimeout(this.timerId);
+                this.timerId = null;
+            }
+
+            try
+            {
                 const events = await Tahoma.getEvents();
                 if ((events === null && this.boostTimerId === null) || events.length > 0)
                 {
@@ -567,41 +563,29 @@ class myApp extends Homey.App
                     await this.syncEvents(events);
                 }
             }
-        }
-        catch (error)
-        {
-            this.logInformation("syncLoop",
+            catch (error)
             {
-                message: error.message,
-                stack: ""
-            });
+                this.logInformation("syncLoop",
+                {
+                    message: error.message,
+                    stack: ""
+                });
 
-        }
-        if (this.loggedIn && !this.stoppingSync)
-        {
-            this.timerId = setTimeout(() => this.syncLoop(interval), interval);
-        }
-        else
-        {
-            this.stoppingSync = false;
-        }
-        this.syncing = false;
+            }
 
-        // if ( global.gc )
-        // {
-        //     try
-        //     {
-        //         global.gc();
-        //     }
-        //     catch ( err )
-        //     {
-        //         console.error( 'ERROR: global.gc() failed:', err );
-        //     }
-        // }
-        // else
-        // {
-        //     console.warn( 'WARNING: No GC hook! --expose-gc is not set!' );
-        // }
+            if (!this.stoppingSync)
+            {
+                // Setup timer for next sync
+                this.timerId = setTimeout(() => this.syncLoop(this.nextInterval), this.nextInterval);
+            }
+            else
+            {
+                this.stoppingSync = false;
+            }
+
+            // Signal that the sync has completed
+            this.syncing = false;
+        }
     }
 
     // Pass the new events to each device so they can update their status

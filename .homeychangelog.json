@@ -241,5 +241,8 @@
   },
   "2.1.18": {
     "en": "Added support for rts:RollerShutterRTSComponent."
+  },
+  "2.1.19": {
+    "en": "Potential fix for failed login attempts at startup. Add logout when app is closed (during update, etc.)"
   }
 }
