@@ -250,5 +250,8 @@
   },
   "2.1.21": {
     "en": "Added support for rts:CurtainRTSComponent."
+  },
+  "2.1.22": {
+    "en": "Fix for rts:RollerShutterRTSComponent and rts:CurtainRTSComponent."
   }
 }
