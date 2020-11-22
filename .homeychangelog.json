@@ -262,5 +262,8 @@
   },
   "2.1.25": {
     "en": "Added rtds:RTDSSmokeSensor, rtds:RTDSContactSensor and rtds:RTDSMotionSensor"
+  },
+  "2.1.26": {
+    "en": "Added rts:ExteriorVenetianBlindRTSComponent and set tilt position for exterior venetian blind"
   }
 }

@@ -10,7 +10,7 @@
     "en": "Somfy TaHoma & Connexoon for Homey",
     "nl": "Somfy TaHoma & Connexoon voor Homey"
   },
-  "version": "2.1.25",
+  "version": "2.1.26",
   "compatibility": ">=2.0.0",
   "author": {
     "name": "Adrian Rockall",
@@ -260,6 +260,7 @@
       "capabilities": [
         "windowcoverings_state",
         "windowcoverings_set",
+        "windowcoverings_tilt_set",
         "quick_open"
       ],
       "pair": [
@@ -901,7 +902,7 @@
     {
       "id": "rts_interior_venetian_blind",
       "name": {
-        "en": "Interior venetian blind (RTS)"
+        "en": "Venetian blind (RTS)"
       },
       "images": {
         "large": "/drivers/rts_interior_venetian_blind/assets/images/large.png",

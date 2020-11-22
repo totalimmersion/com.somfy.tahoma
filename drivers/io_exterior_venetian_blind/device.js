@@ -17,6 +17,10 @@ class ExteriorVenetianBlindDevice extends WindowCoveringsDevice {
         if (!this.hasCapability("quick_open")) {
             this.addCapability("quick_open");
         }
+
+        if (!this.hasCapability("windowcoverings_tilt_set")) {
+            this.addCapability("windowcoverings_tilt_set");
+        }
     }
 }
 

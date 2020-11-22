@@ -84,7 +84,8 @@ class WindowCoveringsDevice extends Device
         this.registerCapabilityListener('windowcoverings_tilt_down', this.onCapabilityWindowcoveringsTiltDown.bind(this));
         this.registerCapabilityListener('my_position', this.onCapabilityMyPosition.bind(this));
         this.registerCapabilityListener('quick_open', this.onCapabilityWindowcoveringsClosed.bind(this));
-        await super.onInit();
+        this.registerCapabilityListener('windowcoverings_tilt_set', this.onCapabilityWindowcoveringsTiltSet.bind(this));
+     await super.onInit();
     }
 
     async onSettings(oldSettingsObj, newSettingsObj, changedKeysArr)
@@ -280,6 +281,60 @@ class WindowCoveringsDevice extends Device
         {
             // New value from Tahoma
             this.setCapabilityValue('windowcoverings_set', value);
+        }
+    }
+
+    async onCapabilityWindowcoveringsTiltSet(value, opts)
+    {
+        if (!opts || !opts.fromCloudSync)
+        {
+            if (this.boostSync)
+            {
+                await Homey.app.boostSync();
+            }
+
+            const deviceData = this.getData();
+            const action = {
+                name: "setOrientation",
+                parameters: [Math.round((1 - value) * 100)]
+            };
+
+            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
+            if (result !== undefined)
+            {
+                if (result.errorCode)
+                {
+                    this.setWarning(result.errorCode + result.error);
+                    Homey.app.logInformation(this.getName(),
+                    {
+                        message: result.error,
+                        stack: result.errorCode
+                    });
+                    if (this.boostSync)
+                    {
+                        await Homey.app.unBoostSync();
+                    }
+                    throw (new Error(result.error));
+                }
+                else
+                {
+                    this.executionId = result.execId;
+                }
+            }
+            else
+            {
+                Homey.app.logInformation(this.getName() + ": onCapabilityWindowcoveringsTiltSet", "Failed to send command");
+                if (this.boostSync)
+                {
+                    await Homey.app.unBoostSync();
+                }
+                throw (new Error("Failed to send command"));
+            };
+        }
+        else
+        {
+            // New value from Tahoma
+            this.setCapabilityValue('windowcoverings_tilt_set', value);
         }
     }
 
@@ -486,6 +541,7 @@ class WindowCoveringsDevice extends Device
                 //device exists -> let's sync the state of the device
                 const closureState = states.find(state => state.name === this.positionStateName);
                 const openClosedState = states.find(state => state.name === this.openClosedStateName);
+                const tiltState = states.find(state => state.name === "core:SlateOrientationState");
 
                 if (this.unavailable)
                 {
@@ -523,6 +579,16 @@ class WindowCoveringsDevice extends Device
                         closureState.value = 100 - closureState.value;
                     }
                     this.triggerCapabilityListener('windowcoverings_set', 1 - (closureState.value / 100),
+                    {
+                        fromCloudSync: true
+                    });
+                }
+
+                if (tiltState)
+                {
+                    Homey.app.logStates(this.getName() + ": core:SlateOrientationState = " + tiltState.value);
+
+                    this.triggerCapabilityListener('windowcoverings_tilt_set', 1 - (tiltState.value / 100),
                     {
                         fromCloudSync: true
                     });
@@ -584,6 +650,7 @@ class WindowCoveringsDevice extends Device
                             this.unavailable = false;
                             this.setAvailable();
                         }
+
                         for (var x = 0; x < element.deviceStates.length; x++)
                         {
                             const deviceState = element.deviceStates[x];
@@ -644,6 +711,17 @@ class WindowCoveringsDevice extends Device
                                 }
 
                                 lastPosition = null;
+                            }
+                            else if (deviceState.name === "core:SlateOrientationState")
+                            {
+                                // Device tilt position
+                                var tiltStateValue = parseInt(deviceState.value);
+                                Homey.app.logStates(this.getName() + ": core:SlateOrientationState = " + tiltStateValue);
+
+                                this.triggerCapabilityListener('windowcoverings_tilt_set', 1 - (tiltStateValue / 100),
+                                {
+                                    fromCloudSync: true
+                                });
                             }
                         }
                     }

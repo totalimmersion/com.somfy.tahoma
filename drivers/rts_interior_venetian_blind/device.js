@@ -4,7 +4,7 @@ const Homey = require('homey');
 const WindowCoveringsDevice = require('../WindowCoveringsDevice');
 
 /**
- * Device class for exterior venetian blinds with the rts:VenetianBlindRTSComponent controllable name in TaHoma
+ * Device class for exterior venetian blinds with the rts:VenetianBlindRTSComponent and rts:ExteriorVenetianBlindRTSComponent controllable name in TaHoma
  * @extends {WindowCoveringsDevice}
  */
 class InteriorVenetianBlindDevice extends WindowCoveringsDevice {
