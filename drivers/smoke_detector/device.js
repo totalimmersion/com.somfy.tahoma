@@ -5,34 +5,34 @@ const Tahoma = require('../../lib/Tahoma');
 const Homey = require('homey');
 
 /**
- * Device class for the opening detector with the io:SomfyContactIOSystemSensor and rtds:RTDSContactSensor controllable name in TaHoma
+ * Device class for the Smoke detector with the rtds:RTDSSmokeSensor controllable name in TaHoma
  * @extends {SensorDevice}
  */
-class OpeningDetectorDevice extends SensorDevice
+class SmokeDetectorDevice extends SensorDevice
 {
 
     async onInit()
     {
-        this.registerCapabilityListener('alarm_contact', this.onCapabilityAlarmContact.bind(this));
+        this.registerCapabilityListener('alarm_smoke', this.onCapabilitySmokeAlarm.bind(this));
 
         await super.onInit();
     }
 
-    onCapabilityAlarmContact(value)
+    onCapabilitySmokeAlarm(value)
     {
-        const oldContactState = this.getState().alarm_contact;
-        if (oldContactState !== value)
+        const oldAlarmState = this.getState().alarm_smoke;
+        if (oldAlarmState !== value)
         {
-            this.setCapabilityValue('alarm_contact', value);
+            this.setCapabilityValue('alarm_smoke', value);
 
             const device = this;
             const tokens = {
-                'isOpen': value
+                'isSmoke': value
             };
 
             //trigger flows
             this.getDriver()
-                .triggerContactChange(device, tokens);
+                .triggerSmokeChange(device, tokens);
         }
 
         return Promise.resolve();
@@ -48,11 +48,11 @@ class OpeningDetectorDevice extends SensorDevice
             const states = await super.sync();
             if (states)
             {
-                const contactState = states.find(state => state.name === 'core:ContactState');
-                if (contactState)
+                const alarmState = states.find(state => state.name === 'core:SmokeState');
+                if (alarmState)
                 {
-                    Homey.app.logStates(this.getName() + ": core:ContactState = " + contactState.value);
-                    this.triggerCapabilityListener('alarm_contact', contactState.value === 'open');
+                    Homey.app.logStates(this.getName() + ": core:SmokeState = " + alarmState.value);
+                    this.triggerCapabilityListener('alarm_smoke', alarmState.value === 'detected');
                 }
             }
         }
@@ -90,14 +90,14 @@ class OpeningDetectorDevice extends SensorDevice
                     for (var x = 0; x < element.deviceStates.length; x++)
                     {
                         const deviceState = element.deviceStates[x];
-                        if (deviceState.name === 'core:ContactState')
+                        if (deviceState.name === 'core:SmokeState')
                         {
-                            Homey.app.logStates(this.getName() + ": core:ContactState = " + deviceState.value);
-                            const oldState = this.getState().alarm_contact;
-                            const newSate = (deviceState.value === 'open');
+                            Homey.app.logStates(this.getName() + ": core:SmokeState = " + deviceState.value);
+                            const oldState = this.getState().alarm_smoke;
+                            const newSate = (deviceState.value === 'detected');
                             if (oldState !== newSate)
                             {
-                                this.triggerCapabilityListener('alarm_contact', newSate);
+                                this.triggerCapabilityListener('alarm_smoke', newSate);
                             }
                         }
                     }
@@ -107,4 +107,4 @@ class OpeningDetectorDevice extends SensorDevice
     }
 }
 
-module.exports = OpeningDetectorDevice;
+module.exports = SmokeDetectorDevice;

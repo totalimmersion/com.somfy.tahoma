@@ -256,5 +256,8 @@
   },
   "2.1.23": {
     "en": "Added io:OnOffIOComponent and myfox:HomeKeeperProAlarmController. Provides success feedback when sending logs."
+  },
+  "2.1.24": {
+    "en": "Added rtds:RTDSSmokeSensor, rtds:RTDSContactSensor and rtds:RTDSMotionSensor."
   }
 }

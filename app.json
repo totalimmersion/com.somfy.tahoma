@@ -12,7 +12,7 @@
         "en": "Somfy TaHoma & Connexoon for Homey",
         "nl": "Somfy TaHoma & Connexoon voor Homey"
     },
-    "version": "2.1.23",
+    "version": "2.1.24",
     "compatibility": ">=2.0.0",
     "author":
     {
@@ -1619,6 +1619,36 @@
             "id": "add_my_devices",
             "template": "add_devices"
         }]
+    },
+    {
+        "id": "smoke_detector",
+        "name":
+        {
+            "en": "Smoke Detector",
+            "nl": "Rookmelder"
+        },
+        "images":
+        {
+            "large": "/drivers/smoke_detector/assets/images/large.png",
+            "small": "/drivers/smoke_detector/assets/images/small.png"
+        },
+        "class": "sensor",
+        "capabilities": [
+            "alarm_smoke"
+        ],
+        "pair": [
+        {
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation":
+            {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }]
     }],
     "flow":
     {
@@ -1825,6 +1855,29 @@
                 "name": "device",
                 "type": "device",
                 "filter": "driver_id=io_motion_detector"
+            }]
+        },
+        {
+            "id": "smoke_has_changed",
+            "title":
+            {
+                "en": "The state of the smoke detector has changed"
+            },
+            "tokens": [
+            {
+                "name": "isSmoke",
+                "type": "boolean",
+                "title":
+                {
+                    "en": "is smoke?"
+                },
+                "example": "smoke"
+            }],
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=smoke_detector"
             }]
         },
         {

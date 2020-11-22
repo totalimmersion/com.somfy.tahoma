@@ -5,7 +5,7 @@ const Tahoma = require('../../lib/Tahoma');
 const Homey = require('homey');
 
 /**
- * Device class for the opening detector with the io:SomfymotionIOSystemSensor controllable name in TaHoma
+ * Device class for the opening detector with the io:SomfymotionIOSystemSensor and rtds:RTDSMotionSensor controllable name in TaHoma
  * @extends {SensorDevice}
  */
 class OccupancyDetectorDevice extends SensorDevice

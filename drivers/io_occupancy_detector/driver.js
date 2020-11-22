@@ -4,13 +4,13 @@ const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
- * Driver class for the opening detector with the io:SomfyOccupancyIOSystemSensor controllable name in TaHoma
+ * Driver class for the opening detector with the io:SomfyOccupancyIOSystemSensor and rtds:RTDSMotionSensor controllable name in TaHoma
  * @extends {Driver}
  */
 class MotionDetectorDriver extends Driver {
 
   async onInit() {
-    this.deviceType = ['io:SomfyOccupancyIOSystemSensor'];
+    this.deviceType = ['io:SomfyOccupancyIOSystemSensor', 'rtds:RTDSMotionSensor'];
 
     /*** MOTION TRIGGERS ***/
     this._triggerMotionChange = new Homey.FlowCardTriggerDevice('motion_has_changed').register();
