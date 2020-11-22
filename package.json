@@ -18,10 +18,10 @@
     "axios": "^0.21.0",
     "axios-cookiejar-support": "^1.0.1",
     "form-data": "^3.0.0",
-    "nodemailer": "^6.4.14",
+    "nodemailer": "^6.4.16",
     "tough-cookie": "^4.0.0"
   },
   "devDependencies": {
-    "homey": "^2.7.0"
+    "homey": "^2.9.2"
   }
 }

@@ -5,7 +5,7 @@ const Tahoma = require('../../lib/Tahoma');
 const Homey = require('homey');
 
 /**
- * Device class for the opening detector with the io:SomfyContactIOSystemSensor controllable name in TaHoma
+ * Device class for the opening detector with the myfox:SomfyProtectAlarmController and myfox:HomeKeeperProAlarmController controllable name in TaHoma
  * @extends {SensorDevice}
  */
 

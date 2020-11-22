@@ -4,7 +4,7 @@ const Homey = require( 'homey' );
 const Driver = require( '../Driver' );
 
 /**
- * Driver class for the opening detector with the io:SomfyContactIOSystemSensor controllable name in TaHoma
+ * Driver class for the opening detector with the myfox:SomfyProtectAlarmController controllable name in TaHoma
  * @extends {Driver}
  */
 class OneAlarmDriver extends Driver

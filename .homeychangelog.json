@@ -253,5 +253,8 @@
   },
   "2.1.22": {
     "en": "Fix for rts:RollerShutterRTSComponent and rts:CurtainRTSComponent."
+  },
+  "2.1.23": {
+    "en": "Added io:OnOffIOComponent and myfox:HomeKeeperProAlarmController. Provides success feedback when sending logs."
   }
 }

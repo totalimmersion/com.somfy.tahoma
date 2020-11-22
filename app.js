@@ -369,7 +369,7 @@ class myApp extends Homey.App
                     }
                 });
                 // send mail with defined transport object
-                await transporter.sendMail(
+                const response = await transporter.sendMail(
                 {
                     from: '"Homey User" <' + Homey.env.MAIL_USER + '>', // sender address
                     to: Homey.env.MAIL_RECIPIENT, // list of receivers
@@ -377,8 +377,8 @@ class myApp extends Homey.App
                     text: text // plain text body
                 });
                 return {
-                    error: null,
-                    message: "OK"
+                    error: response.err,
+                    message: response.err ? null : "OK"
                 };
             }
             catch (err)
