@@ -265,5 +265,8 @@
   },
   "2.1.26": {
     "en": "Added rts:ExteriorVenetianBlindRTSComponent and set tilt position for exterior venetian blind"
+  },
+  "2.1.27": {
+    "en": "Added trigger and action flow cards for tilt."
   }
 }

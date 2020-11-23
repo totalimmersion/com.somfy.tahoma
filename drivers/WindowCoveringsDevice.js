@@ -85,7 +85,7 @@ class WindowCoveringsDevice extends Device
         this.registerCapabilityListener('my_position', this.onCapabilityMyPosition.bind(this));
         this.registerCapabilityListener('quick_open', this.onCapabilityWindowcoveringsClosed.bind(this));
         this.registerCapabilityListener('windowcoverings_tilt_set', this.onCapabilityWindowcoveringsTiltSet.bind(this));
-     await super.onInit();
+        await super.onInit();
     }
 
     async onSettings(oldSettingsObj, newSettingsObj, changedKeysArr)
@@ -335,6 +335,13 @@ class WindowCoveringsDevice extends Device
         {
             // New value from Tahoma
             this.setCapabilityValue('windowcoverings_tilt_set', value);
+
+            //trigger flows
+            const tokens = {
+                'windowcoverings_tilt': value
+            };
+            return this.triggerTiltChange(this, tokens);
+
         }
     }
 

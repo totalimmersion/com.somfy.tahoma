@@ -6,8 +6,8 @@ if (process.env.DEBUG === '1')
 const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
 const nodemailer = require("nodemailer");
-const INITIAL_SYNC_INTERVAL = 30; //interval of 30 seconds
-const MIN_SYNC_INTERVAL = 10;
+const INITIAL_SYNC_INTERVAL = 60; //interval of 60 seconds
+const MIN_SYNC_INTERVAL = 30;
 /**
  * This class is the starting point of the app and initializes the necessary
  * services, listeners, etc.

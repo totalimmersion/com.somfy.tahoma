@@ -10,7 +10,7 @@
     "en": "Somfy TaHoma & Connexoon for Homey",
     "nl": "Somfy TaHoma & Connexoon voor Homey"
   },
-  "version": "2.1.26",
+  "version": "2.1.27",
   "compatibility": ">=2.0.0",
   "author": {
     "name": "Adrian Rockall",
@@ -1742,6 +1742,29 @@
             "filter": "driver_id=io_horizontal_awning"
           }
         ]
+      },
+      {
+        "id": "windowcoverings_tilt_changed",
+        "title": {
+          "en": "Tilt changed"
+        },
+        "tokens": [
+          {
+            "name": "windowcoverings_tilt",
+            "type": "number",
+            "title": {
+              "en": "Tilt"
+            },
+            "example": 0.5
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=io_exterior_venetian_blind"
+          }
+        ]
       }
     ],
     "conditions": [
@@ -2000,6 +2023,33 @@
                 }
               }
             ]
+          }
+        ]
+      },
+      {
+        "id": "windowcoverings_tilt",
+        "title": {
+          "en": "Set the tilt to"
+        },
+        "hint": {
+          "en": "Change the tilt position to a value between 0 and 100 (50 is horizontal)."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=io_exterior_venetian_blind"
+          },
+          {
+            "name": "windowcoverings_set",
+            "type": "range",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "value": 0.5,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
           }
         ]
       }
