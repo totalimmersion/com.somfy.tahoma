@@ -1919,7 +1919,8 @@
       {
         "id": "is_moving",
         "title": {
-          "en": "The shutter !{{is|isn't}} moving"
+          "en": "The cover !{{is|isn't}} moving",
+          "nl": "De zonwering beweegt !{{wel|niet}}"
         },
         "args": [
           {
