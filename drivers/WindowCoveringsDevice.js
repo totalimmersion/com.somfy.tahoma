@@ -12,7 +12,6 @@ class WindowCoveringsDevice extends Device
 {
     async onInit()
     {
-
         this._driver = this.getDriver();
 
         if (this.hasCapability("lock_state"))
@@ -85,6 +84,7 @@ class WindowCoveringsDevice extends Device
         this.registerCapabilityListener('my_position', this.onCapabilityMyPosition.bind(this));
         this.registerCapabilityListener('quick_open', this.onCapabilityWindowcoveringsClosed.bind(this));
         this.registerCapabilityListener('windowcoverings_tilt_set', this.onCapabilityWindowcoveringsTiltSet.bind(this));
+
         await super.onInit();
     }
 

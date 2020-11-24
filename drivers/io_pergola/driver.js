@@ -1,16 +1,19 @@
 'use strict';
 
-const Driver = require('../Driver');
+const ioWindowCoveringsDriver = require('../ioWindowCoveringsDriver');
 
 /**
  * Driver class for exterior venetian blinds with the io:ExteriorVenetianBlindIOComponent controllable name in TaHoma
- * @extends {Driver}
+ * @extends {ioWindowCoveringsDriver}
  */
-class PergolaDriver extends Driver {
+class PergolaDriver extends ioWindowCoveringsDriver
+{
+    async onInit()
+    {
+        this.deviceType = ['io:SimpleBioclimaticPergolaIOComponent'];
 
-  async onInit() {
-    this.deviceType = ['io:SimpleBioclimaticPergolaIOComponent'];
-  }
+        await super.onInit();
+    }
 
 }
 

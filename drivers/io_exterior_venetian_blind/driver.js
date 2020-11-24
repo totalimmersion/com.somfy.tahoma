@@ -1,13 +1,13 @@
 'use strict';
 
 const Homey = require('homey');
-const Driver = require('../Driver');
+const ioWindowCoveringsDriver = require('../ioWindowCoveringsDriver');
 
 /**
  * Driver class for exterior venetian blinds with the io:ExteriorVenetianBlindIOComponent controllable name in TaHoma
- * @extends {Driver}
+ * @extends {ioWindowCoveringsDriver}
  */
-class ExteriorVenetianBlindDriver extends Driver
+class ExteriorVenetianBlindDriver extends ioWindowCoveringsDriver
 {
     async onInit()
     {
@@ -23,7 +23,9 @@ class ExteriorVenetianBlindDriver extends Driver
             {
                 console.log("windowcoverings_tilt");
                 return args.device.onCapabilityWindowcoveringsTiltSet(args.windowcoverings_set, null);
-            })
+            });
+
+        await super.onInit();
     }
 
     /**

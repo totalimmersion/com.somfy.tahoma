@@ -1,16 +1,19 @@
 'use strict';
 
-const Driver = require('../Driver');
+const ioWindowCoveringsDriver = require('../ioWindowCoveringsDriver');
 
 /**
  * Driver class for horizontal awnings with the io:HorizontalAwningIOComponent controllable name in TaHoma
- * @extends {Driver}
+ * @extends {ioWindowCoveringsDriver}
  */
-class HorizontalAwningDriver extends Driver {
+class HorizontalAwningDriver extends ioWindowCoveringsDriver
+{
+    async onInit()
+    {
+        this.deviceType = ['io:VerticalInteriorBlindGenericIOComponent'];
 
-  async onInit() {
-    this.deviceType = ['io:VerticalInteriorBlindGenericIOComponent'];
-  }
+        await super.onInit();
+    }
 
 }
 

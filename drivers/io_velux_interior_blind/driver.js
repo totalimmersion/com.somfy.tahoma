@@ -1,15 +1,17 @@
 'use strict';
 
-const Driver = require('../Driver');
+const ioWindowCoveringsDriver = require('../ioWindowCoveringsDriver');
 
 /**
  * Driver class for Velus interior blinds with the io:VerticalInteriorBlindVeluxIOComponent controllable name in TaHoma
- * @extends {Driver}
+ * @extends {ioWindowCoveringsDriver}
  */
-class VeluxInteriorBlindDriver extends Driver {
+class VeluxInteriorBlindDriver extends ioWindowCoveringsDriver {
 
   async onInit() {
     this.deviceType = ['io:VerticalInteriorBlindVeluxIOComponent'];
+
+    await super.onInit();    
   }
 
 }

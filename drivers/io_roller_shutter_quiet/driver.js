@@ -1,13 +1,13 @@
 "use strict";
 
 const Homey = require('homey');
-const Driver = require("../Driver");
+const ioWindowCoveringsDriver = require("../ioWindowCoveringsDriver");
 
 /**
  * Driver class for roller shutters with the io:RollerShutterWithLowSpeedManagementIOComponent controllable name in TaHoma
- * @extends {Driver}
+ * @extends {ioWindowCoveringsDriver}
  */
-class RollerShutterQuietDriver extends Driver
+class RollerShutterQuietDriver extends ioWindowCoveringsDriver
 {
     async onInit()
     {
@@ -31,6 +31,8 @@ class RollerShutterQuietDriver extends Driver
                 console.log("set_my_position");
                 return args.device.onCapabilityMyPosition(true, null);
             })
+
+        await super.onInit();
     }
 }
 
