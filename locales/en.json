@@ -20,7 +20,7 @@
         "linkurl": "Connection URL",
         "save_verifying": "Attempting to login. Please wait...",
         "logout_description": "This will logout from Tahoma and remove your credentials from the app.",
-        "min_sync_speed": "Minimum Sync Speed value is 10",
+        "min_sync_speed": "Minimum Sync Speed value is 30",
         "pref_saved": "The preferences have been saved",
         "settings": "Settings",
         "information_log": "Information Log",

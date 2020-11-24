@@ -89,7 +89,7 @@
                 </div>
                 <div class="field row">
                     <label for="sync_speed" data-i18n="settings.sync_speed"></label>
-                    <input id="sync_speed" type="number" min="10" value="" /> &nbsp;<span data-i18n="settings.sync_tooltip"></span>
+                    <input id="sync_speed" type="number" min="30" value="" /> &nbsp;<span data-i18n="settings.sync_tooltip"></span>
                 </div>
                 <button id="savePreferencesButton" class="left" style="display:block;background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;" data-i18n="settings.save_preferences"></button>
             </fieldset>
@@ -313,7 +313,7 @@
                     if (err) return Homey.alert(err);
                 });
 
-                if (syncSpeedEl.value < 10)
+                if (syncSpeedEl.value < 30)
                 {
                     return Homey.alert(__('settings.min_sync_speed'));
                 }

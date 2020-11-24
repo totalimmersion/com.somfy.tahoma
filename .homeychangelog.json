@@ -271,5 +271,8 @@
   },
   "2.1.28": {
     "en": "Changed minimum interval to 30 seconds to comply with Somfy's conditions of use. Added Is Moving condition flow card for IO window covers."
+  },
+  "2.1.29": {
+    "en": "Changed minimum interval to 30 seconds to comply with Somfy's conditions of use. Added Is Moving condition flow card for IO window covers."
   }
 }
