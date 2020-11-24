@@ -268,5 +268,8 @@
   },
   "2.1.27": {
     "en": "Added trigger and action flow cards for tilt."
+  },
+  "2.1.28": {
+    "en": "Changed minimum interval to 30 seconds to comply with Somfy's conditions of use. Added Is Moving condition flow card for IO window covers."
   }
 }
