@@ -10,7 +10,7 @@
     "en": "Somfy TaHoma & Connexoon for Homey",
     "nl": "Somfy TaHoma & Connexoon voor Homey"
   },
-  "version": "2.1.29",
+  "version": "2.1.30",
   "compatibility": ">=2.0.0",
   "author": {
     "name": "Adrian Rockall",
@@ -1925,7 +1925,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=io_exterior_venetian_blind&io_garage_door&io_garage_door_partial&io_horizontal_awning&io_pergola&io_roller_shutter&io_roller_shutter_quiet&io_velux_interior_blind&io_velux_roller_shutter&io_velux_roof_window&io_vertical_exterior_blind&io_vertical_interior_blind"
+            "filter": "driver_id=io_exterior_venetian_blind|io_garage_door|io_garage_door_partial|io_horizontal_awning|io_pergola|io_roller_shutter|io_roller_shutter_quiet|io_velux_interior_blind|io_velux_roller_shutter|io_velux_roof_window|io_vertical_exterior_blind|io_vertical_interior_blind"
           }
         ]
       }
