@@ -10,7 +10,7 @@
     "en": "Somfy TaHoma & Connexoon for Homey",
     "nl": "Somfy TaHoma & Connexoon voor Homey"
   },
-  "version": "2.1.30",
+  "version": "2.1.31",
   "compatibility": ">=2.0.0",
   "author": {
     "name": "Adrian Rockall",
@@ -2003,7 +2003,7 @@
           {
             "name": "syncSpeed",
             "type": "number",
-            "min": 10,
+            "min": 30,
             "placeholder": {
               "en": "Seconds",
               "nl": "Seconden"
@@ -2034,6 +2034,13 @@
                 "label": {
                   "en": "Off",
                   "nl": "uit"
+                }
+              },
+              {
+                "id": "once",
+                "label": {
+                  "en": "Once",
+                  "nl": "een keer"
                 }
               }
             ]

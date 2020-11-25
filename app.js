@@ -27,6 +27,8 @@ class myApp extends Homey.App
         this.timerId = null;
         this.boostTimerId = null;
         this.commandsQueued = 0;
+        this.restartingSync = false;
+        this.lastSync = 0;
 
         if (process.env.DEBUG === '1')
         {
@@ -121,7 +123,10 @@ class myApp extends Homey.App
                 }
                 else
                 {
-                    this.stopSync();
+                    if (!this.restartingSync)
+                    {
+                        this.stopSync();
+                    }
                 }
             }
             else if (setting === 'syncInterval')
@@ -516,7 +521,7 @@ class myApp extends Homey.App
         }
     }
 
-    async stopSync()
+    async stopSync( clearRestartingSync = true)
     {
         if (this.timerId)
         {
@@ -532,12 +537,34 @@ class myApp extends Homey.App
                 });
             }
         }
+
+        if (clearRestartingSync)
+        {
+            clearRestartingSync = false;
+        }
     }
 
     async restartSync()
     {
-        await this.stopSync();
-        this.timerId = setTimeout(() => this.syncLoop(this.interval * 1000), this.interval * 1000);
+        if (!this.restartingSync)
+        {
+            this.restartingSync = true;
+            var interval = 0.1;
+
+            await this.stopSync();
+
+            // make sure the new sync is at least 30 second after the last one
+            var minSeconds = (30000 - (Date.now() - this.lastSync)) / 1000;
+            if (minSeconds > 0)
+            {
+                interval = minSeconds;
+            }
+
+            if (this.restartingSync)
+            {
+                this.timerId = setTimeout(() => this.syncLoop(this.interval * 1000), interval * 1000);
+            }
+        }
     }
 
     // The main polling loop that fetches events and sends them to the devices
@@ -555,26 +582,34 @@ class myApp extends Homey.App
                 this.timerId = null;
             }
 
-            try
+            // Make sure it has been about 30 seconds since last sync unless boost is on
+            if (this.boostTimerId || (Date.now() - this.lastSync) > 28000)
             {
-                const events = await Tahoma.getEvents();
-                if ((events === null && this.boostTimerId === null) || events.length > 0)
+                this.lastSync = Date.now();
+
+                try
                 {
-                    // If events === null and boosTimer !== null then refresh all the devices, but don't do that if the boost is on
-                    console.log(events);
-                    await this.syncEvents(events);
+                    const events = await Tahoma.getEvents();
+                    if ((events === null && this.boostTimerId === null) || events.length > 0)
+                    {
+                        // If events === null and boosTimer !== null then refresh all the devices, but don't do that if the boost is on
+                        console.log(events);
+                        await this.syncEvents(events);
+                    }
+                }
+                catch (error)
+                {
+                    this.logInformation("syncLoop",
+                    {
+                        message: error.message,
+                        stack: ""
+                    });
+
                 }
             }
-            catch (error)
-            {
-                this.logInformation("syncLoop",
-                {
-                    message: error.message,
-                    stack: ""
-                });
 
-            }
-
+            this.restartingSync = false;
+            
             if (!this.stoppingSync)
             {
                 // Setup timer for next sync
@@ -689,7 +724,7 @@ class myApp extends Homey.App
     {
         new Homey.FlowCardAction('set_polling_speed').register().registerRunListener(args =>
         {
-            this.interval = args.syncSpeed;
+            this.interval = Math.max(args.syncSpeed, 30);
             Homey.ManagerSettings.set('syncInterval', this.interval.toString());
             if (!this.pollingEnabled)
             {
@@ -723,8 +758,12 @@ class myApp extends Homey.App
                 return;
             }
 
-            if (this.pollingEnabled)
+            if (this.pollingEnabled || (args.newPollingMode === 'once'))
             {
+                if (!this.pollingEnabled && (args.newPollingMode === 'once'))
+                {
+                    this.stoppingSync = true;
+                }
                 return this.restartSync();
             }
             else
