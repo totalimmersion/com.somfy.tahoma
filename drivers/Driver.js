@@ -71,7 +71,7 @@ class Driver extends Homey.Driver
             })
             .catch(error =>
             {
-                Homey.app.logInformation("triggerFlow", error);
+                Homey.app.logInformation("triggerFlow (" + trigger.id + ")", error);
             });
         }
     }
