@@ -4,13 +4,13 @@ const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
- * Driver class for the opening detector with the rtds:RTDSSmokeSensor controllable name in TaHoma
+ * Driver class for the opening detector with the rtds:RTDSSmokeSensor and io:SomfySmokeIOSystemSensor controllable name in TaHoma
  * @extends {Driver}
  */
 class SmokeDetectorDriver extends Driver {
 
   async onInit() {
-    this.deviceType = ['rtds:RTDSSmokeSensor'];
+    this.deviceType = ['rtds:RTDSSmokeSensor', 'io:SomfySmokeIOSystemSensor'];
 
     /*** ALARM SMOKE TRIGGERS ***/
     this._triggerSmokeChange = new Homey.FlowCardTriggerDevice('smoke_has_changed').register();

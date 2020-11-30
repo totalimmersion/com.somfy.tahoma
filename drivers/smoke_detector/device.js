@@ -5,7 +5,7 @@ const Tahoma = require('../../lib/Tahoma');
 const Homey = require('homey');
 
 /**
- * Device class for the Smoke detector with the rtds:RTDSSmokeSensor controllable name in TaHoma
+ * Device class for the Smoke detector with the rtds:RTDSSmokeSensor and io:SomfySmokeIOSystemSensor controllable name in TaHoma
  * @extends {SensorDevice}
  */
 class SmokeDetectorDevice extends SensorDevice

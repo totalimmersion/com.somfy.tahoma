@@ -1,6 +1,6 @@
 {
   "name": "com.somfy.tahoma",
-  "version": "2.1.33",
+  "version": "2.1.34",
   "description": "Somfy TaHoma app for Homey",
   "main": "app.js",
   "repository": {
