@@ -13,7 +13,13 @@ class SmokeDetectorDevice extends SensorDevice
 
     async onInit()
     {
+        if (!this.hasCapability('test_smoke'))
+        {
+            this.addCapability('test_smoke');
+        }
+
         this.registerCapabilityListener('alarm_smoke', this.onCapabilitySmokeAlarm.bind(this));
+        this.registerCapabilityListener('test_smoke', this.onCapabilityTestSmoke.bind(this));
 
         await super.onInit();
     }
@@ -36,6 +42,56 @@ class SmokeDetectorDevice extends SensorDevice
         }
 
         return Promise.resolve();
+    }
+
+    async onCapabilityTestSmoke(value)
+    {
+        if (this.boostSync)
+        {
+            await Homey.app.boostSync();
+        }
+
+        const deviceData = this.getData();
+        if (this.executionId !== null)
+        {
+            await Tahoma.cancelExecution(this.executionId);
+        }
+
+        const action = {
+            name: 'checkEventTrigger',
+            parameters: ['short']
+        };
+
+        let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+        if (result !== undefined)
+        {
+            if (result.errorCode)
+            {
+                Homey.app.logInformation(this.getName(),
+                {
+                    message: result.error,
+                    stack: result.errorCode
+                });
+                if (this.boostSync)
+                {
+                    await Homey.app.unBoostSync();
+                }
+                throw (new Error(result.error));
+            }
+            else
+            {
+                this.executionId = result.execId;
+            }
+        }
+        else
+        {
+            Homey.app.logInformation(this.getName() + ": onCapabilityTestSmoke", "Failed to send command");
+            if (this.boostSync)
+            {
+                await Homey.app.unBoostSync();
+            }
+            throw (new Error("Failed to send command"));
+        };
     }
 
     /**
