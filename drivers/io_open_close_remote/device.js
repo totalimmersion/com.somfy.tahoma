@@ -1,0 +1,114 @@
+'use strict';
+
+const Device = require('../Device');
+const Tahoma = require('../../lib/Tahoma');
+const Homey = require('homey');
+
+/**
+ * Device class for the remote controller with the "io:IORemoteController" controllable name in TaHoma
+ * @extends {Device}
+ */
+
+class io_open_close_remoteDevice extends Device
+{
+    async onInit()
+    {
+        await super.onInit();
+
+        this.registerCapabilityListener('remote_state', this.onCapabilityRemoteState.bind(this));
+
+    }
+
+    onCapabilityRemoteState(value)
+    {
+        const oldState = this.getState().remote_state;
+        if (oldState !== value)
+        {
+            this.setCapabilityValue('remote_state', value);
+
+            const device = this;
+            const tokens = {
+                'remote_state': value
+            };
+            const state = {
+                'expected_state': value
+            }
+
+            //trigger flows
+            this.getDriver().triggerRemoteSateChange(device, tokens, state);
+            this.getDriver().triggerRemoteSateChangeTo(device, tokens, state);
+        }
+
+        return Promise.resolve();
+    }
+
+    /**
+     * Gets the data from the TaHoma cloud
+     */
+    async sync()
+    {
+        try
+        {
+            const states = await super.sync();
+            if (states)
+            {
+                const remoteState = states.find(state => state.name === 'io:OneWayControllerButtonState');
+                if (alarmState)
+                {
+                    Homey.app.logStates(this.getName() + ": io:OneWayControllerButtonState = " + remoteState.value);
+                    this.triggerCapabilityListener('alarm_smoke', remoteState.value);
+                }
+            }
+        }
+        catch (error)
+        {
+            this.setUnavailable(null);
+            Homey.app.logInformation(this.getName(),
+            {
+                message: error.message,
+                stack: error.stack
+            });
+
+        }
+    }
+
+    // look for updates in the events array
+    async syncEvents(events)
+    {
+        if (events === null)
+        {
+            return this.sync();
+        }
+
+        const myURL = this.getDeviceUrl();
+
+        // Process events sequentially so they are in the correct order
+        for (var i = 0; i < events.length; i++)
+        {
+            const element = events[i];
+            if (element['name'] === 'DeviceStateChangedEvent')
+            {
+                if ((element['deviceURL'] === myURL) && element['deviceStates'])
+                {
+                    // Got what we need to update the device so lets find it
+                    for (var x = 0; x < element.deviceStates.length; x++)
+                    {
+                        const deviceState = element.deviceStates[x];
+                        if (deviceState.name === 'io:OneWayControllerButtonState')
+                        {
+                            Homey.app.logStates(this.getName() + ": io:OneWayControllerButtonState = " + deviceState.value);
+                            const oldState = this.getState().remote_state;
+                            const newSate = deviceState.value;
+                            if (oldState !== newSate)
+                            {
+                                this.triggerCapabilityListener('remote_state', newSate);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+module.exports = io_open_close_remoteDevice;

@@ -288,6 +288,6 @@
     "en": "Fixed Motion has changed trigger error."
   },
   "2.1.34": {
-    "en": "Added io:SomfySmokeIOSystemSensor."
+    "en": "Added io:SomfySmokeIOSystemSensor and io:IORemoteController."
   }
 }

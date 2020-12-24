@@ -215,6 +215,46 @@
                     "en": "Secured"
                 }
             }]
+        },
+        "remote_state":
+        {
+            "type": "enum",
+            "title":
+            {
+                "en": "Remote State"
+            },
+            "values": [
+            {
+                "id": "up",
+                "title":
+                {
+                    "en": "Up"
+                }
+            },
+            {
+                "id": "down",
+                "title":
+                {
+                    "en": "Down"
+                }
+            },
+            {
+                "id": "stop",
+                "title":
+                {
+                    "en": "Stop"
+                }
+            },
+            {
+                "id": "prog",
+                "title":
+                {
+                    "en": "Down"
+                }
+            }],
+            "getable": true,
+            "setable": false,
+            "icon": "/drivers/io_open_close_remote/assets/icon.svg"
         }
     },
     "drivers": [
@@ -1662,6 +1702,35 @@
             "id": "add_my_devices",
             "template": "add_devices"
         }]
+    },
+    {
+        "id": "io_open_close_remote",
+        "name":
+        {
+            "en": "Remote Control"
+        },
+        "images":
+        {
+            "large": "/drivers/io_open_close_remote/assets/images/large.png",
+            "small": "/drivers/io_open_close_remote/assets/images/small.png"
+        },
+        "class": "remote",
+        "capabilities": [
+            "remote_state"
+        ],
+        "pair": [
+        {
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation":
+            {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }]
     }],
     "flow":
     {
@@ -1937,6 +2006,75 @@
                 "name": "device",
                 "type": "device",
                 "filter": "driver_id=io_exterior_venetian_blind"
+            }]
+        },
+        {
+            "id": "remote_state_changed",
+            "title":
+            {
+                "en": "Remote state changed"
+            },
+            "tokens": [
+            {
+                "name": "remote_state",
+                "type": "string",
+                "title":
+                {
+                    "en": "New State"
+                },
+                "example": "up"
+            }],
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=io_open_close_remote"
+            }]
+        },
+        {
+            "id": "remote_state_changed_to",
+            "title":
+            {
+                "en": "Remote state changed to"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=io_open_close_remote"
+            },
+            {
+                "type": "dropdown",
+                "name": "expected_state",
+                "values": [
+                {
+                    "id": "up",
+                    "label":
+                    {
+                        "en": "Up"
+                    }
+                },
+                {
+                    "id": "down",
+                    "label":
+                    {
+                        "en": "Down"
+                    }
+                },
+                {
+                    "id": "stop",
+                    "label":
+                    {
+                        "en": "Stop"
+                    }
+                },
+                {
+                    "id": "prog",
+                    "label":
+                    {
+                        "en": "Prog"
+                    }
+                }]
             }]
         }],
         "conditions": [
