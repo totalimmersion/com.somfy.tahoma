@@ -5,7 +5,7 @@ const Tahoma = require('../../lib/Tahoma');
 const Homey = require('homey');
 
 /**
- * Device class for the light controller with the io_dimmable_light controllable name in TaHoma
+ * Device class for the light controller with the hue:ColorTemperatureLightBulbHUEComponent or hue:ColorTemperatureLightSpotHUEComponent controllable name in TaHoma
  * @extends {LightControllerDevice}
  */
 

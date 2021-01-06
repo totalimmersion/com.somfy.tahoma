@@ -292,5 +292,8 @@
   },
   "2.1.35": {
     "en": "Added enocean:EnOceanOnOffLight as Two button On / Off."
+  },
+  "2.1.36": {
+    "en": "Added hue:GenericDimmableLightHUEComponent and hue:ColorTemperatureLightSpotHUEComponent."
   }
 }
