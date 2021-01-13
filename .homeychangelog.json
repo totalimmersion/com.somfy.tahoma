@@ -295,5 +295,8 @@
   },
   "2.1.36": {
     "en": "Added hue:GenericDimmableLightHUEComponent and hue:ColorTemperatureLightSpotHUEComponent."
+  },
+  "2.1.37": {
+    "en": "Added Energy sensor, Atlantic Water Boiler, Atlantic Outside temperature sensor and Atlantic Zone temperature sensor"
   }
 }

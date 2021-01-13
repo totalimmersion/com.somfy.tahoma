@@ -12,7 +12,7 @@
         "en": "Somfy TaHoma & Connexoon for Homey",
         "nl": "Somfy TaHoma & Connexoon voor Homey"
     },
-    "version": "2.1.36",
+    "version": "2.1.37",
     "compatibility": ">=2.0.0",
     "author":
     {
@@ -301,8 +301,89 @@
             "min": 0,
             "max": 10,
             "step": 1
+        },
+        "boiler_mode":
+        {
+            "type": "enum",
+            "title":
+            {
+                "en": "Hot Water Mode",
+                "nl": "Heetwatermodus",
+                "de": "Heißwassermodus"
+            },
+            "values": [
+            {
+                "id": "comfort",
+                "title":
+                {
+                    "en": "Comfort"
+                }
+            },
+            {
+                "id": "eco",
+                "title":
+                {
+                    "en": "Eco"
+                }
+            },
+            {
+                "id": "externalScheduling",
+                "title":
+                {
+                    "en": "External Scheduling"
+                }
+            },
+            {
+                "id": "internalScheduling",
+                "title":
+                {
+                    "en": "Internal Scheduling"
+                }
+            },
+            {
+                "id": "manu",
+                "title":
+                {
+                    "en": "Manual"
+                }
+            },
+            {
+                "id": "peakAndOffPeakScheduling",
+                "title":
+                {
+                    "en": "Peak And Off Peak Scheduling"
+                }
+            },
+            {
+                "id": "peakAndOffPeakTimes",
+                "title":
+                {
+                    "en": "Peak And Off Peak Times"
+                }
+            },
+            {
+                "id": "stop",
+                "title":
+                {
+                    "en": "Stop"
+                }
+            }],
+            "getable": true,
+            "setable": true
+        },
+        "boost":
+        {
+            "type": "boolean",
+            "getable": true,
+            "setable": true,
+            "uiComponent": "button",
+            "title":
+            {
+                "en": "Boost",
+                "nl": "Boost",
+                "de": "Boost"
+            }
         }
-
     },
     "drivers": [
     {
@@ -1809,6 +1890,91 @@
             "id": "add_my_devices",
             "template": "add_devices"
         }]
+    },
+    {
+        "id": "io_energy_sensor",
+        "name":
+        {
+            "en": "Energy Meter"
+        },
+        "images":
+        {
+            "large": "/drivers/io_energy_sensor/assets/images/large.png",
+            "small": "/drivers/io_energy_sensor/assets/images/small.png"
+        },
+        "class": "sensor",
+        "capabilities": [
+            "meter_power"
+        ],
+        "energy":
+        {
+            "cumulative": true
+        },
+        "pair": [
+        {
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation":
+            {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }]
+    },
+    {
+        "id": "io_atlantic_dhw_boiler",
+        "name":
+        {
+            "en": "Atlantic Water Boiler"
+        },
+        "images":
+        {
+            "large": "/drivers/io_atlantic_dhw_boiler/assets/images/large.png",
+            "small": "/drivers/io_atlantic_dhw_boiler/assets/images/small.png"
+        },
+        "class": "heater",
+        "capabilities": [
+            "target_temperature.comfort",
+            "target_temperature.eco",
+            "boiler_mode",
+            "onoff",
+            "boost"
+        ],
+        "capabilitiesOptions":
+        {
+            "target_temperature.comfort":
+            {
+                "min": 30,
+                "max": 60,
+                "title": "Comfort Temperature"
+            },
+            "target_temperature.eco":
+            {
+                "min": 30,
+                "max": 60,
+                "title": "Eco Temperature"
+            }
+        },
+        "energy":
+        {
+            "cumulative": true
+        },
+        "pair": [
+        {
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation":
+            {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }]
     }],
     "flow":
     {
@@ -2543,6 +2709,167 @@
                     "en": "In minutes",
                     "nl": "In minuten"
                 }
+            }]
+        },
+        {
+            "id": "eco_temperature_set",
+            "title":
+            {
+                "en": "Set the Eco temperature"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=io_atlantic_dhw_boiler"
+            },
+            {
+                "name": "target_temperature",
+                "type": "range",
+                "min": 30,
+                "max": 60,
+                "step": 1,
+                "label": "°C",
+                "labelDecimals": 0
+            }]
+        },
+        {
+            "id": "comfort_temperature_set",
+            "title":
+            {
+                "en": "Set the Comfort temperature"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=io_atlantic_dhw_boiler"
+            },
+            {
+                "name": "target_temperature",
+                "type": "range",
+                "min": 30,
+                "max": 60,
+                "step": 1,
+                "label": "°C",
+                "labelDecimals": 0
+            }]
+        },
+        {
+            "id": "boiler_mode_set",
+            "title":
+            {
+                "en": "Set the Boiler Mode"
+            },
+            "titleFormatted":
+            {
+                "en": "Set the Boiler Mode to [[state]]"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=io_atlantic_dhw_boiler"
+            },
+            {
+                "name": "state",
+                "type": "dropdown",
+                "values": [
+                {
+                    "id": "comfort",
+                    "label":
+                    {
+                        "en": "Comfort"
+                    }
+                },
+                {
+                    "id": "eco",
+                    "label":
+                    {
+                        "en": "Eco"
+                    }
+                },
+                {
+                    "id": "externalScheduling",
+                    "label":
+                    {
+                        "en": "External Scheduling"
+                    }
+                },
+                {
+                    "id": "internalScheduling",
+                    "label":
+                    {
+                        "en": "Internal Scheduling"
+                    }
+                },
+                {
+                    "id": "manu",
+                    "label":
+                    {
+                        "en": "Manual"
+                    }
+                },
+                {
+                    "id": "peakAndOffPeakScheduling",
+                    "label":
+                    {
+                        "en": "Peak And Off Peak Scheduling"
+                    }
+                },
+                {
+                    "id": "peakAndOffPeakTimes",
+                    "label":
+                    {
+                        "en": "Peak And Off Peak Times"
+                    }
+                },
+                {
+                    "id": "stop",
+                    "label":
+                    {
+                        "en": "Stop"
+                    }
+                }]
+            }]
+        },
+        {
+            "id": "boost_on_off",
+            "title":
+            {
+                "en": "Switch Boost On / Off",
+                "nl": "Zet aan / uit"
+            },
+            "titleFormatted":
+            {
+                "en": "Switch Boost [[state]]"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=io_atlantic_dhw_boiler"
+            },
+            {
+                "name": "state",
+                "type": "dropdown",
+                "values": [
+                {
+                    "id": "on",
+                    "label":
+                    {
+                        "en": "On",
+                        "nl": "aan"
+                    }
+                },
+                {
+                    "id": "off",
+                    "label":
+                    {
+                        "en": "Off",
+                        "nl": "uit"
+                    }
+                }]
             }]
         }]
     }
