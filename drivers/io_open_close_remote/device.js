@@ -13,10 +13,9 @@ class io_open_close_remoteDevice extends Device
 {
     async onInit()
     {
-        await super.onInit();
-
         this.registerCapabilityListener('remote_state', this.onCapabilityRemoteState.bind(this));
 
+        await super.onInit();
     }
 
     onCapabilityRemoteState(value)

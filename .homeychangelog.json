@@ -298,5 +298,8 @@
   },
   "2.1.37": {
     "en": "Added Energy sensor, Atlantic Water Boiler, Atlantic Outside temperature sensor and Atlantic Zone temperature sensor"
+  },
+  "2.1.38": {
+    "en": "Added Atlantic Heating Zone, Atlantic Hot Water Tank"
   }
 }

@@ -12,8 +12,8 @@ class OpenCloseDevice extends Device
 {
     async onInit()
     {
-        await super.onInit();
 		this.registerCapabilityListener('button', this.onCapabilityButton.bind(this));
+        await super.onInit();
 		this.boostSync = true;
     }
 

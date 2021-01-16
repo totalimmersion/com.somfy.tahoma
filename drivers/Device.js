@@ -60,7 +60,29 @@ class Device extends Homey.Device
                         stack: ""
                     });
                 }
-                return await Tahoma.getDeviceStates(this.getDeviceUrl());
+
+                const deviceURL = this.getDeviceUrl();
+                if (deviceURL)
+                {
+                    return await Tahoma.getDeviceStates(deviceURL);
+                }
+                
+                if (process.env.DEBUG === '1')
+                {
+                    const simData = Homey.ManagerSettings.get('simData');
+                    if (simData)
+                    {
+                        const deviceOid = this.getData().id;
+                        for (var i = 0; i < simData.length; i++)
+                        {
+                            if (simData[i].oid == deviceOid)
+                            {
+                                return simData[i].states;
+                            }
+                        }
+                        return null;
+                    }
+                }
             }
         }
         catch (error)

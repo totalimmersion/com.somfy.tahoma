@@ -29,7 +29,7 @@ class EnergySensorDevice extends SensorDevice
                 const power = states.find(state => state.name === 'core:ElectricEnergyConsumptionState');
                 if (power)
                 {
-                    this.setCapabilityValue('meter_power', value / 1000);
+                    this.setCapabilityValue('meter_power', power.value / 1000);
                 }
             }
         }

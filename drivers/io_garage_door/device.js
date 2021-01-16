@@ -12,11 +12,11 @@ class GarageDoorIODevice extends WindowCoveringsDevice {
       this.removeCapability("lock_state");
     }
 
-    await super.onInit();
-
     if (!this.hasCapability("windowcoverings_set")) {
       this.addCapability("windowcoverings_set");
     }
+
+    await super.onInit();
 
     this.openClosedStateName = 'core:OpenClosedUnknownState';
   }

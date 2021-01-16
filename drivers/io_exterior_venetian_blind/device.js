@@ -12,8 +12,6 @@ class ExteriorVenetianBlindDevice extends WindowCoveringsDevice {
             this.removeCapability("lock_state");
         }
 
-        await super.onInit();
-
         if (!this.hasCapability("quick_open")) {
             this.addCapability("quick_open");
         }
@@ -21,6 +19,8 @@ class ExteriorVenetianBlindDevice extends WindowCoveringsDevice {
         if (!this.hasCapability("windowcoverings_tilt_set")) {
             this.addCapability("windowcoverings_tilt_set");
         }
+
+        await super.onInit();
     }
 }
 

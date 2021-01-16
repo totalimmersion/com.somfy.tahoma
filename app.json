@@ -12,7 +12,7 @@
         "en": "Somfy TaHoma & Connexoon for Homey",
         "nl": "Somfy TaHoma & Connexoon voor Homey"
     },
-    "version": "2.1.37",
+    "version": "2.1.38",
     "compatibility": ">=2.0.0",
     "author":
     {
@@ -383,6 +383,73 @@
                 "nl": "Boost",
                 "de": "Boost"
             }
+        },
+        "heat_cool_mode":
+        {
+            "type": "enum",
+            "title":
+            {
+                "en": "Heat / Cool Mode"
+            },
+            "values": [
+            {
+                "id": "absence",
+                "title":
+                {
+                    "en": "Absent"
+                }
+            },
+            {
+                "id": "auto",
+                "title":
+                {
+                    "en": "Auto"
+                }
+            },
+            {
+                "id": "comfort",
+                "title":
+                {
+                    "en": "Comfort"
+                }
+            },
+            {
+                "id": "eco",
+                "title":
+                {
+                    "en": "Eco"
+                }
+            },
+            {
+                "id": "externalScheduling",
+                "title":
+                {
+                    "en": "External Scheduling"
+                }
+            },
+            {
+                "id": "internalScheduling",
+                "title":
+                {
+                    "en": "Internal Scheduling"
+                }
+            },
+            {
+                "id": "manu",
+                "title":
+                {
+                    "en": "Manual"
+                }
+            },
+            {
+                "id": "stop",
+                "title":
+                {
+                    "en": "Stop"
+                }
+            }],
+            "getable": true,
+            "setable": true
         }
     },
     "drivers": [
@@ -1975,6 +2042,137 @@
             "id": "add_my_devices",
             "template": "add_devices"
         }]
+    },
+    {
+        "id": "io_atlantic_dhw_tank",
+        "name":
+        {
+            "en": "Atlantic Water Tank"
+        },
+        "images":
+        {
+            "large": "/drivers/io_atlantic_dhw_boiler/assets/images/large.png",
+            "small": "/drivers/io_atlantic_dhw_boiler/assets/images/small.png"
+        },
+        "class": "heater",
+        "capabilities": [
+            "onoff"
+        ],
+        "capabilitiesOptions":
+        {
+            "onoff":
+            {
+                "title": "Force Heating"
+            }
+        },
+        "pair": [
+        {
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation":
+            {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }]
+    },
+    {
+        "id": "io_atlantic_hot_cold_zone",
+        "name":
+        {
+            "en": "Atlantic Heating And Cooling System"
+        },
+        "images":
+        {
+            "large": "/drivers/io_atlantic_dhw_boiler/assets/images/large.png",
+            "small": "/drivers/io_atlantic_dhw_boiler/assets/images/small.png"
+        },
+        "class": "heater",
+        "capabilities": [
+            "target_temperature.comfort_cooling",
+            "target_temperature.comfort_heating",
+            "target_temperature.eco_cooling",
+            "target_temperature.eco_heating",
+            "target_temperature.derogated",
+            "boost.cooling",
+            "boost.heating",
+            "boost.derogated",
+            "heat_cool_mode.cool",
+            "heat_cool_mode.heat"
+        ],
+        "capabilitiesOptions":
+        {
+            "target_temperature.comfort_cooling":
+            {
+                "min": 4,
+                "max": 35,
+                "title": "Comfort Cooling Temperature"
+            },
+            "target_temperature.comfort_heating":
+            {
+                "min": 4,
+                "max": 35,
+                "title": "Comfort Heating Temperature"
+            },
+            "target_temperature.eco_cooling":
+            {
+                "min": 4,
+                "max": 35,
+                "title": "Eco Cooling Temperature"
+            },
+            "target_temperature.eco_heating":
+            {
+                "min": 4,
+                "max": 35,
+                "title": "Eco Heating Temperature"
+            },
+            "target_temperature.derogated":
+            {
+                "min": 4,
+                "max": 35,
+                "title": "Derogated Temperature"
+            },
+            "boost.heating":
+            {
+                "title": "Heating"
+            },
+            "boost.cooling":
+            {
+                "title": "Cooling"
+            },
+            "boost.derogated":
+            {
+                "title": "Derogated"
+            },
+            "heat_cool_mode.cool":
+            {
+                "title": "Cooling Mode"
+            },
+            "heat_cool_mode.heat":
+            {
+                "title": "Heating Mode"
+            }
+        },
+        "energy":
+        {
+            "cumulative": true
+        },
+        "pair": [
+        {
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation":
+            {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }]
     }],
     "flow":
     {
@@ -2717,6 +2915,10 @@
             {
                 "en": "Set the Eco temperature"
             },
+            "titleFormatted":
+            {
+                "en": "Set the Eco Temperature to [[target_temperature]]"
+            },
             "args": [
             {
                 "name": "device",
@@ -2738,6 +2940,10 @@
             "title":
             {
                 "en": "Set the Comfort temperature"
+            },
+            "titleFormatted":
+            {
+                "en": "Set the Comfort Temperature to [[target_temperature]]"
             },
             "args": [
             {
@@ -2870,6 +3076,406 @@
                         "nl": "uit"
                     }
                 }]
+            }]
+        },
+        {
+            "id": "heat_mode_set",
+            "title":
+            {
+                "en": "Set the Heat Mode"
+            },
+            "titleFormatted":
+            {
+                "en": "Set the Heat Mode to [[state]]"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=io_atlantic_hot_cold_zone"
+            },
+            {
+                "name": "state",
+                "type": "dropdown",
+                "values": [
+                {
+                    "id": "absence",
+                    "label":
+                    {
+                        "en": "Absent"
+                    }
+                },
+                {
+                    "id": "auto",
+                    "label":
+                    {
+                        "en": "Auto"
+                    }
+                },
+                {
+                    "id": "comfort",
+                    "label":
+                    {
+                        "en": "Comfort"
+                    }
+                },
+                {
+                    "id": "eco",
+                    "label":
+                    {
+                        "en": "Eco"
+                    }
+                },
+                {
+                    "id": "externalScheduling",
+                    "label":
+                    {
+                        "en": "External Scheduling"
+                    }
+                },
+                {
+                    "id": "internalScheduling",
+                    "label":
+                    {
+                        "en": "Internal Scheduling"
+                    }
+                },
+                {
+                    "id": "manu",
+                    "label":
+                    {
+                        "en": "Manual"
+                    }
+                },
+                {
+                    "id": "stop",
+                    "label":
+                    {
+                        "en": "Stop"
+                    }
+                }]
+            }]
+        },
+        {
+            "id": "cool_mode_set",
+            "title":
+            {
+                "en": "Set the Cooling Mode"
+            },
+            "titleFormatted":
+            {
+                "en": "Set the Cooling Mode to [[state]]"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=io_atlantic_hot_cold_zone"
+            },
+            {
+                "name": "state",
+                "type": "dropdown",
+                "values": [
+                {
+                    "id": "absence",
+                    "label":
+                    {
+                        "en": "Absent"
+                    }
+                },
+                {
+                    "id": "auto",
+                    "label":
+                    {
+                        "en": "Auto"
+                    }
+                },
+                {
+                    "id": "comfort",
+                    "label":
+                    {
+                        "en": "Comfort"
+                    }
+                },
+                {
+                    "id": "eco",
+                    "label":
+                    {
+                        "en": "Eco"
+                    }
+                },
+                {
+                    "id": "externalScheduling",
+                    "label":
+                    {
+                        "en": "External Scheduling"
+                    }
+                },
+                {
+                    "id": "internalScheduling",
+                    "label":
+                    {
+                        "en": "Internal Scheduling"
+                    }
+                },
+                {
+                    "id": "manu",
+                    "label":
+                    {
+                        "en": "Manual"
+                    }
+                },
+                {
+                    "id": "stop",
+                    "label":
+                    {
+                        "en": "Stop"
+                    }
+                }]
+            }]
+        },
+        {
+            "id": "cooling_on_off",
+            "title":
+            {
+                "en": "Switch Cooling Mode On / Off"
+            },
+            "titleFormatted":
+            {
+                "en": "Switch Cooling Mode [[state]]"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=io_atlantic_hot_cold_zone"
+            },
+            {
+                "name": "state",
+                "type": "dropdown",
+                "values": [
+                {
+                    "id": "on",
+                    "label":
+                    {
+                        "en": "On",
+                        "nl": "aan"
+                    }
+                },
+                {
+                    "id": "off",
+                    "label":
+                    {
+                        "en": "Off",
+                        "nl": "uit"
+                    }
+                }]
+            }]
+        },
+        {
+            "id": "heating_on_off",
+            "title":
+            {
+                "en": "Switch Heating Mode On / Off"
+            },
+            "titleFormatted":
+            {
+                "en": "Switch Heating Mode [[state]]"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=io_atlantic_hot_cold_zone"
+            },
+            {
+                "name": "state",
+                "type": "dropdown",
+                "values": [
+                {
+                    "id": "on",
+                    "label":
+                    {
+                        "en": "On",
+                        "nl": "aan"
+                    }
+                },
+                {
+                    "id": "off",
+                    "label":
+                    {
+                        "en": "Off",
+                        "nl": "uit"
+                    }
+                }]
+            }]
+        },
+        {
+            "id": "derogation_on_off",
+            "title":
+            {
+                "en": "Switch Derogation Mode On / Off"
+            },
+            "titleFormatted":
+            {
+                "en": "Switch Derogation Mode [[state]]"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=io_atlantic_hot_cold_zone"
+            },
+            {
+                "name": "state",
+                "type": "dropdown",
+                "values": [
+                {
+                    "id": "on",
+                    "label":
+                    {
+                        "en": "On",
+                        "nl": "aan"
+                    }
+                },
+                {
+                    "id": "off",
+                    "label":
+                    {
+                        "en": "Off",
+                        "nl": "uit"
+                    }
+                }]
+            }]
+        },
+        {
+            "id": "eco_cooling_temperature_set",
+            "title":
+            {
+                "en": "Set the Eco Cooling temperature"
+            },
+            "titleFormatted":
+            {
+                "en": "Set the Eco Cooling to [[target_temperature]]"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=io_atlantic_hot_cold_zone"
+            },
+            {
+                "name": "target_temperature",
+                "type": "range",
+                "min": 4,
+                "max": 35,
+                "step": 1,
+                "label": "°C",
+                "labelDecimals": 0
+            }]
+        },
+        {
+            "id": "eco_heating_temperature_set",
+            "title":
+            {
+                "en": "Set the Eco Heating temperature"
+            },
+            "titleFormatted":
+            {
+                "en": "Set the Eco Heating to [[target_temperature]]"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=io_atlantic_hot_cold_zone"
+            },
+            {
+                "name": "target_temperature",
+                "type": "range",
+                "min": 4,
+                "max": 35,
+                "step": 1,
+                "label": "°C",
+                "labelDecimals": 0
+            }]
+        },
+        {
+            "id": "comfort_cooling_temperature_set",
+            "title":
+            {
+                "en": "Set the Comfort Cooling temperature"
+            },
+            "titleFormatted":
+            {
+                "en": "Set the Comfort Cooling to [[target_temperature]]"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=io_atlantic_hot_cold_zone"
+            },
+            {
+                "name": "target_temperature",
+                "type": "range",
+                "min": 4,
+                "max": 35,
+                "step": 1,
+                "label": "°C",
+                "labelDecimals": 0
+            }]
+        },
+        {
+            "id": "comfort_heating_temperature_set",
+            "title":
+            {
+                "en": "Set the Comfort Heating temperature"
+            },
+            "titleFormatted":
+            {
+                "en": "Set the Comfort Heating to [[target_temperature]]"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=io_atlantic_hot_cold_zone"
+            },
+            {
+                "name": "target_temperature",
+                "type": "range",
+                "min": 4,
+                "max": 35,
+                "step": 1,
+                "label": "°C",
+                "labelDecimals": 0
+            }]
+        },
+        {
+            "id": "derogation_temperature_set",
+            "title":
+            {
+                "en": "Set the Derogation temperature"
+            },
+            "titleFormatted":
+            {
+                "en": "Set the Derogation to [[target_temperature]]"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=io_atlantic_hot_cold_zone"
+            },
+            {
+                "name": "target_temperature",
+                "type": "range",
+                "min": 4,
+                "max": 35,
+                "step": 1,
+                "label": "°C",
+                "labelDecimals": 0
             }]
         }]
     }

@@ -183,7 +183,7 @@ class PilotWireProgrammerDevice extends SensorDevice
                 if (onOffState)
                 {
                     Homey.app.logStates(this.getName() + ": core:OnOffState = " + onOffState.value);
-                    this.triggerCapabilityListener('onoff', onOffState.value,
+                    this.triggerCapabilityListener('onoff', (onOffState.value === 'on'),
                     {
                         fromCloudSync: true
                     });
@@ -236,7 +236,7 @@ class PilotWireProgrammerDevice extends SensorDevice
                         if (deviceState.name === 'core:OnOffState')
                         {
                             Homey.app.logStates(this.getName() + ": core:OnOffState = " + deviceState.value);
-                            const oldState = this.getState().alarm_generic;
+                            const oldState = this.getState().onoff;
                             const newState = (deviceState.value === 'on');
                             if (oldState !== newState)
                             {

@@ -13,9 +13,9 @@ class TemperatureSensorDevice extends SensorDevice
 
     async onInit()
     {
-        await super.onInit();
-
         this.registerCapabilityListener('measure_temperature', this.onCapabilityMeasureTemperature.bind(this));
+
+        await super.onInit();
     }
 
     onCapabilityMeasureTemperature(value)
