@@ -12,7 +12,7 @@
         "en": "Somfy TaHoma & Connexoon for Homey",
         "nl": "Somfy TaHoma & Connexoon voor Homey"
     },
-    "version": "2.1.38",
+    "version": "2.1.39",
     "compatibility": ">=2.0.0",
     "author":
     {
@@ -1298,7 +1298,7 @@
         "id": "rts_interior_blind",
         "name":
         {
-            "en": "Interior Blind (RTS)"
+            "en": "Blind (RTS)"
         },
         "images":
         {

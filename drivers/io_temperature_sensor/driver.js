@@ -10,7 +10,7 @@ const Driver = require('../Driver');
 class TemperatureSensorDriver extends Driver {
 
   async onInit() {
-    this.deviceType = ['io:TemperatureIOSystemSensor', 'io:AtlanticPassAPCOutsideTemperatureSensor', 'io:AtlanticPassAPCZoneTemperatureSensor', 'ovp:SomfyPilotWireTemperatureSensorOVPComponent'];
+    this.deviceType = ['io:TemperatureIOSystemSensor', 'io:AtlanticPassAPCOutsideTemperatureSensor', 'io:AtlanticPassAPCZoneTemperatureSensor', 'ovp:SomfyPilotWireTemperatureSensorOVPComponent', 'zwave:ZWaveTemperatureSensor'];
 
     /*** TEMPERATURE TRIGGERS ***/
     this._triggerTemperatureMoreThan = new Homey.FlowCardTriggerDevice('change_temperature_more_than').register();

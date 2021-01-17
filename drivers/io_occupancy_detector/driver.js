@@ -10,7 +10,7 @@ const Driver = require('../Driver');
 class MotionDetectorDriver extends Driver {
 
   async onInit() {
-    this.deviceType = ['io:SomfyOccupancyIOSystemSensor', 'rtds:RTDSMotionSensor'];
+    this.deviceType = ['io:SomfyOccupancyIOSystemSensor', 'rtds:RTDSMotionSensor', 'zwave:ZWaveNotificationMotionSensor'];
 
     /*** MOTION TRIGGERS ***/
     this._triggerMotionChange = new Homey.FlowCardTriggerDevice('motion_has_changed').register();

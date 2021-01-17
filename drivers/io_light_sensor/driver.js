@@ -10,7 +10,7 @@ const Driver = require('../Driver');
 class LightSensorDriver extends Driver {
 
   async onInit() {
-    this.deviceType = ['io:LightIOSystemSensor'];
+    this.deviceType = ['io:LightIOSystemSensor', 'zwave:ZWaveLightSensor'];
 
     /*** LUMINANCE TRIGGERS ***/
     this._triggerLuminanceMoreThan = new Homey.FlowCardTriggerDevice('change_luminance_more_than').register();

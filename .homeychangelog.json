@@ -301,5 +301,8 @@
   },
   "2.1.38": {
     "en": "Added Atlantic Heating Zone, Atlantic Hot Water Tank"
+  },
+  "2.1.39": {
+    "en": "Added rts:ExteriorBlindRTSComponent and renamed 'Interior Blind (RTS)' to 'Blind (RTS)'"
   }
 }
