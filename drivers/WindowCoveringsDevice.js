@@ -340,7 +340,7 @@ class WindowCoveringsDevice extends Device
             const tokens = {
                 'windowcoverings_tilt': value
             };
-            return this.triggerTiltChange(this, tokens);
+            return this.getDriver().triggerTiltChange(this, tokens);
 
         }
     }

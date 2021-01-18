@@ -3,7 +3,7 @@
 const ioWindowCoveringsDriver = require('../ioWindowCoveringsDriver');
 
 /**
- * Driver class for exterior venetian blinds with the io:ExteriorVenetianBlindIOComponent controllable name in TaHoma
+ * Driver class for exterior venetian blinds with the io:SimpleBioclimaticPergolaIOComponent controllable name in TaHoma
  * @extends {ioWindowCoveringsDriver}
  */
 class PergolaDriver extends ioWindowCoveringsDriver
