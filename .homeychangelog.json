@@ -304,5 +304,8 @@
   },
   "2.1.39": {
     "en": "Added rts:ExteriorBlindRTSComponent and renamed 'Interior Blind (RTS)' to 'Blind (RTS)'"
+  },
+  "2.1.40": {
+    "en": "Fix tilt flow trigger"
   }
 }

@@ -9,10 +9,9 @@
     },
     "description":
     {
-        "en": "Somfy TaHoma & Connexoon for Homey",
-        "nl": "Somfy TaHoma & Connexoon voor Homey"
+        "en": "Bring the richness of Homey to your Somfy world"
     },
-    "version": "2.1.39",
+    "version": "2.1.40",
     "compatibility": ">=2.0.0",
     "author":
     {
