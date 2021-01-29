@@ -4,14 +4,14 @@ const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
- * Driver class for the opening detector with the io:AtlanticPassAPCHeatingAndCoolingZoneComponent controllable name in TaHoma
+ * Driver class for the opening detector with the io:AtlanticPassAPCHeatingAndCoolingZoneComponent, io:AtlanticPassAPCZoneControlZoneComponent controllable name in TaHoma
  * @extends {Driver}
  */
 class HotColdZoneDriver extends Driver
 {
     async onInit()
     {
-        this.deviceType = ['io:AtlanticPassAPCHeatingAndCoolingZoneComponent'];
+        this.deviceType = ['io:AtlanticPassAPCHeatingAndCoolingZoneComponent', 'io:AtlanticPassAPCZoneControlZoneComponent'];
 
         this.setEcoCoolingTemperatureAction = new Homey.FlowCardAction("eco_cooling_temperature_set");
         this.setEcoCoolingTemperatureAction

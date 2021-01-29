@@ -33,6 +33,19 @@ class OpeningDetectorDevice extends SensorDevice
             //trigger flows
             this.getDriver()
                 .triggerContactChange(device, tokens);
+
+            if (value)
+            {
+                this.checkTimerID = setTimeout(() =>
+                {
+                    this.sync();
+                }, 60000);
+            }
+            else
+            {
+                clearTimeout(this.checkTimerID);
+            }
+
         }
 
         return Promise.resolve();

@@ -307,5 +307,8 @@
   },
   "2.1.40": {
     "en": "Fix tilt flow trigger"
+  },
+  "2.1.41": {
+    "en": "Added a watchdog to the alarm type capabilities to check if they switched off with notifying. Added 'io:AtlanticPassAPCZoneControlZoneComponent', 'io:CumulatedElectricalEnergyConsumptionIOSystemDeviceSensor' and  'io:TemperatureInCelciusIOSystemDeviceSensor'"
   }
 }

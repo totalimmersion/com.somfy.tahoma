@@ -5,7 +5,7 @@ const Tahoma = require('../../lib/Tahoma');
 const Homey = require('homey');
 
 /**
- * Device class for the light sensor with the io:TotalElectricalEnergyConsumptionIOSystemSensor, io:TotalElectricalEnergyConsumptionSensor, io:OtherElectricalEnergyConsumptionSensor, io:PlugsElectricalEnergyConsumptionSensor, io:DHWElectricalEnergyConsumptionSensor, io:CoolingRelatedElectricalEnergyConsumptionSensor, io:HeatingRelatedElectricalEnergyConsumptionSensor & io:HeatingElectricalEnergyConsumptionSensor controllable name in TaHoma
+ * Device class for the light sensor with the io:CumulatedElectricalEnergyConsumptionIOSystemDeviceSensor,  io:TotalElectricalEnergyConsumptionIOSystemSensor, io:TotalElectricalEnergyConsumptionSensor, io:OtherElectricalEnergyConsumptionSensor, io:PlugsElectricalEnergyConsumptionSensor, io:DHWElectricalEnergyConsumptionSensor, io:CoolingRelatedElectricalEnergyConsumptionSensor, io:HeatingRelatedElectricalEnergyConsumptionSensor & io:HeatingElectricalEnergyConsumptionSensor controllable name in TaHoma
  * @extends {SensorDevice}
  */
 class EnergySensorDevice extends SensorDevice

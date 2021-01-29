@@ -37,6 +37,18 @@ class OneAlarmDevice extends SensorDevice
         const oldTriggeredState = this.getState().alarm_generic;
         if (oldTriggeredState !== value)
         {
+            if (value)
+            {
+                this.checkTimerID = setTimeout(() =>
+                {
+                    this.sync();
+                }, 60000);
+            }
+            else
+            {
+                clearTimeout(this.checkTimerID);
+            }
+
             this.setCapabilityValue('alarm_generic', value);
         }
     }

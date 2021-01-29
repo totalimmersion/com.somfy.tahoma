@@ -36,6 +36,18 @@ class OccupancyDetectorDevice extends SensorDevice
 
             //trigger flows
             this.getDriver().triggerMotionChange(device, tokens, state);
+
+            if (value)
+            {
+                this.checkTimerID = setTimeout(() =>
+                {
+                    this.sync();
+                }, 60000);
+            }
+            else
+            {
+                clearTimeout(this.checkTimerID);
+            }
         }
 
         return Promise.resolve();

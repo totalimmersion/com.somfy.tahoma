@@ -39,6 +39,19 @@ class SmokeDetectorDevice extends SensorDevice
             //trigger flows
             this.getDriver()
                 .triggerSmokeChange(device, tokens);
+
+            if (value)
+            {
+                this.checkTimerID = setTimeout(() =>
+                {
+                    this.sync();
+                }, 60000);
+            }
+            else
+            {
+                clearTimeout(this.checkTimerID);
+            }
+
         }
 
         return Promise.resolve();
