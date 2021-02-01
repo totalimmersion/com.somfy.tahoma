@@ -9,25 +9,25 @@ const Homey = require('homey');
  * @extends {Device}
  */
 
-class io_open_close_remoteDevice extends Device
+class key_go_remoteDevice extends Device
 {
     async onInit()
     {
-        this.registerCapabilityListener('remote_state', this.onCapabilityRemoteState.bind(this));
+        this.registerCapabilityListener('key_go_remote_state', this.onCapabilityRemoteState.bind(this));
 
         await super.onInit();
     }
 
     onCapabilityRemoteState(value)
     {
-        const oldState = this.getState().remote_state;
+        const oldState = this.getState().key_go_remote_state;
         if (oldState !== value)
         {
-            this.setCapabilityValue('remote_state', value);
+            this.setCapabilityValue('key_go_remote_state', value);
 
             const device = this;
             const tokens = {
-                'remote_state': value
+                'key_go_remote_state': value
             };
             const state = {
                 'expected_state': value
@@ -51,11 +51,11 @@ class io_open_close_remoteDevice extends Device
             const states = await super.sync();
             if (states)
             {
-                const remoteState = states.find(state => state.name === 'io:OneWayControllerButtonState');
+                const remoteState = states.find(state => state.name === 'io:OneWayStoppableButtonState');
                 if (remoteState)
                 {
-                    Homey.app.logStates(this.getName() + ": io:OneWayControllerButtonState = " + remoteState.value);
-                    this.triggerCapabilityListener('remote_state', remoteState.value);
+                    Homey.app.logStates(this.getName() + ": io:OneWayStoppableButtonState = " + remoteState.value);
+                    this.triggerCapabilityListener('key_go_remote_state', remoteState.value);
                 }
             }
         }
@@ -93,14 +93,14 @@ class io_open_close_remoteDevice extends Device
                     for (var x = 0; x < element.deviceStates.length; x++)
                     {
                         const deviceState = element.deviceStates[x];
-                        if (deviceState.name === 'io:OneWayControllerButtonState')
+                        if (deviceState.name === 'io:OneWayStoppableButtonState')
                         {
-                            Homey.app.logStates(this.getName() + ": io:OneWayControllerButtonState = " + deviceState.value);
-                            const oldState = this.getState().remote_state;
+                            Homey.app.logStates(this.getName() + ": io:OneWayStoppableButtonState = " + deviceState.value);
+                            const oldState = this.getState().key_go_remote_state;
                             const newSate = deviceState.value;
                             if (oldState !== newSate)
                             {
-                                this.triggerCapabilityListener('remote_state', newSate);
+                                this.triggerCapabilityListener('key_go_remote_state', newSate);
                             }
                         }
                     }
@@ -110,4 +110,4 @@ class io_open_close_remoteDevice extends Device
     }
 }
 
-module.exports = io_open_close_remoteDevice;
+module.exports = key_go_remoteDevice;

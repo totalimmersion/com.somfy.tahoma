@@ -11,7 +11,7 @@
     {
         "en": "Bring the richness of Homey to your Somfy world"
     },
-    "version": "2.1.41",
+    "version": "2.1.42",
     "compatibility": ">=2.0.0",
     "author":
     {
@@ -105,7 +105,7 @@
             "uiComponent": "button",
             "title":
             {
-                "en": "My Position",
+                "en": "MY Position",
                 "nl": "MY Positie"
             }
         },
@@ -128,9 +128,14 @@
             "uiComponent": "sensor",
             "title":
             {
-                "en": "My Position",
+                "en": "MY Position",
                 "nl": "MY Positie"
-            }
+            },
+            "units":
+            {
+                "en": "%"
+            },
+            "icon": "/assets/my.svg"
         },
         "quiet_mode":
         {
@@ -248,12 +253,43 @@
                 "id": "prog",
                 "title":
                 {
-                    "en": "Down"
+                    "en": "Prog"
                 }
             }],
             "getable": true,
-            "setable": false,
-            "icon": "/drivers/io_open_close_remote/assets/icon.svg"
+            "setable": false
+        },
+        "key_go_remote_state":
+        {
+            "type": "enum",
+            "title":
+            {
+                "en": "Remote State"
+            },
+            "values": [
+            {
+                "id": "pressed",
+                "title":
+                {
+                    "en": "Pressed"
+                }
+            },
+            {
+                "id": "released",
+                "title":
+                {
+                    "en": "Released"
+                }
+            },
+            {
+                "id": "stop",
+                "title":
+                {
+                    "en": "Stop"
+                }
+            }],
+            "getable": true,
+            "setable": false
         },
         "on_button":
         {
@@ -686,6 +722,7 @@
         "capabilities": [
             "windowcoverings_state",
             "windowcoverings_set",
+            "my_position",
             "quick_open"
         ],
         "pair": [
@@ -1927,6 +1964,35 @@
         }]
     },
     {
+        "id": "key_go_remote",
+        "name":
+        {
+            "en": "KeyGo Remote Control"
+        },
+        "images":
+        {
+            "large": "/drivers/key_go_remote_remote/assets/images/large.png",
+            "small": "/drivers/key_go_remote/assets/images/small.png"
+        },
+        "class": "remote",
+        "capabilities": [
+            "key_go_remote_state"
+        ],
+        "pair": [
+        {
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation":
+            {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }]
+    },
+    {
         "id": "two_button_on_off_light",
         "name":
         {
@@ -2517,6 +2583,68 @@
                     }
                 }]
             }]
+        },
+        {
+            "id": "key_go_remote_state_changed",
+            "title":
+            {
+                "en": "Remote state changed"
+            },
+            "tokens": [
+            {
+                "name": "remote_state",
+                "type": "string",
+                "title":
+                {
+                    "en": "New State"
+                },
+                "example": "pressed"
+            }],
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=key_go_remote"
+            }]
+        },
+        {
+            "id": "key_go_remote_state_changed_to",
+            "title":
+            {
+                "en": "Remote state changed to"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=key_go_remote"
+            },
+            {
+                "type": "dropdown",
+                "name": "expected_state",
+                "values": [
+                {
+                    "id": "pressed",
+                    "label":
+                    {
+                        "en": "Pressed"
+                    }
+                },
+                {
+                    "id": "released",
+                    "label":
+                    {
+                        "en": "Released"
+                    }
+                },
+                {
+                    "id": "stop",
+                    "label":
+                    {
+                        "en": "Stop"
+                    }
+                }]
+            }]
         }],
         "conditions": [
         {
@@ -2714,7 +2842,7 @@
             {
                 "name": "device",
                 "type": "device",
-                "filter": "driver_id=rts_interior_venetian_blind|io_roller_shutter_quiet"
+                "filter": "driver_id=rts_interior_venetian_blind|io_roller_shutter_quiet|io_garage_door_partial|io_roller_shutter"
             }]
         },
         {

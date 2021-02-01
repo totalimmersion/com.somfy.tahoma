@@ -310,5 +310,8 @@
   },
   "2.1.41": {
     "en": "Added a watchdog to the alarm type capabilities to check if they switched off with notifying. Added 'io:AtlanticPassAPCZoneControlZoneComponent', 'io:CumulatedElectricalEnergyConsumptionIOSystemDeviceSensor' and  'io:TemperatureInCelciusIOSystemDeviceSensor'"
+  },
+  "2.1.42": {
+    "en": "Add KeyGo remote. Added MY position to io:RollerShutterGenericIOComponent. Fixed a typo in io:IORemoteController that would stop the initial state being set"
   }
 }

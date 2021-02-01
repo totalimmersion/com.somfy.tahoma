@@ -466,7 +466,8 @@ class WindowCoveringsDevice extends Device
             }
 
             const action = {
-                name: this.myCommand
+                name: this.myCommand,
+                parameters: []
             };
             let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
