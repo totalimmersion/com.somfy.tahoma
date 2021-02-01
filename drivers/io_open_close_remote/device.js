@@ -55,7 +55,7 @@ class io_open_close_remoteDevice extends Device
                 if (alarmState)
                 {
                     Homey.app.logStates(this.getName() + ": io:OneWayControllerButtonState = " + remoteState.value);
-                    this.triggerCapabilityListener('alarm_smoke', remoteState.value);
+                    this.triggerCapabilityListener('remote_state', remoteState.value);
                 }
             }
         }

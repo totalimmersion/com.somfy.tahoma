@@ -3,7 +3,7 @@
 const ioWindowCoveringsDriver = require('../ioWindowCoveringsDriver');
 
 /**
- * Driver class for horizontal awnings with the io:HorizontalAwningIOComponent controllable name in TaHoma
+ * Driver class for horizontal awnings with the io:VerticalInteriorBlindGenericIOComponent controllable name in TaHoma
  * @extends {ioWindowCoveringsDriver}
  */
 class HorizontalAwningDriver extends ioWindowCoveringsDriver
