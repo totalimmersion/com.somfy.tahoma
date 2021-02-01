@@ -1971,7 +1971,7 @@
         },
         "images":
         {
-            "large": "/drivers/key_go_remote_remote/assets/images/large.png",
+            "large": "/drivers/key_go_remote/assets/images/large.png",
             "small": "/drivers/key_go_remote/assets/images/small.png"
         },
         "class": "remote",
