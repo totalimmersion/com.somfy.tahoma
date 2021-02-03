@@ -313,5 +313,8 @@
   },
   "2.1.42": {
     "en": "Add KeyGo remote. Added MY position to io:RollerShutterGenericIOComponent. Fixed a typo in io:IORemoteController that would stop the initial state being set"
+  },
+  "2.1.43": {
+    "en": "Fix 'stop' button sending null as the command."
   }
 }

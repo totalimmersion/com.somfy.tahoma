@@ -54,11 +54,7 @@ class Device extends Homey.Device
             {
                 if (Homey.app.infoLogEnabled)
                 {
-                    Homey.app.logInformation("Device initial sync.",
-                    {
-                        message: this.getName(),
-                        stack: ""
-                    });
+                    Homey.app.logInformation("Device initial sync.", this.getName());
                 }
 
                 const deviceURL = this.getDeviceUrl();

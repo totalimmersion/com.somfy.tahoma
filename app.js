@@ -224,11 +224,7 @@ class myApp extends Homey.App
             // Start collection data again
             if (this.infoLogEnabled)
             {
-                this.logInformation("initSync",
-                {
-                    message: "Starting Event Polling",
-                    stack: ""
-                });
+                this.logInformation("initSync", "Starting Event Polling");
             }
 
             this.syncLoop(this.interval * 1000);
@@ -285,10 +281,24 @@ class myApp extends Homey.App
     {
         console.log(source, error);
 
-        let data = {
-            message: error.message,
-            stack: error.stack
-        };
+        if (typeof(error) === "string")
+        {
+            var data = error;
+        }
+        else
+        {
+            if (error.stack)
+            {
+                var data = {
+                    message: error.message,
+                    stack: error.stack
+                };
+            }
+            else
+            {
+                var data = error.message;
+            }
+        }
         let logData = Homey.ManagerSettings.get('infoLog');
         if (!Array.isArray(logData))
         {
@@ -318,17 +328,14 @@ class myApp extends Homey.App
 
     logEvents(txt)
     {
-        if (Homey.ManagerSettings.get('stateLogEnabled'))
+        let log = Homey.ManagerSettings.get('stateLog') + txt + "\n";
+        if (log.length > 30000)
         {
-            let log = Homey.ManagerSettings.get('stateLog') + txt + "\n";
-            if (log.length > 30000)
-            {
-                Homey.ManagerSettings.set('stateLogEnabled', false);
-            }
-            else
-            {
-                Homey.ManagerSettings.set('stateLog', log);
-            }
+            Homey.ManagerSettings.set('stateLogEnabled', false);
+        }
+        else
+        {
+            Homey.ManagerSettings.set('stateLog', log);
         }
     }
 
@@ -415,22 +422,14 @@ class myApp extends Homey.App
         {
             if (this.infoLogEnabled)
             {
-                this.logInformation("initSync",
-                {
-                    message: "Starting",
-                    stack: ""
-                });
+                this.logInformation("initSync", "Starting");
             }
 
             await this.newLogin_2(username, password, linkurl, false)
         }
         catch (error)
         {
-            this.logInformation("initSync",
-            {
-                message: "Error",
-                stack: error
-            });
+            this.logInformation("initSync", "Error");
 
             var timeout = 5000;
             if (error === "Far Too many login attempts (blocked for 5 minutes)")
@@ -521,7 +520,7 @@ class myApp extends Homey.App
         }
     }
 
-    async stopSync( clearRestartingSync = true)
+    async stopSync(clearRestartingSync = true)
     {
         if (this.timerId)
         {
@@ -530,11 +529,7 @@ class myApp extends Homey.App
             this.timerId = null;
             if (this.infoLogEnabled)
             {
-                this.logInformation("stopSync",
-                {
-                    message: "Stopping Event Polling",
-                    stack: ""
-                });
+                this.logInformation("stopSync", "Stopping Event Polling");
             }
         }
 
@@ -599,17 +594,13 @@ class myApp extends Homey.App
                 }
                 catch (error)
                 {
-                    this.logInformation("syncLoop",
-                    {
-                        message: error.message,
-                        stack: ""
-                    });
+                    this.logInformation("syncLoop", error.message);
 
                 }
             }
 
             this.restartingSync = false;
-            
+
             if (!this.stoppingSync)
             {
                 // Setup timer for next sync
@@ -641,7 +632,10 @@ class myApp extends Homey.App
                     });
                 }
 
-                this.logEvents(JSON.stringify(events, null, 2));
+                if (Homey.ManagerSettings.get('stateLogEnabled'))
+                {
+                    this.logEvents(JSON.stringify(events, null, 2));
+                }
             }
             else if (this.infoLogEnabled)
             {

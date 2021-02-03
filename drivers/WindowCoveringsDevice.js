@@ -43,7 +43,7 @@ class WindowCoveringsDevice extends Device
             // Homey capability to Somfy command map
             this.windowcoveringsActions = {
                 up: 'close',
-                idle: null,
+                idle: 'stop',
                 down: 'open'
             };
 
@@ -58,7 +58,7 @@ class WindowCoveringsDevice extends Device
         {
             this.windowcoveringsActions = {
                 up: 'open',
-                idle: null,
+                idle: 'stop',
                 down: 'close'
             };
 
@@ -139,6 +139,13 @@ class WindowCoveringsDevice extends Device
     {
         if (!opts || !opts.fromCloudSync)
         {
+            if (this.windowcoveringsActions[value] === null)
+            {
+                // Action is not supported
+                Homey.app.logInformation(this.getName() + ": onCapabilityWindowcoveringsState", 'option not supported');
+                return;
+            }
+
             if (this.boostSync)
             {
                 await Homey.app.boostSync();
