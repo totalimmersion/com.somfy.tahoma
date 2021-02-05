@@ -316,5 +316,8 @@
   },
   "2.1.43": {
     "en": "Fix 'stop' button sending null as the command."
+  },
+  "2.1.44": {
+    "en": "Added Atlantic Main Zone Controller and Atlantic Hot Water Production"
   }
 }
