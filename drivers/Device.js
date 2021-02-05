@@ -61,6 +61,10 @@ class Device extends Homey.Device
             {
                 somfyValue *= capabilityXRef.scale;
             }
+            else if (capabilityXRef.compare)
+            {
+                somfyValue = capabilityXRef.compare[(value === false ? 0 : 1)]
+            }
 
             const deviceData = this.getData();
             var action = {
@@ -115,7 +119,7 @@ class Device extends Homey.Device
 
     /**
      * Gets the sensor data from the TaHoma cloud
-     * Capabilities{somfyNameGet: 'name of the Somfy capability, homeyName: 'name of the Homey capability', compare: 'text for true value or not specified if real value' }
+     * Capabilities{somfyNameGet: 'name of the Somfy capability, homeyName: 'name of the Homey capability', compare:[] 'text array for false and true value or not specified if real value' }
      */
     async syncList(Capabilities)
     {
@@ -134,7 +138,7 @@ class Device extends Homey.Device
                         {
                             // Found the entry
                             Homey.app.logStates(this.getName() + ": " + capability.somfyNameGet + "= " + state.value);
-                            await this.triggerCapabilityListener(capability.homeyName, (capability.compare ? (state.value === capability.compare) : (capability.scale ? state.value / capability.scale : state.value)),
+                            await this.triggerCapabilityListener(capability.homeyName, (capability.compare ? (state.value === capability.compare[1]) : (capability.scale ? state.value / capability.scale : state.value)),
                             {
                                 fromCloudSync: true
                             });
@@ -200,7 +204,7 @@ class Device extends Homey.Device
                             // Yep we can relate to this one
                             Homey.app.logStates(this.getName() + ": " + found.somfyNameGet + "= " + deviceState.value);
                             const oldState = oldStates[found.homeyName];
-                            const newState = (found.compare ? (deviceState.value === found.compare) : (deviceState.value));
+                            const newState = (found.compare ? (deviceState.value === found.compare[1]) : (deviceState.value));
                             if (oldState !== newState)
                             {
                                 this.triggerCapabilityListener(found.homeyName, newState,

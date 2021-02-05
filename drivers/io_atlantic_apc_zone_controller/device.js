@@ -28,7 +28,7 @@ const CapabilitiesXRef = [
     { somfyNameGet: 'io:ThermalSchedulingModeState', somfyNameSet: '', homeyName: 'thermal_scheduling_mode_state' },
     { somfyNameGet: 'core:AbsenceCoolingTargetTemperatureState', somfyNameSet: 'setAbsenceCoolingTargetTemperature', homeyName: 'target_temperature.absence_cooling' },
     { somfyNameGet: 'core:AbsenceHeatingTargetTemperatureState', somfyNameSet: 'setAbsenceHeatingTargetTemperature', homeyName: 'target_temperature.absence_heating' },
-    { somfyNameGet: 'core:HeatingCoolingAutoSwitchState', somfyNameSet: 'setHeatingCoolingAutoSwitch', homeyName: 'heating_cooling_auto_switch', compare: 'on'},
+    { somfyNameGet: 'core:HeatingCoolingAutoSwitchState', somfyNameSet: 'setHeatingCoolingAutoSwitch', homeyName: 'heating_cooling_auto_switch', compare: ['off', 'on']},
     { somfyNameGet: 'io:PassAPCOperatingModeState', somfyNameSet: 'setPassAPCOperatingMode', homeyName: 'pass_apc_operating_mode' },
 ];
 

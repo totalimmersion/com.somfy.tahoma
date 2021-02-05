@@ -15,7 +15,7 @@ const Homey = require('homey');
         somfyNameGet: 'name of the Somfy capability to get the value',
         somfyNameSet: 'name of the Somfy capability to set the value',
         homeyName: 'name of the Homey capability',
-        compare: 'text for true value or not specified if real value',
+        compare: [] 'text array for false and true value or not specified if real value',
         scale: scale factor
     }
 */
