@@ -260,11 +260,11 @@ class LightControllerDevice extends Device
     /**
      * Gets the data from the TaHoma cloud
      */
-    async sync()
+    async getStates()
     {
         try
         {
-            const states = await super.sync();
+            const states = await super.getStates();
             if (states)
             {
                 // On / Off
@@ -324,7 +324,7 @@ class LightControllerDevice extends Device
     {
         if (events === null)
         {
-            return this.sync();
+            return this.getStates();
         }
 
         const myURL = this.getDeviceUrl();

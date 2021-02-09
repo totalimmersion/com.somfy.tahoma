@@ -48,7 +48,7 @@ class key_go_remoteDevice extends Device
     {
         try
         {
-            const states = await super.sync();
+            const states = await super.getStates();
             if (states)
             {
                 const remoteState = states.find(state => state.name === 'io:OneWayStoppableButtonState');

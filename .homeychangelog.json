@@ -319,5 +319,8 @@
   },
   "2.1.44": {
     "en": "Added Atlantic Main Zone Controller and Atlantic Hot Water Production"
+  },
+  "2.1.45": {
+    "en": "Added Atlantic Electric Heater"
   }
 }

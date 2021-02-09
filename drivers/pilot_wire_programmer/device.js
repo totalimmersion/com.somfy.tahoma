@@ -176,7 +176,7 @@ class PilotWireProgrammerDevice extends SensorDevice
     {
         try
         {
-            const states = await super.sync();
+            const states = await super.getStates();
             if (states)
             {
                 const onOffState = states.find(state => state.name === 'core:OnOffState');

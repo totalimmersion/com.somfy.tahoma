@@ -19,15 +19,18 @@ class MotionDetectorDriver extends Driver {
     });
   }
 
-  /**
-	 * Triggers the 'motion change' flow
-	 * @param {Device} device - A Device instance
-	 * @param {Object} tokens - An object with tokens and their typed values, as defined in the app.json
-	 * @param {Object} state - An object with properties which are accessible throughout the Flow
-	 */
-  triggerMotionChange(device, tokens, state) {
-    this.triggerFlow(this._triggerMotionChange, device, tokens, state);
-    return this;
+
+  triggerFlows(device, capability, value)
+  {
+      const tokens = {
+          'isMotion': value
+      };
+
+      const state = {
+          'alarm_motion': value
+      };
+
+      this.triggerFlow(this._triggerMotionChange, device, tokens, state);
   }
 }
 

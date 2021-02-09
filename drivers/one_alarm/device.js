@@ -120,7 +120,7 @@ class OneAlarmDevice extends SensorDevice
     {
         try
         {
-            const states = await super.sync();
+            const states = await super.getStates();
             if (states)
             {
                 const intrusionState = states.find(state => state.name === 'core:IntrusionState');

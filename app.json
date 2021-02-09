@@ -11,7 +11,7 @@
     {
         "en": "Bring the richness of Homey to your Somfy world"
     },
-    "version": "2.1.44",
+    "version": "2.1.45",
     "compatibility": ">=2.0.0",
     "author":
     {
@@ -516,8 +516,7 @@
                 "en": "Heating Derogation Availability"
             },
             "getable": true,
-            "setable": false,
-            "icon": "/assets/security.svg"
+            "setable": false
         },
         "last_pass_apc_operating_mode_state":
         {
@@ -527,8 +526,7 @@
                 "en": "Last Pass Operating Mode"
             },
             "getable": true,
-            "setable": false,
-            "icon": "/assets/security.svg"
+            "setable": false
         },
         "heating_cooling_auto_switch":
         {
@@ -588,8 +586,7 @@
                 "en": "Product Type"
             },
             "getable": true,
-            "setable": false,
-            "icon": "/assets/security.svg"
+            "setable": false
         },
         "thermal_scheduling_mode_state":
         {
@@ -599,8 +596,353 @@
                 "en": "Thermal Scheduling Mode"
             },
             "getable": true,
+            "setable": false
+        },
+        "cancel_heating":
+        {
+            "type": "boolean",
+            "getable": false,
+            "setable": true,
+            "uiComponent": "button",
+            "title":
+            {
+                "en": "Cancel Heating level"
+            }
+        },
+        "regulation_mode_state":
+        {
+            "type": "enum",
+            "title":
+            {
+                "en": "Regulation Mode"
+            },
+            "values": [
+            {
+                "id": "increase",
+                "title":
+                {
+                    "en": "Increase"
+                }
+            },
+            {
+                "id": "none",
+                "title":
+                {
+                    "en": "None"
+                }
+            },
+            {
+                "id": "standby",
+                "title":
+                {
+                    "en": "Standby"
+                }
+            }],
+            "getable": true,
+            "setable": true
+        },
+        "maximum_heating_level_state":
+        {
+            "type": "enum",
+            "title":
+            {
+                "en": "Maximum Heating Level"
+            },
+            "values": [
+            {
+                "id": "boost",
+                "title":
+                {
+                    "en": "Boost"
+                }
+            },
+            {
+                "id": "comfort",
+                "title":
+                {
+                    "en": "Comfort"
+                }
+            },
+            {
+                "id": "comfort_1",
+                "title":
+                {
+                    "en": "Comfort 1"
+                }
+            },
+            {
+                "id": "comfort_2",
+                "title":
+                {
+                    "en": "Comfort 2"
+                }
+            },
+            {
+                "id": "eco",
+                "title":
+                {
+                    "en": "Eco"
+                }
+            },
+            {
+                "id": "frostprotection",
+                "title":
+                {
+                    "en": "Frost Protection"
+                }
+            },
+            {
+                "id": "off",
+                "title":
+                {
+                    "en": "Off"
+                }
+            },
+            {
+                "id": "secured",
+                "title":
+                {
+                    "en": "Secured"
+                }
+            }],
+            "getable": true,
+            "setable": true
+        },
+        "power_state":
+        {
+            "type": "number",
+            "title":
+            {
+                "en": "Power State"
+            },
+            "getable": true,
             "setable": false,
-            "icon": "/assets/security.svg"
+            "icon": "/assets/power.svg"
+        },
+        "native_function_level_state":
+        {
+            "type": "enum",
+            "title":
+            {
+                "en": "Native Function Level"
+            },
+            "values": [
+            {
+                "id": "base",
+                "title":
+                {
+                    "en": "Base"
+                }
+            },
+            {
+                "id": "medium",
+                "title":
+                {
+                    "en": "Medium"
+                }
+            },
+            {
+                "id": "top",
+                "title":
+                {
+                    "en": "Top"
+                }
+            }],
+            "getable": true,
+            "setable": true
+        },
+        "heating_level_state":
+        {
+            "type": "enum",
+            "title":
+            {
+                "en": "Heating Level"
+            },
+            "values": [
+            {
+                "id": "boost",
+                "title":
+                {
+                    "en": "Boost"
+                }
+            },
+            {
+                "id": "comfort",
+                "title":
+                {
+                    "en": "Comfort"
+                }
+            },
+            {
+                "id": "comfort_1",
+                "title":
+                {
+                    "en": "Comfort 1"
+                }
+            },
+            {
+                "id": "comfort_2",
+                "title":
+                {
+                    "en": "Comfort 2"
+                }
+            },
+            {
+                "id": "eco",
+                "title":
+                {
+                    "en": "Eco"
+                }
+            },
+            {
+                "id": "frostprotection",
+                "title":
+                {
+                    "en": "Frost Protection"
+                }
+            },
+            {
+                "id": "off",
+                "title":
+                {
+                    "en": "Off"
+                }
+            },
+            {
+                "id": "secured",
+                "title":
+                {
+                    "en": "Secured"
+                }
+            }],
+            "getable": true,
+            "setable": true
+        },
+        "occupancy_activation":
+        {
+            "type": "boolean",
+            "getable": true,
+            "setable": true,
+            "uiComponent": "button",
+            "title":
+            {
+                "en": "Occupancy Activation"
+            },
+            "icon": "/assets/occupancy.svg"
+        },
+        "open_window_activation":
+        {
+            "type": "boolean",
+            "getable": true,
+            "setable": true,
+            "uiComponent": "button",
+            "title":
+            {
+                "en": "Open Window Activation"
+            },
+            "icon": "/assets/power.svg"
+        },
+        "eh_operating_mode":
+        {
+            "type": "enum",
+            "title":
+            {
+                "en": "Operating Mode"
+            },
+            "values": [
+            {
+                "id": "antifreeze",
+                "title":
+                {
+                    "en": "Antifreeze"
+                }
+            },
+            {
+                "id": "auto",
+                "title":
+                {
+                    "en": "Auto"
+                }
+            },
+            {
+                "id": "away",
+                "title":
+                {
+                    "en": "Away"
+                }
+            },
+            {
+                "id": "boost",
+                "title":
+                {
+                    "en": "Boost"
+                }
+            },
+            {
+                "id": "eco",
+                "title":
+                {
+                    "en": "Eco"
+                }
+            },
+            {
+                "id": "frostprotection",
+                "title":
+                {
+                    "en": "Frost Protection"
+                }
+            },
+            {
+                "id": "manual",
+                "title":
+                {
+                    "en": "Manual"
+                }
+            },
+            {
+                "id": "max",
+                "title":
+                {
+                    "en": "Maximum"
+                }
+            },
+            {
+                "id": "normal",
+                "title":
+                {
+                    "en": "Normal"
+                }
+            },
+            {
+                "id": "off",
+                "title":
+                {
+                    "en": "Off"
+                }
+            },
+            {
+                "id": "on",
+                "title":
+                {
+                    "en": "On"
+                }
+            },
+            {
+                "id": "prog",
+                "title":
+                {
+                    "en": "Prog"
+                }
+            },
+            {
+                "id": "program",
+                "title":
+                {
+                    "en": "Program"
+                }
+            }],
+            "getable": true,
+            "setable": true
         }
     },
     "drivers": [
@@ -2180,8 +2522,8 @@
         },
         "images":
         {
-            "large": "/drivers/io_atlantic_dhw_boiler/assets/images/large.png",
-            "small": "/drivers/io_atlantic_dhw_boiler/assets/images/small.png"
+            "large": "/drivers/io_atlantic_apc_zone_controller/assets/images/large.png",
+            "small": "/drivers/io_atlantic_apc_zone_controller/assets/images/small.png"
         },
         "class": "heater",
         "capabilities": [
@@ -2206,10 +2548,6 @@
                 "title": "Eco Temperature"
             }
         },
-        "energy":
-        {
-            "cumulative": true
-        },
         "pair": [
         {
             "id": "list_my_devices",
@@ -2232,8 +2570,8 @@
         },
         "images":
         {
-            "large": "/drivers/io_atlantic_dhw_production/assets/images/large.png",
-            "small": "/drivers/io_atlantic_dhw_production/assets/images/small.png"
+            "large": "/drivers/io_atlantic_apc_zone_controller/assets/images/large.png",
+            "small": "/drivers/io_atlantic_apc_zone_controller/assets/images/small.png"
         },
         "class": "heater",
         "capabilities": [
@@ -2275,8 +2613,8 @@
         },
         "images":
         {
-            "large": "/drivers/io_atlantic_dhw_boiler/assets/images/large.png",
-            "small": "/drivers/io_atlantic_dhw_boiler/assets/images/small.png"
+            "large": "/drivers/io_atlantic_apc_zone_controller/assets/images/large.png",
+            "small": "/drivers/io_atlantic_apc_zone_controller/assets/images/small.png"
         },
         "class": "heater",
         "capabilities": [
@@ -2362,8 +2700,8 @@
         },
         "images":
         {
-            "large": "/drivers/io_atlantic_dhw_boiler/assets/images/large.png",
-            "small": "/drivers/io_atlantic_dhw_boiler/assets/images/small.png"
+            "large": "/drivers/io_atlantic_apc_zone_controller/assets/images/large.png",
+            "small": "/drivers/io_atlantic_apc_zone_controller/assets/images/small.png"
         },
         "class": "heater",
         "capabilities": [
@@ -2431,9 +2769,72 @@
                 "title": "Heating Mode"
             }
         },
-        "energy":
+        "pair": [
         {
-            "cumulative": true
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation":
+            {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }]
+    },
+    {
+        "id": "io_atlantic_electric_heater",
+        "name":
+        {
+            "en": "Atlantic Electric Heater"
+        },
+        "images":
+        {
+            "large": "/drivers/io_atlantic_apc_zone_controller/assets/images/large.png",
+            "small": "/drivers/io_atlantic_apc_zone_controller/assets/images/small.png"
+        },
+        "class": "heater",
+        "capabilities": [
+            "onoff",
+            "target_temperature",
+            "target_temperature.comfort_heating",
+            "target_temperature.eco_heating",
+            "target_temperature.derogated",
+            "cancel_heating",
+            "regulation_mode_state",
+            "power_state",
+            "native_function_level_state",
+            "heating_level_state",
+            "occupancy_activation",
+            "open_window_activation",
+            "eh_operating_mode"
+        ],
+        "capabilitiesOptions":
+        {
+            "target_temperature":
+            {
+                "min": 0,
+                "max": 28
+            },
+            "target_temperature.comfort_heating":
+            {
+                "min": 0,
+                "max": 28,
+                "title": "Comfort Heating Temperature"
+            },
+            "target_temperature.eco_heating":
+            {
+                "min": 0,
+                "max": 28,
+                "title": "Eco Heating Temperature"
+            },
+            "target_temperature.derogated":
+            {
+                "min": 0,
+                "max": 28,
+                "title": "Derogated Temperature"
+            }
         },
         "pair": [
         {

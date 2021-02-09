@@ -192,7 +192,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
     {
         try
         {
-            const states = await super.sync();
+            const states = await super.getStates();
             if (states)
             {
                 // Hue level

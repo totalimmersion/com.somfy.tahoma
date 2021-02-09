@@ -47,28 +47,10 @@ class AtlanticZoneControllerDevice extends SensorDevice
         await super.onInit();
     }
 
-    /**
-     * Gets the sensor data from the TaHoma cloud
-     */
-    async sync()
-    {
-        super.syncList(CapabilitiesXRef);
-    }
-
-    async getSync()
-    {
-        return super.sync();
-    }
-
-    // look for updates in the events array
+    // Update the capabilities
     async syncEvents(events)
     {
-        if (events === null)
-        {
-            return this.sync();
-        }
-
-        this.syncEventsList(CapabilitiesXRef);
+        this.syncEventsList(events, CapabilitiesXRef);
     }
 }
 

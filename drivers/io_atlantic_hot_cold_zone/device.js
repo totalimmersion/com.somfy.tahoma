@@ -252,7 +252,7 @@ class HotColdZoneDevice extends SensorDevice
     {
         try
         {
-            const states = await super.sync();
+            const states = await super.getStates();
             if (states)
             {
                 const onOffStateCooling = states.find(state => state.name === 'core:CoolingOnOffState');

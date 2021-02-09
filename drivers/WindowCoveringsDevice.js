@@ -528,7 +528,7 @@ class WindowCoveringsDevice extends Device
     {
         try
         {
-            const states = await super.sync();
+            const states = await super.getStates();
             if (states)
             {
                 if (this.hasCapability("lock_state"))

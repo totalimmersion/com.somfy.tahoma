@@ -42,7 +42,7 @@ class WindowHandleDevice extends SensorDevice {
 	 */
 	async sync() {
 		try {
-			const states = await super.sync();
+			const states = await super.getStates();
 			if (states) {
 				const contactState = device.states.find(state => state.name === 'core:ThreeWayHandleDirectionState');
 				if (contactState) {

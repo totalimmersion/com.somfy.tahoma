@@ -22,16 +22,13 @@ class SmokeDetectorDriver extends Driver
         });
     }
 
-    /**
-     * Triggers the 'alarm smoke change' flow
-     * @param {Device} device - A Device instance
-     * @param {Object} tokens - An object with tokens and their typed values, as defined in the app.json
-     * @param {Object} state - An object with properties which are accessible throughout the Flow
-     */
-    triggerSmokeChange(device, tokens, state)
+    triggerFlows(device, capability, value)
     {
-        this.triggerFlow(this._triggerSmokeChange, device, tokens, state);
-        return this;
+        const tokens = {
+            'isSmoke': value
+        };
+
+        this.triggerFlow(this._triggerSmokeChange, device, tokens);
     }
 }
 

@@ -7,12 +7,24 @@ const Tahoma = require('./../lib/Tahoma');
  */
 class Device extends Homey.Device
 {
-    async onInit()
+    async onInit(CapabilitiesXRef)
     {
         this.executionId = null;
 
+        if (CapabilitiesXRef)
+        {
+            CapabilitiesXRef.forEach(element =>
+            {
+                this.registerCapabilityListener(element.homeyName, this.onCapability.bind(this, element));
+            });
+
+            this.syncEventsList(null, CapabilitiesXRef);
+        }
+        else
+        {
+            this.getStates();
+        }
         this.log('Device init:', this.getName(), 'class:', this.getClass());
-        this.sync();
     }
 
     onAdded()
@@ -56,8 +68,17 @@ class Device extends Homey.Device
     {
         if (!opts || !opts.fromCloudSync)
         {
+            if (this.boostSync)
+            {
+                await Homey.app.boostSync();
+            }
+
             let somfyValue = value;
-            if (capabilityXRef.scale)
+            if (capabilityXRef.parameters)
+            {
+                somfyValue = capabilityXRef.parameters
+            }
+            else if (capabilityXRef.scale)
             {
                 somfyValue *= capabilityXRef.scale;
             }
@@ -67,6 +88,11 @@ class Device extends Homey.Device
             }
 
             const deviceData = this.getData();
+            if (this.executionId !== null)
+            {
+                await Tahoma.cancelExecution(this.executionId);
+            }
+
             var action = {
                 name: capabilityXRef.somfyNameSet,
                 parameters: [somfyValue]
@@ -109,6 +135,29 @@ class Device extends Homey.Device
             try
             {
                 await this.setCapabilityValue(capabilityXRef.homeyName, value);
+
+                // For boolean states, setup a safety timeout incase the off state is not received.
+                if (typeof value === 'boolean')
+                {
+                    if (value)
+                    {
+                        this.checkTimerID = setTimeout(() =>
+                        {
+                            this.syncEvents(null);
+                        }, 60000);
+                    }
+                    else
+                    {
+                        clearTimeout(this.checkTimerID);
+                    }
+                }
+
+                if (this.getDriver().triggerFlows)
+                {
+                    //trigger flows
+                    this.getDriver().triggerFlows(this, capabilityXRef.homeyName, value);
+
+                }
             }
             catch (err)
             {
@@ -121,27 +170,29 @@ class Device extends Homey.Device
      * Gets the sensor data from the TaHoma cloud
      * Capabilities{somfyNameGet: 'name of the Somfy capability, homeyName: 'name of the Homey capability', compare:[] 'text array for false and true value or not specified if real value' }
      */
-    async syncList(Capabilities)
+    async syncList(CapabilitiesXRef)
     {
         try
         {
-            const states = await this.getSync();
+            const states = await this.getStates();
             if (states)
             {
                 // Look for each of the required capabilities
-                for (const capability of Capabilities)
+                for (const capability of CapabilitiesXRef)
                 {
                     try
                     {
                         const state = states.find(state => state.name === capability.somfyNameGet);
                         if (state)
                         {
+                            if (typeof state.value === 'string')
+                            {
+                                state.value = state.value.toLowerCase();
+                            }
+
                             // Found the entry
                             Homey.app.logStates(this.getName() + ": " + capability.somfyNameGet + "= " + state.value);
-                            await this.triggerCapabilityListener(capability.homeyName, (capability.compare ? (state.value === capability.compare[1]) : (capability.scale ? state.value / capability.scale : state.value)),
-                            {
-                                fromCloudSync: true
-                            });
+                            await this.triggerCapabilityListener(capability.homeyName, (capability.compare ? (state.value === capability.compare[1]) : (capability.scale ? state.value / capability.scale : state.value)), { fromCloudSync: true });
                         }
                     }
                     catch (error)
@@ -166,18 +217,18 @@ class Device extends Homey.Device
     }
 
     // look for updates in the events array
-    async syncEventsList(events, Capabilities)
+    async syncEventsList(events, CapabilitiesXRef)
     {
         if (events === null)
         {
-            return this.getSync();
+            // No events so synchronise all capabilities
+            return this.syncList(CapabilitiesXRef);
         }
 
         const myURL = this.getDeviceUrl();
-
-        // Process events sequentially so they are in the correct order
         const oldStates = this.getState();
 
+        // Process events sequentially so they are in the correct order
         // For each event that has been received
         for (var i = 0; i < events.length; i++)
         {
@@ -197,20 +248,27 @@ class Device extends Homey.Device
                         const deviceState = element.deviceStates[x];
 
                         // look up the entry so we can get the Homey capability, etc
-                        const found = Capabilities.find(element => element.somfyNameGet === deviceState.name);
+                        const found = CapabilitiesXRef.find(element => element.somfyNameGet === deviceState.name);
 
                         if (found)
                         {
                             // Yep we can relate to this one
                             Homey.app.logStates(this.getName() + ": " + found.somfyNameGet + "= " + deviceState.value);
                             const oldState = oldStates[found.homeyName];
-                            const newState = (found.compare ? (deviceState.value === found.compare[1]) : (deviceState.value));
+                            let newState = (found.compare ? (deviceState.value === found.compare[1]) : (deviceState.value));
+
+                            if (typeof oldState === 'number')
+                            {
+                                newState = Number(newState);
+                            }
+                            else if (typeof oldState === 'string')
+                            {
+                                newState = newState.toLowerCase();
+                            }
+
                             if (oldState !== newState)
                             {
-                                this.triggerCapabilityListener(found.homeyName, newState,
-                                {
-                                    fromCloudSync: true
-                                });
+                                this.triggerCapabilityListener(found.homeyName, newState, { fromCloudSync: true });
                             }
                         }
                     }
@@ -219,7 +277,8 @@ class Device extends Homey.Device
         }
     }
 
-    async sync()
+    // Get all the states for this device from Tahoma
+    async getStates()
     {
         try
         {
@@ -262,9 +321,6 @@ class Device extends Homey.Device
                 stack: error
             });
         }
-        // // Try again later
-        // this.log('Device sync delayed:', this.getName(), 'class:', this.getClass());
-        // this.timerId = setTimeout(() => this.sync(), 1000);
         return null;
     }
 }

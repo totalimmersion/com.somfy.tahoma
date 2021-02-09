@@ -320,23 +320,31 @@ class myApp extends Homey.App
 
     logStates(txt)
     {
-        // if (Homey.ManagerSettings.get('stateLogEnabled')) {
-        //     let log = Homey.ManagerSettings.get('stateLog') + txt + "\n";
-        //     Homey.ManagerSettings.set('stateLog', log);
-        // }
+        if (Homey.ManagerSettings.get('stateLogEnabled'))
+        {
+            let log = Homey.ManagerSettings.get('stateLog') + txt + "\n";
+            if (log.length > 30000)
+            {
+                Homey.ManagerSettings.set('stateLogEnabled', false);
+            }
+            else
+            {
+                Homey.ManagerSettings.set('stateLog', log);
+            }
+        }
     }
 
     logEvents(txt)
     {
-        let log = Homey.ManagerSettings.get('stateLog') + txt + "\n";
-        if (log.length > 30000)
-        {
-            Homey.ManagerSettings.set('stateLogEnabled', false);
-        }
-        else
-        {
-            Homey.ManagerSettings.set('stateLog', log);
-        }
+        // let log = Homey.ManagerSettings.get('stateLog') + txt + "\n";
+        // if (log.length > 30000)
+        // {
+        //     Homey.ManagerSettings.set('stateLogEnabled', false);
+        // }
+        // else
+        // {
+        //     Homey.ManagerSettings.set('stateLog', log);
+        // }
     }
 
     async sendLog(logType)
