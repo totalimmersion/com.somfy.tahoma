@@ -9,6 +9,7 @@ class Device extends Homey.Device
 {
     async onInit(CapabilitiesXRef)
     {
+        this.boostSync = false;
         this.executionId = null;
 
         if (CapabilitiesXRef)

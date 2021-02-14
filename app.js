@@ -281,41 +281,41 @@ class myApp extends Homey.App
     {
         console.log(source, error);
 
-        if (typeof(error) === "string")
-        {
-            var data = error;
-        }
-        else
-        {
-            if (error.stack)
-            {
-                var data = {
-                    message: error.message,
-                    stack: error.stack
-                };
+        try {
+            if (typeof (error) === "string") {
+                var data = error;
             }
-            else
-            {
-                var data = error.message;
+            else {
+                if (error.stack) {
+                    var data = {
+                        message: error.message,
+                        stack: error.stack
+                    };
+                }
+                else {
+                    var data = error.message;
+                }
             }
+            let logData = Homey.ManagerSettings.get('infoLog');
+            if (!Array.isArray(logData)) {
+                logData = [];
+            }
+            const nowTime = new Date(Date.now());
+            logData.push(
+                {
+                    'time': nowTime.toJSON(),
+                    'source': source,
+                    'data': data
+                });
+            if (logData.length > 100) {
+                logData.splice(0, 1);
+            }
+            Homey.ManagerSettings.set('infoLog', logData);
         }
-        let logData = Homey.ManagerSettings.get('infoLog');
-        if (!Array.isArray(logData))
+        catch (err)
         {
-            logData = [];
+            console.log(err);
         }
-        const nowTime = new Date(Date.now());
-        logData.push(
-        {
-            'time': nowTime.toJSON(),
-            'source': source,
-            'data': data
-        });
-        if (logData.length > 100)
-        {
-            logData.splice(0, 1);
-        }
-        Homey.ManagerSettings.set('infoLog', logData);
     }
 
     logStates(txt)
