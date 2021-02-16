@@ -11,7 +11,7 @@
     {
         "en": "Bring the richness of Homey to your Somfy world"
     },
-    "version": "2.1.46",
+    "version": "2.1.47",
     "compatibility": ">=2.0.0",
     "author":
     {
@@ -2988,9 +2988,10 @@
             "small": "/drivers/io_valve_heating/assets/images/small.png"
         },
         "class": "heater",
-        "energy": {
+        "energy":
+        {
             "batteries": [
-            "AA", "AA"
+                "AA", "AA"
             ]
         },
         "capabilities": [
@@ -3032,6 +3033,35 @@
                 "title": "Frost Protection Temperature"
             }
         },
+        "pair": [
+        {
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation":
+            {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }]
+    },
+    {
+        "id": "rtds_water_sensor",
+        "name":
+        {
+            "en": "Water Sensor"
+        },
+        "images":
+        {
+            "large": "/drivers/rtds_water_sensor/assets/images/large.png",
+            "small": "/drivers/rtds_water_sensor/assets/images/small.png"
+        },
+        "class": "sensor",
+        "capabilities": [
+            "alarm_water"
+        ],
         "pair": [
         {
             "id": "list_my_devices",

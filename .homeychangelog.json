@@ -325,5 +325,8 @@
   },
   "2.1.46": {
     "en": "Added Radiator Valve"
+  },
+  "2.1.47": {
+    "en": "Added Somfy RTDS Water Sensor"
   }
 }
