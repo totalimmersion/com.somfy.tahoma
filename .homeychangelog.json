@@ -328,5 +328,8 @@
   },
   "2.1.47": {
     "en": "Added Somfy RTDS Water Sensor"
+  },
+  "2.1.48": {
+    "en": "Added io sliding gate. Fixed a potential lock up of the event registration process. When polling is switched back on, it now refreshes all the capabilities as they might have changed while not polling."
   }
 }
