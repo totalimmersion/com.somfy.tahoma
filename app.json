@@ -109,6 +109,17 @@
                 "nl": "MY Positie"
             }
         },
+        "pedestrian":
+        {
+            "type": "boolean",
+            "getable": true,
+            "setable": true,
+            "uiComponent": "button",
+            "title":
+            {
+                "en": "Pedestrian"
+            }
+        },
         "test_smoke":
         {
             "type": "boolean",
@@ -3075,6 +3086,36 @@
             "id": "add_my_devices",
             "template": "add_devices"
         }]
+    },
+    {
+        "id": "io_sliding_gate",
+        "name":
+        {
+            "en": "Sliding gate (io)"
+        },
+        "images":
+        {
+            "large": "/drivers/io_sliding_gate/assets/images/large.png",
+            "small": "/drivers/io_sliding_gate/assets/images/small.png"
+        },
+        "class": "other",
+        "capabilities": [
+            "pedestrian",
+            "windowcoverings_state"
+        ],
+        "pair": [
+        {
+            "id": "list_my_devices",
+            "template": "list_devices",
+            "navigation":
+            {
+                "next": "add_my_devices"
+            }
+        },
+        {
+            "id": "add_my_devices",
+            "template": "add_devices"
+        }]
     }],
     "flow":
     {
@@ -3350,6 +3391,28 @@
                 "name": "device",
                 "type": "device",
                 "filter": "driver_id=io_exterior_venetian_blind"
+            }]
+        },
+        {
+            "id": "pedestrian_changed",
+            "title":
+            {
+                "en": "Pedestrian changed"
+            },
+            "tokens": [
+            {
+                "name": "pedestrian",
+                "type": "boolean",
+                "title":
+                {
+                    "en": "At Pedestrian Position"
+                }
+            }],
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=io_sliding_gate"
             }]
         },
         {

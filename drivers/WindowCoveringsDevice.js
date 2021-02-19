@@ -88,6 +88,12 @@ class WindowCoveringsDevice extends Device
         await super.onInit();
     }
 
+    onAdded()
+    {
+        this.log('device added');
+        this.sync();
+    }
+
     async onSettings(oldSettingsObj, newSettingsObj, changedKeysArr)
     {
         if (changedKeysArr.indexOf("invertUpDown") >= 0)
@@ -509,6 +515,70 @@ class WindowCoveringsDevice extends Device
         }
     }
 
+    async onCapabilityPedestrian(value, opts)
+    {
+        if (!opts || !opts.fromCloudSync)
+        {
+            if (this.boostSync)
+            {
+                await Homey.app.boostSync();
+            }
+
+            const deviceData = this.getData();
+            if (this.executionId !== null)
+            {
+                await Tahoma.cancelExecution(this.executionId);
+            }
+
+            const action = {
+                name: 'setPedestrianPosition',
+                parameters: []
+            };
+            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            if (result !== undefined)
+            {
+                if (result.errorCode)
+                {
+                    Homey.app.logInformation(this.getName(),
+                    {
+                        message: result.error,
+                        stack: result.errorCode
+                    });
+                    if (this.boostSync)
+                    {
+                        await Homey.app.unBoostSync();
+                    }
+                    throw (new Error(result.error));
+                }
+                else
+                {
+                    this.executionId = result.execId;
+                }
+            }
+            else
+            {
+                Homey.app.logInformation(this.getName() + ": onCapabilityPedestrian", "Failed to send command");
+                if (this.boostSync)
+                {
+                    await Homey.app.unBoostSync();
+                }
+                throw (new Error("Failed to send command"));
+            };
+        }
+        else
+        {
+            // New value from Tahoma
+            this.setCapabilityValue('pedestrian', value);
+
+            //trigger flows
+            const tokens = {
+                'pedestrian': value
+            };
+            return this.getDriver().triggerPedestrianChange(this, tokens);
+
+        }
+    }
+
     async onCapabilityWindowcoveringsClosed(value, opts)
     {
         if (this.invertTile)
@@ -576,6 +646,15 @@ class WindowCoveringsDevice extends Device
                     }
                     else
                     {
+                        if (this.openClosedStateName === 'core:OpenClosedPedestrianState')
+                        {
+                            // Special state = My Position
+                            this.triggerCapabilityListener('pedestrian', (openClosedState.value === "pedestrian"),
+                            {
+                                fromCloudSync: true
+                            });
+                        }
+
                         openClosedState.value = this.windowcoveringsStatesMap[openClosedState.value];
                     }
 

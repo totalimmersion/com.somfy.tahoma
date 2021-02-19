@@ -123,10 +123,7 @@ class myApp extends Homey.App
                 }
                 else
                 {
-                    if (!this.restartingSync)
-                    {
-                        this.stopSync();
-                    }
+                    this.stopSync();
                 }
             }
             else if (setting === 'syncInterval')
@@ -149,6 +146,10 @@ class myApp extends Homey.App
             else if (setting === 'infoLogEnabled')
             {
                 this.infoLogEnabled = Homey.ManagerSettings.get('infoLogEnabled');
+            }
+            else if (setting === 'simData')
+            {
+                this.syncEvents(null);
             }
         });
 
@@ -281,33 +282,40 @@ class myApp extends Homey.App
     {
         console.log(source, error);
 
-        try {
-            if (typeof (error) === "string") {
+        try
+        {
+            if (typeof(error) === "string")
+            {
                 var data = error;
             }
-            else {
-                if (error.stack) {
+            else
+            {
+                if (error.stack)
+                {
                     var data = {
                         message: error.message,
                         stack: error.stack
                     };
                 }
-                else {
+                else
+                {
                     var data = error.message;
                 }
             }
             let logData = Homey.ManagerSettings.get('infoLog');
-            if (!Array.isArray(logData)) {
+            if (!Array.isArray(logData))
+            {
                 logData = [];
             }
             const nowTime = new Date(Date.now());
             logData.push(
-                {
-                    'time': nowTime.toJSON(),
-                    'source': source,
-                    'data': data
-                });
-            if (logData.length > 100) {
+            {
+                'time': nowTime.toJSON(),
+                'source': source,
+                'data': data
+            });
+            if (logData.length > 100)
+            {
                 logData.splice(0, 1);
             }
             Homey.ManagerSettings.set('infoLog', logData);
@@ -535,6 +543,7 @@ class myApp extends Homey.App
             this.stoppingSync = this.syncing;
             clearTimeout(this.timerId);
             this.timerId = null;
+            await Tahoma.eventsClearRegistered();
             if (this.infoLogEnabled)
             {
                 this.logInformation("stopSync", "Stopping Event Polling");
@@ -554,12 +563,16 @@ class myApp extends Homey.App
             this.restartingSync = true;
             var interval = 0.1;
 
-            await this.stopSync();
+            await this.stopSync(false);
 
             // make sure the new sync is at least 30 second after the last one
             var minSeconds = (30000 - (Date.now() - this.lastSync)) / 1000;
             if (minSeconds > 0)
             {
+                if (minSeconds > 30)
+                {
+                    minSeconds = 30;
+                }
                 interval = minSeconds;
             }
 

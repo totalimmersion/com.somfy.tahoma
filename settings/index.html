@@ -492,7 +492,7 @@
 
             clearSimElement.addEventListener('click', function(e)
             {
-                Homey.set('simData', "", function(err)
+                Homey.unset('simData', function(err)
                 {
                     if (err)
                     {
