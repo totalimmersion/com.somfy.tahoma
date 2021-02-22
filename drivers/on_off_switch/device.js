@@ -13,6 +13,21 @@ class onOffLightControllerDevice extends LightControllerDevice
 {
     async onInit()
     {
+        let dd = this.getData();
+
+        let controllableName = "";
+        if (dd.controllableName)
+        {
+            controllableName = dd.controllableName.toString().toLowerCase();
+        }
+
+        if (controllableName === 'io:OnOffIOComponent')
+        {
+            if (this.getClass() != 'socket')
+            {
+                this.setClass('socket');
+            }
+        }
         await super.onInit();
     }
 }

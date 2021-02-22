@@ -990,49 +990,49 @@
                 "id": "awayMode",
                 "title":
                 {
-                    "en": "Away Mode"
+                    "en": "Away"
                 }
             },
             {
                 "id": "comfort",
                 "title":
                 {
-                    "en": "Comfort"
+                    "en": "At home"
                 }
             },
             {
                 "id": "eco",
                 "title":
                 {
-                    "en": "Eco"
+                    "en": "Night"
                 }
             },
             {
-                "id": "Frost Protection",
+                "id": "frostprotection",
                 "title":
                 {
-                    "en": "frostprotection"
+                    "en": "Frost protection"
                 }
             },
             {
-                "id": "Geofencing Mode",
+                "id": "geofencingMode",
                 "title":
                 {
-                    "en": "geofencingMode"
+                    "en": "Geofencing mode"
                 }
             },
             {
                 "id": "manual",
                 "title":
                 {
-                    "en": "manual"
+                    "en": "Manual"
                 }
             },
             {
-                "id": "Sudden Drop Mode",
+                "id": "suddenDropMode",
                 "title":
                 {
-                    "en": "suddenDropMode"
+                    "en": "Sudden Drop Mode"
                 }
             }],
             "getable": true,
@@ -1075,11 +1075,15 @@
             "type": "boolean",
             "getable": true,
             "setable": true,
-            "uiComponent": "button",
+            "uiComponent": "sensor",
             "title":
             {
-                "en": "Valve State"
-            }
+                "en": "Valve Open"
+            },
+            "icon": "/assets/valve.svg",
+            "insights": true,
+            "insightsTitleTrue": { "en": "Valve Open" },
+            "insightsTitleFalse": { "en": "Valve Closed" }
         }
     },
     "drivers": [
@@ -3006,6 +3010,7 @@
             ]
         },
         "capabilities": [
+            "measure_temperature",
             "target_temperature.comfort_heating",
             "target_temperature.eco_heating",
             "target_temperature.away",
