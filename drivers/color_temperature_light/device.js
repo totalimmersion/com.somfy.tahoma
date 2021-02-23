@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const LightControllerDevice = require('../LightControllerDevice');
@@ -25,7 +26,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
         if (!opts || !opts.fromCloudSync)
         {
             // Delay hue as the UI send both hue and saturation. Flows will only send one
-            if (!opts['timer'])
+            if (!opts.timer)
             {
                 this.log("Hue delayed: ", this.hueDelayTimerId);
                 if (this.hueDelayTimerId)
@@ -56,7 +57,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
                 let retries = 20;
                 while ((this.executionId !== null) && (retries-- > 0))
                 {
-                    await new Promise(resolve => setTimeout(resolve, 500));
+                    await Homey.app.AsyncDelay(500);
                 }
             }
 
@@ -96,7 +97,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
                     await Homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
-            };
+            }
         }
         else
         {
@@ -135,7 +136,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
                 let retries = 20;
                 while ((this.executionId !== null) && (retries-- > 0))
                 {
-                    await new Promise(resolve => setTimeout(resolve, 500));
+                    await Homey.app.AsyncDelay(500);
                 }
             }
 
@@ -175,7 +176,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
                     await Homey.app.unBoostSync();
                 }
             throw (new Error("Failed to send command"));
-            };
+            }
         }
         else
         {

@@ -1,3 +1,4 @@
+/*jslint node: true */
 "use strict";
 
 const WindowCoveringsDevice = require("../WindowCoveringsDevice");

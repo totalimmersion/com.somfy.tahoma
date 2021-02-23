@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const Homey = require('homey');
@@ -38,7 +39,7 @@ class ExteriorVenetianBlindDriver extends ioWindowCoveringsDriver
     {
         this.triggerFlow(this.tilt_changedTrigger, device, tokens, state);
         return this;
-    };
+    }
 }
 
 module.exports = ExteriorVenetianBlindDriver;

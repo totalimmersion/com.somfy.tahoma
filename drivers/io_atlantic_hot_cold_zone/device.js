@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const SensorDevice = require('../SensorDevice');
@@ -81,27 +82,27 @@ class HotColdZoneDevice extends SensorDevice
 
     async onCapabilityTargetTemperatureComfortCooling(value, opts)
     {
-        return this.ProcessTargetTemperature(value, opts, 'setComfortCoolingTargetTemperature', 'target_temperature.comfort_cooling')
+        return this.ProcessTargetTemperature(value, opts, 'setComfortCoolingTargetTemperature', 'target_temperature.comfort_cooling');
     }
 
     async onCapabilityTargetTemperatureComfortHeating(value, opts)
     {
-        return this.ProcessTargetTemperature(value, opts, 'setComfortHeatingTargetTemperature', 'target_temperature.comfort_heating')
+        return this.ProcessTargetTemperature(value, opts, 'setComfortHeatingTargetTemperature', 'target_temperature.comfort_heating');
     }
 
     async onCapabilityTargetTemperatureEcoCooling(value, opts)
     {
-        return this.ProcessTargetTemperature(value, opts, 'setEcoCoolingTargetTemperature', 'target_temperature.eco_cooling')
+        return this.ProcessTargetTemperature(value, opts, 'setEcoCoolingTargetTemperature', 'target_temperature.eco_cooling');
     }
 
     async onCapabilityTargetTemperatureEcoHeating(value, opts)
     {
-        return this.ProcessTargetTemperature(value, opts, 'setEcoHeatingTargetTemperature', 'target_temperature.eco_heating')
+        return this.ProcessTargetTemperature(value, opts, 'setEcoHeatingTargetTemperature', 'target_temperature.eco_heating');
     }
 
     async onCapabilityTargetTemperatureDerogated(value, opts)
     {
-        return this.ProcessTargetTemperature(value, opts, 'setDerogatedTargetTemperature', 'target_temperature.derogated')
+        return this.ProcessTargetTemperature(value, opts, 'setDerogatedTargetTemperature', 'target_temperature.derogated');
     }
 
     async ProcessCapabilityOnOff(value, opts, name, capability)
@@ -120,7 +121,7 @@ class HotColdZoneDevice extends SensorDevice
                 let retries = 20;
                 while ((this.executionId !== null) && (retries-- > 0))
                 {
-                    await new Promise(resolve => setTimeout(resolve, 500));
+                    await Homey.app.asyncDelay(500);
                 }
             }
 
@@ -179,17 +180,17 @@ class HotColdZoneDevice extends SensorDevice
     
     async onCapabilityOnOffCooling(value, opts)
     {
-        return this.ProcessCapabilityOnOff(value, opts, 'setCoolingOnOffState', 'boost.cooling')
+        return this.ProcessCapabilityOnOff(value, opts, 'setCoolingOnOffState', 'boost.cooling');
     }
     
     async onCapabilityOnOffHeating(value, opts)
     {
-        return this.ProcessCapabilityOnOff(value, opts, 'setHeatingOnOffState', 'boost.heating')
+        return this.ProcessCapabilityOnOff(value, opts, 'setHeatingOnOffState', 'boost.heating');
     }
 
     async onCapabilityOnOffDerogated(value, opts)
     {
-        return this.ProcessCapabilityOnOff(value, opts, 'setDerogationOnOffState', 'boost.derogated')
+        return this.ProcessCapabilityOnOff(value, opts, 'setDerogationOnOffState', 'boost.derogated');
     }
 
     async processPassAPCMode(value, opts, name, capability)
@@ -227,7 +228,7 @@ class HotColdZoneDevice extends SensorDevice
             {
                 Homey.app.logInformation(this.getName() + ": onCapability " + capability, "Failed to send command");
                 throw (new Error("Failed to send command"));
-            };
+            }
         }
         else
         {
@@ -381,9 +382,9 @@ class HotColdZoneDevice extends SensorDevice
         for (var i = 0; i < events.length; i++)
         {
             const element = events[i];
-            if (element['name'] === 'DeviceStateChangedEvent')
+            if (element.name === 'DeviceStateChangedEvent')
             {
-                if ((element['deviceURL'] === myURL) && element['deviceStates'])
+                if ((element.deviceURL === myURL) && element.deviceStates)
                 {
                     // Got what we need to update the device so lets find it
                     for (var x = 0; x < element.deviceStates.length; x++)

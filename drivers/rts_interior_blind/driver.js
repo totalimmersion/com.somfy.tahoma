@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const Driver = require('../Driver');

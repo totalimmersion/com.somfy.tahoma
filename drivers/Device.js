@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 const Homey = require('homey');
 const Tahoma = require('./../lib/Tahoma');
@@ -77,7 +78,7 @@ class Device extends Homey.Device
             let somfyValue = value;
             if (capabilityXRef.parameters)
             {
-                somfyValue = capabilityXRef.parameters
+                somfyValue = capabilityXRef.parameters;
             }
             else if (capabilityXRef.scale)
             {
@@ -85,7 +86,7 @@ class Device extends Homey.Device
             }
             else if (capabilityXRef.compare)
             {
-                somfyValue = capabilityXRef.compare[(value === false ? 0 : 1)]
+                somfyValue = capabilityXRef.compare[(value === false ? 0 : 1)];
             }
 
             const deviceData = this.getData();
@@ -237,10 +238,10 @@ class Device extends Homey.Device
             const element = events[i];
 
             // Ensure we are processing a state changed event
-            if (element['name'] === 'DeviceStateChangedEvent')
+            if (element.name === 'DeviceStateChangedEvent')
             {
                 // If the URL matches the it is for this device
-                if ((element['deviceURL'] === myURL) && element['deviceStates'])
+                if ((element.deviceURL === myURL) && element.deviceStates)
                 {
                     // Got what we need to update the device so lets process each capability
                     for (var x = 0; x < element.deviceStates.length; x++)

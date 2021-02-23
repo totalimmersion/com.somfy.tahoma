@@ -1,7 +1,8 @@
+/*jslint node: true */
 'use strict';
 if (process.env.DEBUG === '1')
 {
-    require('inspector').open(9222, '0.0.0.0', true)
+    require('inspector').open(9222, '0.0.0.0', true);
 }
 const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
@@ -56,14 +57,14 @@ class myApp extends Homey.App
             Homey.ManagerSettings.set('loginMethod', false);
         }
 
-        this.infoLogEnabled = Homey.ManagerSettings.get('infoLogEnabled')
+        this.infoLogEnabled = Homey.ManagerSettings.get('infoLogEnabled');
         if (this.infoLogEnabled === null)
         {
             this.infoLogEnabled = false;
             Homey.ManagerSettings.set('infoLogEnabled', this.infoLogEnabled);
         }
 
-        this.pollingEnabled = Homey.ManagerSettings.get('pollingEnabled')
+        this.pollingEnabled = Homey.ManagerSettings.get('pollingEnabled');
         if (this.pollingEnabled === null)
         {
             this.pollingEnabled = true;
@@ -89,11 +90,11 @@ class myApp extends Homey.App
             Homey.ManagerSettings.set('syncInterval', this.interval);
         }
 
-        var linkurl = Homey.ManagerSettings.get('linkurl');
-        if (!linkurl)
+        var linkUrl = Homey.ManagerSettings.get('linkurl');
+        if (!linkUrl)
         {
-            linkurl = "default";
-            Homey.ManagerSettings.set('linkurl', linkurl);
+            linkUrl = "default";
+            Homey.ManagerSettings.set('linkurl', linkUrl);
         }
 
         process.on('unhandledRejection', (reason, promise) =>
@@ -135,7 +136,7 @@ class myApp extends Homey.App
                 catch (e)
                 {
                     this.interval = INITIAL_SYNC_INTERVAL;
-                    Homey.ManagerSettings.set('syncInterval', this.interval)
+                    Homey.ManagerSettings.set('syncInterval', this.interval);
                 }
 
                 if (this.pollingEnabled)
@@ -263,12 +264,12 @@ class myApp extends Homey.App
             let i = 1;
             logData.forEach(element =>
             {
-                delete element["creationTime"];
-                delete element["lastUpdateTime"];
-                delete element["shortcut"];
-                delete element["deviceURL"];
-                delete element["placeOID"];
-                element["oid"] = "temp" + i++;
+                delete element.creationTime;
+                delete element.lastUpdateTime;
+                delete element.shortcut;
+                delete element.deviceURL;
+                delete element.placeOID;
+                element.oid = "temp" + i++;
             });
         }
         Homey.ManagerSettings.set('deviceLog',
@@ -284,22 +285,23 @@ class myApp extends Homey.App
 
         try
         {
+            var data;
             if (typeof(error) === "string")
             {
-                var data = error;
+                data = error;
             }
             else
             {
                 if (error.stack)
                 {
-                    var data = {
+                    data = {
                         message: error.message,
                         stack: error.stack
                     };
                 }
                 else
                 {
-                    var data = error.message;
+                    data = error.message;
                 }
             }
             let logData = Homey.ManagerSettings.get('infoLog');
@@ -416,7 +418,7 @@ class myApp extends Homey.App
                     error: err,
                     message: null
                 };
-            };
+            }
         }
     }
 
@@ -441,7 +443,7 @@ class myApp extends Homey.App
                 this.logInformation("initSync", "Starting");
             }
 
-            await this.newLogin_2(username, password, linkurl, false)
+            await this.newLogin_2(username, password, linkurl, false);
         }
         catch (error)
         {
@@ -682,7 +684,7 @@ class myApp extends Homey.App
                     {
                         this.logInformation("Sync Devices", error);
                     }
-                })
+                });
             }
 
             // Wait for all the checks to complete
@@ -701,7 +703,7 @@ class myApp extends Homey.App
         {
             console.log(error.message, error.stack);
         }
-    };
+    }
 
     /**
      * Adds a listener for flowcard scenario actions
@@ -711,7 +713,7 @@ class myApp extends Homey.App
         /*** ADD FLOW ACTION LISTENERS ***/
         new Homey.FlowCardAction('activate_scenario').register().registerRunListener(args =>
         {
-            return Tahoma.executeScenario(args.scenario.oid)
+            return Tahoma.executeScenario(args.scenario.oid);
         }).getArgument('scenario').registerAutocompleteListener(query =>
         {
             return Tahoma.getActionGroups().then(data => data.map((
@@ -754,7 +756,7 @@ class myApp extends Homey.App
             }
 
             return this.restartSync();
-        })
+        });
     }
 
     /**
@@ -785,7 +787,14 @@ class myApp extends Homey.App
             {
                 return this.stopSync();
             }
-        })
+        });
     }
+
+    
+    async AsyncDelay(period)
+    {
+        await new Promise(resolve => setTimeout(resolve, period));
+    }
+
 }
 module.exports = myApp;

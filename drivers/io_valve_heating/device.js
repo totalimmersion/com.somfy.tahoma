@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const Homey = require('homey');
@@ -48,7 +49,7 @@ class ValveHeatingDevice extends SensorDevice
             for(const element of applicableEntries)
             {
                 somfyValues.push(element.homeyName === capabilityXRef.homeyName ? value : this.getCapabilityValue(element.homeyName));
-            };
+            }
 
             const deviceData = this.getData();
             if (this.executionId !== null)

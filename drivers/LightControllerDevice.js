@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const Device = require('./Device');
@@ -50,7 +51,7 @@ class LightControllerDevice extends Device
                 let retries = 20;
                 while ((this.executionId !== null) && (retries-- > 0))
                 {
-                    await new Promise(resolve => setTimeout(resolve, 500));
+                    await Homey.app.asyncDelay(500);
                 }
             }
 
@@ -130,7 +131,7 @@ class LightControllerDevice extends Device
                 let retries = 30;
                 while ((this.executionId !== null) && (retries-- > 0))
                 {
-                    await new Promise(resolve => setTimeout(resolve, 500));
+                    await Homey.app.asyncDelay(500);
                 }
             }
 
@@ -174,7 +175,7 @@ class LightControllerDevice extends Device
                     await Homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
-            };
+            }
         }
         else
         {
@@ -204,7 +205,7 @@ class LightControllerDevice extends Device
                 let retries = 20;
                 while ((this.executionId !== null) && (retries-- > 0))
                 {
-                    await new Promise(resolve => setTimeout(resolve, 500));
+                    await Homey.app.asyncDelay();
                 }
             }
 
@@ -249,7 +250,7 @@ class LightControllerDevice extends Device
                     await Homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
-            };
+            }
         }
         else
         {
@@ -333,9 +334,9 @@ class LightControllerDevice extends Device
         for (var i = 0; i < events.length; i++)
         {
             const element = events[i];
-            if (element['name'] === 'DeviceStateChangedEvent')
+            if (element.name === 'DeviceStateChangedEvent')
             {
-                if ((element['deviceURL'] === myURL) && element['deviceStates'])
+                if ((element.deviceURL === myURL) && element.deviceStates)
                 {
                     // Got what we need to update the device so lets find it
                     for (var x = 0; x < element.deviceStates.length; x++)
@@ -345,11 +346,11 @@ class LightControllerDevice extends Device
                     }
                 }
             }
-            else if (element['name'] === 'ExecutionStateChangedEvent')
+            else if (element.name === 'ExecutionStateChangedEvent')
             {
-                if ((element['newState'] === 'COMPLETED') || (element['newState'] === 'FAILED'))
+                if ((element.newState === 'COMPLETED') || (element.newState === 'FAILED'))
                 {
-                    if (this.executionId === element['execId'])
+                    if (this.executionId === element.execId)
                     {
                         if (this.boostSync)
                         {
@@ -400,6 +401,9 @@ class LightControllerDevice extends Device
 
         if (deviceState.name === 'core:ColorTemperatureState')
         {
+            const minTemperature = this.getSetting('minTemperature');
+            const maxTemperature = this.getSetting('maxTemperature');
+        
             Homey.app.logStates(this.getName() + ": core:ColorTemperatureState = " + deviceState.value);
             const oldState = this.getState().light_temperature;
             const newSate = ((parseInt(deviceState.value) - minTemperature) / (maxTemperature - minTemperature));

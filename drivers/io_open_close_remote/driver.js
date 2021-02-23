@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const Homey = require('homey');
@@ -15,16 +16,15 @@ class io_open_close_remoteDriver extends Driver
         await super.onInit();
 
         this._remoteSateChangedTrigger = new Homey.FlowCardTriggerDevice('remote_state_changed')
-            .register()
+            .register();
 
         this._remoteSateChangedTriggerTo = new Homey.FlowCardTriggerDevice('remote_state_changed_to')
             .registerRunListener((args, state) =>
             {
                 // If true, this flow should run
                 return Promise.resolve(args.expected_state === state.expected_state);
-
             })
-            .register()
+            .register();
     }
 
     triggerRemoteSateChange(device, tokens, state)

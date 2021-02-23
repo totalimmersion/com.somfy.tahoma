@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const Device = require('../Device');
@@ -31,7 +32,7 @@ class io_open_close_remoteDevice extends Device
             };
             const state = {
                 'expected_state': value
-            }
+            };
 
             //trigger flows
             this.getDriver().triggerRemoteSateChange(device, tokens, state);
@@ -85,9 +86,9 @@ class io_open_close_remoteDevice extends Device
         for (var i = 0; i < events.length; i++)
         {
             const element = events[i];
-            if (element['name'] === 'DeviceStateChangedEvent')
+            if (element.name === 'DeviceStateChangedEvent')
             {
-                if ((element['deviceURL'] === myURL) && element['deviceStates'])
+                if ((element.deviceURL === myURL) && element.deviceStates)
                 {
                     // Got what we need to update the device so lets find it
                     for (var x = 0; x < element.deviceStates.length; x++)

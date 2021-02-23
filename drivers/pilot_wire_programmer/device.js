@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const SensorDevice = require('../SensorDevice');
@@ -37,7 +38,7 @@ class PilotWireProgrammerDevice extends SensorDevice
                 let retries = 20;
                 while ((this.executionId !== null) && (retries-- > 0))
                 {
-                    await new Promise(resolve => setTimeout(resolve, 500));
+                    await Homey.app.asyncDelay(500);
                 }
             }
 
@@ -161,7 +162,7 @@ class PilotWireProgrammerDevice extends SensorDevice
             {
                 Homey.app.logInformation(this.getName() + ": onCapabilityAlarmArmedState", "Failed to send command");
                 throw (new Error("Failed to send command"));
-            };
+            }
         }
         else
         {
@@ -225,9 +226,9 @@ class PilotWireProgrammerDevice extends SensorDevice
         for (var i = 0; i < events.length; i++)
         {
             const element = events[i];
-            if (element['name'] === 'DeviceStateChangedEvent')
+            if (element.name === 'DeviceStateChangedEvent')
             {
-                if ((element['deviceURL'] === myURL) && element['deviceStates'])
+                if ((element.deviceURL === myURL) && element.deviceStates)
                 {
                     // Got what we need to update the device so lets find it
                     for (var x = 0; x < element.deviceStates.length; x++)

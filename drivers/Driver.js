@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 const Homey = require('homey');
 const Tahoma = require('../lib/Tahoma');
@@ -10,18 +11,16 @@ class Driver extends Homey.Driver
 {
     onPair(socket)
     {
-        socket.on('list_devices', (data, callback) =>
-        {
+        socket.on('list_devices', (data, callback) => {
             this.log('list_devices');
             const username = Homey.ManagerSettings.get('username');
             const password = Homey.ManagerSettings.get('password');
-            if (!username || !password)
-            {
+            if (!username || !password) {
                 callback(new Error(Homey.__("errors.on_pair_login_failure")));
                 return;
             }
             this.onReceiveSetupData(callback);
-        })
+        });
     }
     async onReceiveSetupData(callback)
     {
@@ -33,13 +32,13 @@ class Driver extends Homey.Driver
                 this.log('setup resolve');
                 const homeyDevices = devices.filter(device => this.deviceType.indexOf(device.controllableName) !== -1).map(device => (
                 {
-                    name: device.label
-                    , data:
+                    name: device.label,
+                    data:
                     {
-                        id: device.oid
-                        , deviceURL: device.deviceURL
-                        , label: device.label
-                        , controllableName: device.controllableName
+                        id: device.oid,
+                        deviceURL: device.deviceURL,
+                        label: device.label,
+                        controllableName: device.controllableName,
                     }
                 }));
                 callback(null, homeyDevices);

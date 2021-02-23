@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const Homey = require('homey');
@@ -17,7 +18,7 @@ class WindowCoveringsDevice extends Device
         if (this.hasCapability("lock_state"))
         {
             this._driver.lock_state_changedTrigger = new Homey.FlowCardTriggerDevice('lock_state_changed')
-                .register()
+                .register();
         }
 
         this.invertPosition = this.getSetting('invertPosition');
@@ -173,7 +174,7 @@ class WindowCoveringsDevice extends Device
                 const action = {
                     name: this.windowcoveringsActions[value],
                     parameters: []
-                }
+                };
                 let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
                 if (result !== undefined)
                 {
@@ -204,8 +205,8 @@ class WindowCoveringsDevice extends Device
                         await Homey.app.unBoostSync();
                     }
                     throw (new Error("Failed to send command"));
-                };
-            };
+                }
+            }
 
             if (!this.openClosedStateName)
             {
@@ -223,11 +224,11 @@ class WindowCoveringsDevice extends Device
             {
                 if (this.invertTile)
                 {
-                    this.setCapabilityValue("quick_open", value !== "up")
+                    this.setCapabilityValue("quick_open", value !== "up");
                 }
                 else
                 {
-                    this.setCapabilityValue("quick_open", value !== "down")
+                    this.setCapabilityValue("quick_open", value !== "down");
                 }
             }
         }
@@ -258,7 +259,7 @@ class WindowCoveringsDevice extends Device
                 action.parameters.push("lowspeed");
             }
 
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
+            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -288,7 +289,7 @@ class WindowCoveringsDevice extends Device
                     await Homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
-            };
+            }
         }
         else
         {
@@ -312,7 +313,7 @@ class WindowCoveringsDevice extends Device
                 parameters: [Math.round((1 - value) * 100)]
             };
 
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
+            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -342,7 +343,7 @@ class WindowCoveringsDevice extends Device
                     await Homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
-            };
+            }
         }
         else
         {
@@ -377,7 +378,7 @@ class WindowCoveringsDevice extends Device
                 name: 'tiltPositive',
                 parameters: [3, 1]
             };
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
+            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -407,7 +408,7 @@ class WindowCoveringsDevice extends Device
                     await Homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
-            };
+            }
         }
     }
 
@@ -430,7 +431,7 @@ class WindowCoveringsDevice extends Device
                 name: 'tiltNegative',
                 parameters: [3, 1]
             };
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action)
+            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -459,7 +460,7 @@ class WindowCoveringsDevice extends Device
                     await Homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
-            };
+            }
         }
     }
 
@@ -511,7 +512,7 @@ class WindowCoveringsDevice extends Device
                     await Homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
-            };
+            }
         }
     }
 
@@ -563,7 +564,7 @@ class WindowCoveringsDevice extends Device
                     await Homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
-            };
+            }
         }
         else
         {
@@ -583,11 +584,11 @@ class WindowCoveringsDevice extends Device
     {
         if (this.invertTile)
         {
-            return this.onCapabilityWindowcoveringsState(value ? 'down' : 'up', null)
+            return this.onCapabilityWindowcoveringsState(value ? 'down' : 'up', null);
         }
         else
         {
-            return this.onCapabilityWindowcoveringsState(value ? 'up' : 'down', null)
+            return this.onCapabilityWindowcoveringsState(value ? 'up' : 'down', null);
         }
     }
 
@@ -609,6 +610,7 @@ class WindowCoveringsDevice extends Device
                         Homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + lockState.value);
                         this.setCapabilityValue("lock_state", lockState.value);
                     }
+                    this.setCapabilityValue("lock_state", null);
                 }
 
                 const myPosition = states.find(state => state.name === "core:Memorized1PositionState");
@@ -734,9 +736,9 @@ class WindowCoveringsDevice extends Device
             for (var i = 0; i < events.length; i++)
             {
                 const element = events[i];
-                if (element['name'] === 'DeviceStateChangedEvent')
+                if (element.name === 'DeviceStateChangedEvent')
                 {
-                    if ((element['deviceURL'] === myURL) && element['deviceStates'])
+                    if ((element.deviceURL === myURL) && element.deviceStates)
                     {
                         // Got what we need to update the device so lets find it
                         if (this.unavailable)
@@ -820,11 +822,11 @@ class WindowCoveringsDevice extends Device
                         }
                     }
                 }
-                else if (element['name'] === 'ExecutionStateChangedEvent')
+                else if (element.name === 'ExecutionStateChangedEvent')
                 {
-                    if ((element['newState'] === 'COMPLETED') || (element['newState'] === 'FAILED'))
+                    if ((element.newState === 'COMPLETED') || (element.newState === 'FAILED'))
                     {
-                        if (this.executionId === element['execId'])
+                        if (this.executionId === element.execId)
                         {
                             if (this.boostSync)
                             {

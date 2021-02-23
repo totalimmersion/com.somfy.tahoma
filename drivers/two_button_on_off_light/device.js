@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const Device = require('../Device');
@@ -63,7 +64,7 @@ class two_button_on_offDevice extends Device
             let retries = 20;
             while ((this.executionId !== null) && (retries-- > 0))
             {
-                await new Promise(resolve => setTimeout(resolve, 500));
+                await Homey.app.asyncDealy(500);
             }
         }
 
@@ -140,7 +141,7 @@ class two_button_on_offDevice extends Device
             let retries = 20;
             while ((this.executionId !== null) && (retries-- > 0))
             {
-                await new Promise(resolve => setTimeout(resolve, 500));
+                await Homey.app.asyncDelay(500);
             }
         }
 
@@ -218,11 +219,11 @@ class two_button_on_offDevice extends Device
         for (var i = 0; i < events.length; i++)
         {
             const element = events[i];
-            if (element['name'] === 'ExecutionStateChangedEvent')
+            if (element.name === 'ExecutionStateChangedEvent')
             {
-                if ((element['newState'] === 'COMPLETED') || (element['newState'] === 'FAILED'))
+                if ((element.newState === 'COMPLETED') || (element.newState === 'FAILED'))
                 {
-                    if (this.executionId === element['execId'])
+                    if (this.executionId === element.execId)
                     {
                         if (this.boostSync)
                         {

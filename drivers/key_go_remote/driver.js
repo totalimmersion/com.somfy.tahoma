@@ -1,3 +1,4 @@
+/*jslint node: true */
 'use strict';
 
 const Homey = require('homey');
@@ -16,16 +17,15 @@ class key_go_remoteDriver extends Driver
         await super.onInit();
 
         this._remoteSateChangedTrigger = new Homey.FlowCardTriggerDevice('key_go_remote_state_changed')
-            .register()
+            .register();
 
         this._remoteSateChangedTriggerTo = new Homey.FlowCardTriggerDevice('key_go_remote_state_changed_to')
-            .registerRunListener((args, state) =>
-            {
+            .registerRunListener((args, state) => {
                 // If true, this flow should run
                 return Promise.resolve(args.expected_state === state.expected_state);
 
             })
-            .register()
+            .register();
     }
 
     async onReceiveSetupData(callback)
@@ -38,13 +38,13 @@ class key_go_remoteDriver extends Driver
                 this.log('setup resolve');
                 const homeyDevices = devices.filter(device => this.deviceType.indexOf(device.controllableName) !== -1).map(device => (
                 {
-                    name: device.label + ": " + (device.attributes[0].name === "core:GroupIndex" ? device.attributes[0].value : device.attributes[1].value)
-                    , data:
+                    name: device.label + ": " + (device.attributes[0].name === "core:GroupIndex" ? device.attributes[0].value : device.attributes[1].value),
+                    data:
                     {
-                        id: device.oid
-                        , deviceURL: device.deviceURL
-                        , label: device.label
-                        , controllableName: device.controllableName
+                        id: device.oid,
+                        deviceURL: device.deviceURL,
+                        label: device.label,
+                        controllableName: device.controllableName
                     }
                 }));
                 callback(null, homeyDevices);

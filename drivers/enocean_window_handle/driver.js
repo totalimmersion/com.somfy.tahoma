@@ -1,5 +1,6 @@
 "use strict";
 
+/*jslint node: true */
 const Homey = require('homey');
 const Driver = require('../Driver');
 
