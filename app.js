@@ -118,6 +118,8 @@ class myApp extends Homey.App
             {
                 this.pollingEnabled = Homey.ManagerSettings.get('pollingEnabled');
 
+                console.log("Polling option changed to: ", this.pollingEnabled);
+                
                 if (this.pollingEnabled)
                 {
                     this.restartSync();
@@ -542,6 +544,8 @@ class myApp extends Homey.App
     {
         if (this.timerId)
         {
+            console.log("Stop sync requested");
+
             this.stoppingSync = this.syncing;
             clearTimeout(this.timerId);
             this.timerId = null;
@@ -562,6 +566,8 @@ class myApp extends Homey.App
     {
         if (!this.restartingSync)
         {
+            console.log("Restart sync requested");
+
             this.restartingSync = true;
             var interval = 0.1;
 
@@ -580,8 +586,17 @@ class myApp extends Homey.App
 
             if (this.restartingSync)
             {
+                console.log("Restart sync in: ", interval);
                 this.timerId = setTimeout(() => this.syncLoop(this.interval * 1000), interval * 1000);
             }
+            else
+            {
+                console.log("Skipping restart sync: Canceled");
+            }
+        }
+        else
+        {
+            console.log("Skipping restart sync: Already restarting");
         }
     }
 
@@ -621,6 +636,10 @@ class myApp extends Homey.App
 
                 }
             }
+            else
+            {
+                console.log("Skipping sync: too soon");
+            }
 
             this.restartingSync = false;
 
@@ -631,11 +650,24 @@ class myApp extends Homey.App
             }
             else
             {
+                console.log("Stopping sync");
                 this.stoppingSync = false;
             }
 
             // Signal that the sync has completed
             this.syncing = false;
+        }
+        else
+        {
+            if (!this.loggedIn)
+            {
+                console.log("Skipping sync: Not logged in");
+            }
+            else
+            {
+                console.log("Skipping sync: Previous sync active");
+            }
+            
         }
     }
 
@@ -674,8 +706,11 @@ class myApp extends Homey.App
             const drivers = Homey.ManagerDrivers.getDrivers();
             for (const driver in drivers)
             {
-                Homey.ManagerDrivers.getDriver(driver).getDevices().forEach(device =>
+                let devices = Homey.ManagerDrivers.getDriver(driver).getDevices();
+                let numDevices = devices.length;
+                for (var i = 0; i < numDevices; i++)
                 {
+                    let device = devices[i];
                     try
                     {
                         promises.push(device.syncEvents(events));
@@ -684,7 +719,7 @@ class myApp extends Homey.App
                     {
                         this.logInformation("Sync Devices", error);
                     }
-                });
+                }
             }
 
             // Wait for all the checks to complete
@@ -790,7 +825,6 @@ class myApp extends Homey.App
         });
     }
 
-    
     async AsyncDelay(period)
     {
         await new Promise(resolve => setTimeout(resolve, period));
