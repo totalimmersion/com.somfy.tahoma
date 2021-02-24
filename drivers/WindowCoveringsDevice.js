@@ -609,6 +609,12 @@ class WindowCoveringsDevice extends Device
                     {
                         Homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + lockState.value);
                         this.setCapabilityValue("lock_state", lockState.value);
+                        
+                        if (this.checkLockSate)
+                        {
+                            clearTimeout(this.checkLockStateTimer);
+                            this.checkLockStateTimer = setTimeout(this.checkLockSate, 60 * 1000);
+                        }
                     }
                     else
                     {
@@ -769,20 +775,16 @@ class WindowCoveringsDevice extends Device
                                 {
                                     Homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + deviceState.value);
                                     this.setCapabilityValue("lock_state", deviceState.value);
-                                }
-                                else
-                                {
-                                    if (deviceState.name === 'core:PriorityLockTimerState')
+                                    if (this.checkLockSate)
                                     {
-                                        Homey.app.logStates(this.getName() + ": core:PriorityLockTimerState = " + deviceState.value);
-                                        if (deviceState.value === 0)
-                                        {
-                                            this.setCapabilityValue("lock_state", "");
-                                        }
+                                        // Setup timer to call a function to check if it can be cleared
+                                        clearTimeout(this.checkLockStateTimer);
+                                        this.checkLockStateTimer = setTimeout(this.checkLockSate, (60 * 1000));
                                     }
                                 }
                             }
-                            else if (deviceState.name === this.positionStateName)
+                            
+                            if (deviceState.name === this.positionStateName)
                             {
                                 // Device position
                                 var closureStateValue = parseInt(deviceState.value);

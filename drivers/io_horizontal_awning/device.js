@@ -12,6 +12,9 @@ class HorizontalAwningDevice extends WindowCoveringsDevice
 
     async onInit()
     {
+        this.checkLockStateTimer = null;
+        this.checkLockSate = this.checkLockSate.bind(this);
+
         if (!this.hasCapability("lock_state"))
         {
             this.addCapability("lock_state");
@@ -46,6 +49,43 @@ class HorizontalAwningDevice extends WindowCoveringsDevice
             else
             {
                 this.positionStateName = 'core:DeploymentState';
+            }
+        }
+    }
+
+    checkLockSate()
+    {
+        this._checkLockSate();
+    }
+
+    async _checkLockSate()
+    {
+        const states = await this.getStates();
+        if (states)
+        {
+            // Look for each of the required capabilities
+            const lockState = states.find(state => state.name === "io:PriorityLockOriginatorState");
+            if (lockState)
+            {
+                this.setCapabilityValue("lock_state", lockState.value);
+                clearTimeout(this.checkLockStateTimer);
+                this.checkLockStateTimer = setTimeout(this.checkLockSate, (60 * 1000));
+            }
+            else
+            {
+                const lockStateTimer = states.find(state => state.name === "core:PriorityLockTimerState");
+                if (lockStateTimer)
+                {
+                    if (lockStateTimer.value === 0)
+                    {
+                        this.setCapabilityValue("lock_state", "");
+                    }
+                    else
+                    {
+                        clearTimeout(this.checkLockStateTimer);
+                        this.checkLockStateTimer = setTimeout(this.checkLockSate, (60 * 1000));
+                    }
+                }
             }
         }
     }

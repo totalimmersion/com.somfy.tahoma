@@ -337,5 +337,8 @@
   },
   "2.1.50": {
     "en": "Fixes to clear Lockstate when it no longer appears in the state data."
+  },
+  "2.1.51": {
+    "en": "Fix to clear Lockstate when it no longer appears in the state data."
   }
 }
