@@ -610,7 +610,18 @@ class WindowCoveringsDevice extends Device
                         Homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + lockState.value);
                         this.setCapabilityValue("lock_state", lockState.value);
                     }
-                    this.setCapabilityValue("lock_state", null);
+                    else
+                    {
+                        const lockStateTimer = states.find(state => state.name === "core:PriorityLockTimerState");
+                        if (lockStateTimer)
+                        {
+                            Homey.app.logStates(this.getName() + ": core:PriorityLockTimerState = " + lockStateTimer.value);
+                            if (lockStateTimer.value === 0)
+                            {
+                                this.setCapabilityValue("lock_state", "");
+                            }
+                        }
+                    }
                 }
 
                 const myPosition = states.find(state => state.name === "core:Memorized1PositionState");
@@ -751,13 +762,24 @@ class WindowCoveringsDevice extends Device
                         {
                             const deviceState = element.deviceStates[x];
 
-                            if (deviceState.name === 'io:PriorityLockOriginatorState')
+                            if (this.hasCapability("lock_state"))
                             {
                                 // Device lock state
-                                if (this.hasCapability("lock_state"))
+                                if (deviceState.name === 'io:PriorityLockOriginatorState')
                                 {
                                     Homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + deviceState.value);
                                     this.setCapabilityValue("lock_state", deviceState.value);
+                                }
+                                else
+                                {
+                                    if (deviceState.name === 'core:PriorityLockTimerState')
+                                    {
+                                        Homey.app.logStates(this.getName() + ": core:PriorityLockTimerState = " + deviceState.value);
+                                        if (deviceState.value === 0)
+                                        {
+                                            this.setCapabilityValue("lock_state", "");
+                                        }
+                                    }
                                 }
                             }
                             else if (deviceState.name === this.positionStateName)
