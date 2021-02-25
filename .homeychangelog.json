@@ -342,6 +342,6 @@
     "en": "Fix to clear Lockstate when it no longer appears in the state data."
   },
   "2.1.52": {
-    "en": "Fixed mixed capitals for a delay function."
+    "en": "Fixed inconsistent nameing of a function."
   }
 }
