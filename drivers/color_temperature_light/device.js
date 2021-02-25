@@ -57,7 +57,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
                 let retries = 20;
                 while ((this.executionId !== null) && (retries-- > 0))
                 {
-                    await Homey.app.AsyncDelay(500);
+                    await Homey.app.asyncDelay(500);
                 }
             }
 
@@ -136,7 +136,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
                 let retries = 20;
                 while ((this.executionId !== null) && (retries-- > 0))
                 {
-                    await Homey.app.AsyncDelay(500);
+                    await Homey.app.asyncDelay(500);
                 }
             }
 

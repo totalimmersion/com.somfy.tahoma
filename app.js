@@ -825,7 +825,7 @@ class myApp extends Homey.App
         });
     }
 
-    async AsyncDelay(period)
+    async asyncDelay(period)
     {
         await new Promise(resolve => setTimeout(resolve, period));
     }
