@@ -14,7 +14,6 @@ class LightControllerDevice extends Device
 {
     async onInit()
     {
-        this.boostSync = true;
         this.commandExecuting = '';
 
         this.lightState = {
@@ -27,6 +26,8 @@ class LightControllerDevice extends Device
         this.registerCapabilityListener('light_temperature', this.onCapabilityLight_temperature.bind(this));
 
         await super.onInit();
+
+        this.boostSync = true;
     }
 
     async onCapabilityOnOff(value, opts)
