@@ -1,347 +1,353 @@
 {
-  "1.0.0": {
-    "en": "* First release with support for IO vertical exterior blinds and Sunis IO wire free sensor"
-  },
-  "1.0.1": {
-    "en": "* Because of a difference in blind states between TaHoma and Homey, sometimes it wasn't possible to open halfway closed blinds after a sync with TaHoma cloud or a cloud sync would open the blinds when the user had closed the blinds half way. This is now fixed."
-  },
-  "1.0.2": {
-    "en": "* A user defined action (which is in progress), can no longer be overwritten by another action through cloud sync.\n* Fixed an issue that would crash the app, if the response from the TaHoma API was in the wrong format."
-  },
-  "1.0.3": {
-    "en": "* Fixed an issue that would crash the app, if there was an error response from TaHoma."
-  },
-  "1.1.0": {
-    "en": "* Added support for the Somfy Thermis WireFree IO sensor."
-  },
-  "1.2.0": {
-    "en": "* App is now compatible with SDK 2."
-  },
-  "1.3.0": {
-    "en": "* Added support for IO roller shutters.\n* Added support for Velux IO roof windows.\n* Added support for Velux IO blinds."
-  },
-  "1.3.1": {
-    "en": "* Added support for IO horizontal awnings."
-  },
-  "1.3.2": {
-    "en": "* Added support for IO exterior venetian blinds.\n* The roller shutters device supports low speed management motors as well."
-  },
-  "1.3.3": {
-    "en": "* Added an icon for the IO exterior venetian blinds."
-  },
-  "1.3.4": {
-    "en": "* Changed app store assets\n* Optimized code for a better performance"
-  },
-  "1.3.5": {
-    "en": "* Ability to log out of the TaHoma service was added."
-  },
-  "1.3.6": {
-    "en": "* Fixed a bug that would crash the app."
-  },
-  "1.3.7": {
-    "en": "* Fixed a bug that would cause the temperature of the Thermis to be incorrect."
-  },
-  "1.4.0": {
-    "en": "* Added support for the IO Opening Detector.*Added synchronization speed preference to the settings screen.This enables the user to choose their own synchronization time between Homey and TaHoma.The default time is 10 seconds."
-  },
-  "1.5.0": {
-    "en": "* App is now compatible with Homey V2.*Added support for Velux IO exterior roller shutters.*Apart from setting the window covering state to open or closed, it is now also possible to use a slider to set it to a specific position, in order to use this new feature it is necessary to remove and add the device in Homey.*App is also compatible with the Somfy Connexoon."
-  },
-  "1.5.1": {
-    "en": "* Fixed a bug where the opening / closing of the IO horizontal awnings would be reversed."
-  },
-  "1.5.2": {
-    "en": "* Small bug fixes."
-  },
-  "1.5.3": {
-    "en": "* Fixed a bug where the up and down buttons of the window coverings devices wouldn't respond.\n*Improved app performance."
-  },
-  "1.5.4": {
-    "en": "* Fixed a bug where the movement of the window coverings devices would suddenly stop."
-  },
-  "1.6.0": {
-    "en": "* Added Somfy One Alarm.\n* Added Outdoor Camera Light Controller.\n* Enocean Window Handle (requires Enocean USB module)."
-  },
-  "1.6.1": {
-    "en": "* Added Somfy receiver IZYMO io shutter.\n* Added Somfy io motion sensor.\n* Merged Anders fix from GitHub for horizontal awnings issue."
-  },
-  "1.6.2": {
-    "en": "* Added RTS dual curtains, blinds and venetian blinds."
-  },
-  "1.6.3": {
-    "en": "* Added MY button and flow action to RTS venetian blind.\n* Added Interior io vertical blind"
-  },
-  "1.6.4": {
-    "en": "* Added io garage door opener"
-  },
-  "1.6.5": {
-    "en": "* Added a data log to the app configuration screen to make it easier to provide the data required to add a new device."
-  },
-  "1.6.6": {
-    "en": "* Added a Quiet Mode for io:RollerShutterWithLowSpeedManagementIOComponent.\n* Tidy up of old code."
-  },
-  "1.6.7": {
-    "en": "* Separated Roller Shutter Quiet (io) from other Roller Shutter (io) devices\n* Added action card for quiet mode.\n* Fix for Quiet Mode not working when switched off."
-  },
-  "1.6.8": {
-    "en": "* Added Dutch translation for Quiet mode."
-  },
-  "1.6.9": {
-    "en": "* Fix crash when adding new Roller Shutter Quiet (io)."
-  },
-  "1.6.10": {
-    "en": "* Added simulator to help debug devices."
-  },
-  "1.6.11": {
-    "en": "* Added My button to io:RollerShutterWithLowSpeedManagementIOComponent.\n* Convert Up / Down commands to quiet move command for io:RollerShutterWithLowSpeedManagementIOComponent."
-  },
-  "1.6.13": {
-    "en": "* io:RollerShutterWithLowSpeedManagementIOComponent:\n  * Reversed quite Up/Down.\n  * Added quiet mode to My position.\n* io:GarageOpenerIOComponent: Added position control."
-  },
-  "1.6.14": {
-    "en": "* Added Dutch translation for My Position button and flow card"
-  },
-  "1.6.15": {
-    "en": "* io:RollerShutterWithLowSpeedManagementIOComponent: Fixed Move to My position flow card"
-  },
-  "1.6.16": {
-    "en": "* Added io:AwningValanceIOComponent"
-  },
-  "1.6.18": {
-    "en": "* Use alternate commands for io:AwningValanceIOComponent"
-  },
-  "1.6.19": {
-    "en": "* Fix possible error for old io:HorizontalAwningIOComponent"
-  },
-  "1.6.20": {
-    "en": "* Changed setInterval to setTimeout so missing responses that timeout don't overlap.\n* Added Quick UI feature to most blinds and awnings so tile shows open close state and can toggle the state"
-  },
-  "1.6.21": {
-    "en": "* Added Lock State capability and flow trigger when io:PriorityLockOriginatorState is available"
-  },
-  "1.6.22": {
-    "en": "* Inverted io:AwningValanceIOComponent so Up/Down buttons match io:HorizontalAwningIOComponent when Extended / retracted."
-  },
-  "1.6.23": {
-    "en": "* Fix error when tapping on the tile for the io roller shutters with slow speed."
-  },
-  "1.6.24": {
-    "en": "* Tidy up to reduce app size"
-  },
-  "1.6.25": {
-    "en": "* Optimized images sizes\n* Converted to use axios library to reduce size and improve performance"
-  },
-  "2.0.0": {
-    "en": "* Published in Athom store"
-  },
-  "2.0.1": {
-    "en": "* Added more detail to the generic error handler message."
-  },
-  "2.0.2": {
-    "en": "* Fixed a possible error when the access token expires that could cause flows to fail. Added options to reverse the open / close directions of the controls for each cover device."
-  },
-  "2.0.3": {
-    "en": "* Fixed options to reverse the open / close directions of the controls for each device. Added option to invert the tile action for cover devices that provide position information."
-  },
-  "2.0.4": {
-    "en": "* Added options for alternate server addresses."
-  },
-  "2.0.5": {
-    "en": "* Added options for new OAuth login."
-  },
-  "2.0.6": {
-    "en": "More error checking."
-  },
-  "2.0.7": {
-    "en": "Converted \\setup endpoint to individual fetch in compliance with email from Somfy"
-  },
-  "2.0.8": {
-    "en": "Implemented Event method of updating capabilities"
-  },
-  "2.0.9": {
-    "en": "Added more logging for events"
-  },
-  "2.0.10": {
-    "en": "Fix missing return data after reauthenticating"
-  },
-  "2.0.11": {
-    "en": "Added flags to control startup sequence"
-  },
-  "2.0.12": {
-    "en": "Fix variable name error in app init."
-  },
-  "2.0.13": {
-    "en": "Changed unhandledRejection report to show more information."
-  },
-  "2.0.14": {
-    "en": "Fixed erroneous conversion of Open / Close state to int."
-  },
-  "2.0.15": {
-    "en": "fixed event value issue with opening sensor and light controller sensor, added option to switch off Information log."
-  },
-  "2.0.16": {
-    "en": "Prevent excessive login attempts."
-  },
-  "2.0.17": {
-    "en": "Updated Dutch translations"
-  },
-  "2.1.0": {
-    "en": "Reduced the load on the Somfy servers as per the email from Somfy. Added an option for new login method to fix issues with logging in to some accounts. Added extra log tabs for diagnostics."
-  },
-  "2.1.1": {
-    "en": "Fix crash on old Homeys, Reduced the load on the Somfy servers as per the email from Somfy. Added an option for new login method to fix issues with logging in to some accounts. Added extra log tabs for diagnostics."
-  },
-  "2.1.2": {
-    "en": "Fix crash on old Homeys, Reduced the load on the Somfy servers as per the email from Somfy. Added an option for new login method to fix issues with logging in to some accounts. Added extra log tabs for diagnostics. Fixed issue with expired access tokens."
-  },
-  "2.1.3": {
-    "en": "App now automatically chooses the login method"
-  },
-  "2.1.4": {
-    "en": "Added flow card to switch polling on / off"
-  },
-  "2.1.5": {
-    "en": "Added flow card to change sync speed. Forced refresh of status if login token expires. Fix for idle state when cover is partially open"
-  },
-  "2.1.6": {
-    "en": "Added setting to switch off polling. Changes to polling mode and sync speed now show in app settings. Added Boost mode to temporarily increase polling speed when a cover command is sent. Added support for io:SimpleBioclimaticPergolaIOComponent"
-  },
-  "2.1.7": {
-    "en": "Added support for hue:GenericExtendedColorLightHUEComponent, hue:HueLuxHUEComponent, hue:ExtendedColorLightCandleHUEComponent, hue:LightStripsPlusHUEComponent, hue:ColorTemperatureLightBulbHUEComponent, io:DimmableLightIOComponent"
-  },
-  "2.1.8": {
-    "en": "Changed Sync Speed to Sync Interval. Limited size of Information log. Added io:DiscreteGarageOpenerWithPartialPositionIOComponent"
-  },
-  "2.1.9": {
-    "en": "Added io:AwningReceiverUnoIOComponent, rts:GarageDoor4TRTSComponent, rts:SlidingGateOpener4TRTSComponent"
-  },
-  "2.1.10": {
-    "en": "Added io:AwningReceiverUnoIOComponent, rts:GarageDoor4TRTSComponent, rts:SlidingGateOpener4TRTSComponent"
-  },
-  "2.1.11": {
-    "en": "Added io:LightMicroModuleSomfyIOComponent, rts:LightRTSComponent. Fixed dim and on/off cancelling each other. Improved boost sync to capture new command events when session had timed out"
-  },
-  "2.1.12": {
-    "en": "Delay sync flow actions if sync is currently boosted. Auto login method is now active all the time and not just when the credentials are saved"
-  },
-  "2.1.13": {
-    "en": "Temporarily removed oauth login as it is causing an issue with Somfy"
-  },
-  "2.1.14": {
-    "en": "Updated libraries"
-  },
-  "2.1.15": {
-    "en": "Changes to axios login methods."
-  },
-  "2.1.16": {
-    "en": "Fix rts:LightRTSComponent and io:LightMicroModuleSomfyIOComponent controllable names."
-  },
-  "2.1.17": {
-    "en": "Stopped rts:LightRTSComponent and io:LightMicroModuleSomfyIOComponent devices form send On command when dim set. Added ovp:SomfyPilotWireHeatingInterfaceOVPComponent and ovp:SomfyPilotWireTemperatureSensorOVPComponent."
-  },
-  "2.1.18": {
-    "en": "Added support for rts:RollerShutterRTSComponent."
-  },
-  "2.1.19": {
-    "en": "Potential fix for failed login attempts at startup. Add logout when app is closed (during update, etc.)"
-  },
-  "2.1.20": {
-    "en": "Fixed issue with OAuth login."
-  },
-  "2.1.21": {
-    "en": "Added support for rts:CurtainRTSComponent."
-  },
-  "2.1.22": {
-    "en": "Fix for rts:RollerShutterRTSComponent and rts:CurtainRTSComponent."
-  },
-  "2.1.23": {
-    "en": "Added io:OnOffIOComponent and myfox:HomeKeeperProAlarmController. Provides success feedback when sending logs."
-  },
-  "2.1.24": {
-    "en": "Added rtds:RTDSSmokeSensor, rtds:RTDSContactSensor and rtds:RTDSMotionSensor."
-  },
-  "2.1.25": {
-    "en": "Added rtds:RTDSSmokeSensor, rtds:RTDSContactSensor and rtds:RTDSMotionSensor"
-  },
-  "2.1.26": {
-    "en": "Added rts:ExteriorVenetianBlindRTSComponent and set tilt position for exterior venetian blind"
-  },
-  "2.1.27": {
-    "en": "Added trigger and action flow cards for tilt."
-  },
-  "2.1.28": {
-    "en": "Changed minimum interval to 30 seconds to comply with Somfy's conditions of use. Added Is Moving condition flow card for IO window covers."
-  },
-  "2.1.29": {
-    "en": "Changed minimum interval to 30 seconds to comply with Somfy's conditions of use. Added Is Moving condition flow card for IO window covers."
-  },
-  "2.1.30": {
-    "en": "Changed minimum interval to 30 seconds to comply with Somfy's conditions of use. Added Is Moving condition flow card for IO window covers."
-  },
-  "2.1.31": {
-    "en": "The Poll for status updates action card will now start the polling immediately if possible, without breaking th 30 second rule. Added 'Once' option to the Poll for status updates action card. Changed lower limit on Polling Interval action card to 30 seconds."
-  },
-  "2.1.32": {
-    "en": "Added the flow ID to the error message in the log generated by a flow error."
-  },
-  "2.1.33": {
-    "en": "Fixed Motion has changed trigger error."
-  },
-  "2.1.34": {
-    "en": "Added io:SomfySmokeIOSystemSensor and io:IORemoteController."
-  },
-  "2.1.35": {
-    "en": "Added enocean:EnOceanOnOffLight as Two button On / Off."
-  },
-  "2.1.36": {
-    "en": "Added hue:GenericDimmableLightHUEComponent and hue:ColorTemperatureLightSpotHUEComponent."
-  },
-  "2.1.37": {
-    "en": "Added Energy sensor, Atlantic Water Boiler, Atlantic Outside temperature sensor and Atlantic Zone temperature sensor"
-  },
-  "2.1.38": {
-    "en": "Added Atlantic Heating Zone, Atlantic Hot Water Tank"
-  },
-  "2.1.39": {
-    "en": "Added rts:ExteriorBlindRTSComponent and renamed 'Interior Blind (RTS)' to 'Blind (RTS)'"
-  },
-  "2.1.40": {
-    "en": "Fix tilt flow trigger"
-  },
-  "2.1.41": {
-    "en": "Added a watchdog to the alarm type capabilities to check if they switched off with notifying. Added 'io:AtlanticPassAPCZoneControlZoneComponent', 'io:CumulatedElectricalEnergyConsumptionIOSystemDeviceSensor' and  'io:TemperatureInCelciusIOSystemDeviceSensor'"
-  },
-  "2.1.42": {
-    "en": "Add KeyGo remote. Added MY position to io:RollerShutterGenericIOComponent. Fixed a typo in io:IORemoteController that would stop the initial state being set"
-  },
-  "2.1.43": {
-    "en": "Fix 'stop' button sending null as the command."
-  },
-  "2.1.44": {
-    "en": "Added Atlantic Main Zone Controller and Atlantic Hot Water Production"
-  },
-  "2.1.45": {
-    "en": "Added Atlantic Electric Heater"
-  },
-  "2.1.46": {
-    "en": "Added Radiator Valve"
-  },
-  "2.1.47": {
-    "en": "Added Somfy RTDS Water Sensor"
-  },
-  "2.1.48": {
-    "en": "Added io sliding gate. Fixed a potential lock up of the event registration process. When polling is switched back on, it now refreshes all the capabilities as they might have changed while not polling."
-  },
-  "2.1.49": {
-    "en": "Fixes for heating valve."
-  },
-  "2.1.50": {
-    "en": "Fixes to clear Lockstate when it no longer appears in the state data."
-  },
-  "2.1.51": {
-    "en": "Fix to clear Lockstate when it no longer appears in the state data."
-  },
-  "2.1.52": {
-    "en": "Fixed inconsistent naming of a function."
-  }
+    "1.0.0": {
+        "en": "* First release with support for IO vertical exterior blinds and Sunis IO wire free sensor"
+    },
+    "1.0.1": {
+        "en": "* Because of a difference in blind states between TaHoma and Homey, sometimes it wasn't possible to open halfway closed blinds after a sync with TaHoma cloud or a cloud sync would open the blinds when the user had closed the blinds half way. This is now fixed."
+    },
+    "1.0.2": {
+        "en": "* A user defined action (which is in progress), can no longer be overwritten by another action through cloud sync.\n* Fixed an issue that would crash the app, if the response from the TaHoma API was in the wrong format."
+    },
+    "1.0.3": {
+        "en": "* Fixed an issue that would crash the app, if there was an error response from TaHoma."
+    },
+    "1.1.0": {
+        "en": "* Added support for the Somfy Thermis WireFree IO sensor."
+    },
+    "1.2.0": {
+        "en": "* App is now compatible with SDK 2."
+    },
+    "1.3.0": {
+        "en": "* Added support for IO roller shutters.\n* Added support for Velux IO roof windows.\n* Added support for Velux IO blinds."
+    },
+    "1.3.1": {
+        "en": "* Added support for IO horizontal awnings."
+    },
+    "1.3.2": {
+        "en": "* Added support for IO exterior venetian blinds.\n* The roller shutters device supports low speed management motors as well."
+    },
+    "1.3.3": {
+        "en": "* Added an icon for the IO exterior venetian blinds."
+    },
+    "1.3.4": {
+        "en": "* Changed app store assets\n* Optimized code for a better performance"
+    },
+    "1.3.5": {
+        "en": "* Ability to log out of the TaHoma service was added."
+    },
+    "1.3.6": {
+        "en": "* Fixed a bug that would crash the app."
+    },
+    "1.3.7": {
+        "en": "* Fixed a bug that would cause the temperature of the Thermis to be incorrect."
+    },
+    "1.4.0": {
+        "en": "* Added support for the IO Opening Detector.*Added synchronization speed preference to the settings screen.This enables the user to choose their own synchronization time between Homey and TaHoma.The default time is 10 seconds."
+    },
+    "1.5.0": {
+        "en": "* App is now compatible with Homey V2.*Added support for Velux IO exterior roller shutters.*Apart from setting the window covering state to open or closed, it is now also possible to use a slider to set it to a specific position, in order to use this new feature it is necessary to remove and add the device in Homey.*App is also compatible with the Somfy Connexoon."
+    },
+    "1.5.1": {
+        "en": "* Fixed a bug where the opening / closing of the IO horizontal awnings would be reversed."
+    },
+    "1.5.2": {
+        "en": "* Small bug fixes."
+    },
+    "1.5.3": {
+        "en": "* Fixed a bug where the up and down buttons of the window coverings devices wouldn't respond.\n*Improved app performance."
+    },
+    "1.5.4": {
+        "en": "* Fixed a bug where the movement of the window coverings devices would suddenly stop."
+    },
+    "1.6.0": {
+        "en": "* Added Somfy One Alarm.\n* Added Outdoor Camera Light Controller.\n* Enocean Window Handle (requires Enocean USB module)."
+    },
+    "1.6.1": {
+        "en": "* Added Somfy receiver IZYMO io shutter.\n* Added Somfy io motion sensor.\n* Merged Anders fix from GitHub for horizontal awnings issue."
+    },
+    "1.6.2": {
+        "en": "* Added RTS dual curtains, blinds and venetian blinds."
+    },
+    "1.6.3": {
+        "en": "* Added MY button and flow action to RTS venetian blind.\n* Added Interior io vertical blind"
+    },
+    "1.6.4": {
+        "en": "* Added io garage door opener"
+    },
+    "1.6.5": {
+        "en": "* Added a data log to the app configuration screen to make it easier to provide the data required to add a new device."
+    },
+    "1.6.6": {
+        "en": "* Added a Quiet Mode for io:RollerShutterWithLowSpeedManagementIOComponent.\n* Tidy up of old code."
+    },
+    "1.6.7": {
+        "en": "* Separated Roller Shutter Quiet (io) from other Roller Shutter (io) devices\n* Added action card for quiet mode.\n* Fix for Quiet Mode not working when switched off."
+    },
+    "1.6.8": {
+        "en": "* Added Dutch translation for Quiet mode."
+    },
+    "1.6.9": {
+        "en": "* Fix crash when adding new Roller Shutter Quiet (io)."
+    },
+    "1.6.10": {
+        "en": "* Added simulator to help debug devices."
+    },
+    "1.6.11": {
+        "en": "* Added My button to io:RollerShutterWithLowSpeedManagementIOComponent.\n* Convert Up / Down commands to quiet move command for io:RollerShutterWithLowSpeedManagementIOComponent."
+    },
+    "1.6.13": {
+        "en": "* io:RollerShutterWithLowSpeedManagementIOComponent:\n  * Reversed quite Up/Down.\n  * Added quiet mode to My position.\n* io:GarageOpenerIOComponent: Added position control."
+    },
+    "1.6.14": {
+        "en": "* Added Dutch translation for My Position button and flow card"
+    },
+    "1.6.15": {
+        "en": "* io:RollerShutterWithLowSpeedManagementIOComponent: Fixed Move to My position flow card"
+    },
+    "1.6.16": {
+        "en": "* Added io:AwningValanceIOComponent"
+    },
+    "1.6.18": {
+        "en": "* Use alternate commands for io:AwningValanceIOComponent"
+    },
+    "1.6.19": {
+        "en": "* Fix possible error for old io:HorizontalAwningIOComponent"
+    },
+    "1.6.20": {
+        "en": "* Changed setInterval to setTimeout so missing responses that timeout don't overlap.\n* Added Quick UI feature to most blinds and awnings so tile shows open close state and can toggle the state"
+    },
+    "1.6.21": {
+        "en": "* Added Lock State capability and flow trigger when io:PriorityLockOriginatorState is available"
+    },
+    "1.6.22": {
+        "en": "* Inverted io:AwningValanceIOComponent so Up/Down buttons match io:HorizontalAwningIOComponent when Extended / retracted."
+    },
+    "1.6.23": {
+        "en": "* Fix error when tapping on the tile for the io roller shutters with slow speed."
+    },
+    "1.6.24": {
+        "en": "* Tidy up to reduce app size"
+    },
+    "1.6.25": {
+        "en": "* Optimized images sizes\n* Converted to use axios library to reduce size and improve performance"
+    },
+    "2.0.0": {
+        "en": "* Published in Athom store"
+    },
+    "2.0.1": {
+        "en": "* Added more detail to the generic error handler message."
+    },
+    "2.0.2": {
+        "en": "* Fixed a possible error when the access token expires that could cause flows to fail. Added options to reverse the open / close directions of the controls for each cover device."
+    },
+    "2.0.3": {
+        "en": "* Fixed options to reverse the open / close directions of the controls for each device. Added option to invert the tile action for cover devices that provide position information."
+    },
+    "2.0.4": {
+        "en": "* Added options for alternate server addresses."
+    },
+    "2.0.5": {
+        "en": "* Added options for new OAuth login."
+    },
+    "2.0.6": {
+        "en": "More error checking."
+    },
+    "2.0.7": {
+        "en": "Converted \\setup endpoint to individual fetch in compliance with email from Somfy"
+    },
+    "2.0.8": {
+        "en": "Implemented Event method of updating capabilities"
+    },
+    "2.0.9": {
+        "en": "Added more logging for events"
+    },
+    "2.0.10": {
+        "en": "Fix missing return data after reauthenticating"
+    },
+    "2.0.11": {
+        "en": "Added flags to control startup sequence"
+    },
+    "2.0.12": {
+        "en": "Fix variable name error in app init."
+    },
+    "2.0.13": {
+        "en": "Changed unhandledRejection report to show more information."
+    },
+    "2.0.14": {
+        "en": "Fixed erroneous conversion of Open / Close state to int."
+    },
+    "2.0.15": {
+        "en": "fixed event value issue with opening sensor and light controller sensor, added option to switch off Information log."
+    },
+    "2.0.16": {
+        "en": "Prevent excessive login attempts."
+    },
+    "2.0.17": {
+        "en": "Updated Dutch translations"
+    },
+    "2.1.0": {
+        "en": "Reduced the load on the Somfy servers as per the email from Somfy. Added an option for new login method to fix issues with logging in to some accounts. Added extra log tabs for diagnostics."
+    },
+    "2.1.1": {
+        "en": "Fix crash on old Homeys, Reduced the load on the Somfy servers as per the email from Somfy. Added an option for new login method to fix issues with logging in to some accounts. Added extra log tabs for diagnostics."
+    },
+    "2.1.2": {
+        "en": "Fix crash on old Homeys, Reduced the load on the Somfy servers as per the email from Somfy. Added an option for new login method to fix issues with logging in to some accounts. Added extra log tabs for diagnostics. Fixed issue with expired access tokens."
+    },
+    "2.1.3": {
+        "en": "App now automatically chooses the login method"
+    },
+    "2.1.4": {
+        "en": "Added flow card to switch polling on / off"
+    },
+    "2.1.5": {
+        "en": "Added flow card to change sync speed. Forced refresh of status if login token expires. Fix for idle state when cover is partially open"
+    },
+    "2.1.6": {
+        "en": "Added setting to switch off polling. Changes to polling mode and sync speed now show in app settings. Added Boost mode to temporarily increase polling speed when a cover command is sent. Added support for io:SimpleBioclimaticPergolaIOComponent"
+    },
+    "2.1.7": {
+        "en": "Added support for hue:GenericExtendedColorLightHUEComponent, hue:HueLuxHUEComponent, hue:ExtendedColorLightCandleHUEComponent, hue:LightStripsPlusHUEComponent, hue:ColorTemperatureLightBulbHUEComponent, io:DimmableLightIOComponent"
+    },
+    "2.1.8": {
+        "en": "Changed Sync Speed to Sync Interval. Limited size of Information log. Added io:DiscreteGarageOpenerWithPartialPositionIOComponent"
+    },
+    "2.1.9": {
+        "en": "Added io:AwningReceiverUnoIOComponent, rts:GarageDoor4TRTSComponent, rts:SlidingGateOpener4TRTSComponent"
+    },
+    "2.1.10": {
+        "en": "Added io:AwningReceiverUnoIOComponent, rts:GarageDoor4TRTSComponent, rts:SlidingGateOpener4TRTSComponent"
+    },
+    "2.1.11": {
+        "en": "Added io:LightMicroModuleSomfyIOComponent, rts:LightRTSComponent. Fixed dim and on/off cancelling each other. Improved boost sync to capture new command events when session had timed out"
+    },
+    "2.1.12": {
+        "en": "Delay sync flow actions if sync is currently boosted. Auto login method is now active all the time and not just when the credentials are saved"
+    },
+    "2.1.13": {
+        "en": "Temporarily removed oauth login as it is causing an issue with Somfy"
+    },
+    "2.1.14": {
+        "en": "Updated libraries"
+    },
+    "2.1.15": {
+        "en": "Changes to axios login methods."
+    },
+    "2.1.16": {
+        "en": "Fix rts:LightRTSComponent and io:LightMicroModuleSomfyIOComponent controllable names."
+    },
+    "2.1.17": {
+        "en": "Stopped rts:LightRTSComponent and io:LightMicroModuleSomfyIOComponent devices form send On command when dim set. Added ovp:SomfyPilotWireHeatingInterfaceOVPComponent and ovp:SomfyPilotWireTemperatureSensorOVPComponent."
+    },
+    "2.1.18": {
+        "en": "Added support for rts:RollerShutterRTSComponent."
+    },
+    "2.1.19": {
+        "en": "Potential fix for failed login attempts at startup. Add logout when app is closed (during update, etc.)"
+    },
+    "2.1.20": {
+        "en": "Fixed issue with OAuth login."
+    },
+    "2.1.21": {
+        "en": "Added support for rts:CurtainRTSComponent."
+    },
+    "2.1.22": {
+        "en": "Fix for rts:RollerShutterRTSComponent and rts:CurtainRTSComponent."
+    },
+    "2.1.23": {
+        "en": "Added io:OnOffIOComponent and myfox:HomeKeeperProAlarmController. Provides success feedback when sending logs."
+    },
+    "2.1.24": {
+        "en": "Added rtds:RTDSSmokeSensor, rtds:RTDSContactSensor and rtds:RTDSMotionSensor."
+    },
+    "2.1.25": {
+        "en": "Added rtds:RTDSSmokeSensor, rtds:RTDSContactSensor and rtds:RTDSMotionSensor"
+    },
+    "2.1.26": {
+        "en": "Added rts:ExteriorVenetianBlindRTSComponent and set tilt position for exterior venetian blind"
+    },
+    "2.1.27": {
+        "en": "Added trigger and action flow cards for tilt."
+    },
+    "2.1.28": {
+        "en": "Changed minimum interval to 30 seconds to comply with Somfy's conditions of use. Added Is Moving condition flow card for IO window covers."
+    },
+    "2.1.29": {
+        "en": "Changed minimum interval to 30 seconds to comply with Somfy's conditions of use. Added Is Moving condition flow card for IO window covers."
+    },
+    "2.1.30": {
+        "en": "Changed minimum interval to 30 seconds to comply with Somfy's conditions of use. Added Is Moving condition flow card for IO window covers."
+    },
+    "2.1.31": {
+        "en": "The Poll for status updates action card will now start the polling immediately if possible, without breaking th 30 second rule. Added 'Once' option to the Poll for status updates action card. Changed lower limit on Polling Interval action card to 30 seconds."
+    },
+    "2.1.32": {
+        "en": "Added the flow ID to the error message in the log generated by a flow error."
+    },
+    "2.1.33": {
+        "en": "Fixed Motion has changed trigger error."
+    },
+    "2.1.34": {
+        "en": "Added io:SomfySmokeIOSystemSensor and io:IORemoteController."
+    },
+    "2.1.35": {
+        "en": "Added enocean:EnOceanOnOffLight as Two button On / Off."
+    },
+    "2.1.36": {
+        "en": "Added hue:GenericDimmableLightHUEComponent and hue:ColorTemperatureLightSpotHUEComponent."
+    },
+    "2.1.37": {
+        "en": "Added Energy sensor, Atlantic Water Boiler, Atlantic Outside temperature sensor and Atlantic Zone temperature sensor"
+    },
+    "2.1.38": {
+        "en": "Added Atlantic Heating Zone, Atlantic Hot Water Tank"
+    },
+    "2.1.39": {
+        "en": "Added rts:ExteriorBlindRTSComponent and renamed 'Interior Blind (RTS)' to 'Blind (RTS)'"
+    },
+    "2.1.40": {
+        "en": "Fix tilt flow trigger"
+    },
+    "2.1.41": {
+        "en": "Added a watchdog to the alarm type capabilities to check if they switched off with notifying. Added 'io:AtlanticPassAPCZoneControlZoneComponent', 'io:CumulatedElectricalEnergyConsumptionIOSystemDeviceSensor' and  'io:TemperatureInCelciusIOSystemDeviceSensor'"
+    },
+    "2.1.42": {
+        "en": "Add KeyGo remote. Added MY position to io:RollerShutterGenericIOComponent. Fixed a typo in io:IORemoteController that would stop the initial state being set"
+    },
+    "2.1.43": {
+        "en": "Fix 'stop' button sending null as the command."
+    },
+    "2.1.44": {
+        "en": "Added Atlantic Main Zone Controller and Atlantic Hot Water Production"
+    },
+    "2.1.45": {
+        "en": "Added Atlantic Electric Heater"
+    },
+    "2.1.46": {
+        "en": "Added Radiator Valve"
+    },
+    "2.1.47": {
+        "en": "Added Somfy RTDS Water Sensor"
+    },
+    "2.1.48": {
+        "en": "Added io sliding gate. Fixed a potential lock up of the event registration process. When polling is switched back on, it now refreshes all the capabilities as they might have changed while not polling."
+    },
+    "2.1.49": {
+        "en": "Fixes for heating valve."
+    },
+    "2.1.50": {
+        "en": "Fixes to clear Lockstate when it no longer appears in the state data."
+    },
+    "2.1.51": {
+        "en": "Fix to clear Lockstate when it no longer appears in the state data."
+    },
+    "2.1.52": {
+        "en": "Fixed inconsistent naming of a function."
+    },
+    "2.1.53": {
+        "en": "Fixed issue that stops some controls from updating if polling is switched off."
+    },
+    "2.1.54": {
+        "en": "Added rts:HorizontalAwningRTSComponent."
+    }
 }
