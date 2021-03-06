@@ -12,6 +12,10 @@ class InteriorCurtainDevice extends WindowCoveringsDevice {
         if (this.hasCapability("lock_state")) {
             this.removeCapability("lock_state");
         }
+        
+        if (!this.hasCapability("my_position")) {
+            this.addCapability("my_position");
+        }
 
         await super.onInit();
 

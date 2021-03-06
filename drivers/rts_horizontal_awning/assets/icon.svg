@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="102px" height="102px" viewBox="0 0 102 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>Untitled</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(0.000000, -54.000000)">
+            <g id="background" transform="translate(0.000000, 54.000000)">
+                <rect id="canvas_background" x="0" y="0" width="102" height="102"></rect>
+            </g>
+            <g id="Layer-1" transform="translate(1.000000, 0.000000)" stroke="#000000">
+                <polygon id="svg_7" stroke-opacity="0" fill="#000000" points="0.396877 110.250002 20.246878 55.25 99.646874 55.25 79.796873 110.250002"></polygon>
+                <path d="M80.125,109.5 L100.375001,104" id="svg_10" stroke-width="3"></path>
+                <circle id="svg_30" stroke-opacity="0" fill="#000000" cx="75.625" cy="110.25" r="5"></circle>
+                <circle id="svg_35" stroke-opacity="0" fill="#000000" cx="5.625" cy="110.25" r="5"></circle>
+                <circle id="svg_36" stroke-opacity="0" fill="#000000" cx="14.375" cy="110.25" r="5"></circle>
+                <circle id="svg_37" stroke-opacity="0" fill="#000000" cx="23.125" cy="110.25" r="5"></circle>
+                <circle id="svg_38" stroke-opacity="0" fill="#000000" cx="31.875" cy="110.25" r="5"></circle>
+                <circle id="svg_39" stroke-opacity="0" fill="#000000" cx="40.625" cy="110.25" r="5"></circle>
+                <path d="M49.375,115.25 C46.6135763,115.25 44.375,113.011424 44.375,110.25 C44.375,107.488576 46.6135763,105.25 49.375,105.25 C52.1364237,105.25 54.375,107.488576 54.375,110.25 C54.375,113.011424 52.1364237,115.25 49.375,115.25 Z M407,0 L407,1 L407,0 Z" id="svg_40-2" stroke-opacity="0" fill="#000000"></path>
+                <circle id="svg_41" stroke-opacity="0" fill="#000000" cx="58.125" cy="110.25" r="5"></circle>
+                <circle id="svg_42" stroke-opacity="0" fill="#000000" cx="66.875" cy="110.25" r="5"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

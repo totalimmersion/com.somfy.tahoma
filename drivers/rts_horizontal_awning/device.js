@@ -3,18 +3,10 @@
 
 const WindowCoveringsDevice = require('../WindowCoveringsDevice');
 
-/**
- * Device class for exterior venetian blinds with the rts:BlindRTSComponent, rts:HorizontalAwningRTSComponent and rts:RollerShutterRTSComponent controllable name in TaHoma
- * @extends {WindowCoveringsDevice}
- */
-class InteriorBlindDevice extends WindowCoveringsDevice {
+class HorizontalAwningRTSDevice extends WindowCoveringsDevice {
     async onInit() {
         if (this.hasCapability("lock_state")) {
             this.removeCapability("lock_state");
-        }
-        
-        if (!this.hasCapability("my_position")) {
-            this.addCapability("my_position");
         }
 
         await super.onInit();
@@ -29,4 +21,4 @@ class InteriorBlindDevice extends WindowCoveringsDevice {
     }
 }
 
-module.exports = InteriorBlindDevice;
+module.exports = HorizontalAwningRTSDevice;
