@@ -11,7 +11,7 @@
     {
         "en": "Bring the richness of Homey to your Somfy world"
     },
-    "version": "2.1.54",
+    "version": "2.1.55",
     "compatibility": ">=2.0.0",
     "author":
     {
@@ -1084,6 +1084,21 @@
             "insights": true,
             "insightsTitleTrue": { "en": "Valve Open" },
             "insightsTitleFalse": { "en": "Valve Closed" }
+        },
+        "alarm_room_state":
+        {
+            "type": "boolean",
+            "getable": true,
+            "setable": false,
+            "uiComponent": "sensor",
+            "title":
+            {
+                "en": "Sensor Dirty"
+            },
+            "icon": "/assets/dirty.svg",
+            "insights": true,
+            "insightsTitleTrue": { "en": "clean" },
+            "insightsTitleFalse": { "en": "dirty" }
         }
     },
     "drivers": [
@@ -2563,8 +2578,22 @@
         "class": "sensor",
         "capabilities": [
             "alarm_smoke",
+            "alarm_battery.radio",
+            "alarm_battery.sensor",
+            "alarm_room_state",
             "test_smoke"
         ],
+        "capabilitiesOptions":
+        {
+            "alarm_battery.radio":
+            {
+                "title": "Radio Battery"
+            },
+            "alarm_battery.sensor":
+            {
+                "title": "Sensor Battery"
+            }
+        },
         "pair": [
         {
             "id": "list_my_devices",
@@ -3178,6 +3207,11 @@
                 "en": "The luminance is more than",
                 "nl": "De lichtsterkte is meer dan"
             },
+            "titleFormatted":
+            {
+                "en": "The luminance is more than [[luminance]]",
+                "nl": "De lichtsterkte is meer dan [[luminance]]"
+            },
             "args": [
             {
                 "name": "device",
@@ -3201,6 +3235,11 @@
                 "en": "The luminance is less than",
                 "nl": "De lichtsterkte is minder dan"
             },
+            "titleFormatted":
+            {
+                "en": "The luminance is less than [[luminance]]",
+                "nl": "De lichtsterkte is minder dan [[luminance]]"
+            },
             "args": [
             {
                 "name": "device",
@@ -3223,6 +3262,11 @@
             {
                 "en": "The luminance is between",
                 "nl": "De lichtsterkte is tussen"
+            },
+            "titleFormatted":
+            {
+                "en": "The luminance is between [[luminance_from]] and [[luminance_to]]",
+                "nl": "De lichtsterkte is tussen [[luminance_from]] en [[luminance_to]]"
             },
             "args": [
             {
@@ -3256,6 +3300,11 @@
                 "en": "The temperature is more than",
                 "nl": "De temperatuur is meer dan"
             },
+            "titleFormatted":
+            {
+                "en": "The temperature is more than [[temperature]]",
+                "nl": "De temperatuur is meer dan [[temperature]]"
+            },
             "args": [
             {
                 "name": "device",
@@ -3279,6 +3328,11 @@
                 "en": "The temperature is less than",
                 "nl": "De temperatuur is minder dan"
             },
+            "titleFormatted":
+            {
+                "en": "The temperature is less than [[temperature]]",
+                "nl": "De temperatuur is minder dan [[temperature]]"
+            },
             "args": [
             {
                 "name": "device",
@@ -3301,6 +3355,11 @@
             {
                 "en": "The temperature is between",
                 "nl": "De temperatuur is tussen"
+            },
+            "titleFormatted":
+            {
+                "en": "The temperature is between [[temperature_from]] and [[temperature_to]]",
+                "nl": "De temperatuur is tussen [[temperature_from]] en [[temperature_to]]"
             },
             "args": [
             {
@@ -3379,7 +3438,7 @@
             "id": "smoke_has_changed",
             "title":
             {
-                "en": "The state of the smoke detector has changed"
+                "en": "The smoke alarm state has changed"
             },
             "tokens": [
             {
@@ -3391,6 +3450,84 @@
                 },
                 "example": "smoke"
             }],
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=smoke_detector"
+            }]
+        },
+        {
+            "id": "alarm_battery_radio_true",
+            "title":
+            {
+                "en": "The Radio battery alarm turned on"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=smoke_detector"
+            }]
+        },
+        {
+            "id": "alarm_battery_radio_false",
+            "title":
+            {
+                "en": "The Radio battery alarm turned off"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=smoke_detector"
+            }]
+        },
+        {
+            "id": "alarm_battery_sensor_true",
+            "title":
+            {
+                "en": "The Sensor battery alarm turned on"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=smoke_detector"
+            }]
+        },
+        {
+            "id": "alarm_battery_sensor_false",
+            "title":
+            {
+                "en": "The Sensor battery alarm turned off"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=smoke_detector"
+            }]
+        },
+        {
+            "id": "alarm_room_state_true",
+            "title":
+            {
+                "en": "The Dirty alarm turned on"
+            },
+            "args": [
+            {
+                "name": "device",
+                "type": "device",
+                "filter": "driver_id=smoke_detector"
+            }]
+        },
+        {
+            "id": "alarm_room_state_false",
+            "title":
+            {
+                "en": "The Dirty alarm turned off"
+            },
             "args": [
             {
                 "name": "device",
@@ -3495,6 +3632,10 @@
             {
                 "en": "Remote state changed to"
             },
+            "titleFormatted":
+            {
+                "en": "Remote state changed to [[expected_state]]"
+            },
             "args": [
             {
                 "name": "device",
@@ -3564,6 +3705,10 @@
             {
                 "en": "Remote state changed to"
             },
+            "titleFormatted":
+            {
+                "en": "Remote state changed to [[expected_state]]"
+            },
             "args": [
             {
                 "name": "device",
@@ -3605,6 +3750,11 @@
                 "en": "The luminance !{{is|isn't}} more than",
                 "nl": "De lichtsterkte !{{is|is niet}} meer dan"
             },
+            "titleFormatted":
+            {
+                "en": "The luminance !{{is|isn't}} more than [[luminance]]",
+                "nl": "De lichtsterkte !{{is|is niet}} meer dan [[luminance]]"
+            },
             "args": [
             {
                 "name": "device",
@@ -3628,6 +3778,11 @@
                 "en": "The luminance !{{is|isn't}} less than",
                 "nl": "De lichtsterkte !{{is|is niet}} minder dan"
             },
+            "titleFormatted":
+            {
+                "en": "The luminance !{{is|isn't}} less than [[luminance]]",
+                "nl": "De lichtsterkte !{{is|is niet}} minder dan [[luminance]]"
+            },
             "args": [
             {
                 "name": "device",
@@ -3650,6 +3805,11 @@
             {
                 "en": "The luminance !{{is|isn't}} between",
                 "nl": "De lichtsterkte !{{is|is niet}} tussen"
+            },
+            "titleFormatted":
+            {
+                "en": "The luminance !{{is|isn't}} between [[luminance_from]] and [[luminance_to]]",
+                "nl": "De lichtsterkte !{{is|is niet}} tussen [[luminance_from]] en [[luminance_to]]"
             },
             "args": [
             {
@@ -3683,6 +3843,11 @@
                 "en": "The temperature !{{is|isn't}} more than",
                 "nl": "De temperatuur !{{is|is niet}} meer dan"
             },
+            "titleFormatted":
+            {
+                "en": "The temperature !{{is|isn't}} more than [[temperature]]",
+                "nl": "De temperatuur !{{is|is niet}} meer dan [[temperature]]"
+            },
             "args": [
             {
                 "name": "device",
@@ -3706,6 +3871,11 @@
                 "en": "The temperature !{{is|isn't}} less than",
                 "nl": "De temperatuur !{{is|is niet}} minder dan"
             },
+            "titleFormatted":
+            {
+                "en": "The temperature !{{is|isn't}} less than [[temperature]]",
+                "nl": "De temperatuur !{{is|is niet}} minder dan [[temperature]]"
+            },
             "args": [
             {
                 "name": "device",
@@ -3728,6 +3898,11 @@
             {
                 "en": "The temperature !{{is|isn't}} between",
                 "nl": "De temperatuur !{{is|is niet}} tussen"
+            },
+            "titleFormatted":
+            {
+                "en": "The temperature !{{is|isn't}} between [[temperature_from]] and [[temperature_to]]",
+                "nl": "De temperatuur !{{is|is niet}} tussen [[temperature_from]] en [[temperature_to]]"
             },
             "args": [
             {
@@ -3776,6 +3951,11 @@
                 "en": "Play scenario",
                 "nl": "Scenario afspelen"
             },
+            "titleFormatted":
+            {
+                "en": "Play scenario [[scenario]]",
+                "nl": "Scenario afspelen [[scenario]]"
+            },
             "args": [
             {
                 "name": "scenario",
@@ -3802,6 +3982,11 @@
             {
                 "en": "Quiet mode",
                 "nl": "Stille modus"
+            },
+            "titleFormatted":
+            {
+                "en": "Quiet mode to [[newQuietMode]]",
+                "nl": "Stille modus naar [[newQuietMode]]"
             },
             "args": [
             {
@@ -3838,6 +4023,11 @@
                 "en": "Polling Interval",
                 "nl": "Update frequentie"
             },
+            "titleFormatted":
+            {
+                "en": "Polling Interval to [[syncSpeed]]",
+                "nl": "Update frequentie naar [[syncSpeed]]"
+            },
             "args": [
             {
                 "name": "syncSpeed",
@@ -3856,6 +4046,11 @@
             {
                 "en": "Poll for status updates",
                 "nl": "Status updates"
+            },
+            "titleFormatted":
+            {
+                "en": "Poll for status updates [[newPollingMode]]",
+                "nl": "Status updates [[newPollingMode]]"
             },
             "args": [
             {
@@ -3893,6 +4088,10 @@
             "title":
             {
                 "en": "Set the tilt to"
+            },
+            "titleFormatted":
+            {
+                "en": "Set the tilt to [[windowcoverings_set]]"
             },
             "hint":
             {

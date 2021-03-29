@@ -349,5 +349,8 @@
     },
     "2.1.54": {
         "en": "Added rts:HorizontalAwningRTSComponent."
+    },
+    "2.1.55": {
+        "en": "Added dirty and battery alarms to smoke detectors. Changed login screen text to make it clearer that the details are for both Tahoma and Connexoon. Fixed error when clearing login details."
     }
 }

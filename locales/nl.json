@@ -1,8 +1,8 @@
 {
 	"settings": {
-		"title": "TaHoma instellingen",
-		"intro": "Om TaHoma aan te sturen vanuit Homey, moet Homey toestemming krijgen middels een gebruikersnaam en wachtwoord.",
-		"logintitle": "TaHoma login gegevens",
+		"title": "TaHoma / Connexoon instellingen",
+		"intro": "Om TaHoma / Connexoon aan te sturen vanuit Homey, moet Homey toestemming krijgen middels een gebruikersnaam en wachtwoord.",
+		"logintitle": "TaHoma / Connexoon login gegevens",
 		"username": "Gebruikersnaam",
 		"password": "Wachtwoord",
 		"save": "Login gegevens opslaan",
@@ -16,7 +16,7 @@
 		"sync_speed": "Update frequentie",
 		"sync_tooltip": "(seconden)",
 		"save_preferences": "Voorkeuren opslaan",
-		"linkurl": "Verbindings-URL",
+		"linkurl": "Verbindings-URL (Default is normaal gesproken goed voor Tahoma en Connexoon)",
 		"save_verifying": "Er wordt geprobeerd in te loggen. Even geduld aub…",
 		"logout_description": "Hierdoor wordt u uitgelogd bij Tahoma en uw inloggegevens worden uit de app verwijderd.",
 		"min_sync_speed": "Minimale update frequentie is 30",

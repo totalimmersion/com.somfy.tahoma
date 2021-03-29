@@ -65,8 +65,8 @@
                     <label for="linkurl" data-i18n="settings.linkurl"></label>
                     <select id="linkurl">
                         <option value="default">Default (www.tahomalink.com)</option>
-                        <option value="alt1">ConnexoonRTS (ha201-1.overkiz.com)</option>
-                        <option value="alt2">Alternative (ha110-1.overkiz.com)</option>
+                        <option value="alt1">Alternative 1 (ha201-1.overkiz.com)</option>
+                        <option value="alt2">Alternative 2 (ha110-1.overkiz.com)</option>
                     </select>
                 </div>
                 <div class="field row">
@@ -288,8 +288,8 @@
                     {
                         response.style.color = 'green';
                         response.innerHTML = __('settings.logout_success');
-                        usernameEl.val('');
-                        passwordEl.val('');
+                        usernameEl.value = ('');
+                        passwordEl.value = ('');
                     }
                 });
             });
