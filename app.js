@@ -1,8 +1,8 @@
 /*jslint node: true */
 'use strict';
-if (process.env.DEBUG === '1')
+//if (process.env.DEBUG === '1')
 {
-    require('inspector').open(9222, '0.0.0.0', true);
+    require('inspector').open(9223, '0.0.0.0', true);
 }
 const Homey = require('homey');
 const Tahoma = require('./lib/Tahoma');
@@ -558,7 +558,7 @@ class myApp extends Homey.App
 
         if (clearRestartingSync)
         {
-            clearRestartingSync = false;
+            this.restartingSync = false;
         }
     }
 
@@ -604,6 +604,12 @@ class myApp extends Homey.App
     async syncLoop(interval)
     {
         this.nextInterval = interval;
+
+        if (this.infoLogEnabled)
+        {
+            this.logInformation("syncLoop", `Logged in = ${this.loggedIn}, Already Syncing = ${this.syncing}, Stopping = ${this.stoppingSync}, Restarting = ${this.restartingSync}`);
+        }
+
         if (this.loggedIn && !this.syncing)
         {
             this.syncing = true;
