@@ -136,12 +136,14 @@ class Device extends Homey.Device
         {
             try
             {
+                let oldValue = this.getCapabilityValue(capabilityXRef.homeyName);
+
                 await this.setCapabilityValue(capabilityXRef.homeyName, value);
 
                 // For boolean states, setup a safety timeout incase the off state is not received.
                 if (typeof value === 'boolean')
                 {
-                    if (value)
+                    if (value && (value != oldValue))
                     {
                         this.checkTimerID = setTimeout(() =>
                         {
