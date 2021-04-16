@@ -352,5 +352,8 @@
     },
     "2.1.55": {
         "en": "Added dirty and battery alarms to smoke detectors. Changed login screen text to make it clearer that the details are for both Tahoma and Connexoon. Fixed error when clearing login details."
+    },
+    "2.1.56": {
+        "en": "Fix for potential issue when polling is dissabled that could prevent starting it again."
     }
 }
