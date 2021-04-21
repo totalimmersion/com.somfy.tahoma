@@ -723,7 +723,7 @@ class myApp extends Homey.App
                     }
                     catch (error)
                     {
-                        this.logInformation("Sync Devices", error);
+                        this.logInformation("Sync Devices", error.message);
                     }
                 }
             }
@@ -770,7 +770,7 @@ class myApp extends Homey.App
                 name
             }) => name.toLowerCase().indexOf(query.toLowerCase()) > -1)).catch(error =>
             {
-                this.logInformation("addScenarioActionListeners", error);
+                this.logInformation("addScenarioActionListeners", error.message);
             });
         });
     }
