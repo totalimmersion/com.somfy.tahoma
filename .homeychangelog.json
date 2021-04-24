@@ -361,5 +361,8 @@
     },
     "2.1.58": {
         "en": "Added extra logging to track down a user problem"
+    },
+    "2.1.59": {
+        "en": "Added RTS Gate Opener"
     }
 }
