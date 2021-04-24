@@ -299,7 +299,7 @@ class Device extends Homey.Device
                     return await Tahoma.getDeviceStates(deviceURL);
                 }
 
-                if (process.env.DEBUG === '1')
+                if (Homey.ManagerSettings.get('debugMode'))
                 {
                     const simData = Homey.ManagerSettings.get('simData');
                     if (simData)

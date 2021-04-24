@@ -258,11 +258,28 @@ class myApp extends Homey.App
 
     async logDevices()
     {
+        if (this.infoLogEnabled)
+        {
+            this.logInformation("logDevices", "Fetching devices");
+        }
+
         const devices = await Tahoma.getDeviceData();
+
         // Do a deep copy
         let logData = JSON.parse(JSON.stringify(devices));
-        if (process.env.DEBUG !== '1')
+
+        if (this.infoLogEnabled)
         {
+            this.logInformation("logDevices", `Log contains ${devices.length} devices`);
+        }
+
+        if (Homey.ManagerSettings.get('debugMode'))
+        {
+            if (this.infoLogEnabled)
+            {
+                this.logInformation("logDevices", "Debug Mode");
+            }
+
             let i = 1;
             logData.forEach(element =>
             {

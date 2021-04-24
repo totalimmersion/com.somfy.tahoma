@@ -358,5 +358,8 @@
     },
     "2.1.57": {
         "en": "Extended lockout period after a failed authentication to prevent re-triggering Somfy's temporary account lock out"
+    },
+    "2.1.58": {
+        "en": "Added extra logging to track down a user problem"
     }
 }
