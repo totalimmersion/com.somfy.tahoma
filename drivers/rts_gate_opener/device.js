@@ -67,42 +67,66 @@ class rtsGateOpenerDevice extends Device
         }
 
         var action;
-        action = {
-            name: value,
-            parameters: [this.getSetting('option')]
-        };
-
-        let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-        if (result !== undefined)
+        let actionParam = this.getSetting('option');
+        if (actionParam)
         {
-            if (result.errorCode)
-            {
-                Homey.app.logInformation(this.getName(),
-                {
-                    message: result.error,
-                    stack: result.errorCode
-                });
+            action = {
+                name: value,
+                parameters: [this.getSetting('option')]
+            };
+        }
+        else
+        {
+            action = {
+                name: value,
+                parameters:[]
+            };
 
+        }
+
+        try
+        {
+            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            if (result !== undefined)
+            {
+                if (result.errorCode)
+                {
+                    Homey.app.logInformation(this.getName(),
+                    {
+                        message: result.error,
+                        stack: result.errorCode
+                    });
+
+                    if (this.boostSync)
+                    {
+                        await Homey.app.unBoostSync();
+                    }
+                    throw (new Error(result.error));
+                }
+                else
+                {
+                    this.commandExecuting = action.name;
+                    this.executionId = result.execId;
+                }
+            }
+            else
+            {
+                Homey.app.logInformation(this.getName() + ": sendOpenClose", "Failed to send command");
                 if (this.boostSync)
                 {
                     await Homey.app.unBoostSync();
                 }
-                throw (new Error(result.error));
-            }
-            else
-            {
-                this.commandExecuting = action.name;
-                this.executionId = result.execId;
+                throw (new Error("Failed to send command"));
             }
         }
-        else
+        catch (err)
         {
             Homey.app.logInformation(this.getName() + ": sendOpenClose", "Failed to send command");
             if (this.boostSync)
             {
                 await Homey.app.unBoostSync();
             }
-            throw (new Error("Failed to send command"));
+            throw (err);
         }
     }
 
