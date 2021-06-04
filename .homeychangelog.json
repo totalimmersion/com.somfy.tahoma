@@ -367,5 +367,11 @@
     },
     "2.1.60": {
         "en": "Added RTS Gate Opener attempt 2"
+    },
+    "2.1.61": {
+        "en": "Added RTS Gate Opener"
+    },
+    "2.1.62": {
+        "en": "Added RTS Gate Opener"
     }
 }

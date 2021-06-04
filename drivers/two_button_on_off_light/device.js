@@ -64,7 +64,7 @@ class two_button_on_offDevice extends Device
             let retries = 20;
             while ((this.executionId !== null) && (retries-- > 0))
             {
-                await Homey.app.asyncDealy(500);
+                await Homey.app.asyncDelay(500);
             }
         }
 

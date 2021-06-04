@@ -9,7 +9,7 @@
     "description": {
         "en": "Bring the richness of Homey to your Somfy world"
     },
-    "version": "2.1.60",
+    "version": "2.1.62",
     "compatibility": ">=2.0.0",
     "author": {
         "name": "Adrian Rockall",
@@ -2478,15 +2478,38 @@
             ],
             "settings": [
                 {
-                    "id": "option",
-                    "type": "text",
+                    "id": "open_command",
+                    "type": "dropdown",
+                    "value": "open",
                     "label": {
-                        "en": "Gate parameter"
+                        "en": "Open Command"
                     },
-                    "value": "",
-                    "hint": {
-                        "en": "Specifies the parameter to send"
-                    }
+                    "values": [
+                        {
+                            "id": "open",
+                            "label": {
+                                "en": "Open"
+                            }
+                        },
+                        {
+                            "id": "rest",
+                            "label": {
+                                "en": "Rest"
+                            }
+                        },
+                        {
+                            "id": "up",
+                            "label": {
+                                "en": "Up"
+                            }
+                        },
+                        {
+                            "id": "openConfiguration",
+                            "label": {
+                                "en": "Open Configuration"
+                            }
+                        }
+                    ]
                 }
             ]
         },

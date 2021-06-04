@@ -13,6 +13,8 @@ class rtsGateOpenerDevice extends Device
         this.registerCapabilityListener('open_button', this.onCapabilityOpen.bind(this));
         this.registerCapabilityListener('close_button', this.onCapabilityClose.bind(this));
         this.registerCapabilityListener('stop_button', this.onCapabilityStop.bind(this));
+
+        this.boostSync = true;
     }
 
     async onCapabilityOpen(value)
@@ -58,21 +60,16 @@ class rtsGateOpenerDevice extends Device
         const deviceData = this.getData();
         if (this.executionId !== null)
         {
-            // Wait for previous command to complete
-            let retries = 20;
-            while ((this.executionId !== null) && (retries-- > 0))
-            {
-                await Homey.app.asyncDealy(500);
-            }
+            await Tahoma.cancelExecution(this.executionId);
         }
 
         var action;
-        let actionParam = this.getSetting('option');
-        if (actionParam)
+        let actionParam = this.getSetting('open_command');
+        if (actionParam && value === 'open')
         {
             action = {
-                name: value,
-                parameters: [this.getSetting('option')]
+                name: actionParam,
+                parameters: []
             };
         }
         else
