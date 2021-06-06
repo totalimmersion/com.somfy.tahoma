@@ -373,5 +373,8 @@
     },
     "2.1.62": {
         "en": "Added RTS Gate Opener"
+    },
+    "2.1.63": {
+        "en": "Added Velux external sunscreen (io:VerticalExteriorAwningVeluxIOComponent)"
     }
 }
