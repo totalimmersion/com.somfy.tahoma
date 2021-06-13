@@ -23,7 +23,7 @@ class RollerShutterDevice extends WindowCoveringsDevice
             controllableName = dd.controllableName.toString().toLowerCase();
         }
 
-        if (controllableName === 'io:rollershuttergenericiocomponent')
+        if ((controllableName === 'io:rollershuttergenericiocomponent') || (controllableName === 'io:rollershutterunoiocomponent'))
         {
             if (!this.hasCapability("my_position"))
             {

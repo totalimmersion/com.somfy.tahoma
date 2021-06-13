@@ -378,9 +378,12 @@
     "en": "Added Velux external sunscreen (io:VerticalExteriorAwningVeluxIOComponent)"
   },
   "2.1.64": {
-    "en": "Added Locke State to the Exterior blind (io)"
+    "en": "Added Lock State to the Exterior blind (io)"
   },
   "2.1.65": {
-    "en": "Added Locke State to the Velux Roof Window"
+    "en": "Added Lock State to the Velux Roof Window"
+  },
+  "2.1.66": {
+    "en": "Added support for the io:RollerShutterUnoIOComponent to the Roller shutter (io) device"
   }
 }

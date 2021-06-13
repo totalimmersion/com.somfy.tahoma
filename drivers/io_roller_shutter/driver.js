@@ -4,7 +4,7 @@
 const ioWindowCoveringsDriver = require('../ioWindowCoveringsDriver');
 
 /**
- * Driver class for roller shutters with the io:RollerShutterGenericIOComponent or io:Re3js3W69CrGF8kKXvvmYtT4zNGqicXRjvuAnmmbvPZXnt or MicroModuleRollerShutterSomfyIOComponent controllable name in TaHoma
+ * Driver class for roller shutters with the io:RollerShutterGenericIOComponent or io:Re3js3W69CrGF8kKXvvmYtT4zNGqicXRjvuAnmmbvPZXnt or MicroModuleRollerShutterSomfyIOComponent orio:RollerShutterUnoIOComponent controllable name in TaHoma
  * @extends {ioWindowCoveringsDriver}
  */
 class RollerShutterDriver extends ioWindowCoveringsDriver
@@ -14,7 +14,8 @@ class RollerShutterDriver extends ioWindowCoveringsDriver
         this.deviceType = [
             'io:RollerShutterGenericIOComponent',
             'io:Re3js3W69CrGF8kKXvvmYtT4zNGqicXRjvuAnmmbvPZXnt',
-            'io:MicroModuleRollerShutterSomfyIOComponent'
+            'io:MicroModuleRollerShutterSomfyIOComponent',
+            'io:RollerShutterUnoIOComponent'
         ];
 
         await super.onInit();

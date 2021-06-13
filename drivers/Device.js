@@ -327,5 +327,26 @@ class Device extends Homey.Device
         }
         return null;
     }
+
+    checkForDuplicatesEvents(events, startElement, startState, myURL, stateName)
+    {
+        for (var i = startElement; i < events.length; i++)
+        {
+            const element = events[i];
+            if ((element.name === 'DeviceStateChangedEvent') && (element.deviceURL === myURL) && element.deviceStates)
+            {
+                for (var x = startState; x < element.deviceStates.length; x++)
+                {
+                    const deviceState = element.deviceStates[x];
+                    if ( deviceState.name === stateName)
+                    {
+                        return true;
+                    }
+                }
+                startState = 0;
+            }
+        }
+
+    }
 }
 module.exports = Device;

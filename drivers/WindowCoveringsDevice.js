@@ -786,6 +786,12 @@ class WindowCoveringsDevice extends Device
                             
                             if (deviceState.name === this.positionStateName)
                             {
+                                //Check for more message that are the same
+                                if (this.checkForDuplicatesEvents(events, i, x + 1, myURL, this.positionStateName))
+                                {
+                                    break;
+                                }
+
                                 // Device position
                                 var closureStateValue = parseInt(deviceState.value);
                                 Homey.app.logStates(this.getName() + ": " + this.positionStateName + " = " + closureStateValue);
@@ -835,6 +841,12 @@ class WindowCoveringsDevice extends Device
                             else if (deviceState.name === "core:SlateOrientationState")
                             {
                                 // Device tilt position
+                                //Check for more message that are the same
+                                if (this.checkForDuplicatesEvents(events, i, x + 1, myURL, "core:SlateOrientationState"))
+                                {
+                                    break;
+                                }
+                                
                                 var tiltStateValue = parseInt(deviceState.value);
                                 Homey.app.logStates(this.getName() + ": core:SlateOrientationState = " + tiltStateValue);
 

@@ -343,6 +343,10 @@ class LightControllerDevice extends Device
                     for (var x = 0; x < element.deviceStates.length; x++)
                     {
                         const deviceState = element.deviceStates[x];
+                        if (this.checkForDuplicatesEvents(events, i, x + 1, myURL, deviceState.name))
+                        {
+                            break;
+                        }
                         await this.processEventState(deviceState);
                     }
                 }
