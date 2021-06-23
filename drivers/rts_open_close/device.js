@@ -13,9 +13,9 @@ class OpenCloseDevice extends Device
 {
     async onInit()
     {
-		this.registerCapabilityListener('button', this.onCapabilityButton.bind(this));
+        this.registerCapabilityListener('button', this.onCapabilityButton.bind(this));
         await super.onInit();
-		this.boostSync = true;
+        this.boostSync = true;
     }
 
     async onCapabilityButton(value)
@@ -45,11 +45,12 @@ class OpenCloseDevice extends Device
             }
             else
             {
-				this.executionId = result.execId;
-				if (this.boostSync)
-				{
-					await Homey.app.boostSync();
-				}
+                this.executionId = result.execId;
+                this.executionCmd = action.name;
+                if (this.boostSync)
+                {
+                    await Homey.app.boostSync();
+                }
             }
         }
         else
@@ -79,20 +80,37 @@ class OpenCloseDevice extends Device
             const myURL = this.getDeviceUrl();
 
             // Process events sequentially so they are in the correct order
-            for (var i = 0; i < events.length; i++)
+            for (let i = 0; i < events.length; i++)
             {
                 const element = events[i];
-                if (element['name'] === 'ExecutionStateChangedEvent')
+                if (element.name === 'ExecutionRegisteredEvent')
                 {
-                    if ((element['newState'] === 'COMPLETED') || (element['newState'] === 'FAILED'))
+                    for (let x = 0; x < element.actions.length; x++)
                     {
-                        if (this.executionId === element['execId'])
+                        if (myURL === element.actions[x].deviceURL)
+                        {
+                            this.executionId = element.execId;
+                            this.executionCmd = element.actions[x].commands[0].name;
+                            if (this.boostSync)
+                            {
+                                await Homey.app.boostSync();
+                            }
+                        }
+                    }
+                }
+                else if (element.name === 'ExecutionStateChangedEvent')
+                {
+                    if ((element.newState === 'COMPLETED') || (element.newState === 'FAILED'))
+                    {
+                        if (this.executionId === element.execId)
                         {
                             if (this.boostSync)
                             {
                                 await Homey.app.unBoostSync();
                             }
+                            Homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
                             this.executionId = null;
+                            this.executionCmd = '';
                         }
                     }
                 }

@@ -163,12 +163,16 @@ class WindowCoveringsDevice extends Device
             if (value === 'idle' && (this.executionId !== null))
             {
                 await Tahoma.cancelExecution(this.executionId);
+                this.executionCmd = "";
+                this.executionId = null;
             }
             else
             {
                 if (this.executionId !== null)
                 {
                     await Tahoma.cancelExecution(this.executionId);
+                    this.executionCmd = "";
+                    this.executionId = null;
                 }
 
                 const action = {
@@ -194,6 +198,7 @@ class WindowCoveringsDevice extends Device
                     }
                     else
                     {
+                        this.executionCmd = action.name;
                         this.executionId = result.execId;
                     }
                 }
@@ -278,6 +283,7 @@ class WindowCoveringsDevice extends Device
                 }
                 else
                 {
+                    this.executionCmd = action.name;
                     this.executionId = result.execId;
                 }
             }
@@ -332,6 +338,7 @@ class WindowCoveringsDevice extends Device
                 }
                 else
                 {
+                    this.executionCmd = action.name;
                     this.executionId = result.execId;
                 }
             }
@@ -372,6 +379,8 @@ class WindowCoveringsDevice extends Device
             if (this.executionId !== null)
             {
                 await Tahoma.cancelExecution(this.executionId);
+                this.executionCmd = "";
+                this.executionId = null;
             }
 
             const action = {
@@ -397,6 +406,7 @@ class WindowCoveringsDevice extends Device
                 }
                 else
                 {
+                    this.executionCmd = action.name;
                     this.executionId = result.execId;
                 }
             }
@@ -425,6 +435,8 @@ class WindowCoveringsDevice extends Device
             if (this.executionId !== null)
             {
                 await Tahoma.cancelExecution(this.executionId);
+                this.executionCmd = "";
+                this.executionId = null;
             }
 
             const action = {
@@ -449,6 +461,7 @@ class WindowCoveringsDevice extends Device
                 }
                 else
                 {
+                    this.executionCmd = action.name;
                     this.executionId = result.execId;
                 }
             }
@@ -501,6 +514,7 @@ class WindowCoveringsDevice extends Device
                 }
                 else
                 {
+                    this.executionCmd = action.name;
                     this.executionId = result.execId;
                 }
             }
@@ -553,6 +567,7 @@ class WindowCoveringsDevice extends Device
                 }
                 else
                 {
+                    this.executionCmd = action.name;
                     this.executionId = result.execId;
                 }
             }
@@ -609,7 +624,7 @@ class WindowCoveringsDevice extends Device
                     {
                         Homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + lockState.value);
                         this.setCapabilityValue("lock_state", lockState.value);
-                        
+
                         if (this.checkLockSate)
                         {
                             clearTimeout(this.checkLockStateTimer);
@@ -750,13 +765,22 @@ class WindowCoveringsDevice extends Device
             var lastPosition = null;
 
             // Process events sequentially so they are in the correct order
-            for (var i = 0; i < events.length; i++)
+            for (let i = 0; i < events.length; i++)
             {
                 const element = events[i];
                 if (element.name === 'DeviceStateChangedEvent')
                 {
                     if ((element.deviceURL === myURL) && element.deviceStates)
                     {
+                        if (Homey.app.infoLogEnabled)
+                        {
+                            Homey.app.logInformation(this.getName(),
+                            {
+                                message: "Processing device state change event",
+                                stack: element
+                            });
+                        }
+                        
                         // Got what we need to update the device so lets find it
                         if (this.unavailable)
                         {
@@ -764,14 +788,14 @@ class WindowCoveringsDevice extends Device
                             this.setAvailable();
                         }
 
-                        for (var x = 0; x < element.deviceStates.length; x++)
+                        for (let x = 0; x < element.deviceStates.length; x++)
                         {
                             const deviceState = element.deviceStates[x];
 
                             if (this.hasCapability("lock_state"))
                             {
                                 // Device lock state
-                                if (deviceState.name === 'io:PriorityLockOriginatorState')
+                                if ((deviceState.name === 'io:PriorityLockOriginatorState') && (deviceState.value))
                                 {
                                     Homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + deviceState.value);
                                     this.setCapabilityValue("lock_state", deviceState.value);
@@ -783,7 +807,7 @@ class WindowCoveringsDevice extends Device
                                     }
                                 }
                             }
-                            
+
                             if (deviceState.name === this.positionStateName)
                             {
                                 //Check for more message that are the same
@@ -846,7 +870,7 @@ class WindowCoveringsDevice extends Device
                                 {
                                     break;
                                 }
-                                
+
                                 var tiltStateValue = parseInt(deviceState.value);
                                 Homey.app.logStates(this.getName() + ": core:SlateOrientationState = " + tiltStateValue);
 
@@ -854,6 +878,21 @@ class WindowCoveringsDevice extends Device
                                 {
                                     fromCloudSync: true
                                 });
+                            }
+                        }
+                    }
+                }
+                else if (element.name === 'ExecutionRegisteredEvent')
+                {
+                    for (let x = 0; x < element.actions.length; x++)
+                    {
+                        if (myURL === element.actions[x].deviceURL)
+                        {
+                            this.executionId = element.execId;
+                            this.executionCmd = element.actions[x].commands[0].name;
+                            if (this.boostSync)
+                            {
+                                await Homey.app.boostSync();
                             }
                         }
                     }
@@ -868,7 +907,10 @@ class WindowCoveringsDevice extends Device
                             {
                                 await Homey.app.unBoostSync();
                             }
+
+                            Homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
                             this.executionId = null;
+                            this.executionCmd = "";
                         }
                     }
                 }

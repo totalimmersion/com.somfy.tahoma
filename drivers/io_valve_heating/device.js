@@ -81,6 +81,7 @@ class ValveHeatingDevice extends SensorDevice
                 }
                 else
                 {
+                    this.executionCmd = action.name;
                     this.executionId = result.execId;
                 }
             }

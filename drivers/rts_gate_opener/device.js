@@ -103,6 +103,7 @@ class rtsGateOpenerDevice extends Device
                 else
                 {
                     this.commandExecuting = action.name;
+                    this.executionCmd = action.name;
                     this.executionId = result.execId;
                 }
             }
@@ -138,10 +139,25 @@ class rtsGateOpenerDevice extends Device
         const myURL = this.getDeviceUrl();
 
         // Process events sequentially so they are in the correct order
-        for (var i = 0; i < events.length; i++)
+        for (let i = 0; i < events.length; i++)
         {
             const element = events[i];
-            if (element.name === 'ExecutionStateChangedEvent')
+            if (element.name === 'ExecutionRegisteredEvent')
+            {
+                for (let x = 0; x < element.actions.length; x++)
+                {
+                    if (myURL === element.actions[x].deviceURL)
+                    {
+                        this.executionId = element.execId;
+                        this.executionCmd = element.actions[x].commands[0].name;
+                        if (this.boostSync)
+                        {
+                            await Homey.app.boostSync();
+                        }            
+                    }
+                }
+            }
+            else if (element.name === 'ExecutionStateChangedEvent')
             {
                 if ((element.newState === 'COMPLETED') || (element.newState === 'FAILED'))
                 {
@@ -151,8 +167,11 @@ class rtsGateOpenerDevice extends Device
                         {
                             await Homey.app.unBoostSync();
                         }
+
+                        Homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
                         this.commandExecuting = '';
                         this.executionId = null;
+                        this.executionCmd = '';
                     }
                 }
             }

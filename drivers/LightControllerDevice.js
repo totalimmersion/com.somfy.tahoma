@@ -54,6 +54,8 @@ class LightControllerDevice extends Device
                 {
                     await Homey.app.asyncDelay(500);
                 }
+                this.executionCmd = "";
+                this.executionId = null;
             }
 
             var action;
@@ -91,6 +93,7 @@ class LightControllerDevice extends Device
                 else
                 {
                     this.commandExecuting = 'onOff';
+                    this.executionCmd = action.name;
                     this.executionId = result.execId;
                 }
             }
@@ -134,6 +137,9 @@ class LightControllerDevice extends Device
                 {
                     await Homey.app.asyncDelay(500);
                 }
+
+                this.executionCmd = "";
+                this.executionId = null;
             }
 
             var action;
@@ -161,6 +167,7 @@ class LightControllerDevice extends Device
                 else
                 {
                     this.commandExecuting = 'dim';
+                    this.executionCmd = action.name;
                     this.executionId = result.execId;
                 }
             }
@@ -208,6 +215,9 @@ class LightControllerDevice extends Device
                 {
                     await Homey.app.asyncDelay();
                 }
+
+                this.executionCmd = "";
+                this.executionId = null;
             }
 
             const minTemperature = this.getSetting('minTemperature');
@@ -240,6 +250,7 @@ class LightControllerDevice extends Device
                 else
                 {
                     this.commandExecuting = 'light_temperature';
+                    this.executionCmd = action.name;
                     this.executionId = result.execId;
                 }
             }
@@ -332,15 +343,23 @@ class LightControllerDevice extends Device
         const myURL = this.getDeviceUrl();
 
         // Process events sequentially so they are in the correct order
-        for (var i = 0; i < events.length; i++)
+        for (let i = 0; i < events.length; i++)
         {
             const element = events[i];
             if (element.name === 'DeviceStateChangedEvent')
             {
                 if ((element.deviceURL === myURL) && element.deviceStates)
                 {
+                    if (Homey.app.infoLogEnabled)
+                    {
+                        Homey.app.logInformation(this.getName(),
+                        {
+                            message: "Processing device state change event",
+                            stack: element
+                        });
+                    }
                     // Got what we need to update the device so lets find it
-                    for (var x = 0; x < element.deviceStates.length; x++)
+                    for (let x = 0; x < element.deviceStates.length; x++)
                     {
                         const deviceState = element.deviceStates[x];
                         if (this.checkForDuplicatesEvents(events, i, x + 1, myURL, deviceState.name))
@@ -348,6 +367,21 @@ class LightControllerDevice extends Device
                             break;
                         }
                         await this.processEventState(deviceState);
+                    }
+                }
+            }
+            else if (element.name === 'ExecutionRegisteredEvent')
+            {
+                for (let x = 0; x < element.actions.length; x++)
+                {
+                    if (myURL === element.actions[x].deviceURL)
+                    {
+                        this.executionId = element.execId;
+                        this.executionCmd = element.actions[x].commands[0].name;
+                        if (this.boostSync)
+                        {
+                            await Homey.app.boostSync();
+                        }
                     }
                 }
             }
@@ -361,8 +395,12 @@ class LightControllerDevice extends Device
                         {
                             await Homey.app.unBoostSync();
                         }
+
+                        Homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
                         this.commandExecuting = '';
                         this.executionId = null;
+                        this.executionCmd = "";
+
                     }
                 }
             }
@@ -408,7 +446,7 @@ class LightControllerDevice extends Device
         {
             const minTemperature = this.getSetting('minTemperature');
             const maxTemperature = this.getSetting('maxTemperature');
-        
+
             Homey.app.logStates(this.getName() + ": core:ColorTemperatureState = " + deviceState.value);
             const oldState = this.getState().light_temperature;
             const newSate = ((parseInt(deviceState.value) - minTemperature) / (maxTemperature - minTemperature));

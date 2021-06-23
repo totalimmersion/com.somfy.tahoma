@@ -86,6 +86,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
                 else
                 {
                     this.commandExecuting = 'light_hue';
+                    this.executionCmd = action.name;
                     this.executionId = result.execId;
                 }
             }
@@ -165,6 +166,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
                 else
                 {
                     this.commandExecuting = 'light_saturation';
+                    this.executionCmd = action.name;
                     this.executionId = result.execId;
                 }
             }

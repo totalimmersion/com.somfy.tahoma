@@ -60,6 +60,7 @@ class HotColdZoneDevice extends SensorDevice
                 }
                 else
                 {
+                    this.executionCmd = action.name;
                     this.executionId = result.execId;
                 }
             }
@@ -78,7 +79,6 @@ class HotColdZoneDevice extends SensorDevice
             this.setCapabilityValue(capability, value);
         }
     }
-
 
     async onCapabilityTargetTemperatureComfortCooling(value, opts)
     {
@@ -159,6 +159,7 @@ class HotColdZoneDevice extends SensorDevice
                 }
                 else
                 {
+                    this.executionCmd = action.name;
                     this.executionId = result.execId;
                 }
             }
@@ -177,12 +178,12 @@ class HotColdZoneDevice extends SensorDevice
             this.setCapabilityValue(capability, (value === 'on'));
         }
     }
-    
+
     async onCapabilityOnOffCooling(value, opts)
     {
         return this.ProcessCapabilityOnOff(value, opts, 'setCoolingOnOffState', 'boost.cooling');
     }
-    
+
     async onCapabilityOnOffHeating(value, opts)
     {
         return this.ProcessCapabilityOnOff(value, opts, 'setHeatingOnOffState', 'boost.heating');
@@ -199,7 +200,7 @@ class HotColdZoneDevice extends SensorDevice
         if (!opts || !opts.fromCloudSync)
         {
             var action = {
-                name:name,
+                name: name,
                 parameters: [value]
             };
 
@@ -217,6 +218,7 @@ class HotColdZoneDevice extends SensorDevice
                 }
                 else
                 {
+                    this.executionCmd = action.name;
                     this.executionId = result.execId;
                     if (this.boostSync)
                     {
@@ -345,7 +347,6 @@ class HotColdZoneDevice extends SensorDevice
                     });
                 }
 
-                
                 const DerogatedHeatingTemp = states.find(state => state.name === 'core:DerogatedHeatingTargetTemperatureState');
                 if (DerogatedHeatingTemp)
                 {
@@ -386,6 +387,14 @@ class HotColdZoneDevice extends SensorDevice
             {
                 if ((element.deviceURL === myURL) && element.deviceStates)
                 {
+                    if (Homey.app.infoLogEnabled)
+                    {
+                        Homey.app.logInformation(this.getName(),
+                        {
+                            message: "Processing device state change event",
+                            stack: element
+                        });
+                    }
                     // Got what we need to update the device so lets find it
                     for (var x = 0; x < element.deviceStates.length; x++)
                     {

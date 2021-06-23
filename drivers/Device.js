@@ -12,6 +12,7 @@ class Device extends Homey.Device
     {
         this.boostSync = false;
         this.executionId = null;
+        this.executionCmd = "";
 
         if (CapabilitiesXRef)
         {
@@ -93,6 +94,8 @@ class Device extends Homey.Device
             if (this.executionId !== null)
             {
                 await Tahoma.cancelExecution(this.executionId);
+                this.executionCmd = "";
+                this.executionId = null;
             }
 
             var action = {
@@ -119,6 +122,7 @@ class Device extends Homey.Device
                 }
                 else
                 {
+                    this.executionCmd = action.name;
                     this.executionId = result.execId;
                 }
             }
@@ -245,6 +249,14 @@ class Device extends Homey.Device
                 // If the URL matches the it is for this device
                 if ((element.deviceURL === myURL) && element.deviceStates)
                 {
+                    if (Homey.app.infoLogEnabled)
+                    {
+                        Homey.app.logInformation(this.getName(),
+                        {
+                            message: "Processing device state change event",
+                            stack: element
+                        });
+                    }
                     // Got what we need to update the device so lets process each capability
                     for (var x = 0; x < element.deviceStates.length; x++)
                     {
@@ -274,6 +286,39 @@ class Device extends Homey.Device
                             {
                                 this.triggerCapabilityListener(found.homeyName, newState, { fromCloudSync: true });
                             }
+                        }
+                    }
+                }
+                else if (element.name === 'ExecutionRegisteredEvent')
+                {
+                    for (let x = 0; x < element.actions.length; x++)
+                    {
+                        if (myURL === element.actions[x].deviceURL)
+                        {
+                            this.executionId = element.execId;
+                            this.executionCmd = element.actions[x].commands[0].name;
+                            if (this.boostSync)
+                            {
+                                await Homey.app.boostSync();
+                            }
+                        }
+                    }
+                }
+                else if (element.name === 'ExecutionStateChangedEvent')
+                {
+                    if ((element.newState === 'COMPLETED') || (element.newState === 'FAILED'))
+                    {
+                        if (this.executionId === element.execId)
+                        {
+                            if (this.boostSync)
+                            {
+                                await Homey.app.unBoostSync();
+                            }
+
+                            Homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
+                            this.commandExecuting = '';
+                            this.executionId = null;
+                            this.executionCmd = '';
                         }
                     }
                 }
@@ -338,8 +383,16 @@ class Device extends Homey.Device
                 for (var x = startState; x < element.deviceStates.length; x++)
                 {
                     const deviceState = element.deviceStates[x];
-                    if ( deviceState.name === stateName)
+                    if (deviceState.name === stateName)
                     {
+                        if (Homey.app.infoLogEnabled)
+                        {
+                            Homey.app.logInformation(this.getName(),
+                            {
+                                message: "Ignoring duplicate event",
+                                stack: deviceState
+                            });
+                        }
                         return true;
                     }
                 }

@@ -90,6 +90,14 @@ class io_open_close_remoteDevice extends Device
             {
                 if ((element.deviceURL === myURL) && element.deviceStates)
                 {
+                    if (Homey.app.infoLogEnabled)
+                    {
+                        Homey.app.logInformation(this.getName(),
+                        {
+                            message: "Processing device state change event",
+                            stack: element
+                        });
+                    }
                     // Got what we need to update the device so lets find it
                     for (var x = 0; x < element.deviceStates.length; x++)
                     {
