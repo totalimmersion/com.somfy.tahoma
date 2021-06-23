@@ -385,5 +385,8 @@
   },
   "2.1.66": {
     "en": "Added support for the io:RollerShutterUnoIOComponent to the Roller shutter (io) device"
+  },
+  "2.1.67": {
+    "en": "Added Command Complete flow trigger. Optimized logging. Fixed an error when event data had no value"
   }
 }
