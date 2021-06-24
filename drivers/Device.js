@@ -385,6 +385,7 @@ class Device extends Homey.Device
                     const deviceState = element.deviceStates[x];
                     if (deviceState.name === stateName)
                     {
+                        // Found a duplicate
                         if (Homey.app.infoLogEnabled)
                         {
                             Homey.app.logInformation(this.getName(),
@@ -400,6 +401,7 @@ class Device extends Homey.Device
             }
         }
 
+        return false;
     }
 }
 module.exports = Device;

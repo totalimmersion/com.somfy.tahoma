@@ -388,5 +388,8 @@
   },
   "2.1.67": {
     "en": "Added Command Complete flow trigger. Optimized logging. Fixed an error when event data had no value"
+  },
+  "2.1.68": {
+    "en": "Fixed completely skipping event data if a duplicate exists"
   }
 }

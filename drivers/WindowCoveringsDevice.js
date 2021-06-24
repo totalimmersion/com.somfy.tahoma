@@ -792,10 +792,10 @@ class WindowCoveringsDevice extends Device
                         {
                             const deviceState = element.deviceStates[x];
 
-                            if (this.hasCapability("lock_state"))
+                            // Device lock state
+                            if (deviceState.name === 'io:PriorityLockOriginatorState')
                             {
-                                // Device lock state
-                                if ((deviceState.name === 'io:PriorityLockOriginatorState') && (deviceState.value))
+                                if (this.hasCapability("lock_state") && (deviceState.value))
                                 {
                                     Homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + deviceState.value);
                                     this.setCapabilityValue("lock_state", deviceState.value);
@@ -807,77 +807,78 @@ class WindowCoveringsDevice extends Device
                                     }
                                 }
                             }
-
-                            if (deviceState.name === this.positionStateName)
+                            else if (deviceState.name === this.positionStateName)
                             {
                                 //Check for more message that are the same
-                                if (this.checkForDuplicatesEvents(events, i, x + 1, myURL, this.positionStateName))
+                                if (!this.checkForDuplicatesEvents(events, i, x + 1, myURL, this.positionStateName))
                                 {
-                                    break;
-                                }
+                                    // Device position
+                                    var closureStateValue = parseInt(deviceState.value);
+                                    Homey.app.logStates(this.getName() + ": " + this.positionStateName + " = " + closureStateValue);
 
-                                // Device position
-                                var closureStateValue = parseInt(deviceState.value);
-                                Homey.app.logStates(this.getName() + ": " + this.positionStateName + " = " + closureStateValue);
+                                    if (this.invertPosition)
+                                    {
+                                        closureStateValue = 100 - closureStateValue;
+                                    }
 
-                                if (this.invertPosition)
-                                {
-                                    closureStateValue = 100 - closureStateValue;
-                                }
-                                this.triggerCapabilityListener('windowcoverings_set', 1 - (closureStateValue / 100),
-                                {
-                                    fromCloudSync: true
-                                });
-                                if ((closureStateValue !== 0) && (closureStateValue !== 100))
-                                {
-                                    // Not fully open or closed
-                                    this.triggerCapabilityListener('windowcoverings_state', 'idle',
+                                    this.triggerCapabilityListener('windowcoverings_set', 1 - (closureStateValue / 100),
                                     {
                                         fromCloudSync: true
                                     });
 
-                                    lastPosition = closureStateValue;
-                                }
-                                else
-                                {
-                                    lastPosition = null;
+                                    if ((closureStateValue !== 0) && (closureStateValue !== 100))
+                                    {
+                                        // Not fully open or closed
+                                        this.triggerCapabilityListener('windowcoverings_state', 'idle',
+                                        {
+                                            fromCloudSync: true
+                                        });
+
+                                        lastPosition = closureStateValue;
+                                    }
+                                    else
+                                    {
+                                        lastPosition = null;
+                                    }
                                 }
                             }
                             else if (deviceState.name === this.openClosedStateName)
                             {
-                                // Device Open / Closed state. Only process if the last position was 0 or 100
-                                if (lastPosition === null)
+                                //Check for more message that are the same
+                                if (!this.checkForDuplicatesEvents(events, i, x + 1, myURL, this.openClosedStateName))
                                 {
-                                    var openClosedStateValue = deviceState.value;
-                                    Homey.app.logStates(this.getName() + ": " + this.openClosedStateName + " = " + openClosedStateValue);
-
-                                    // Convert Tahoma states to Homey equivalent
-                                    openClosedStateValue = this.windowcoveringsStatesMap[openClosedStateValue];
-
-                                    this.triggerCapabilityListener('windowcoverings_state', openClosedStateValue,
+                                    // Device Open / Closed state. Only process if the last position was 0 or 100
+                                    if (lastPosition === null)
                                     {
-                                        fromCloudSync: true
-                                    });
-                                }
+                                        var openClosedStateValue = deviceState.value;
+                                        Homey.app.logStates(this.getName() + ": " + this.openClosedStateName + " = " + openClosedStateValue);
 
-                                lastPosition = null;
+                                        // Convert Tahoma states to Homey equivalent
+                                        openClosedStateValue = this.windowcoveringsStatesMap[openClosedStateValue];
+
+                                        this.triggerCapabilityListener('windowcoverings_state', openClosedStateValue,
+                                        {
+                                            fromCloudSync: true
+                                        });
+                                    }
+
+                                    lastPosition = null;
+                                }
                             }
                             else if (deviceState.name === "core:SlateOrientationState")
                             {
                                 // Device tilt position
                                 //Check for more message that are the same
-                                if (this.checkForDuplicatesEvents(events, i, x + 1, myURL, "core:SlateOrientationState"))
+                                if (!this.checkForDuplicatesEvents(events, i, x + 1, myURL, "core:SlateOrientationState"))
                                 {
-                                    break;
+                                    var tiltStateValue = parseInt(deviceState.value);
+                                    Homey.app.logStates(this.getName() + ": core:SlateOrientationState = " + tiltStateValue);
+
+                                    this.triggerCapabilityListener('windowcoverings_tilt_set', 1 - (tiltStateValue / 100),
+                                    {
+                                        fromCloudSync: true
+                                    });
                                 }
-
-                                var tiltStateValue = parseInt(deviceState.value);
-                                Homey.app.logStates(this.getName() + ": core:SlateOrientationState = " + tiltStateValue);
-
-                                this.triggerCapabilityListener('windowcoverings_tilt_set', 1 - (tiltStateValue / 100),
-                                {
-                                    fromCloudSync: true
-                                });
                             }
                         }
                     }
