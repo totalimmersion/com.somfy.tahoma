@@ -249,6 +249,14 @@ class WindowCoveringsDevice extends Device
             }
 
             const deviceData = this.getData();
+
+            if (this.executionId !== null)
+            {
+                await Tahoma.cancelExecution(this.executionId);
+                this.executionCmd = "";
+                this.executionId = null;
+            }
+
             if (this.invertPosition)
             {
                 value = 1 - value;
@@ -314,6 +322,13 @@ class WindowCoveringsDevice extends Device
             }
 
             const deviceData = this.getData();
+            if (this.executionId !== null)
+            {
+                await Tahoma.cancelExecution(this.executionId);
+                this.executionCmd = "";
+                this.executionId = null;
+            }
+            
             const action = {
                 name: "setOrientation",
                 parameters: [Math.round((1 - value) * 100)]
@@ -780,7 +795,7 @@ class WindowCoveringsDevice extends Device
                                 stack: element
                             });
                         }
-                        
+
                         // Got what we need to update the device so lets find it
                         if (this.unavailable)
                         {
@@ -910,6 +925,7 @@ class WindowCoveringsDevice extends Device
                             }
 
                             Homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
+                            this.getDriver().triggerDeviceCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
                             this.executionId = null;
                             this.executionCmd = "";
                         }

@@ -391,5 +391,8 @@
   },
   "2.1.68": {
     "en": "Fixed completely skipping event data if a duplicate exists"
+  },
+  "2.1.69": {
+    "en": "Added retry to failed commands. Abort previous shutter command when a new command arrives before previous one is complete. Deprecates global command complete and replaced it with device command complete."
   }
 }

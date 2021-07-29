@@ -9,6 +9,23 @@ const Tahoma = require('../lib/Tahoma');
  */
 class Driver extends Homey.Driver
 {
+    async onInit()
+    {
+        /*** Command Complete ***/
+        this._triggerCommandComplete = new Homey.FlowCardTriggerDevice('device_command_complete').register();
+        this._triggerCommandComplete.registerRunListener(() =>
+        {
+            return Promise.resolve(true);
+        });
+    }
+
+    triggerDeviceCommandComplete(device, commandName, success)
+    {
+        let tokens = { 'state': success, 'name': commandName };
+        this.triggerFlow(this._triggerCommandComplete, device, tokens);
+        return this;
+    }
+
     onPair(socket)
     {
         socket.on('list_devices', (data, callback) => {

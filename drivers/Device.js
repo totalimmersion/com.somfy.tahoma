@@ -316,6 +316,7 @@ class Device extends Homey.Device
                             }
 
                             Homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
+                            this.getDriver().triggerDeviceCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
                             this.commandExecuting = '';
                             this.executionId = null;
                             this.executionCmd = '';
