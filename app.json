@@ -9,7 +9,7 @@
     "description": {
         "en": "Bring the richness of Homey to your Somfy world"
     },
-    "version": "2.1.69",
+    "version": "2.1.70",
     "compatibility": ">=2.0.0",
     "author": {
         "name": "Adrian Rockall",
@@ -300,6 +300,16 @@
             ],
             "getable": true,
             "setable": false
+        },
+        "ring_button": {
+            "type": "boolean",
+            "getable": false,
+            "setable": true,
+            "uiComponent": "button",
+            "title": {
+                "en": "Ring"
+            },
+            "icon": "/drivers/siren/assets/icon.svg"
         },
         "on_button": {
             "type": "boolean",
@@ -982,6 +992,23 @@
             },
             "insightsTitleFalse": {
                 "en": "dirty"
+            }
+        },
+        "alarm_siren": {
+            "type": "boolean",
+            "getable": true,
+            "setable": false,
+            "uiComponent": "sensor",
+            "title": {
+                "en": "Siren"
+            },
+            "icon": "/drivers/siren/assets/icon.svg",
+            "insights": true,
+            "insightsTitleTrue": {
+                "en": "Active"
+            },
+            "insightsTitleFalse": {
+                "en": "Silent"
             }
         }
     },
@@ -2959,6 +2986,42 @@
                     "template": "add_devices"
                 }
             ]
+        },
+        {
+            "id": "siren",
+            "name": {
+                "en": "Siren (io)"
+            },
+            "images": {
+                "large": "/drivers/siren/assets/images/large.png",
+                "small": "/drivers/siren/assets/images/small.png"
+            },
+            "class": "homealarm",
+            "energy": {
+                "batteries": [
+                    "AA",
+                    "AA"
+                ]
+            },
+            "capabilities": [
+                "ring_button",
+                "stop_button",
+                "alarm_siren",
+                "alarm_battery"
+            ],
+            "pair": [
+                {
+                    "id": "list_my_devices",
+                    "template": "list_devices",
+                    "navigation": {
+                        "next": "add_my_devices"
+                    }
+                },
+                {
+                    "id": "add_my_devices",
+                    "template": "add_devices"
+                }
+            ]
         }
     ],
     "flow": {
@@ -3544,6 +3607,32 @@
                     {
                         "name": "device",
                         "type": "device"
+                    }
+                ]
+            },
+            {
+                "id": "alarm_siren_true",
+                "title": {
+                    "en": "The Siren turned on"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=siren"
+                    }
+                ]
+            },
+            {
+                "id": "alarm_siren_false",
+                "title": {
+                    "en": "The Siren turned off"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=siren"
                     }
                 ]
             }
@@ -4679,6 +4768,32 @@
                         "step": 1,
                         "label": "°C",
                         "labelDecimals": 0
+                    }
+                ]
+            },
+            {
+                "id": "stop_siren",
+                "title": {
+                    "en": "Stop the siren"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=siren"
+                    }
+                ]
+            },
+            {
+                "id": "start_siren",
+                "title": {
+                    "en": "Start the siren"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=siren"
                     }
                 ]
             }

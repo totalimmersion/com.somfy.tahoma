@@ -77,7 +77,7 @@ class Device extends Homey.Device
             }
 
             let somfyValue = value;
-            if (capabilityXRef.parameters)
+            if (capabilityXRef.parameters != undefined)
             {
                 somfyValue = capabilityXRef.parameters;
             }
@@ -100,7 +100,7 @@ class Device extends Homey.Device
 
             var action = {
                 name: capabilityXRef.somfyNameSet,
-                parameters: [somfyValue]
+                parameters: somfyValue == '' ? [] : [somfyValue]
             };
 
             let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);

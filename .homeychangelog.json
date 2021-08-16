@@ -394,5 +394,8 @@
   },
   "2.1.69": {
     "en": "Added retry to failed commands. Abort previous shutter command when a new command arrives before previous one is complete. Deprecates global command complete and replaced it with device command complete."
+  },
+  "2.1.70": {
+    "en": "Added Siren (io:SomfyIndoorSimpleSirenIOComponent) and Contact sensor (io:SomfyBasicContactIOSystemSensor)"
   }
 }
