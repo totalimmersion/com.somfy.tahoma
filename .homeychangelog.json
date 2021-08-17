@@ -397,5 +397,8 @@
   },
   "2.1.70": {
     "en": "Added Siren (io:SomfyIndoorSimpleSirenIOComponent) and Contact sensor (io:SomfyBasicContactIOSystemSensor)"
+  },
+  "2.1.71": {
+    "en": "Added Gate Opener (io:DiscreteGateOpenerIOComponent)."
   }
 }

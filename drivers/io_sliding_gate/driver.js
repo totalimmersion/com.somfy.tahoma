@@ -5,13 +5,13 @@ const Homey = require('homey');
 const ioWindowCoveringsDriver = require('../ioWindowCoveringsDriver');
 
 /**
- * Driver class for exterior venetian blinds with the io:SlidingDiscreteGateOpenerIOComponent controllable name in TaHoma
+ * Driver class for exterior venetian blinds with the io:SlidingDiscreteGateOpenerIOComponent and "io:DiscreteGateOpenerIOComponent" controllable name in TaHoma
  * @extends {ioWindowCoveringsDriver}
  */
 class SlidingGateDriver extends ioWindowCoveringsDriver {
 
   async onInit() {
-    this.deviceType = ['io:SlidingDiscreteGateOpenerIOComponent'];
+    this.deviceType = ['io:SlidingDiscreteGateOpenerIOComponent', 'io:DiscreteGateOpenerIOComponent'];
 
       this.pedestrian_changedTrigger = new Homey.FlowCardTriggerDevice('pedestrian_changed')
     .register();
