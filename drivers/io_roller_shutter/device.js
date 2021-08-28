@@ -23,7 +23,7 @@ class RollerShutterDevice extends WindowCoveringsDevice
             controllableName = dd.controllableName.toString().toLowerCase();
         }
 
-        if ((controllableName === 'io:rollershuttergenericiocomponent') || (controllableName === 'io:rollershutterunoiocomponent'))
+        if ((controllableName === 'io:rollershuttergenericiocomponent') || (controllableName === 'io:rollershutterunoiocomponent') || (controllableName === 'io:screenreceiverunoiocomponent'))
         {
             if (!this.hasCapability("my_position"))
             {
@@ -44,6 +44,15 @@ class RollerShutterDevice extends WindowCoveringsDevice
         if (!this.hasCapability("quick_open"))
         {
             this.addCapability("quick_open");
+        }
+
+        if (controllableName === 'io:screenreceiverunoiocomponent')
+        {
+            // No feedback from this device
+            this.positionStateName = 'core:TargetClosureState';
+            this.openClosedStateName = '';
+
+            this.setPositionActionName = 'setPosition';
         }
     }
 }
