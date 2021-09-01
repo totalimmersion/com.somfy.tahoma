@@ -18,6 +18,17 @@ class Device extends Homey.Device
         {
             CapabilitiesXRef.forEach(element =>
             {
+                // try
+                // {
+                //     if (!this.hasCapability(element.homeyName))
+                //     {
+                //         this.addCapability(element.homeyName);
+                //     }
+                // }
+                // catch(err)
+                // {
+                //     this.log('Device init:', this.getName(), err );
+                // }
                 this.registerCapabilityListener(element.homeyName, this.onCapability.bind(this, element));
             });
 
@@ -77,17 +88,33 @@ class Device extends Homey.Device
             }
 
             let somfyValue = value;
-            if (capabilityXRef.parameters != undefined)
+            if (value === null)
             {
-                somfyValue = capabilityXRef.parameters;
+                somfyValue = opts;
             }
-            else if (capabilityXRef.scale)
+            else
             {
-                somfyValue *= capabilityXRef.scale;
-            }
-            else if (capabilityXRef.compare)
-            {
-                somfyValue = capabilityXRef.compare[(value === false ? 0 : 1)];
+                if (capabilityXRef.parameters != undefined)
+                {
+                    somfyValue = capabilityXRef.parameters;
+                }
+                else if (capabilityXRef.scale)
+                {
+                    somfyValue *= capabilityXRef.scale;
+                }
+                else if (capabilityXRef.compare)
+                {
+                    somfyValue = capabilityXRef.compare[(value === false ? 0 : 1)];
+                }
+
+                if (capabilityXRef.parameterArray != undefined)
+                {
+                    somfyValue = capabilityXRef.parameterArray;
+                }
+                else
+                {
+                    somfyValue = somfyValue == '' ? [] : [somfyValue];
+                }
             }
 
             const deviceData = this.getData();
@@ -100,7 +127,7 @@ class Device extends Homey.Device
 
             var action = {
                 name: capabilityXRef.somfyNameSet,
-                parameters: somfyValue == '' ? [] : [somfyValue]
+                parameters: somfyValue
             };
 
             let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
@@ -254,7 +281,7 @@ class Device extends Homey.Device
                         Homey.app.logInformation(this.getName(),
                         {
                             message: "Processing device state change event",
-                            stack: element
+                            stack: JSON.stringify(element, null, 2)
                         });
                     }
                     // Got what we need to update the device so lets process each capability
@@ -289,38 +316,38 @@ class Device extends Homey.Device
                         }
                     }
                 }
-                else if (element.name === 'ExecutionRegisteredEvent')
+            }
+            else if (element.name === 'ExecutionRegisteredEvent')
+            {
+                for (let x = 0; x < element.actions.length; x++)
                 {
-                    for (let x = 0; x < element.actions.length; x++)
+                    if (myURL === element.actions[x].deviceURL)
                     {
-                        if (myURL === element.actions[x].deviceURL)
+                        this.executionId = element.execId;
+                        this.executionCmd = element.actions[x].commands[0].name;
+                        if (this.boostSync)
                         {
-                            this.executionId = element.execId;
-                            this.executionCmd = element.actions[x].commands[0].name;
-                            if (this.boostSync)
-                            {
-                                await Homey.app.boostSync();
-                            }
+                            await Homey.app.boostSync();
                         }
                     }
                 }
-                else if (element.name === 'ExecutionStateChangedEvent')
+            }
+            else if (element.name === 'ExecutionStateChangedEvent')
+            {
+                if ((element.newState === 'COMPLETED') || (element.newState === 'FAILED'))
                 {
-                    if ((element.newState === 'COMPLETED') || (element.newState === 'FAILED'))
+                    if (this.executionId === element.execId)
                     {
-                        if (this.executionId === element.execId)
+                        if (this.boostSync)
                         {
-                            if (this.boostSync)
-                            {
-                                await Homey.app.unBoostSync();
-                            }
-
-                            Homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
-                            this.getDriver().triggerDeviceCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
-                            this.commandExecuting = '';
-                            this.executionId = null;
-                            this.executionCmd = '';
+                            await Homey.app.unBoostSync();
                         }
+
+                        Homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
+                        this.getDriver().triggerDeviceCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
+                        this.commandExecuting = '';
+                        this.executionId = null;
+                        this.executionCmd = '';
                     }
                 }
             }

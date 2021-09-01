@@ -24,6 +24,16 @@ class SirenDriver extends Driver
                 return args.device.triggerCapabilityListener('ring_button', null);
             });
 
+        this.startSirenAction = new Homey.FlowCardAction('sound_alarm1');
+        this.startSirenAction
+            .register()
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("sound_alarm1");
+                let parameters = [args.duration * 1000, args.on_off_ratio, args.repeats - 1, args.volume];
+                return args.device.triggerCapabilityListener('soundAlarm_1_button', null, parameters);
+            });
+
         this.stopSirenAction = new Homey.FlowCardAction('stop_siren');
         this.stopSirenAction
             .register()

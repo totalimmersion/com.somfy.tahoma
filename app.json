@@ -311,6 +311,16 @@
             },
             "icon": "/drivers/siren/assets/icon.svg"
         },
+        "soundAlarm_1_button": {
+            "type": "boolean",
+            "getable": false,
+            "setable": true,
+            "uiComponent": "button",
+            "title": {
+                "en": "Alarm 1"
+            },
+            "icon": "/drivers/siren/assets/icon.svg"
+        },
         "on_button": {
             "type": "boolean",
             "getable": false,
@@ -3006,6 +3016,7 @@
             "capabilities": [
                 "ring_button",
                 "stop_button",
+                "soundAlarm_1_button",
                 "alarm_siren",
                 "alarm_battery"
             ],
@@ -4787,13 +4798,71 @@
             {
                 "id": "start_siren",
                 "title": {
-                    "en": "Start the siren"
+                    "en": "Ring the siren"
                 },
                 "args": [
                     {
                         "name": "device",
                         "type": "device",
                         "filter": "driver_id=siren"
+                    }
+                ]
+            },
+            {
+                "id": "sound_alarm1",
+                "title": {
+                    "en": "Sound Alarm"
+                },
+                "titleFormatted":{
+                    "en": "Sound alarm for [[duration]] with On/off ratio of [[on_off_ratio]] and repeat [[repeats]] times at [[volume]] volume"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=siren"
+                    },
+                    {
+                        "name": "duration",
+                        "type": "range",
+                        "min": 5,
+                        "max": 300,
+                        "step": 5,
+                        "placeholder": { "en": "In seconds"},
+                        "title": {"en": "Alarm Duration"},
+                        "label": "s",
+                        "labelDecimals": 0
+                    },
+                    {
+                        "name": "on_off_ratio",
+                        "type": "range",
+                        "min": 10,
+                        "max": 90,
+                        "step": 1,
+                        "placeholder": { "en": "%"},
+                        "title": {"en": "On / Off ratio"},
+                        "label": "%",
+                        "labelDecimals": 0
+                    },
+                    {
+                        "name": "repeats",
+                        "type": "range",
+                        "min": 1,
+                        "max": 10,
+                        "step": 1,
+                        "placeholder": { "en": "repeats"},
+                        "title": {"en": "Repeats"},
+                        "labelDecimals": 0
+                    },
+                    {
+                        "name": "volume",
+                        "type": "dropdown",
+                        "title": {"en": "Volume"},
+                        "values": [
+                            { "id": "highest", "label": { "en": "Highest"} },
+                            { "id": "standard", "label": { "en": "Standard"} },
+                            { "id": "memorizedVolume", "label": { "en": "Memorized"} }
+                        ]
                     }
                 ]
             }
