@@ -403,5 +403,8 @@
     },
     "2.1.72": {
         "en": "Added Uno Screen Receiver (io:ScreenReceiverUnoIOComponent)."
+    },
+    "2.1.73": {
+        "en": "Added Siren IO (io:SomfyIndoorSimpleSirenIOComponent). Added Tahoma / Connexoon hub (internal:PodV2Component and internal:PodMiniComponent) for switch schedule / timer on and off. Added Tahoma Alarm (internal:TSKAlarmComponent)"
     }
 }

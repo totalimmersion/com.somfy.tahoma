@@ -11,24 +11,15 @@ class Device extends Homey.Device
     async onInit(CapabilitiesXRef)
     {
         this.boostSync = false;
-        this.executionId = null;
-        this.executionCmd = "";
+        // this.executionId = null;
+        // this.executionCmd = "";
+
+        this.executionCommands = [];
 
         if (CapabilitiesXRef)
         {
             CapabilitiesXRef.forEach(element =>
             {
-                // try
-                // {
-                //     if (!this.hasCapability(element.homeyName))
-                //     {
-                //         this.addCapability(element.homeyName);
-                //     }
-                // }
-                // catch(err)
-                // {
-                //     this.log('Device init:', this.getName(), err );
-                // }
                 this.registerCapabilityListener(element.homeyName, this.onCapability.bind(this, element));
             });
 
@@ -118,11 +109,11 @@ class Device extends Homey.Device
             }
 
             const deviceData = this.getData();
-            if (this.executionId !== null)
+            let idx = this.executionCommands.findIndex(element => element.name === capabilityXRef.somfyNameSet);
+            if (idx >= 0)
             {
-                await Tahoma.cancelExecution(this.executionId);
-                this.executionCmd = "";
-                this.executionId = null;
+                await Tahoma.cancelExecution(this.executionCommands[idx].Id);
+                this.executionCommands.splice(idx, 1);
             }
 
             var action = {
@@ -130,7 +121,13 @@ class Device extends Homey.Device
                 parameters: somfyValue
             };
 
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            var action2;
+            if (capabilityXRef.secondaryCommand && capabilityXRef.secondaryCommand[somfyValue])
+            {
+                action2 = capabilityXRef.secondaryCommand[somfyValue];
+            }
+
+            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action, action2);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -149,8 +146,15 @@ class Device extends Homey.Device
                 }
                 else
                 {
-                    this.executionCmd = action.name;
-                    this.executionId = result.execId;
+                    let idx = this.executionCommands.findIndex(element => element.name === capabilityXRef.somfyNameSet);
+                    if (idx < 0)
+                    {
+                        this.executionCommands.push({ id: result.execId, name: action.name });
+                    }
+                    else
+                    {
+                        await Homey.app.unBoostSync();
+                    }
                 }
             }
             else
@@ -217,12 +221,19 @@ class Device extends Homey.Device
                 {
                     try
                     {
-                        const state = states.find(state => state.name === capability.somfyNameGet);
+                        let state = states.find(state => state.name === capability.somfyNameGet);
                         if (state)
                         {
                             if (typeof state.value === 'string')
                             {
                                 state.value = state.value.toLowerCase();
+                            }
+
+                            // Check if Somfy is returning an alternative state name
+                            if (capability.conversions && capability.conversions[state.value])
+                            {
+                                // Yep, so convert to the published one
+                                state.value = capability.conversions[state.value];
                             }
 
                             // Found the entry
@@ -311,6 +322,11 @@ class Device extends Homey.Device
 
                             if (oldState !== newState)
                             {
+                                if (found.conversions && found.conversions[newState])
+                                {
+                                    newState = found.conversions[newState];
+                                }
+
                                 this.triggerCapabilityListener(found.homeyName, newState, { fromCloudSync: true });
                             }
                         }
@@ -321,13 +337,16 @@ class Device extends Homey.Device
             {
                 for (let x = 0; x < element.actions.length; x++)
                 {
-                    if (myURL === element.actions[x].deviceURL)
+                    if ((myURL === element.actions[x].deviceURL))
                     {
-                        this.executionId = element.execId;
-                        this.executionCmd = element.actions[x].commands[0].name;
-                        if (this.boostSync)
+                        let idx = this.executionCommands.findIndex(element2 => element2.name === element.actions[x].commands[0].name);
+                        if (idx < 0)
                         {
-                            await Homey.app.boostSync();
+                            this.executionCommands.push({ id: element.execId, name: element.actions[x].commands[0].name });
+                            if (this.boostSync)
+                            {
+                                await Homey.app.boostSync();
+                            }
                         }
                     }
                 }
@@ -336,18 +355,16 @@ class Device extends Homey.Device
             {
                 if ((element.newState === 'COMPLETED') || (element.newState === 'FAILED'))
                 {
-                    if (this.executionId === element.execId)
+                    //if (this.executionId === element.execId)
+                    let idx = this.executionCommands.findIndex(element2 => element2.id === element.execId);
+                    if (idx >= 0)
                     {
-                        if (this.boostSync)
-                        {
-                            await Homey.app.unBoostSync();
-                        }
+                        await Homey.app.unBoostSync();
+                        this.executionCommands.splice(idx, 1);
 
                         Homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
                         this.getDriver().triggerDeviceCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
                         this.commandExecuting = '';
-                        this.executionId = null;
-                        this.executionCmd = '';
                     }
                 }
             }

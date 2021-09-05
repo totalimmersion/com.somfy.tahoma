@@ -24,11 +24,9 @@ class myApp extends Homey.App
         this.log(`${Homey.app.manifest.id} running...`);
         this.loggedIn = false;
         this.syncing = false;
-        this.stoppingSync = false;
         this.timerId = null;
         this.boostTimerId = null;
         this.commandsQueued = 0;
-        this.restartingSync = false;
         this.lastSync = 0;
 
         if (process.env.DEBUG === '1')
@@ -122,11 +120,14 @@ class myApp extends Homey.App
 
                 if (this.pollingEnabled)
                 {
-                    this.restartSync();
+                    this.startSync();
                 }
                 else
                 {
-                    this.stopSync();
+                    if (this.commandsQueued === 0)
+                    {
+                        this.stopSync();
+                    }
                 }
             }
             else if (setting === 'syncInterval')
@@ -141,10 +142,7 @@ class myApp extends Homey.App
                     Homey.ManagerSettings.set('syncInterval', this.interval);
                 }
 
-                if (this.pollingEnabled)
-                {
-                    this.restartSync();
-                }
+                this.startSync();
             }
             else if (setting === 'infoLogEnabled')
             {
@@ -290,16 +288,7 @@ class myApp extends Homey.App
         Homey.ManagerSettings.set('linkurl', linkurl);
         Homey.ManagerSettings.set('loginMethod', loginMethod);
 
-        if (this.pollingEnabled)
-        {
-            // Start collection data again
-            if (this.infoLogEnabled)
-            {
-                this.logInformation("initSync", "Starting Event Polling");
-            }
-
-            this.syncLoop(this.interval * 1000);
-        }
+        this.startSync();
         return true;
     }
 
@@ -372,22 +361,25 @@ class myApp extends Homey.App
         try
         {
             var data;
-            if (typeof(error) === "string")
+            if (error)
             {
-                data = error;
-            }
-            else
-            {
-                if (error.stack)
+                if (typeof(error) === "string")
                 {
-                    data = {
-                        message: error.message,
-                        stack: error.stack
-                    };
+                    data = error;
                 }
                 else
                 {
-                    data = error.message;
+                    if (error.stack)
+                    {
+                        data = {
+                            message: error.message,
+                            stack: error.stack
+                        };
+                    }
+                    else
+                    {
+                        data = error.message;
+                    }
                 }
             }
             let logData = Homey.ManagerSettings.get('infoLog');
@@ -575,7 +567,12 @@ class myApp extends Homey.App
 
         if (this.commandsQueued === 1)
         {
-            await this.stopSync();
+            this.nextInterval = 0;
+            if (this.timerId)
+            {
+                clearTimeout(this.timerId);
+                this.timerId = null;
+            }
 
             if (!Tahoma.eventsRegistered())
             {
@@ -583,8 +580,12 @@ class myApp extends Homey.App
                 await Tahoma.getEvents();
             }
 
-            // We can't run the sync loop from here so fire it from a timer
-            this.timerId = setTimeout(() => this.syncLoop(3000), 1000);
+            this.nextInterval = 3000;
+            if (!this.syncing)
+            {
+                // We can't run the sync loop from here so fire it from a timer
+                this.timerId = setTimeout(() => this.syncLoop(3000), 1000);
+            }
         }
     }
 
@@ -594,7 +595,7 @@ class myApp extends Homey.App
         {
             this.logInformation("UnBoost Sync",
             {
-                message: "Reverting to previous Polling ?",
+                message: "Reverting to previous Polling",
                 stack: { timeOut: immediate, pollingMode: this.pollingEnabled, syncInterval: this.interval, queSize: this.commandsQueued }
             });
         }
@@ -613,49 +614,60 @@ class myApp extends Homey.App
         {
             clearTimeout(this.boostTimerId);
             this.boostTimerId = null;
-            if (this.pollingEnabled)
-            {
-                await this.restartSync();
-            }
-            else
-            {
-                await this.stopSync();
-            }
+            this.startSync();
         }
     }
 
-    async stopSync(clearRestartingSync = true)
+    async stopSync()
     {
+        this.pollingEnabled = false;
+        
+        if (this.commandsQueued > 0)
+        {
+            this.commandsQueued = 0;
+            clearTimeout(this.boostTimerId);
+            this.boostTimerId = null;
+        }
+
+        this.nextInterval = 0;
+
         if (this.timerId)
         {
-            console.log("Stop sync requested");
-
-            this.stoppingSync = this.syncing;
             clearTimeout(this.timerId);
             this.timerId = null;
+
+            console.log("Stop sync requested");
+
             await Tahoma.eventsClearRegistered();
             if (this.infoLogEnabled)
             {
                 this.logInformation("stopSync", "Stopping Event Polling");
             }
         }
-
-        if (clearRestartingSync)
-        {
-            this.restartingSync = false;
-        }
     }
 
-    async restartSync()
+    async startSync()
     {
-        if (!this.restartingSync)
+        if (this.commandsQueued > 0)
         {
-            console.log("Restart sync requested");
+            // Boost already running
+            return;
+        }
 
-            this.restartingSync = true;
+        this.nextInterval = 0;
+
+        if (this.timerId)
+        {
+            clearTimeout(this.timerId);
+            this.timerId = null;
+        }
+
+        this.pollingEnabled = Homey.ManagerSettings.get('pollingEnabled');
+        if (this.pollingEnabled)
+        {
+            console.log("Start sync requested");
+
             var interval = 0.1;
-
-            await this.stopSync(false);
 
             // make sure the new sync is at least 30 second after the last one
             var minSeconds = (30000 - (Date.now() - this.lastSync)) / 1000;
@@ -668,30 +680,21 @@ class myApp extends Homey.App
                 interval = minSeconds;
             }
 
-            if (this.restartingSync)
+            console.log("Restart sync in: ", interval);
+            this.nextInterval = this.interval * 1000;
+            if (!this.syncing)
             {
-                console.log("Restart sync in: ", interval);
-                this.timerId = setTimeout(() => this.syncLoop(this.interval * 1000), interval * 1000);
+                this.timerId = setTimeout(() => this.syncLoop(), interval * 1000);
             }
-            else
-            {
-                console.log("Skipping restart sync: Canceled");
-            }
-        }
-        else
-        {
-            console.log("Skipping restart sync: Already restarting");
         }
     }
 
     // The main polling loop that fetches events and sends them to the devices
-    async syncLoop(interval)
+    async syncLoop()
     {
-        this.nextInterval = interval;
-
         if (this.infoLogEnabled)
         {
-            this.logInformation("syncLoop", `Logged in = ${this.loggedIn}, Old Sync State = ${this.syncing}, Stopping = ${this.stoppingSync}, Restarting = ${this.restartingSync}`);
+            this.logInformation("syncLoop", `Logged in = ${this.loggedIn}, Old Sync State = ${this.syncing}, Next Interval = ${this.nextInterval}`);
         }
 
         if (this.loggedIn && !this.syncing)
@@ -715,7 +718,7 @@ class myApp extends Homey.App
                     const events = await Tahoma.getEvents();
                     if ((events === null && this.boostTimerId === null) || events.length > 0)
                     {
-                        // If events === null and boosTimer !== null then refresh all the devices, but don't do that if the boost is on
+                        // If events === null and boostTimer === null then refresh all the devices, but don't do that if the boost is on
                         console.log(this.varToString(events));
                         await this.syncEvents(events);
                     }
@@ -731,17 +734,14 @@ class myApp extends Homey.App
                 console.log("Skipping sync: too soon");
             }
 
-            this.restartingSync = false;
-
-            if (!this.stoppingSync)
+            if (this.nextInterval > 0)
             {
                 // Setup timer for next sync
-                this.timerId = setTimeout(() => this.syncLoop(this.nextInterval), this.nextInterval);
+                this.timerId = setTimeout(() => this.syncLoop(), this.nextInterval);
             }
             else
             {
-                console.log("Stopping sync");
-                this.stoppingSync = false;
+                console.log("Not renewing sync");
             }
 
             // Signal that the sync has completed
@@ -863,11 +863,7 @@ class myApp extends Homey.App
         {
             this.interval = Math.max(args.syncSpeed, 30);
             Homey.ManagerSettings.set('syncInterval', this.interval.toString());
-            if (!this.pollingEnabled)
-            {
-                this.pollingEnabled = true;
-                Homey.ManagerSettings.set('pollingEnabled', this.pollingEnabled);
-            }
+            Homey.ManagerSettings.set('pollingEnabled', true);
 
             if (this.commandsQueued > 0)
             {
@@ -875,7 +871,7 @@ class myApp extends Homey.App
                 return;
             }
 
-            return this.restartSync();
+            return this.startSync();
         });
     }
 
@@ -892,21 +888,36 @@ class myApp extends Homey.App
             if (this.commandsQueued > 0)
             {
                 // Sync is currently boosted so don't make any changes now
-                return;
+                return true;
             }
 
-            if (this.pollingEnabled || (args.newPollingMode === 'once'))
+            if (args.newPollingMode === 'on')
             {
-                if (!this.pollingEnabled && (args.newPollingMode === 'once'))
+                this.startSync();
+            }
+            else if (args.newPollingMode === 'once')
+            {
+                this.nextInterval = 0;
+
+                if (this.timerId)
                 {
-                    this.stoppingSync = true;
+                    clearTimeout(this.timerId);
+                    this.timerId = null;
                 }
-                return this.restartSync();
+
+                if (!this.syncing)
+                {
+                    this.timerId = setTimeout(() => this.syncLoop(), 3000);
+                }    
             }
             else
             {
-                return this.stopSync();
+                if (this.commandsQueued === 0)
+                {
+                    return this.stopSync();
+                }
             }
+            return true;
         });
     }
 

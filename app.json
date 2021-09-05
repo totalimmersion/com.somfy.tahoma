@@ -9,7 +9,7 @@
     "description": {
         "en": "Bring the richness of Homey to your Somfy world"
     },
-    "version": "2.1.72",
+    "version": "2.1.73",
     "compatibility": ">=2.0.0",
     "author": {
         "name": "Adrian Rockall",
@@ -1019,6 +1019,110 @@
             },
             "insightsTitleFalse": {
                 "en": "Silent"
+            }
+        },
+        "calendar_state_on": {
+            "type": "boolean",
+            "getable": false,
+            "setable": true,
+            "uiComponent": "button",
+            "icon": "/assets/calendar.svg",
+            "title": {
+                "en": "Activate Agenda / Timer"
+            }
+        },
+        "calendar_state_off": {
+            "type": "boolean",
+            "getable": false,
+            "setable": true,
+            "uiComponent": "button",
+            "icon": "/assets/calendar_off.svg",
+            "title": {
+                "en": "Deactivate Agenda / Timer"
+            }
+        },
+        "tahoma_alarm_state": {
+            "type": "enum",
+            "title": {
+                "en": "Home Alarm state",
+                "nl": "Thuisalarm status",
+                "de": "Heim-Alarm-Status",
+                "fr": "Etat de l'alarme de maison",
+                "it": "Stato dell'allarme domestico",
+                "sv": "Hemlarmsstatus",
+                "no": "Hjemmealarmstatus",
+                "es": "Estado de la alarma doméstica",
+                "da": "Hjemmealarmstatus"
+            },
+            "values": [
+                {
+                    "id": "off",
+                    "title": {
+                        "en": "Disarmed",
+                        "nl": "Gedeactiveerd",
+                        "de": "unscharf",
+                        "fr": "Désarmé",
+                        "it": "Disattivato",
+                        "sv": "Avlarmat",
+                        "no": "Deaktivert",
+                        "es": "Desactivada",
+                        "da": "Deaktiveret"
+                    }
+                },
+                {
+                    "id": "partial1",
+                    "title": {
+                        "en": "Partially armed (1)",
+                        "nl": "Deels geactiveerd (1)",
+                        "de": "teilweise scharf (1)",
+                        "fr": "Partiellement armé (1)",
+                        "it": "Parzialmente attivato (1)",
+                        "sv": "Delvis larmat (1)",
+                        "no": "Delvis aktivert (1)",
+                        "es": "Parcialmente activada (1)",
+                        "da": "Delvist aktiveret (1)"
+                    }
+                },
+                {
+                    "id": "partial2",
+                    "title": {
+                        "en": "Partially armed (2)",
+                        "nl": "Deels geactiveerd (2)",
+                        "de": "teilweise scharf (2)",
+                        "fr": "Partiellement armé (2)",
+                        "it": "Parzialmente attivato (2)",
+                        "sv": "Delvis larmat (2)",
+                        "no": "Delvis aktivert (2)",
+                        "es": "Parcialmente activada (2)",
+                        "da": "Delvist aktiveret (2)"
+                    }
+                },
+                {
+                    "id": "total",
+                    "title": {
+                        "en": "Armed",
+                        "nl": "Geactiveerd",
+                        "de": "scharf",
+                        "fr": "Armé",
+                        "it": "Attivato",
+                        "sv": "Larmat",
+                        "no": "Aktivert",
+                        "es": "Activada",
+                        "da": "Aktiveret"
+                    }
+                },
+                {
+                    "id": "sos",
+                    "title": {
+                        "en": "SOS"
+                    }
+                }
+            ],
+            "getable": true,
+            "setable": true,
+            "uiComponent": "picker",
+            "$flow": {
+                "conditions": []
             }
         }
     },
@@ -3033,6 +3137,68 @@
                     "template": "add_devices"
                 }
             ]
+        },
+        {
+            "id": "hub",
+            "name": {
+                "en": "Tahoma / Connexoon Hub"
+            },
+            "images": {
+                "large": "/drivers/hub/assets/images/large.png",
+                "small": "/drivers/hub/assets/images/small.png"
+            },
+            "class": "other",
+            "capabilities": [
+                "calendar_state_on",
+                "calendar_state_off",
+                "dim"
+            ],
+            "capabilitiesOptions": {
+                "dim": {
+                    "title": "LED"
+                }
+            },
+            "pair": [
+                {
+                    "id": "list_my_devices",
+                    "template": "list_devices",
+                    "navigation": {
+                        "next": "add_my_devices"
+                    }
+                },
+                {
+                    "id": "add_my_devices",
+                    "template": "add_devices"
+                }
+            ]
+        },
+        {
+            "id": "tahoma_alarm",
+            "name": {
+                "en": "Tahoma Alarm"
+            },
+            "class": "homealarm",
+            "capabilities": [
+                "alarm_generic",
+                "tahoma_alarm_state"
+            ],
+            "images": {
+                "large": "/drivers/tahoma_alarm/assets/images/large.png",
+                "small": "/drivers/tahoma_alarm/assets/images/small.png"
+            },
+            "pair": [
+                {
+                    "id": "list_my_devices",
+                    "template": "list_devices",
+                    "navigation": {
+                        "next": "add_my_devices"
+                    }
+                },
+                {
+                    "id": "add_my_devices",
+                    "template": "add_devices"
+                }
+            ]
         }
     ],
     "flow": {
@@ -3646,6 +3812,98 @@
                         "filter": "driver_id=siren"
                     }
                 ]
+            },
+            {
+                "id": "tahoma_alarm_state_changed",
+                "title": {
+                    "en": "The state changed",
+                    "nl": "De status is veranderd",
+                    "de": "Der Status hat sich geändert",
+                    "fr": "L'état a été modifié",
+                    "it": "Lo stato è cambiato",
+                    "sv": "Statusen ändrad",
+                    "no": "Statusen ble endret",
+                    "es": "El estado ha cambiado",
+                    "da": "Status ændret"
+                },
+                "titleFormatted": {
+                    "en": "The alarm state changed to [[state]]"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=tahoma_alarm"
+                    },
+                    {
+                        "name": "state",
+                        "type": "dropdown",
+                        "values": [
+                            {
+                                "id": "off",
+                                "title": {
+                                    "en": "Disarmed",
+                                    "nl": "Gedeactiveerd",
+                                    "de": "unscharf",
+                                    "fr": "Désarmé",
+                                    "it": "Disattivato",
+                                    "sv": "Avlarmat",
+                                    "no": "Deaktivert",
+                                    "es": "Desactivada",
+                                    "da": "Deaktiveret"
+                                }
+                            },
+                            {
+                                "id": "partial1",
+                                "title": {
+                                    "en": "Partially armed (1)",
+                                    "nl": "Deels geactiveerd (1)",
+                                    "de": "teilweise scharf (1)",
+                                    "fr": "Partiellement armé (1)",
+                                    "it": "Parzialmente attivato (1)",
+                                    "sv": "Delvis larmat (1)",
+                                    "no": "Delvis aktivert (1)",
+                                    "es": "Parcialmente activada (1)",
+                                    "da": "Delvist aktiveret (1)"
+                                }
+                            },
+                            {
+                                "id": "partial2",
+                                "title": {
+                                    "en": "Partially armed",
+                                    "nl": "Deels geactiveerd",
+                                    "de": "teilweise scharf",
+                                    "fr": "Partiellement armé",
+                                    "it": "Parzialmente attivato",
+                                    "sv": "Delvis larmat",
+                                    "no": "Delvis aktivert",
+                                    "es": "Parcialmente activada",
+                                    "da": "Delvist aktiveret"
+                                }
+                            },
+                            {
+                                "id": "total",
+                                "title": {
+                                    "en": "Armed",
+                                    "nl": "Geactiveerd",
+                                    "de": "scharf",
+                                    "fr": "Armé",
+                                    "it": "Attivato",
+                                    "sv": "Larmat",
+                                    "no": "Aktivert",
+                                    "es": "Activada",
+                                    "da": "Aktiveret"
+                                }
+                            },
+                            {
+                                "id": "sos",
+                                "title": {
+                                    "en": "SOS"
+                                }
+                            }
+                        ]
+                    }
+                ]
             }
         ],
         "conditions": [
@@ -3832,6 +4090,98 @@
                         "name": "device",
                         "type": "device",
                         "filter": "driver_id=io_exterior_venetian_blind|io_garage_door|io_garage_door_partial|io_horizontal_awning|io_pergola|io_roller_shutter|io_roller_shutter_quiet|io_velux_interior_blind|io_velux_roller_shutter|io_velux_roof_window|io_vertical_exterior_blind|io_vertical_interior_blind"
+                    }
+                ]
+            },
+            {
+                "id": "tahoma_alarm_state_is",
+                "title": {
+                    "en": "The state is !{{|not}}",
+                    "nl": "De status is !{{|niet}}",
+                    "de": "Der Status ist !{{|nicht}}",
+                    "fr": "L'état !{{est|n'est pas}}",
+                    "it": "Lo stato è !{{|non}}",
+                    "sv": "Statusen är !{{|inte}}",
+                    "no": "Statusen er !{{|ikke}}",
+                    "es": "El estado !{{|no}} es",
+                    "da": "Status er !{{|ikke}}"
+                },
+                "titleFormatted": {
+                    "en": "The alarm state is {{| not}} set to [[state]]"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=tahoma_alarm"
+                    },
+                    {
+                        "name": "state",
+                        "type": "dropdown",
+                        "values": [
+                            {
+                                "id": "off",
+                                "title": {
+                                    "en": "Disarmed",
+                                    "nl": "Gedeactiveerd",
+                                    "de": "unscharf",
+                                    "fr": "Désarmé",
+                                    "it": "Disattivato",
+                                    "sv": "Avlarmat",
+                                    "no": "Deaktivert",
+                                    "es": "Desactivada",
+                                    "da": "Deaktiveret"
+                                }
+                            },
+                            {
+                                "id": "partial1",
+                                "title": {
+                                    "en": "Partially armed (1)",
+                                    "nl": "Deels geactiveerd (1)",
+                                    "de": "teilweise scharf (1)",
+                                    "fr": "Partiellement armé (1)",
+                                    "it": "Parzialmente attivato (1)",
+                                    "sv": "Delvis larmat (1)",
+                                    "no": "Delvis aktivert (1)",
+                                    "es": "Parcialmente activada (1)",
+                                    "da": "Delvist aktiveret (1)"
+                                }
+                            },
+                            {
+                                "id": "partial2",
+                                "title": {
+                                    "en": "Partially armed (2)",
+                                    "nl": "Deels geactiveerd (2)",
+                                    "de": "teilweise scharf (2)",
+                                    "fr": "Partiellement armé (2)",
+                                    "it": "Parzialmente attivato (2)",
+                                    "sv": "Delvis larmat (2)",
+                                    "no": "Delvis aktivert (2)",
+                                    "es": "Parcialmente activada (2)",
+                                    "da": "Delvist aktiveret (2)"
+                                }
+                            },
+                            {
+                                "id": "armed",
+                                "title": {
+                                    "en": "Armed",
+                                    "nl": "Geactiveerd",
+                                    "de": "scharf",
+                                    "fr": "Armé",
+                                    "it": "Attivato",
+                                    "sv": "Larmat",
+                                    "no": "Aktivert",
+                                    "es": "Activada",
+                                    "da": "Aktiveret"
+                                }
+                            },
+                            {
+                                "id": "sos",
+                                "title": {
+                                    "en": "SOS"
+                                }
+                            }
+                        ]
                     }
                 ]
             }
@@ -4813,7 +5163,7 @@
                 "title": {
                     "en": "Sound Alarm"
                 },
-                "titleFormatted":{
+                "titleFormatted": {
                     "en": "Sound alarm for [[duration]] with On/off ratio of [[on_off_ratio]] and repeat [[repeats]] times at [[volume]] volume"
                 },
                 "args": [
@@ -4828,8 +5178,12 @@
                         "min": 5,
                         "max": 300,
                         "step": 5,
-                        "placeholder": { "en": "In seconds"},
-                        "title": {"en": "Alarm Duration"},
+                        "placeholder": {
+                            "en": "In seconds"
+                        },
+                        "title": {
+                            "en": "Alarm Duration"
+                        },
                         "label": "s",
                         "labelDecimals": 0
                     },
@@ -4839,8 +5193,12 @@
                         "min": 10,
                         "max": 90,
                         "step": 1,
-                        "placeholder": { "en": "%"},
-                        "title": {"en": "On / Off ratio"},
+                        "placeholder": {
+                            "en": "%"
+                        },
+                        "title": {
+                            "en": "On / Off ratio"
+                        },
                         "label": "%",
                         "labelDecimals": 0
                     },
@@ -4850,18 +5208,197 @@
                         "min": 1,
                         "max": 10,
                         "step": 1,
-                        "placeholder": { "en": "repeats"},
-                        "title": {"en": "Repeats"},
+                        "placeholder": {
+                            "en": "repeats"
+                        },
+                        "title": {
+                            "en": "Repeats"
+                        },
                         "labelDecimals": 0
                     },
                     {
                         "name": "volume",
                         "type": "dropdown",
-                        "title": {"en": "Volume"},
+                        "title": {
+                            "en": "Volume"
+                        },
                         "values": [
-                            { "id": "highest", "label": { "en": "Highest"} },
-                            { "id": "standard", "label": { "en": "Standard"} },
-                            { "id": "memorizedVolume", "label": { "en": "Memorized"} }
+                            {
+                                "id": "highest",
+                                "label": {
+                                    "en": "Highest"
+                                }
+                            },
+                            {
+                                "id": "standard",
+                                "label": {
+                                    "en": "Standard"
+                                }
+                            },
+                            {
+                                "id": "memorizedVolume",
+                                "label": {
+                                    "en": "Memorized"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "calendar_state_on",
+                "title": {
+                    "en": "Activate Agenda / Timer"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=hub"
+                    }
+                ]
+            },
+            {
+                "id": "calendar_state_off",
+                "title": {
+                    "en": "Deactivate Agenda / Timer"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=hub"
+                    }
+                ]
+            },
+            {
+                "id": "set_tahoma_alarm_state",
+                "title": {
+                    "en": "Set state",
+                    "nl": "Zet de status",
+                    "de": "Status setzen",
+                    "fr": "Définir l'état",
+                    "it": "Imposta stato",
+                    "sv": "Ställ in status",
+                    "no": "Innstill status",
+                    "es": "Definir estado",
+                    "da": "Indstil status"
+                },
+                "titleFormatted": {
+                    "en": "Set the alarm state to [[state]]"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=tahoma_alarm"
+                    },
+                    {
+                        "name": "state",
+                        "type": "dropdown",
+                        "values": [
+                            {
+                                "id": "off",
+                                "title": {
+                                    "en": "Disarmed",
+                                    "nl": "Gedeactiveerd",
+                                    "de": "unscharf",
+                                    "fr": "Désarmé",
+                                    "it": "Disattivato",
+                                    "sv": "Avlarmat",
+                                    "no": "Deaktivert",
+                                    "es": "Desactivada",
+                                    "da": "Deaktiveret"
+                                }
+                            },
+                            {
+                                "id": "partial1",
+                                "title": {
+                                    "en": "Partially armed",
+                                    "nl": "Deels geactiveerd",
+                                    "de": "teilweise scharf",
+                                    "fr": "Partiellement armé",
+                                    "it": "Parzialmente attivato",
+                                    "sv": "Delvis larmat",
+                                    "no": "Delvis aktivert",
+                                    "es": "Parcialmente activada",
+                                    "da": "Delvist aktiveret"
+                                }
+                            },
+                            {
+                                "id": "partial2",
+                                "title": {
+                                    "en": "Partially armed",
+                                    "nl": "Deels geactiveerd",
+                                    "de": "teilweise scharf",
+                                    "fr": "Partiellement armé",
+                                    "it": "Parzialmente attivato",
+                                    "sv": "Delvis larmat",
+                                    "no": "Delvis aktivert",
+                                    "es": "Parcialmente activada",
+                                    "da": "Delvist aktiveret"
+                                }
+                            },
+                            {
+                                "id": "total",
+                                "title": {
+                                    "en": "Armed",
+                                    "nl": "Geactiveerd",
+                                    "de": "scharf",
+                                    "fr": "Armé",
+                                    "it": "Attivato",
+                                    "sv": "Larmat",
+                                    "no": "Aktivert",
+                                    "es": "Activada",
+                                    "da": "Aktiveret"
+                                }
+                            },
+                            {
+                                "id": "sos",
+                                "title": {
+                                    "en": "SOS"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "trigger_tahoma_alarm",
+                "title": {
+                    "en": "Set intrusion state"
+                },
+                "titleFormatted": {
+                    "en": "Set the intrusion state to [[state]]"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=tahoma_alarm"
+                    },
+                    {
+                        "name": "state",
+                        "type": "dropdown",
+                        "values": [
+                            {
+                                "id": "detected",
+                                "title": {
+                                    "en": "Detected"
+                                }
+                            },
+                            {
+                                "id": "notDetected",
+                                "title": {
+                                    "en": "Not Detected"
+                                }
+                            },
+                            {
+                                "id": "pending",
+                                "title": {
+                                    "en": "Pending"
+                                }
+                            }
                         ]
                     }
                 ]
