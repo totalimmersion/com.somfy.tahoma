@@ -11,8 +11,8 @@ class Device extends Homey.Device
     async onInit(CapabilitiesXRef)
     {
         this.boostSync = false;
-        // this.executionId = null;
-        // this.executionCmd = "";
+        this.executionId = null;
+        this.executionCmd = "";
 
         this.executionCommands = [];
 

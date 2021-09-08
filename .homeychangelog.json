@@ -409,5 +409,8 @@
     },
     "2.1.74": {
         "en": "Added Heater (io:DiscreteExteriorHeatingIOComponent). Fixed an issue with the io valve."
+    },
+    "2.1.75": {
+        "en": "Fix a bug introduced in the last version"
     }
 }
