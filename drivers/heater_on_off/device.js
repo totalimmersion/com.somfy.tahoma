@@ -4,11 +4,11 @@
 const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
-    { homeyName: 'measure_luminance', somfyNameGet: 'core:LuminanceState', somfyNameSet: [] }
+    { homeyName: 'onoff', somfyNameGet: 'core:OnOffState', somfyNameSet: ['off', 'on'], compare: ['off', 'on'] },
 ];
-
-class LightSensorDevice extends SensorDevice
+class HeaterOnOffDevice extends SensorDevice
 {
+
     async onInit()
     {
         await super.onInit(CapabilitiesXRef);
@@ -20,4 +20,5 @@ class LightSensorDevice extends SensorDevice
         this.syncEventsList(events, CapabilitiesXRef);
     }
 }
-module.exports = LightSensorDevice;
+
+module.exports = HeaterOnOffDevice;

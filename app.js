@@ -335,7 +335,10 @@ class myApp extends Homey.App
             {
                 this.logInformation("logDevices", "Debug Mode");
             }
-
+        }
+        else
+        {
+            // Remove personal device information
             let i = 1;
             logData.forEach(element =>
             {
@@ -347,6 +350,7 @@ class myApp extends Homey.App
                 element.oid = "temp" + i++;
             });
         }
+
         Homey.ManagerSettings.set('deviceLog',
         {
             "devices": logData

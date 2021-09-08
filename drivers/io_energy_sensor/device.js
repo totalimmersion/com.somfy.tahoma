@@ -4,7 +4,7 @@
 const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
-    { homeyName: 'meter_power', somfyNameGet: 'core:ElectricEnergyConsumptionState', somfyNameSet: '', scale: 1000 }
+    { homeyName: 'meter_power', somfyNameGet: 'core:ElectricEnergyConsumptionState', somfyNameSet: [], scale: 1000 }
 ];
 class EnergySensorDevice extends SensorDevice
 {

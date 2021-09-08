@@ -6,8 +6,8 @@ const Tahoma = require('./../../lib/Tahoma');
 const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
-    { homeyName: 'alarm_generic', somfyNameGet: 'internal:IntrusionDetectedState', somfyNameSet: '', compare: ['notDetected', 'detected'] },
-    { homeyName: 'tahoma_alarm_state', somfyNameGet: 'internal:CurrentAlarmModeState', somfyNameSet: 'setTargetAlarmMode', conversions:{zone1: "partial1", zone2: "partial2"},
+    { homeyName: 'alarm_generic', somfyNameGet: 'internal:IntrusionDetectedState', somfyNameSet: [], compare: ['notDetected', 'detected'] },
+    { homeyName: 'tahoma_alarm_state', somfyNameGet: 'internal:CurrentAlarmModeState', somfyNameSet: ['setTargetAlarmMode'], conversions:{zone1: "partial1", zone2: "partial2"},
         secondaryCommand:{sos: {name: 'setIntrusionDetected', parameters:['detected']}} },
 ];
 

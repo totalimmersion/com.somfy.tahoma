@@ -109,15 +109,32 @@ class Device extends Homey.Device
             }
 
             const deviceData = this.getData();
-            let idx = this.executionCommands.findIndex(element => element.name === capabilityXRef.somfyNameSet);
+            let idx = this.executionCommands.findIndex(element => capabilityXRef.somfyNameSet.indexOf(element.name) >= 0);
             if (idx >= 0)
             {
-                await Tahoma.cancelExecution(this.executionCommands[idx].Id);
+                try
+                {
+                    await Tahoma.cancelExecution(this.executionCommands[idx].id);
+                }
+                catch(err)
+                {
+                    Homey.app.logInformation(this.getName(),
+                    {
+                        message: err.message,
+                        stack: err.stack
+                    });
+                }
                 this.executionCommands.splice(idx, 1);
             }
 
+            let cmdIdx = 0;
+            if (capabilityXRef.somfyNameSet.length > 1)
+            {
+                cmdIdx = (value ? 1 : 0);
+            }
+
             var action = {
-                name: capabilityXRef.somfyNameSet,
+                name: capabilityXRef.somfyNameSet[cmdIdx],
                 parameters: somfyValue
             };
 
@@ -146,7 +163,7 @@ class Device extends Homey.Device
                 }
                 else
                 {
-                    let idx = this.executionCommands.findIndex(element => element.name === capabilityXRef.somfyNameSet);
+                    let idx = this.executionCommands.findIndex(element => capabilityXRef.somfyNameSet.indexOf(element.name) >= 0);
                     if (idx < 0)
                     {
                         this.executionCommands.push({ id: result.execId, name: action.name });
@@ -159,7 +176,7 @@ class Device extends Homey.Device
             }
             else
             {
-                Homey.app.logInformation(this.getName() + ": onCapability " + capabilityXRef.somfyNameSet, "Failed to send command");
+                Homey.app.logInformation(this.getName() + ": onCapability " + capabilityXRef.somfyNameSet[cmdIdx], "Failed to send command");
                 if (this.boostSync)
                 {
                     await Homey.app.unBoostSync();
@@ -292,7 +309,7 @@ class Device extends Homey.Device
                         Homey.app.logInformation(this.getName(),
                         {
                             message: "Processing device state change event",
-                            stack: JSON.stringify(element, null, 2)
+                            stack: element
                         });
                     }
                     // Got what we need to update the device so lets process each capability

@@ -7,17 +7,17 @@ const Tahoma = require('../../lib/Tahoma');
 const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
-    { homeyName: 'measure_temperature', somfyNameGet: 'core:TargetRoomTemperatureState', somfyNameSet: '', somfyArray: 0 },
-    { homeyName: 'target_temperature.comfort_heating', somfyNameGet: 'core:ComfortRoomTemperatureState', somfyNameSet: 'setAllModeTemperatures', somfyArray: 0 },
-    { homeyName: 'target_temperature.eco_heating', somfyNameGet: 'core:EcoTargetTemperatureState', somfyNameSet: 'setAllModeTemperatures', somfyArray: 1 },
-    { homeyName: 'target_temperature.away', somfyNameGet: 'io:AwayModeTargetTemperatureState', somfyNameSet: 'setAllModeTemperatures', somfyArray: 2 },
-    { homeyName: 'target_temperature.frost_protection', somfyNameGet: 'core:FrostProtectionRoomTemperatureState', somfyNameSet: 'setAllModeTemperatures', somfyArray: 3 },
-    { homeyName: 'open_window_state', somfyNameGet: 'core:OpenWindowDetectionActivationState', somfyNameSet: '', compare: ['inactive', 'active'] },
-    { homeyName: 'measure_battery', somfyNameGet: 'core:BatteryLevelState', somfyNameSet: '' },
-    { homeyName: 'valve_heating_mode_state', somfyNameGet: 'io:CurrentHeatingModeState', somfyNameSet: '' },
-    { homeyName: 'derogation_mode', somfyNameGet: 'io:DerogationHeatingModeState', somfyNameSet: 'setDerogation', somfyArray: 0 },
-    { homeyName: 'derogation_type', somfyNameGet: 'io:DerogationTypeState', somfyNameSet: 'setDerogation', somfyArray: 1 },
-    { homeyName: 'valve_state', somfyNameGet: 'core:OpenClosedValveState', somfyNameSet: '', compare: ['closed', 'open'] }
+    { homeyName: 'measure_temperature', somfyNameGet: 'core:TargetRoomTemperatureState', somfyNameSet: [], somfyArray: 0 },
+    { homeyName: 'target_temperature.comfort_heating', somfyNameGet: 'core:ComfortRoomTemperatureState', somfyNameSet: ['setAllModeTemperatures'], somfyArray: 0 },
+    { homeyName: 'target_temperature.eco_heating', somfyNameGet: 'core:EcoTargetTemperatureState', somfyNameSet: ['setAllModeTemperatures'], somfyArray: 1 },
+    { homeyName: 'target_temperature.away', somfyNameGet: 'io:AwayModeTargetTemperatureState', somfyNameSet: ['setAllModeTemperatures'], somfyArray: 2 },
+    { homeyName: 'target_temperature.frost_protection', somfyNameGet: 'core:FrostProtectionRoomTemperatureState', somfyNameSet: ['setAllModeTemperatures'], somfyArray: 3 },
+    { homeyName: 'open_window_state', somfyNameGet: 'core:OpenWindowDetectionActivationState', somfyNameSet: [], compare: ['inactive', 'active'] },
+    { homeyName: 'measure_battery', somfyNameGet: 'core:BatteryLevelState', somfyNameSet: [] },
+    { homeyName: 'valve_heating_mode_state', somfyNameGet: 'io:CurrentHeatingModeState', somfyNameSet: [] },
+    { homeyName: 'derogation_mode', somfyNameGet: 'io:DerogationHeatingModeState', somfyNameSet: ['setDerogation'], somfyArray: 0 },
+    { homeyName: 'derogation_type', somfyNameGet: 'io:DerogationTypeState', somfyNameSet: ['setDerogation'], somfyArray: 1 },
+    { homeyName: 'valve_state', somfyNameGet: 'core:OpenClosedValveState', somfyNameSet: [], compare: ['closed', 'open'] }
 ];
 class ValveHeatingDevice extends SensorDevice
 {
@@ -43,7 +43,7 @@ class ValveHeatingDevice extends SensorDevice
                 await Homey.app.boostSync();
             }
 
-            const applicableEntries = CapabilitiesXRef.filter(entry => entry.somfyNameSet === capabilityXRef.somfyNameSet).sort((a, b) => a.somfyArray - b.somfyArray);
+            const applicableEntries = CapabilitiesXRef.filter(entry => entry.somfyNameSet[0] === capabilityXRef.somfyNameSet[0]).sort((a, b) => a.somfyArray - b.somfyArray);
 
             let somfyValues = [];
             for(const element of applicableEntries)
@@ -52,13 +52,26 @@ class ValveHeatingDevice extends SensorDevice
             }
 
             const deviceData = this.getData();
-            if (this.executionId !== null)
+            let idx = this.executionCommands.findIndex(element => capabilityXRef.somfyNameSet.indexOf(element.name) >= 0);
+            if (idx >= 0)
             {
-                await Tahoma.cancelExecution(this.executionId);
+                try
+                {
+                    await Tahoma.cancelExecution(this.executionCommands[idx].id);
+                }
+                catch(err)
+                {
+                    Homey.app.logInformation(this.getName(),
+                    {
+                        message: err.message,
+                        stack: err.stack
+                    });
+                }
+                this.executionCommands.splice(idx, 1);
             }
 
             var action = {
-                name: capabilityXRef.somfyNameSet,
+                name: capabilityXRef.somfyNameSet[0],
                 parameters: somfyValues
             };
 
@@ -81,13 +94,20 @@ class ValveHeatingDevice extends SensorDevice
                 }
                 else
                 {
-                    this.executionCmd = action.name;
-                    this.executionId = result.execId;
+                    let idx = this.executionCommands.findIndex(element => capabilityXRef.somfyNameSet.indexOf(element.name) >= 0);
+                    if (idx < 0)
+                    {
+                        this.executionCommands.push({ id: result.execId, name: action.name });
+                    }
+                    else
+                    {
+                        await Homey.app.unBoostSync();
+                    }
                 }
             }
             else
             {
-                Homey.app.logInformation(this.getName() + ": onCapability " + capabilityXRef.somfyNameSet, "Failed to send command");
+                Homey.app.logInformation(this.getName() + ": onCapability " + capabilityXRef.somfyNameSet[0], "Failed to send command");
                 if (this.boostSync)
                 {
                     await Homey.app.unBoostSync();

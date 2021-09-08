@@ -4,7 +4,7 @@
 const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
-    { homeyName: 'alarm_water', somfyNameGet: 'core:WaterDetectionState', somfyNameSet: '', compare: ["notDetected", "detected"] }
+    { homeyName: 'alarm_water', somfyNameGet: 'core:WaterDetectionState', somfyNameSet: [], compare: ["notDetected", "detected"] }
 ];
 
 class WaterSensorDevice extends SensorDevice
