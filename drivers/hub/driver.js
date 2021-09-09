@@ -21,7 +21,7 @@ class HubDriver extends Driver
             .registerRunListener(async (args, state) =>
             {
                 console.log("calendar_state_on");
-                return args.device.triggerCapabilityListener('calendar_state_on', null);
+                return args.device.triggerCapabilityListener('calendar_state_on', true, null);
             });
 
         this.turnOffCalendarAction = new Homey.FlowCardAction('calendar_state_off');
@@ -30,7 +30,7 @@ class HubDriver extends Driver
             .registerRunListener(async (args, state) =>
             {
                 console.log("calendar_state_off");
-                return args.device.triggerCapabilityListener('calendar_state_off', null);
+                return args.device.triggerCapabilityListener('calendar_state_off', true, null);
             });
     }
 }

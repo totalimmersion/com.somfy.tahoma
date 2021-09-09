@@ -412,5 +412,8 @@
     },
     "2.1.75": {
         "en": "Fix a bug introduced in the last version"
+    },
+    "2.1.76": {
+        "en": "Fix Hub > Timer / Schedule action cards."
     }
 }
