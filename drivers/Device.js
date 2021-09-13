@@ -25,10 +25,6 @@ class Device extends Homey.Device
 
             this.syncEventsList(null, CapabilitiesXRef);
         }
-        else
-        {
-            this.getStates();
-        }
         this.log('Device init:', this.getName(), 'class:', this.getClass());
     }
 
@@ -48,11 +44,36 @@ class Device extends Homey.Device
 
     /**
      * Returns the TaHoma device url
+     * Some devices use multiple URL's that have an index on the end
+     * E.g. device#1, device#2, etc
+     * Therefore hashIndex specifies the index where 0 is the url without the #1, 1 is the recorded url and 2 onwards specifies the extra urls
      * @return {String}
+     * If hashIndex > 0 and there is no #1 at the end of the recorded url then return is null
      */
-    getDeviceUrl()
+    getDeviceUrl(hashIndex)
     {
-        return this.getData().deviceURL;
+        if ((hashIndex === undefined) || (hashIndex === 1))
+        {
+            // Return the original url
+            return this.getData().deviceURL;
+        }
+
+        let subUrl = this.getData().deviceURL.split('#');
+        if (hashIndex === 0)
+        {
+            // Return the original url without the #1
+            return subUrl[0];
+        }
+
+        if (subUrl.length < 2)
+        {
+            // There was no # so return null
+            return null;
+        }
+
+        // Return the url with the new bub # number
+        subUrl = subUrl[0] + '#' + hashIndex.toString();
+        return subUrl;
     }
 
     /**
@@ -87,7 +108,14 @@ class Device extends Homey.Device
             {
                 if (capabilityXRef.parameters != undefined)
                 {
-                    somfyValue = capabilityXRef.parameters;
+                    if (capabilityXRef.parameters.length > 1)
+                    {
+                        somfyValue = capabilityXRef.parameters[(value ? 1 : 0)];
+                    }
+                    else
+                    {
+                        somfyValue = capabilityXRef.parameters;
+                    }
                 }
                 else if (capabilityXRef.scale)
                 {
@@ -288,7 +316,8 @@ class Device extends Homey.Device
             return this.syncList(CapabilitiesXRef);
         }
 
-        const myURL = this.getDeviceUrl();
+        // get the url without the #1 on the end
+        const myURL = this.getDeviceUrl(0);
         const oldStates = this.getState();
 
         // Process events sequentially so they are in the correct order
@@ -302,7 +331,7 @@ class Device extends Homey.Device
             if (element.name === 'DeviceStateChangedEvent')
             {
                 // If the URL matches the it is for this device
-                if ((element.deviceURL === myURL) && element.deviceStates)
+                if (element.deviceStates && (element.deviceURL.startsWith(myURL)))
                 {
                     if (Homey.app.infoLogEnabled)
                     {
@@ -324,9 +353,14 @@ class Device extends Homey.Device
                         if (found)
                         {
                             // Yep we can relate to this one
-                            Homey.app.logStates(this.getName() + ": " + found.somfyNameGet + "= " + deviceState.value);
+                            let deviceValue = '';
+                            if (deviceState.value)
+                            {
+                                deviceValue = deviceState.value;
+                            }
+                            Homey.app.logStates(this.getName() + ": " + found.somfyNameGet + "= " + deviceValue);
                             const oldState = oldStates[found.homeyName];
-                            let newState = (found.compare ? (deviceState.value === found.compare[1]) : (deviceState.value));
+                            let newState = (found.compare ? (deviceValue === found.compare[1]) : (deviceValue));
 
                             if (typeof oldState === 'number')
                             {
@@ -344,7 +378,26 @@ class Device extends Homey.Device
                                     newState = found.conversions[newState];
                                 }
 
+                                if (Homey.app.infoLogEnabled)
+                                {
+                                    Homey.app.logInformation(this.getName(),
+                                    {
+                                        message: "Setting new state",
+                                        stack: {capability: found.homeyName, state: newState}
+                                    });
+                                }
                                 this.triggerCapabilityListener(found.homeyName, newState, { fromCloudSync: true });
+                            }
+                            else
+                            {
+                                if (Homey.app.infoLogEnabled)
+                                {
+                                    Homey.app.logInformation(this.getName(),
+                                    {
+                                        message: "Same as existing state",
+                                        stack:  {capability: found.homeyName, state: newState}
+                                    });
+                                }
                             }
                         }
                     }
@@ -372,7 +425,6 @@ class Device extends Homey.Device
             {
                 if ((element.newState === 'COMPLETED') || (element.newState === 'FAILED'))
                 {
-                    //if (this.executionId === element.execId)
                     let idx = this.executionCommands.findIndex(element2 => element2.id === element.execId);
                     if (idx >= 0)
                     {
@@ -382,6 +434,23 @@ class Device extends Homey.Device
                         Homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
                         this.getDriver().triggerDeviceCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
                         this.commandExecuting = '';
+
+                        if (element.newState === 'COMPLETED')
+                        {
+                            this.setWarning(null);
+                        }
+                        else
+                        {
+                            this.setWarning('Command failed');
+                        }
+                    }
+                }
+                else if (element.newState === 'QUEUED_GATEWAY_SIDE')
+                {
+                    let idx = this.executionCommands.findIndex(element2 => element2.id === element.execId);
+                    if (idx >= 0)
+                    {
+                        this.setWarning('Command queued wait for device to respond');
                     }
                 }
             }
@@ -400,10 +469,21 @@ class Device extends Homey.Device
                     Homey.app.logInformation("Device initial sync.", this.getName());
                 }
 
-                const deviceURL = this.getDeviceUrl();
+                // Get the recorded url (might include a #1 on the end)
+                const deviceURL = this.getDeviceUrl(1);
                 if (deviceURL)
                 {
-                    return await Tahoma.getDeviceStates(deviceURL);
+                    let states = await Tahoma.getDeviceStates(deviceURL);
+
+                    // Get the next sub url if the original url ended with #1
+                    let url2 = this.getDeviceUrl(2);
+                    if (url2)
+                    {
+                        // We have a sub url to check
+                        let states2 = await Tahoma.getDeviceStates(url2);
+                        states = states.concat( states2);
+                    }
+                    return states;
                 }
 
                 if (Homey.ManagerSettings.get('debugMode'))

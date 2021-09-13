@@ -196,7 +196,7 @@
             },
             "getable": true,
             "setable": false,
-            "icon": "/assets/security.svg"
+            "icon": "/assets/dark_mode.svg"
         },
         "heating_mode": {
             "type": "enum",
@@ -790,6 +790,13 @@
             "title": {
                 "en": "Open Window Activation"
             },
+            "insights": true,
+            "insightsTitleTrue": {
+                "en": "Open Windows detection turned on"
+            },
+            "insightsTitleFalse": {
+                "en": "Open Windows detection turned off"
+            },
             "icon": "/assets/open_windows.svg"
         },
         "open_window_state": {
@@ -799,6 +806,13 @@
             "uiComponent": "sensor",
             "title": {
                 "en": "Window Open"
+            },
+            "insights": true,
+            "insightsTitleTrue": {
+                "en": "Windows openned"
+            },
+            "insightsTitleFalse": {
+                "en": "Windows closed"
             },
             "icon": "/assets/open_windows.svg"
         },
@@ -893,19 +907,19 @@
         "derogation_mode": {
             "type": "enum",
             "title": {
-                "en": "Derogation Mode"
+                "en": "Operating Mode"
             },
             "values": [
-                {
-                    "id": "awayMode",
-                    "title": {
-                        "en": "Away"
-                    }
-                },
                 {
                     "id": "comfort",
                     "title": {
                         "en": "At home"
+                    }
+                },
+                {
+                    "id": "away",
+                    "title": {
+                        "en": "Away"
                     }
                 },
                 {
@@ -915,27 +929,15 @@
                     }
                 },
                 {
-                    "id": "frostprotection",
-                    "title": {
-                        "en": "Frost protection"
-                    }
-                },
-                {
-                    "id": "geofencingMode",
-                    "title": {
-                        "en": "Geofencing mode"
-                    }
-                },
-                {
                     "id": "manual",
                     "title": {
                         "en": "Manual"
                     }
                 },
                 {
-                    "id": "suddenDropMode",
+                    "id": "frostprotection",
                     "title": {
-                        "en": "Sudden Drop Mode"
+                        "en": "Frost protection"
                     }
                 }
             ],
@@ -945,7 +947,7 @@
         "derogation_type": {
             "type": "enum",
             "title": {
-                "en": "Operating Type"
+                "en": "Operating Until"
             },
             "values": [
                 {
@@ -1020,6 +1022,16 @@
             "insightsTitleFalse": {
                 "en": "Silent"
             }
+        },
+        "defect_state": {
+            "type": "string",
+            "getable": true,
+            "setable": false,
+            "uiComponent": "sensor",
+            "title": {
+                "en": "Sensor Defect State"
+            },
+            "icon": "/assets/wrench.svg"
         },
         "calendar_state_on": {
             "type": "boolean",
@@ -3003,12 +3015,13 @@
                 "target_temperature.eco_heating",
                 "target_temperature.away",
                 "target_temperature.frost_protection",
-                "open_window_state",
+                "open_window_activation",
                 "measure_battery",
                 "valve_heating_mode_state",
                 "derogation_mode",
                 "derogation_type",
-                "valve_state"
+                "valve_state",
+                "defect_state"
             ],
             "capabilitiesOptions": {
                 "target_temperature.comfort_heating": {
@@ -3929,6 +3942,190 @@
                                 }
                             }
                         ]
+                    }
+                ]
+            },
+            {
+                "id": "valve_state_true",
+                "title": {
+                    "en": "The valve turned on"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_valve_heating"
+                    }
+                ]
+            },
+            {
+                "id": "valve_state_false",
+                "title": {
+                    "en": "The valve turned off"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_valve_heating"
+                    }
+                ]
+            },
+            {
+                "id": "open_window_activation_true",
+                "title": {
+                    "en": "The open window detection turned on"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_valve_heating"
+                    }
+                ]
+            },
+            {
+                "id": "open_window_activation_false",
+                "title": {
+                    "en": "The open window detection turned off"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_valve_heating"
+                    }
+                ]
+            },
+            {
+                "id": "derogation_mode_changed",
+                "title": {
+                    "en": "The operating mode changed"
+                },
+                "titleFormatted": {
+                    "en": "The operating mode changed to [[derogation_mode]]"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_valve_heating"
+                    },
+                    {
+                        "name": "derogation_mode",
+                        "type": "dropdown",
+                        "values": [
+                            {
+                                "id": "comfort",
+                                "title": {
+                                    "en": "Comfort"
+                                }
+                            },
+                            {
+                                "id": "away",
+                                "title": {
+                                    "en": "Away"
+                                }
+                            },
+                            {
+                                "id": "eco",
+                                "title": {
+                                    "en": "Night"
+                                }
+                            },
+                            {
+                                "id": "manual",
+                                "title": {
+                                    "en": "Manual"
+                                }
+                            },
+                            {
+                                "id": "frostprotection",
+                                "title": {
+                                    "en": "Frost Protection"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "valve_heating_mode_state_changed",
+                "title": {
+                    "en": "The heating mode changed"
+                },
+                "titleFormatted": {
+                    "en": "The heating mode changed to [[valve_heating_mode_state]]"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_valve_heating"
+                    },
+                    {
+                        "name": "valve_heating_mode_state",
+                        "type": "dropdown",
+                        "values": [
+                            {
+                                "id": "comfort",
+                                "title": {
+                                    "en": "Comfort"
+                                }
+                            },
+                            {
+                                "id": "awayMode",
+                                "title": {
+                                    "en": "Away"
+                                }
+                            },
+                            {
+                                "id": "eco",
+                                "title": {
+                                    "en": "Night"
+                                }
+                            },
+                            {
+                                "id": "manual",
+                                "title": {
+                                    "en": "Manual"
+                                }
+                            },
+                            {
+                                "id": "frostprotection",
+                                "title": {
+                                    "en": "Frost Protection"
+                                }
+                            },
+                            {
+                                "id": "suddenDropMode",
+                                "title": {
+                                    "en": "Open Window Mode"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "defect_state_changed",
+                "title": {
+                    "en": "The defect state changed"
+                },
+                "tokens": [
+                    {
+                        "name": "defect_state",
+                        "type": "string",
+                        "title": {
+                            "en": "New state"
+                        }
+                    }
+                ],
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_valve_heating"
                     }
                 ]
             }
@@ -5424,6 +5621,118 @@
                                 "id": "pending",
                                 "title": {
                                     "en": "Pending"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "set_open_window_activation",
+                "title": {
+                    "en": "Set the open window detection state"
+                },
+                "titleFormatted": {
+                    "en": "Set the open window detection state to [[open_window_activation]]"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_valve_heating"
+                    },
+                    {
+                        "name": "open_window_activation",
+                        "type": "dropdown",
+                        "values": [
+                            {
+                                "id": "on",
+                                "label": {
+                                    "en": "On",
+                                    "nl": "aan"
+                                }
+                            },
+                            {
+                                "id": "off",
+                                "label": {
+                                    "en": "Off",
+                                    "nl": "uit"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "set_derogation_mode",
+                "title": {
+                    "en": "Set the operating mode"
+                },
+                "titleFormatted": {
+                    "en": "Set the operating mode to [[derogation_mode]] until [[type]]"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_valve_heating"
+                    },
+                    {
+                        "name": "derogation_mode",
+                        "type": "dropdown",
+                        "values": [
+                            {
+                                "id": "comfort",
+                                "title": {
+                                    "en": "Comfort"
+                                }
+                            },
+                            {
+                                "id": "away",
+                                "title": {
+                                    "en": "Away"
+                                }
+                            },
+                            {
+                                "id": "eco",
+                                "title": {
+                                    "en": "Night"
+                                }
+                            },
+                            {
+                                "id": "manual",
+                                "title": {
+                                    "en": "Manual"
+                                }
+                            },
+                            {
+                                "id": "frostprotection",
+                                "title": {
+                                    "en": "Frost Protection"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "name": "type",
+                        "type": "dropdown",
+                        "values": [
+                            {
+                                "id": "date",
+                                "title": {
+                                    "en": "Date"
+                                }
+                            },
+                            {
+                                "id": "further_notice",
+                                "title": {
+                                    "en": "Further notice"
+                                }
+                            },
+                            {
+                                "id": "next_mode",
+                                "title": {
+                                    "en": "Next mode"
                                 }
                             }
                         ]

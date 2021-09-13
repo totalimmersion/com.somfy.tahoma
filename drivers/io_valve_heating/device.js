@@ -7,25 +7,26 @@ const Tahoma = require('../../lib/Tahoma');
 const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
-    { homeyName: 'measure_temperature', somfyNameGet: 'core:TargetRoomTemperatureState', somfyNameSet: [], somfyArray: 0 },
+    { homeyName: 'measure_temperature', somfyNameGet: 'core:TemperatureState', somfyNameSet: [], somfyArray: 0 },
     { homeyName: 'target_temperature.comfort_heating', somfyNameGet: 'core:ComfortRoomTemperatureState', somfyNameSet: ['setAllModeTemperatures'], somfyArray: 0 },
     { homeyName: 'target_temperature.eco_heating', somfyNameGet: 'core:EcoTargetTemperatureState', somfyNameSet: ['setAllModeTemperatures'], somfyArray: 1 },
     { homeyName: 'target_temperature.away', somfyNameGet: 'io:AwayModeTargetTemperatureState', somfyNameSet: ['setAllModeTemperatures'], somfyArray: 2 },
     { homeyName: 'target_temperature.frost_protection', somfyNameGet: 'core:FrostProtectionRoomTemperatureState', somfyNameSet: ['setAllModeTemperatures'], somfyArray: 3 },
-    { homeyName: 'open_window_state', somfyNameGet: 'core:OpenWindowDetectionActivationState', somfyNameSet: [], compare: ['inactive', 'active'] },
+    { homeyName: 'open_window_activation', somfyNameGet: 'core:OpenWindowDetectionActivationState', somfyNameSet: ['setValveSettings'], compare: ['inactive', 'active'], parameters: [{openWindow: false}, {openWindow: true}] },
     { homeyName: 'measure_battery', somfyNameGet: 'core:BatteryLevelState', somfyNameSet: [] },
     { homeyName: 'valve_heating_mode_state', somfyNameGet: 'io:CurrentHeatingModeState', somfyNameSet: [] },
     { homeyName: 'derogation_mode', somfyNameGet: 'io:DerogationHeatingModeState', somfyNameSet: ['setDerogation'], somfyArray: 0 },
     { homeyName: 'derogation_type', somfyNameGet: 'io:DerogationTypeState', somfyNameSet: ['setDerogation'], somfyArray: 1 },
-    { homeyName: 'valve_state', somfyNameGet: 'core:OpenClosedValveState', somfyNameSet: [], compare: ['closed', 'open'] }
+    { homeyName: 'valve_state', somfyNameGet: 'core:OpenClosedValveState', somfyNameSet: [], compare: ['closed', 'open'] },
+    { homeyName: 'defect_state', somfyNameGet: 'core:SensorDefectState', somfyNameSet: [] }
 ];
 class ValveHeatingDevice extends SensorDevice
 {
 
     async onInit()
     {
-        this.boostSync = true;
         await super.onInit(CapabilitiesXRef);
+        this.boostSync = true;
     }
 
     async onCapability(capabilityXRef, value, opts)

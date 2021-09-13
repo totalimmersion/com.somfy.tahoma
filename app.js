@@ -360,7 +360,7 @@ class myApp extends Homey.App
 
     logInformation(source, error)
     {
-        console.log(source, error);
+        console.log(source, this.varToString(error));
 
         try
         {
