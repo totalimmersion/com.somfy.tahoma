@@ -18,7 +18,8 @@ const CapabilitiesXRef = [
     { homeyName: 'derogation_mode', somfyNameGet: 'io:DerogationHeatingModeState', somfyNameSet: ['setDerogation'], somfyArray: 0 },
     { homeyName: 'derogation_type', somfyNameGet: 'io:DerogationTypeState', somfyNameSet: ['setDerogation'], somfyArray: 1 },
     { homeyName: 'valve_state', somfyNameGet: 'core:OpenClosedValveState', somfyNameSet: [], compare: ['closed', 'open'] },
-    { homeyName: 'defect_state', somfyNameGet: 'core:SensorDefectState', somfyNameSet: [] }
+    { homeyName: 'defect_state', somfyNameGet: 'core:SensorDefectState', somfyNameSet: [] },
+    { homeyName: 'rssi', somfyNameGet: 'core:RSSILevelState', somfyNameSet: [] }
 ];
 class ValveHeatingDevice extends SensorDevice
 {

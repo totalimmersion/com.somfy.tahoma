@@ -281,6 +281,18 @@ class Device extends Homey.Device
                                 state.value = capability.conversions[state.value];
                             }
 
+                            if (typeof state.value == 'string')
+                            {
+                                try
+                                {
+                                    state.value = Homey.__(state.value);
+                                }
+                                catch(err)
+                                {
+            
+                                }
+                            }
+            
                             // Found the entry
                             Homey.app.logStates(this.getName() + ": " + capability.somfyNameGet + "= " + state.value);
                             await this.triggerCapabilityListener(capability.homeyName, (capability.compare ? (state.value === capability.compare[1]) : (capability.scale ? state.value / capability.scale : state.value)), { fromCloudSync: true });
@@ -378,6 +390,18 @@ class Device extends Homey.Device
                                     newState = found.conversions[newState];
                                 }
 
+                                if (typeof newState == 'string')
+                                {
+                                    try
+                                    {
+                                        newState = Homey.__(newState);
+                                    }
+                                    catch(err)
+                                    {
+                
+                                    }
+                                }
+
                                 if (Homey.app.infoLogEnabled)
                                 {
                                     Homey.app.logInformation(this.getName(),
@@ -441,7 +465,7 @@ class Device extends Homey.Device
                         }
                         else
                         {
-                            this.setWarning('Command failed');
+                            this.setWarning(Homey.__('command_failed'));
                         }
                     }
                 }
@@ -450,7 +474,7 @@ class Device extends Homey.Device
                     let idx = this.executionCommands.findIndex(element2 => element2.id === element.execId);
                     if (idx >= 0)
                     {
-                        this.setWarning('Command queued wait for device to respond');
+                        this.setWarning(Homey.__('command_queued'));
                     }
                 }
             }

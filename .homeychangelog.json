@@ -415,5 +415,8 @@
     },
     "2.1.76": {
         "en": "Fix Hub > Timer / Schedule action cards."
+    },
+    "2.1.77": {
+        "en": "Fixed Heater Valve."
     }
 }

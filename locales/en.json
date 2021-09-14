@@ -46,5 +46,18 @@
         "on_pair_login_failure": "Unable to login. Please go to the settings screen and provide access to TaHoma for Homey."
 	},
 	
-    "my_position_token": "My Position"
+    "my_position_token": "My Position",
+    "awayMode": "Away",
+    "comfort": "Home",
+    "eco": "Night",
+    "frostprotection": "Frost Protection",
+    "geofencingMode": "Geofencing",
+    "manual": "Manual",
+    "suddenDropMode": "Open Window",
+    "command_queued": "Command queued wait for device to wakeup",
+    "command_failed": "Command failed",
+    "dead": "Dead",
+    "lowBattery": "Low Battery",
+    "maintenanceRequired": "Maintainance Required",
+    "noDefect": ""
 }
