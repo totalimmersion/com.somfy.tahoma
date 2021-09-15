@@ -24,6 +24,15 @@ class ElectricHeaterDriver extends Driver
                 return args.device.triggerCapabilityListener('open_window_activation', args.open_window_activation == 'on', null);
             });
 
+        this.set_valve_auto_modeAction = new Homey.FlowCardAction('set_valve_auto_mode');
+        this.set_valve_auto_modeAction
+            .register()
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("set_valve_auto_mode");
+                return args.device.triggerCapabilityListener('valve_auto_mode', args.set_valve_auto == 'on', null);
+            });
+
         this.set_derogation_modeAction = new Homey.FlowCardAction('set_derogation_mode');
         this.set_derogation_modeAction
             .register()
@@ -55,30 +64,30 @@ class ElectricHeaterDriver extends Driver
 
     triggerFlows(device, capability, value)
     {
-    //     if (capability === 'derogation_mode')
-    //     {
-    //         const state = {
-    //             'derogation_mode': value
-    //         };
-    
-    //         this.triggerFlow(this._derogation_mode_changed, device, null, state);
-    //     }
-    //     else if (capability === 'valve_heating_mode')
-    //     {
-    //         const state = {
-    //             'valve_heating_mode_state': value
-    //         };
-    
-    //         this.triggerFlow(this._valve_heating_mode_state_changed, device, null, state);
-    //     }
-    //     else if (capability === 'defect_state')
-    //     {
-    //         const tokens = {
-    //             'defect_state': value
-    //         };
-    
-    //         this.triggerFlow(this._valve_heating_mode_state_changed, device, tokens);
-    //     }
+        //     if (capability === 'derogation_mode')
+        //     {
+        //         const state = {
+        //             'derogation_mode': value
+        //         };
+
+        //         this.triggerFlow(this._derogation_mode_changed, device, null, state);
+        //     }
+        //     else if (capability === 'valve_heating_mode')
+        //     {
+        //         const state = {
+        //             'valve_heating_mode_state': value
+        //         };
+
+        //         this.triggerFlow(this._valve_heating_mode_state_changed, device, null, state);
+        //     }
+        //     else if (capability === 'defect_state')
+        //     {
+        //         const tokens = {
+        //             'defect_state': value
+        //         };
+
+        //         this.triggerFlow(this._valve_heating_mode_state_changed, device, tokens);
+        //     }
     }
 }
 

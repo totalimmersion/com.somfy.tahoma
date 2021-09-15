@@ -45,19 +45,29 @@
     {
         "on_pair_login_failure": "Unable to login. Please go to the settings screen and provide access to TaHoma for Homey."
 	},
-	
+    "valve_heating_mode_state":
+    {
+        "away": "Away",
+        "comfort": "Home",
+        "eco": "Night",
+        "frostprotection": "Frost Protection",
+        "geofencingmode": "Geofencing",
+        "manual": "Manual",
+        "suddendropmode": "Open Window"
+    },
+    "defect_state":
+    {
+        "dead": "Dead",
+        "lowbattery": "Low Battery",
+        "maintenancerequired": "Maintainance Required",
+        "nodefect": "No Defect"
+    },
+    "valve_operating_mode_state":
+    {
+        "auto": "Auto (Schedule)",
+        "manual": "Manual"
+    },
     "my_position_token": "My Position",
-    "awayMode": "Away",
-    "comfort": "Home",
-    "eco": "Night",
-    "frostprotection": "Frost Protection",
-    "geofencingMode": "Geofencing",
-    "manual": "Manual",
-    "suddenDropMode": "Open Window",
     "command_queued": "Command queued wait for device to wakeup",
-    "command_failed": "Command failed",
-    "dead": "Dead",
-    "lowBattery": "Low Battery",
-    "maintenanceRequired": "Maintainance Required",
-    "noDefect": ""
+    "command_failed": "Command failed"
 }

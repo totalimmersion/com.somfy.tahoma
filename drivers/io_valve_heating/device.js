@@ -15,10 +15,12 @@ const CapabilitiesXRef = [
     { homeyName: 'open_window_activation', somfyNameGet: 'core:OpenWindowDetectionActivationState', somfyNameSet: ['setValveSettings'], compare: ['inactive', 'active'], parameters: [{openWindow: false}, {openWindow: true}] },
     { homeyName: 'measure_battery', somfyNameGet: 'core:BatteryLevelState', somfyNameSet: [] },
     { homeyName: 'valve_heating_mode_state', somfyNameGet: 'io:CurrentHeatingModeState', somfyNameSet: [] },
+    { homeyName: 'valve_operating_mode_state', somfyNameGet: 'core:OperatingModeState', somfyNameSet: [], conversions:{'auto (schedule)': "auto"} },
+    { homeyName: 'valve_auto_mode', somfyNameGet: 'core:OperatingModeState', somfyNameSet: [0, 'exitDerogation'], conversions:{'auto (schedule)': "auto"}, compare: ['inactive', 'auto'], parameters:[], otherCapability: ['derogation_mode'] },
     { homeyName: 'derogation_mode', somfyNameGet: 'io:DerogationHeatingModeState', somfyNameSet: ['setDerogation'], somfyArray: 0 },
     { homeyName: 'derogation_type', somfyNameGet: 'io:DerogationTypeState', somfyNameSet: ['setDerogation'], somfyArray: 1 },
     { homeyName: 'valve_state', somfyNameGet: 'core:OpenClosedValveState', somfyNameSet: [], compare: ['closed', 'open'] },
-    { homeyName: 'defect_state', somfyNameGet: 'core:SensorDefectState', somfyNameSet: [] },
+    { homeyName: 'defect_state', somfyNameGet: 'core:SensorDefectState', somfyNameSet: [], allowNull: true },
     { homeyName: 'rssi', somfyNameGet: 'core:RSSILevelState', somfyNameSet: [] }
 ];
 class ValveHeatingDevice extends SensorDevice

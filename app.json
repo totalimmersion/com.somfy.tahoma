@@ -196,6 +196,17 @@
             },
             "getable": true,
             "setable": false,
+            "insights": true,
+            "icon": "/assets/dark_mode.svg"
+        },
+        "valve_operating_mode_state": {
+            "type": "string",
+            "title": {
+                "en": "Operating Mode"
+            },
+            "getable": true,
+            "setable": false,
+            "insights": true,
             "icon": "/assets/dark_mode.svg"
         },
         "heating_mode": {
@@ -815,6 +826,15 @@
                 "en": "Windows closed"
             },
             "icon": "/assets/open_windows.svg"
+        },
+        "valve_auto_mode": {
+            "type": "boolean",
+            "getable": true,
+            "setable": true,
+            "uiComponent": "button",
+            "title": {
+                "en": "Auto (Schedule Mode)"
+            }
         },
         "eh_operating_mode": {
             "type": "enum",
@@ -3025,8 +3045,10 @@
                 "target_temperature.away",
                 "target_temperature.frost_protection",
                 "open_window_activation",
+                "valve_auto_mode",
                 "measure_battery",
                 "valve_heating_mode_state",
+                "valve_operating_mode_state",
                 "derogation_mode",
                 "derogation_type",
                 "valve_state",
@@ -5653,6 +5675,42 @@
                     },
                     {
                         "name": "open_window_activation",
+                        "type": "dropdown",
+                        "values": [
+                            {
+                                "id": "on",
+                                "label": {
+                                    "en": "On",
+                                    "nl": "aan"
+                                }
+                            },
+                            {
+                                "id": "off",
+                                "label": {
+                                    "en": "Off",
+                                    "nl": "uit"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "set_valve_auto_mode",
+                "title": {
+                    "en": "Set the Auto (Schedual) mode"
+                },
+                "titleFormatted": {
+                    "en": "Set the auto mode to [[set_valve_auto]]"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=io_valve_heating"
+                    },
+                    {
+                        "name": "set_valve_auto",
                         "type": "dropdown",
                         "values": [
                             {
