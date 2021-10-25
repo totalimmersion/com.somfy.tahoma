@@ -418,5 +418,8 @@
     },
     "2.1.77": {
         "en": "Fixed Heater Valve."
+    },
+    "2.1.78": {
+        "en": "Added IO door lock."
     }
 }

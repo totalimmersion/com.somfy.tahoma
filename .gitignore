@@ -5,3 +5,4 @@ node_modules/
 *.gz
 package-lock.json
 .cpuprofile
+build/
