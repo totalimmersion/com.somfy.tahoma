@@ -3271,6 +3271,34 @@
                     "template": "add_devices"
                 }
             ]
+        },
+        {
+            "id": "io_door_lock",
+            "name": {
+                "en": "Door Lock (io)"
+            },
+            "class": "lock",
+            "capabilities": [
+                "onoff",
+                "locked"
+            ],
+            "images": {
+                "large": "/drivers/io_door_lock/assets/images/large.png",
+                "small": "/drivers/io_door_lock/assets/images/small.png"
+            },
+            "pair": [
+                {
+                    "id": "list_my_devices",
+                    "template": "list_devices",
+                    "navigation": {
+                        "next": "add_my_devices"
+                    }
+                },
+                {
+                    "id": "add_my_devices",
+                    "template": "add_devices"
+                }
+            ]
         }
     ],
     "flow": {
