@@ -10,11 +10,11 @@ const WindowCoveringsDevice = require('../WindowCoveringsDevice');
 class InteriorCurtainDevice extends WindowCoveringsDevice {
     async onInit() {
         if (this.hasCapability("lock_state")) {
-            this.removeCapability("lock_state");
+            this.removeCapability("lock_state").catch(this.error);
         }
         
         if (!this.hasCapability("my_position")) {
-            this.addCapability("my_position");
+            this.addCapability("my_position").catch(this.error);
         }
 
         await super.onInit();

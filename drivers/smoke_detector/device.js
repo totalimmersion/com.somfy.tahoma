@@ -17,22 +17,22 @@ class SmokeDetectorDevice extends SensorDevice
     {
         if (!this.hasCapability('test_smoke'))
         {
-            this.addCapability('test_smoke');
+            this.addCapability('test_smoke').catch(this.error);
         }
 
         if (!this.hasCapability('alarm_battery.radio'))
         {
-            this.addCapability('alarm_battery.radio');
+            this.addCapability('alarm_battery.radio').catch(this.error);
         }
 
         if (!this.hasCapability('alarm_battery.sensor'))
         {
-            this.addCapability('alarm_battery.sensor');
+            this.addCapability('alarm_battery.sensor').catch(this.error);
         }
 
         if (!this.hasCapability('alarm_room_state'))
         {
-            this.addCapability('alarm_room_state');
+            this.addCapability('alarm_room_state').catch(this.error);
         }
 
         await super.onInit(CapabilitiesXRef);

@@ -22,7 +22,7 @@ class WindowHandleDevice extends SensorDevice
         const oldContactState = this.getState().alarm_contact;
         if (oldContactState !== value)
         {
-            this.setCapabilityValue('alarm_contact', value);
+            this.setCapabilityValue('alarm_contact', value).catch(this.error);
 
             const device = this;
             const tokens = {
@@ -61,7 +61,7 @@ class WindowHandleDevice extends SensorDevice
         }
         catch (error)
         {
-            this.setUnavailable(null);
+            this.setUnavailable(error.message).catch(this.error);
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,

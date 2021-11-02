@@ -19,7 +19,7 @@ class two_button_on_offDevice extends Device
         this.registerCapabilityListener('off_button', this.onCapabilityOff.bind(this));
         this.registerCapabilityListener('on_with_timer', this.sendOnWithTimer.bind(this));
 
-        this.setCapabilityValue( 'on_with_timer', 0 );
+        this.setCapabilityValue( 'on_with_timer', 0 ).catch(this.error);
     }
 
     async onCapabilityOn(value)
@@ -49,7 +49,7 @@ class two_button_on_offDevice extends Device
         if (this.onTime)
         {
             clearTimeout(this.onTime);
-            this.setCapabilityValue( 'on_with_timer', 0 );
+            this.setCapabilityValue( 'on_with_timer', 0 ).catch(this.error);
         }
 
         if (this.boostSync)
@@ -188,7 +188,7 @@ class two_button_on_offDevice extends Device
 
             this.doOnTimer();
 
-            this.setCapabilityValue( 'on_with_timer', 0 );
+            this.setCapabilityValue( 'on_with_timer', 0 ).catch(this.error);
             throw (new Error("Failed to send command"));
         }
     }
@@ -201,7 +201,7 @@ class two_button_on_offDevice extends Device
 
             if (timeRemaining > 0)
             {
-                this.setCapabilityValue( 'on_with_timer', timeRemaining - 1 );
+                this.setCapabilityValue( 'on_with_timer', timeRemaining - 1 ).catch(this.error);
                 this.doOnTimer();
             }
         }, 60000);

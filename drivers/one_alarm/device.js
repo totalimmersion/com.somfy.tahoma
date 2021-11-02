@@ -49,7 +49,7 @@ class OneAlarmDevice extends SensorDevice
                 clearTimeout(this.checkTimerID);
             }
 
-            this.setCapabilityValue('alarm_generic', value);
+            this.setCapabilityValue('alarm_generic', value).catch(this.error);
         }
     }
 
@@ -110,7 +110,7 @@ class OneAlarmDevice extends SensorDevice
         }
         else
         {
-            this.setCapabilityValue('homealarm_state', value);
+            this.setCapabilityValue('homealarm_state', value).catch(this.error);
         }
     }
 
@@ -144,7 +144,7 @@ class OneAlarmDevice extends SensorDevice
         }
         catch (error)
         {
-            this.setUnavailable(null);
+            this.setUnavailable(error.message).catch(this.error);
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,

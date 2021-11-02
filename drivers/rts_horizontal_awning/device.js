@@ -6,7 +6,7 @@ const WindowCoveringsDevice = require('../WindowCoveringsDevice');
 class HorizontalAwningRTSDevice extends WindowCoveringsDevice {
     async onInit() {
         if (this.hasCapability("lock_state")) {
-            this.removeCapability("lock_state");
+            this.removeCapability("lock_state").catch(this.error);
         }
 
         await super.onInit();

@@ -80,7 +80,7 @@ class WaterTankDevice extends SensorDevice
         }
         else
         {
-            this.setCapabilityValue('onoff', (value === 'on'));
+            this.setCapabilityValue('onoff', (value === 'on')).catch(this.error);
         }
     }
 
@@ -107,7 +107,7 @@ class WaterTankDevice extends SensorDevice
         }
         catch (error)
         {
-            this.setUnavailable(null);
+            this.setUnavailable(error.message).catch(this.error);
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,

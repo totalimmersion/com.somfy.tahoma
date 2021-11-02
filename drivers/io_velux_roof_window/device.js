@@ -16,7 +16,7 @@ class RoofWindowDevice extends WindowCoveringsDevice {
         await super.onInit();
 
         if (!this.hasCapability("quick_open")) {
-            this.addCapability("quick_open");
+            this.addCapability("quick_open").catch(this.error);
         }
     }
 }

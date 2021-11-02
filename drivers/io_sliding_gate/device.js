@@ -10,7 +10,7 @@ const WindowCoveringsDevice = require("../WindowCoveringsDevice");
 class SlidingGateDevice extends WindowCoveringsDevice {
   async onInit() {
     if (this.hasCapability("lock_state")) {
-      this.removeCapability("lock_state");
+      this.removeCapability("lock_state").catch(this.error);
     }
 
     this.registerCapabilityListener('pedestrian', this.onCapabilityPedestrian.bind(this));

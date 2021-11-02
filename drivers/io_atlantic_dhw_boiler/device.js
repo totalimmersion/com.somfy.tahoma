@@ -69,7 +69,7 @@ class WaterBoilerDevice extends SensorDevice
         }
         else
         {
-            this.setCapabilityValue('target_temperature.comfort', value);
+            this.setCapabilityValue('target_temperature.comfort', value).catch(this.error);
         }
     }
 
@@ -118,7 +118,7 @@ class WaterBoilerDevice extends SensorDevice
         }
         else
         {
-            this.setCapabilityValue('target_temperature.eco', value);
+            this.setCapabilityValue('target_temperature.eco', value).catch(this.error);
         }
     }
 
@@ -192,7 +192,7 @@ class WaterBoilerDevice extends SensorDevice
         }
         else
         {
-            this.setCapabilityValue('onoff', (value === 'on'));
+            this.setCapabilityValue('onoff', (value === 'on')).catch(this.error);
         }
     }
 
@@ -236,7 +236,7 @@ class WaterBoilerDevice extends SensorDevice
         }
         else
         {
-            this.setCapabilityValue('boiler_mode', value);
+            this.setCapabilityValue('boiler_mode', value).catch(this.error);
         }
     }
 
@@ -295,7 +295,7 @@ class WaterBoilerDevice extends SensorDevice
         }
         else
         {
-            this.setCapabilityValue('boost', (value === 'on'));
+            this.setCapabilityValue('boost', (value === 'on')).catch(this.error);
         }
     }
 
@@ -363,7 +363,7 @@ class WaterBoilerDevice extends SensorDevice
         }
         catch (error)
         {
-            this.setUnavailable(null);
+            this.setUnavailable(error.message).catch(this.error);
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,

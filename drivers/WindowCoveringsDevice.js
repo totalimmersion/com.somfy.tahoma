@@ -180,7 +180,7 @@ class WindowCoveringsDevice extends Device
                 {
                     if (result.errorCode)
                     {
-                        this.setWarning(result.errorCode + result.error);
+                        this.setWarning(result.errorCode + result.error).catch(this.error);
                         this.homey.app.logInformation(this.getName(),
                         {
                             message: result.error,
@@ -213,23 +213,23 @@ class WindowCoveringsDevice extends Device
             {
                 this.homey.setTimeout(() =>
                 {
-                    this.setCapabilityValue('windowcoverings_state', null);
+                    this.setCapabilityValue('windowcoverings_state', null).catch(this.error);
                 }, 500);
             }
         }
         else
         {
             // New value from Tahoma
-            this.setCapabilityValue('windowcoverings_state', value);
+            this.setCapabilityValue('windowcoverings_state', value).catch(this.error);
             if (this.hasCapability("quick_open"))
             {
                 if (this.invertTile)
                 {
-                    this.setCapabilityValue("quick_open", value !== "up");
+                    this.setCapabilityValue("quick_open", value !== "up").catch(this.error);
                 }
                 else
                 {
-                    this.setCapabilityValue("quick_open", value !== "down");
+                    this.setCapabilityValue("quick_open", value !== "down").catch(this.error);
                 }
             }
         }
@@ -273,7 +273,7 @@ class WindowCoveringsDevice extends Device
             {
                 if (result.errorCode)
                 {
-                    this.setWarning(result.errorCode + result.error);
+                    this.setWarning(result.errorCode + result.error).catch(this.error);
                     this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
@@ -304,7 +304,7 @@ class WindowCoveringsDevice extends Device
         else
         {
             // New value from Tahoma
-            this.setCapabilityValue('windowcoverings_set', value);
+            this.setCapabilityValue('windowcoverings_set', value).catch(this.error);
         }
     }
 
@@ -335,7 +335,7 @@ class WindowCoveringsDevice extends Device
             {
                 if (result.errorCode)
                 {
-                    this.setWarning(result.errorCode + result.error);
+                    this.setWarning(result.errorCode + result.error).catch(this.error);
                     this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
@@ -366,7 +366,7 @@ class WindowCoveringsDevice extends Device
         else
         {
             // New value from Tahoma
-            this.setCapabilityValue('windowcoverings_tilt_set', value);
+            this.setCapabilityValue('windowcoverings_tilt_set', value).catch(this.error);
 
             //trigger flows
             const tokens = {
@@ -403,7 +403,7 @@ class WindowCoveringsDevice extends Device
             {
                 if (result.errorCode)
                 {
-                    this.setWarning(result.errorCode + result.error);
+                    this.setWarning(result.errorCode + result.error).catch(this.error);
                     this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
@@ -595,7 +595,7 @@ class WindowCoveringsDevice extends Device
         else
         {
             // New value from Tahoma
-            this.setCapabilityValue('pedestrian', value);
+            this.setCapabilityValue('pedestrian', value).catch(this.error);
 
             //trigger flows
             const tokens = {
@@ -634,7 +634,7 @@ class WindowCoveringsDevice extends Device
                     if (lockState)
                     {
                         this.homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + lockState.value);
-                        this.setCapabilityValue("lock_state", lockState.value);
+                        this.setCapabilityValue("lock_state", lockState.value).catch(this.error);
 
                         if (this.checkLockSate)
                         {
@@ -650,7 +650,7 @@ class WindowCoveringsDevice extends Device
                             this.homey.app.logStates(this.getName() + ": core:PriorityLockTimerState = " + lockStateTimer.value);
                             if (lockStateTimer.value === 0)
                             {
-                                this.setCapabilityValue("lock_state", "");
+                                this.setCapabilityValue.catch(this.error);
                             }
                         }
                     }
@@ -661,11 +661,11 @@ class WindowCoveringsDevice extends Device
                 {
                     if (!this.hasCapability("my_value"))
                     {
-                        this.addCapability('my_value');
+                        this.addCapability('my_value').catch(this.error);
                     }
 
                     this.homey.app.logStates(this.getName() + ": core:Memorized1PositionState = " + myPosition.value);
-                    this.setCapabilityValue("my_value", myPosition.value);
+                    this.setCapabilityValue("my_value", myPosition.value).catch(this.error);
                 }
 
                 //device exists -> let's sync the state of the device
@@ -676,7 +676,7 @@ class WindowCoveringsDevice extends Device
                 if (this.unavailable)
                 {
                     this.unavailable = false;
-                    this.setAvailable();
+                    this.setAvailable().catch(this.error);
                 }
 
                 if (openClosedState)
@@ -739,17 +739,17 @@ class WindowCoveringsDevice extends Device
                 if (this.unavailable)
                 {
                     this.unavailable = false;
-                    this.setAvailable();
+                    this.setAvailable().catch(this.error);
                 }
 
                 this.log(this.getName(), " No device status");
 
-                this.setCapabilityValue('windowcoverings_state', null);
+                this.setCapabilityValue('windowcoverings_state', null).catch(this.error);
             }
         }
         catch (error)
         {
-            this.setUnavailable(null);
+            this.setUnavailable(error.message).catch(this.error);
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
@@ -796,7 +796,7 @@ class WindowCoveringsDevice extends Device
                         if (this.unavailable)
                         {
                             this.unavailable = false;
-                            this.setAvailable();
+                            this.setAvailable().catch(this.error);
                         }
 
                         for (let x = 0; x < element.deviceStates.length; x++)
@@ -809,7 +809,7 @@ class WindowCoveringsDevice extends Device
                                 if (this.hasCapability("lock_state") && (deviceState.value))
                                 {
                                     this.homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + deviceState.value);
-                                    this.setCapabilityValue("lock_state", deviceState.value);
+                                    this.setCapabilityValue("lock_state", deviceState.value).catch(this.error);
                                     if (this.checkLockSate)
                                     {
                                         // Setup timer to call a function to check if it can be cleared
@@ -931,7 +931,7 @@ class WindowCoveringsDevice extends Device
         }
         catch (error)
         {
-            this.setUnavailable(error.message);
+            this.setUnavailable(error.message).catch(this.error);
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,

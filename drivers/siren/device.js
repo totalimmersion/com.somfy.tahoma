@@ -18,7 +18,7 @@ class SirenDevice extends SensorDevice
     {
         if (!this.hasCapability("soundAlarm_1_button"))
         {
-            this.addCapability("soundAlarm_1_button");
+            this.addCapability("soundAlarm_1_button").catch(this.error);
             Homey.App.asyncDelay( 200 );
         }
 

@@ -20,7 +20,7 @@ class VerticalExteriorBlindDevice extends WindowCoveringsDevice
 
         if (!this.hasCapability("quick_open"))
         {
-            this.addCapability("quick_open");
+            this.addCapability("quick_open").catch(this.error);
         }
     }
 }

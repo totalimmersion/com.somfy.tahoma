@@ -17,14 +17,14 @@ class HorizontalAwningDevice extends WindowCoveringsDevice
 
         if (!this.hasCapability("lock_state"))
         {
-            this.addCapability("lock_state");
+            this.addCapability("lock_state").catch(this.error);
         }
 
         await super.onInit();
 
         if (!this.hasCapability("quick_open"))
         {
-            this.addCapability("quick_open");
+            this.addCapability("quick_open").catch(this.error);
         }
 
         let dd = this.getData();
@@ -67,7 +67,7 @@ class HorizontalAwningDevice extends WindowCoveringsDevice
             const lockState = states.find(state => state.name === "io:PriorityLockOriginatorState");
             if (lockState)
             {
-                this.setCapabilityValue("lock_state", lockState.value);
+                this.setCapabilityValue("lock_state", lockState.value).catch(this.error);
                 clearTimeout(this.checkLockStateTimer);
                 this.checkLockStateTimer = this.homey.setTimeout(this.checkLockSate, (60 * 1000));
             }
@@ -78,7 +78,7 @@ class HorizontalAwningDevice extends WindowCoveringsDevice
                 {
                     if (lockStateTimer.value === 0)
                     {
-                        this.setCapabilityValue("lock_state", "");
+                        this.setCapabilityValue("lock_state", "").catch(this.error);
                     }
                     else
                     {

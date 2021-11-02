@@ -101,7 +101,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
         }
         else
         {
-            this.setCapabilityValue('light_hue', value);
+            this.setCapabilityValue('light_hue', value).catch(this.error);
         }
     }
 
@@ -181,7 +181,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
         }
         else
         {
-            this.setCapabilityValue('light_saturation', value);
+            this.setCapabilityValue('light_saturation', value).catch(this.error);
         }
     }
 
@@ -222,7 +222,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
         }
         catch (error)
         {
-            this.setUnavailable(null);
+            this.setUnavailable(error.message).catch(this.error);
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,

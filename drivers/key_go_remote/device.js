@@ -23,7 +23,7 @@ class key_go_remoteDevice extends Device
         const oldState = this.getState().key_go_remote_state;
         if (oldState !== value)
         {
-            this.setCapabilityValue('key_go_remote_state', value);
+            this.setCapabilityValue('key_go_remote_state', value).catch(this.error);
 
             const device = this;
             const tokens = {
@@ -61,7 +61,7 @@ class key_go_remoteDevice extends Device
         }
         catch (error)
         {
-            this.setUnavailable(null);
+            this.setUnavailable(error.message).catch(this.error);
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,

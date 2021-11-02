@@ -75,7 +75,7 @@ class HotColdZoneDevice extends SensorDevice
         }
         else
         {
-            this.setCapabilityValue(capability, value);
+            this.setCapabilityValue(capability, value).catch(this.error);
         }
     }
 
@@ -174,7 +174,7 @@ class HotColdZoneDevice extends SensorDevice
         }
         else
         {
-            this.setCapabilityValue(capability, (value === 'on'));
+            this.setCapabilityValue(capability, (value === 'on')).catch(this.error);
         }
     }
 
@@ -233,7 +233,7 @@ class HotColdZoneDevice extends SensorDevice
         }
         else
         {
-            this.setCapabilityValue(capability, value);
+            this.setCapabilityValue(capability, value).catch(this.error);
         }
     }
 
@@ -359,7 +359,7 @@ class HotColdZoneDevice extends SensorDevice
         }
         catch (error)
         {
-            this.setUnavailable(null);
+            this.setUnavailable(error.message).catch(this.error);
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,

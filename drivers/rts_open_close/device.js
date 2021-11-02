@@ -118,7 +118,7 @@ class OpenCloseDevice extends Device
         }
         catch (error)
         {
-            this.setUnavailable(error.message);
+            this.setUnavailable(error.message).catch(this.error);
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,

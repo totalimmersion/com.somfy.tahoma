@@ -13,7 +13,7 @@ class RollerShutterDevice extends WindowCoveringsDevice
     {
         if (this.hasCapability("lock_state"))
         {
-            this.removeCapability("lock_state");
+            this.removeCapability("lock_state").catch(this.error);
         }
 
         let dd = this.getData();
@@ -27,7 +27,7 @@ class RollerShutterDevice extends WindowCoveringsDevice
         {
             if (!this.hasCapability("my_position"))
             {
-                this.addCapability("my_position");
+                this.addCapability("my_position").catch(this.error);
             }
         }
         else
@@ -35,7 +35,7 @@ class RollerShutterDevice extends WindowCoveringsDevice
             // I don't know if the other type  support MY position
             if (this.hasCapability("my_position"))
             {
-                this.removeCapability("my_position");
+                this.removeCapability("my_position").catch(this.error);
             }
         }
 
@@ -43,7 +43,7 @@ class RollerShutterDevice extends WindowCoveringsDevice
 
         if (!this.hasCapability("quick_open"))
         {
-            this.addCapability("quick_open");
+            this.addCapability("quick_open").catch(this.error);
         }
 
         if (controllableName === 'io:screenreceiverunoiocomponent')

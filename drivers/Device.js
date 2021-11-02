@@ -227,7 +227,7 @@ class Device extends Homey.Device
             {
                 let oldValue = this.getCapabilityValue(capabilityXRef.homeyName);
 
-                await this.setCapabilityValue(capabilityXRef.homeyName, value);
+                this.setCapabilityValue(capabilityXRef.homeyName, value).catch(this.error);
 
                 // For boolean states, setup a safety timeout incase the off state is not received.
                 if (typeof value === 'boolean')
@@ -519,11 +519,11 @@ class Device extends Homey.Device
 
                         if (event.newState === 'COMPLETED')
                         {
-                            this.setWarning(null);
+                            this.setWarning(null).catch(this.error);
                         }
                         else
                         {
-                            this.setWarning(Homey.__('command_failed'));
+                            this.setWarning(Homey.__('command_failed')).catch(this.error);
                         }
                     }
                 }
@@ -532,7 +532,7 @@ class Device extends Homey.Device
                     let idx = this.executionCommands.findIndex(element2 => element2.id === event.execId);
                     if (idx >= 0)
                     {
-                        this.setWarning(Homey.__('command_queued'));
+                        this.setWarning(Homey.__('command_queued')).catch(this.error);
                     }
                 }
             }

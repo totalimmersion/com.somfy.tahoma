@@ -108,7 +108,7 @@ class LightControllerDevice extends Device
         }
         else
         {
-            this.setCapabilityValue('onoff', (value == true));
+            this.setCapabilityValue('onoff', (value == true)).catch(this.error);
         }
     }
 
@@ -186,7 +186,7 @@ class LightControllerDevice extends Device
         }
         else
         {
-            this.setCapabilityValue('dim', value);
+            this.setCapabilityValue('dim', value).catch(this.error);
         }
     }
 
@@ -265,7 +265,7 @@ class LightControllerDevice extends Device
         }
         else
         {
-            this.setCapabilityValue('light_temperature', value);
+            this.setCapabilityValue('light_temperature', value).catch(this.error);
         }
     }
 
@@ -320,7 +320,7 @@ class LightControllerDevice extends Device
         }
         catch (error)
         {
-            this.setUnavailable(null);
+            this.setUnavailable(error.message).catch(this.error);
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
