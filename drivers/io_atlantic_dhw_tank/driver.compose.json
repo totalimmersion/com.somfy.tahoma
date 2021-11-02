@@ -1,0 +1,31 @@
+{
+  "name": {
+    "en": "Atlantic Water Tank"
+  },
+  "images": {
+    "large": "/drivers/io_atlantic_apc_zone_controller/assets/images/large.png",
+    "small": "/drivers/io_atlantic_apc_zone_controller/assets/images/small.png"
+  },
+  "class": "heater",
+  "capabilities": [
+    "onoff"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": "Force Heating"
+    }
+  },
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

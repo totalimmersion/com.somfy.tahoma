@@ -1,0 +1,34 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Operating Mode"
+  },
+  "values": [
+    {
+      "id": "cooling",
+      "title": {
+        "en": "cooling"
+      }
+    },
+    {
+      "id": "drying",
+      "title": {
+        "en": "drying"
+      }
+    },
+    {
+      "id": "heating",
+      "title": {
+        "en": "heating"
+      }
+    },
+    {
+      "id": "stop",
+      "title": {
+        "en": "Stop"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

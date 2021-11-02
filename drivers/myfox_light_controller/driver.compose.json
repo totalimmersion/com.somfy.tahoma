@@ -1,0 +1,26 @@
+{
+  "name": {
+    "en": "Light Controllers"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff"
+  ],
+  "images": {
+    "large": "/drivers/myfox_light_controller/assets/images/large.png",
+    "small": "/drivers/myfox_light_controller/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

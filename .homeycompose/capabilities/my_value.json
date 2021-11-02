@@ -1,0 +1,14 @@
+{
+  "type": "number",
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "title": {
+    "en": "MY Position",
+    "nl": "MY Positie"
+  },
+  "units": {
+    "en": "%"
+  },
+  "icon": "/assets/my.svg"
+}

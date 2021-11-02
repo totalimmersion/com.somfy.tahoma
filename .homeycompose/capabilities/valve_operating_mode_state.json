@@ -1,0 +1,10 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Operating Mode"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "icon": "/assets/dark_mode.svg"
+}

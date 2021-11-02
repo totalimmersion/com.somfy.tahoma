@@ -1,0 +1,59 @@
+{
+  "name": {
+    "en": "Atlantic Electric Heater"
+  },
+  "images": {
+    "large": "/drivers/io_atlantic_apc_zone_controller/assets/images/large.png",
+    "small": "/drivers/io_atlantic_apc_zone_controller/assets/images/small.png"
+  },
+  "class": "heater",
+  "capabilities": [
+    "onoff",
+    "target_temperature",
+    "target_temperature.comfort_heating",
+    "target_temperature.eco_heating",
+    "target_temperature.derogated",
+    "cancel_heating",
+    "regulation_mode_state",
+    "power_state",
+    "native_function_level_state",
+    "heating_level_state",
+    "occupancy_activation",
+    "open_window_activation",
+    "eh_operating_mode"
+  ],
+  "capabilitiesOptions": {
+    "target_temperature": {
+      "min": 0,
+      "max": 28
+    },
+    "target_temperature.comfort_heating": {
+      "min": 0,
+      "max": 28,
+      "title": "Comfort Heating Temperature"
+    },
+    "target_temperature.eco_heating": {
+      "min": 0,
+      "max": 28,
+      "title": "Eco Heating Temperature"
+    },
+    "target_temperature.derogated": {
+      "min": 0,
+      "max": 28,
+      "title": "Derogated Temperature"
+    }
+  },
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

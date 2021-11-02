@@ -1,0 +1,77 @@
+{
+  "name": {
+    "en": "Atlantic Heating And Cooling System"
+  },
+  "images": {
+    "large": "/drivers/io_atlantic_apc_zone_controller/assets/images/large.png",
+    "small": "/drivers/io_atlantic_apc_zone_controller/assets/images/small.png"
+  },
+  "class": "heater",
+  "capabilities": [
+    "target_temperature.comfort_cooling",
+    "target_temperature.comfort_heating",
+    "target_temperature.eco_cooling",
+    "target_temperature.eco_heating",
+    "target_temperature.derogated",
+    "boost.cooling",
+    "boost.heating",
+    "boost.derogated",
+    "heat_cool_mode.cool",
+    "heat_cool_mode.heat"
+  ],
+  "capabilitiesOptions": {
+    "target_temperature.comfort_cooling": {
+      "min": 4,
+      "max": 35,
+      "title": "Comfort Cooling Temperature"
+    },
+    "target_temperature.comfort_heating": {
+      "min": 4,
+      "max": 35,
+      "title": "Comfort Heating Temperature"
+    },
+    "target_temperature.eco_cooling": {
+      "min": 4,
+      "max": 35,
+      "title": "Eco Cooling Temperature"
+    },
+    "target_temperature.eco_heating": {
+      "min": 4,
+      "max": 35,
+      "title": "Eco Heating Temperature"
+    },
+    "target_temperature.derogated": {
+      "min": 4,
+      "max": 35,
+      "title": "Derogated Temperature"
+    },
+    "boost.heating": {
+      "title": "Heating"
+    },
+    "boost.cooling": {
+      "title": "Cooling"
+    },
+    "boost.derogated": {
+      "title": "Derogated"
+    },
+    "heat_cool_mode.cool": {
+      "title": "Cooling Mode"
+    },
+    "heat_cool_mode.heat": {
+      "title": "Heating Mode"
+    }
+  },
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

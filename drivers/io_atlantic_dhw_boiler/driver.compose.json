@@ -1,0 +1,42 @@
+{
+  "name": {
+    "en": "Atlantic Water Boiler"
+  },
+  "images": {
+    "large": "/drivers/io_atlantic_apc_zone_controller/assets/images/large.png",
+    "small": "/drivers/io_atlantic_apc_zone_controller/assets/images/small.png"
+  },
+  "class": "heater",
+  "capabilities": [
+    "target_temperature.comfort",
+    "target_temperature.eco",
+    "boiler_mode",
+    "onoff",
+    "boost"
+  ],
+  "capabilitiesOptions": {
+    "target_temperature.comfort": {
+      "min": 30,
+      "max": 60,
+      "title": "Comfort Temperature"
+    },
+    "target_temperature.eco": {
+      "min": 30,
+      "max": 60,
+      "title": "Eco Temperature"
+    }
+  },
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

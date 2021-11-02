@@ -1,0 +1,17 @@
+{
+  "type": "boolean",
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "title": {
+    "en": "Siren"
+  },
+  "icon": "/drivers/siren/assets/icon.svg",
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Active"
+  },
+  "insightsTitleFalse": {
+    "en": "Silent"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Operating Mode"
+  },
+  "values": [
+    {
+      "id": "comfort",
+      "title": {
+        "en": "At home"
+      }
+    },
+    {
+      "id": "away",
+      "title": {
+        "en": "Away"
+      }
+    },
+    {
+      "id": "eco",
+      "title": {
+        "en": "Night"
+      }
+    },
+    {
+      "id": "manual",
+      "title": {
+        "en": "Manual"
+      }
+    },
+    {
+      "id": "frostprotection",
+      "title": {
+        "en": "Frost protection"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

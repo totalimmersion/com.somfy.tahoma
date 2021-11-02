@@ -1,0 +1,17 @@
+{
+  "type": "boolean",
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "title": {
+    "en": "Window Open"
+  },
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Windows openned"
+  },
+  "insightsTitleFalse": {
+    "en": "Windows closed"
+  },
+  "icon": "/assets/open_windows.svg"
+}

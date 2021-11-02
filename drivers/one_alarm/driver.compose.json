@@ -1,0 +1,27 @@
+{
+  "name": {
+    "en": "One Alarm & Somfy Home Keeper "
+  },
+  "class": "homealarm",
+  "capabilities": [
+    "alarm_generic",
+    "homealarm_state"
+  ],
+  "images": {
+    "large": "/drivers/one_alarm/assets/images/large.png",
+    "small": "/drivers/one_alarm/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Error Code State"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/security.svg"
+}

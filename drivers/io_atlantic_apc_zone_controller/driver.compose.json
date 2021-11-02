@@ -1,0 +1,45 @@
+{
+  "name": {
+    "en": "Atlantic Main Zone Controller"
+  },
+  "images": {
+    "large": "/drivers/io_atlantic_apc_zone_controller/assets/images/large.png",
+    "small": "/drivers/io_atlantic_apc_zone_controller/assets/images/small.png"
+  },
+  "class": "heater",
+  "capabilities": [
+    "target_temperature.absence_cooling",
+    "target_temperature.absence_heating",
+    "cancel_absence",
+    "error_code_state",
+    "heating_derogation_availability_state",
+    "last_pass_apc_operating_mode_state",
+    "heating_cooling_auto_switch",
+    "pass_apc_operating_mode",
+    "pass_apc_product_type_state",
+    "thermal_scheduling_mode_state"
+  ],
+  "capabilitiesOptions": {
+    "target_temperature.absence_cooling": {
+      "title": "Absence Cooling Temperature",
+      "min": 0
+    },
+    "target_temperature.absence_heating": {
+      "title": "Absence Heating Temperature",
+      "min": 0
+    }
+  },
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

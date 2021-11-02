@@ -1,0 +1,34 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Remote State"
+  },
+  "values": [
+    {
+      "id": "up",
+      "title": {
+        "en": "Up"
+      }
+    },
+    {
+      "id": "down",
+      "title": {
+        "en": "Down"
+      }
+    },
+    {
+      "id": "stop",
+      "title": {
+        "en": "Stop"
+      }
+    },
+    {
+      "id": "prog",
+      "title": {
+        "en": "Prog"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": false
+}

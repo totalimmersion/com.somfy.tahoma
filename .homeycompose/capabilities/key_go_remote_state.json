@@ -1,0 +1,28 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Remote State"
+  },
+  "values": [
+    {
+      "id": "pressed",
+      "title": {
+        "en": "Pressed"
+      }
+    },
+    {
+      "id": "released",
+      "title": {
+        "en": "Released"
+      }
+    },
+    {
+      "id": "stop",
+      "title": {
+        "en": "Stop"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": false
+}

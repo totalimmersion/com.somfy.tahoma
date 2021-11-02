@@ -1,0 +1,9 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Power State"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/power.svg"
+}

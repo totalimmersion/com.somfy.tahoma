@@ -1,0 +1,148 @@
+{
+  "triggers": [
+    {
+      "id": "change_luminance_more_than",
+      "title": {
+        "en": "The luminance is more than",
+        "nl": "De lichtsterkte is meer dan"
+      },
+      "titleFormatted": {
+        "en": "The luminance is more than [[luminance]]",
+        "nl": "De lichtsterkte is meer dan [[luminance]]"
+      },
+      "args": [
+        {
+          "name": "luminance",
+          "type": "number",
+          "placeholder": {
+            "en": "in Lux",
+            "nl": "in Lux"
+          }
+        }
+      ]
+    },
+    {
+      "id": "change_luminance_less_than",
+      "title": {
+        "en": "The luminance is less than",
+        "nl": "De lichtsterkte is minder dan"
+      },
+      "titleFormatted": {
+        "en": "The luminance is less than [[luminance]]",
+        "nl": "De lichtsterkte is minder dan [[luminance]]"
+      },
+      "args": [
+        {
+          "name": "luminance",
+          "type": "number",
+          "placeholder": {
+            "en": "in Lux",
+            "nl": "in Lux"
+          }
+        }
+      ]
+    },
+    {
+      "id": "change_luminance_between",
+      "title": {
+        "en": "The luminance is between",
+        "nl": "De lichtsterkte is tussen"
+      },
+      "titleFormatted": {
+        "en": "The luminance is between [[luminance_from]] and [[luminance_to]]",
+        "nl": "De lichtsterkte is tussen [[luminance_from]] en [[luminance_to]]"
+      },
+      "args": [
+        {
+          "name": "luminance_from",
+          "type": "number",
+          "placeholder": {
+            "en": "in Lux",
+            "nl": "in Lux"
+          }
+        },
+        {
+          "name": "luminance_to",
+          "type": "number",
+          "placeholder": {
+            "en": "in Lux",
+            "nl": "in Lux"
+          }
+        }
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "id": "has_luminance_more_than",
+      "title": {
+        "en": "The luminance !{{is|isn't}} more than",
+        "nl": "De lichtsterkte !{{is|is niet}} meer dan"
+      },
+      "titleFormatted": {
+        "en": "The luminance !{{is|isn't}} more than [[luminance]]",
+        "nl": "De lichtsterkte !{{is|is niet}} meer dan [[luminance]]"
+      },
+      "args": [
+        {
+          "name": "luminance",
+          "type": "number",
+          "placeholder": {
+            "en": "in Lux",
+            "nl": "in Lux"
+          }
+        }
+      ]
+    },
+    {
+      "id": "has_luminance_less_than",
+      "title": {
+        "en": "The luminance !{{is|isn't}} less than",
+        "nl": "De lichtsterkte !{{is|is niet}} minder dan"
+      },
+      "titleFormatted": {
+        "en": "The luminance !{{is|isn't}} less than [[luminance]]",
+        "nl": "De lichtsterkte !{{is|is niet}} minder dan [[luminance]]"
+      },
+      "args": [
+        {
+          "name": "luminance",
+          "type": "number",
+          "placeholder": {
+            "en": "in Lux",
+            "nl": "in Lux"
+          }
+        }
+      ]
+    },
+    {
+      "id": "has_luminance_between",
+      "title": {
+        "en": "The luminance !{{is|isn't}} between",
+        "nl": "De lichtsterkte !{{is|is niet}} tussen"
+      },
+      "titleFormatted": {
+        "en": "The luminance !{{is|isn't}} between [[luminance_from]] and [[luminance_to]]",
+        "nl": "De lichtsterkte !{{is|is niet}} tussen [[luminance_from]] en [[luminance_to]]"
+      },
+      "args": [
+        {
+          "name": "luminance_from",
+          "type": "number",
+          "placeholder": {
+            "en": "in Lux",
+            "nl": "in Lux"
+          }
+        },
+        {
+          "name": "luminance_to",
+          "type": "number",
+          "placeholder": {
+            "en": "in Lux",
+            "nl": "in Lux"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "name": {
+    "en": "Radiator Valve"
+  },
+  "images": {
+    "large": "/drivers/io_valve_heating/assets/images/large.png",
+    "small": "/drivers/io_valve_heating/assets/images/small.png"
+  },
+  "class": "heater",
+  "energy": {
+    "batteries": [
+      "AA",
+      "AA"
+    ]
+  },
+  "capabilities": [
+    "measure_temperature",
+    "target_temperature.comfort_heating",
+    "target_temperature.eco_heating",
+    "target_temperature.away",
+    "target_temperature.frost_protection",
+    "open_window_activation",
+    "valve_auto_mode",
+    "measure_battery",
+    "valve_heating_mode_state",
+    "valve_operating_mode_state",
+    "derogation_mode",
+    "derogation_type",
+    "valve_state",
+    "defect_state",
+    "rssi"
+  ],
+  "capabilitiesOptions": {
+    "target_temperature.comfort_heating": {
+      "min": 5,
+      "max": 26,
+      "title": "Home Temperature"
+    },
+    "target_temperature.eco_heating": {
+      "min": 5,
+      "max": 26,
+      "title": "Night Temperature"
+    },
+    "target_temperature.away": {
+      "min": 5,
+      "max": 26,
+      "title": "Away Temperature"
+    },
+    "target_temperature.frost_protection": {
+      "min": 5,
+      "max": 26,
+      "title": "Frost Protection Temperature"
+    }
+  },
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "actions": [
+    {
+      "id": "eco_temperature_set",
+      "title": {
+        "en": "Set the Eco temperature"
+      },
+      "titleFormatted": {
+        "en": "Set the Eco Temperature to [[target_temperature]]"
+      },
+      "args": [
+        {
+          "name": "target_temperature",
+          "type": "range",
+          "min": 30,
+          "max": 60,
+          "step": 1,
+          "label": "°C",
+          "labelDecimals": 0
+        }
+      ]
+    },
+    {
+      "id": "comfort_temperature_set",
+      "title": {
+        "en": "Set the Comfort temperature"
+      },
+      "titleFormatted": {
+        "en": "Set the Comfort Temperature to [[target_temperature]]"
+      },
+      "args": [
+        {
+          "name": "target_temperature",
+          "type": "range",
+          "min": 30,
+          "max": 60,
+          "step": 1,
+          "label": "°C",
+          "labelDecimals": 0
+        }
+      ]
+    },
+    {
+      "id": "boiler_mode_set",
+      "title": {
+        "en": "Set the Boiler Mode"
+      },
+      "titleFormatted": {
+        "en": "Set the Boiler Mode to [[state]]"
+      },
+      "args": [
+        {
+          "name": "state",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "comfort",
+              "label": {
+                "en": "Comfort"
+              }
+            },
+            {
+              "id": "eco",
+              "label": {
+                "en": "Eco"
+              }
+            },
+            {
+              "id": "externalScheduling",
+              "label": {
+                "en": "External Scheduling"
+              }
+            },
+            {
+              "id": "internalScheduling",
+              "label": {
+                "en": "Internal Scheduling"
+              }
+            },
+            {
+              "id": "manu",
+              "label": {
+                "en": "Manual"
+              }
+            },
+            {
+              "id": "peakAndOffPeakScheduling",
+              "label": {
+                "en": "Peak And Off Peak Scheduling"
+              }
+            },
+            {
+              "id": "peakAndOffPeakTimes",
+              "label": {
+                "en": "Peak And Off Peak Times"
+              }
+            },
+            {
+              "id": "stop",
+              "label": {
+                "en": "Stop"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boost_on_off",
+      "title": {
+        "en": "Switch Boost On / Off",
+        "nl": "Zet aan / uit"
+      },
+      "titleFormatted": {
+        "en": "Switch Boost [[state]]"
+      },
+      "args": [
+        {
+          "name": "state",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "on",
+              "label": {
+                "en": "On",
+                "nl": "aan"
+              }
+            },
+            {
+              "id": "off",
+              "label": {
+                "en": "Off",
+                "nl": "uit"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

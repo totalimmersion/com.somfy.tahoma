@@ -1,0 +1,8 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Heating Derogation Availability"
+  },
+  "getable": true,
+  "setable": false
+}

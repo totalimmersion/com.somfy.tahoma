@@ -1,0 +1,28 @@
+{
+  "name": {
+    "en": "Two button On / Off"
+  },
+  "images": {
+    "large": "/drivers/two_button_on_off_light/assets/images/large.png",
+    "small": "/drivers/two_button_on_off_light/assets/images/small.png"
+  },
+  "class": "button",
+  "capabilities": [
+    "on_button",
+    "off_button",
+    "on_with_timer"
+  ],
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

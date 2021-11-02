@@ -1,0 +1,84 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Home Alarm state",
+    "nl": "Thuisalarm status",
+    "de": "Heim-Alarm-Status",
+    "fr": "Etat de l'alarme de maison",
+    "it": "Stato dell'allarme domestico",
+    "sv": "Hemlarmsstatus",
+    "no": "Hjemmealarmstatus",
+    "es": "Estado de la alarma doméstica",
+    "da": "Hjemmealarmstatus"
+  },
+  "values": [
+    {
+      "id": "off",
+      "title": {
+        "en": "Disarmed",
+        "nl": "Gedeactiveerd",
+        "de": "unscharf",
+        "fr": "Désarmé",
+        "it": "Disattivato",
+        "sv": "Avlarmat",
+        "no": "Deaktivert",
+        "es": "Desactivada",
+        "da": "Deaktiveret"
+      }
+    },
+    {
+      "id": "partial1",
+      "title": {
+        "en": "Partially armed (1)",
+        "nl": "Deels geactiveerd (1)",
+        "de": "teilweise scharf (1)",
+        "fr": "Partiellement armé (1)",
+        "it": "Parzialmente attivato (1)",
+        "sv": "Delvis larmat (1)",
+        "no": "Delvis aktivert (1)",
+        "es": "Parcialmente activada (1)",
+        "da": "Delvist aktiveret (1)"
+      }
+    },
+    {
+      "id": "partial2",
+      "title": {
+        "en": "Partially armed (2)",
+        "nl": "Deels geactiveerd (2)",
+        "de": "teilweise scharf (2)",
+        "fr": "Partiellement armé (2)",
+        "it": "Parzialmente attivato (2)",
+        "sv": "Delvis larmat (2)",
+        "no": "Delvis aktivert (2)",
+        "es": "Parcialmente activada (2)",
+        "da": "Delvist aktiveret (2)"
+      }
+    },
+    {
+      "id": "total",
+      "title": {
+        "en": "Armed",
+        "nl": "Geactiveerd",
+        "de": "scharf",
+        "fr": "Armé",
+        "it": "Attivato",
+        "sv": "Larmat",
+        "no": "Aktivert",
+        "es": "Activada",
+        "da": "Aktiveret"
+      }
+    },
+    {
+      "id": "sos",
+      "title": {
+        "en": "SOS"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "$flow": {
+    "conditions": []
+  }
+}

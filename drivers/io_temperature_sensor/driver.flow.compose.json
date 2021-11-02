@@ -1,0 +1,148 @@
+{
+  "triggers": [
+    {
+      "id": "change_temperature_more_than",
+      "title": {
+        "en": "The temperature is more than",
+        "nl": "De temperatuur is meer dan"
+      },
+      "titleFormatted": {
+        "en": "The temperature is more than [[temperature]]",
+        "nl": "De temperatuur is meer dan [[temperature]]"
+      },
+      "args": [
+        {
+          "name": "temperature",
+          "type": "number",
+          "placeholder": {
+            "en": "in C",
+            "nl": "in C"
+          }
+        }
+      ]
+    },
+    {
+      "id": "change_temperature_less_than",
+      "title": {
+        "en": "The temperature is less than",
+        "nl": "De temperatuur is minder dan"
+      },
+      "titleFormatted": {
+        "en": "The temperature is less than [[temperature]]",
+        "nl": "De temperatuur is minder dan [[temperature]]"
+      },
+      "args": [
+        {
+          "name": "temperature",
+          "type": "number",
+          "placeholder": {
+            "en": "in C",
+            "nl": "in C"
+          }
+        }
+      ]
+    },
+    {
+      "id": "change_temperature_between",
+      "title": {
+        "en": "The temperature is between",
+        "nl": "De temperatuur is tussen"
+      },
+      "titleFormatted": {
+        "en": "The temperature is between [[temperature_from]] and [[temperature_to]]",
+        "nl": "De temperatuur is tussen [[temperature_from]] en [[temperature_to]]"
+      },
+      "args": [
+        {
+          "name": "temperature_from",
+          "type": "number",
+          "placeholder": {
+            "en": "in C",
+            "nl": "in C"
+          }
+        },
+        {
+          "name": "temperature_to",
+          "type": "number",
+          "placeholder": {
+            "en": "in C",
+            "nl": "in C"
+          }
+        }
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "id": "has_temperature_more_than",
+      "title": {
+        "en": "The temperature !{{is|isn't}} more than",
+        "nl": "De temperatuur !{{is|is niet}} meer dan"
+      },
+      "titleFormatted": {
+        "en": "The temperature !{{is|isn't}} more than [[temperature]]",
+        "nl": "De temperatuur !{{is|is niet}} meer dan [[temperature]]"
+      },
+      "args": [
+        {
+          "name": "temperature",
+          "type": "number",
+          "placeholder": {
+            "en": "in C",
+            "nl": "in C"
+          }
+        }
+      ]
+    },
+    {
+      "id": "has_temperature_less_than",
+      "title": {
+        "en": "The temperature !{{is|isn't}} less than",
+        "nl": "De temperatuur !{{is|is niet}} minder dan"
+      },
+      "titleFormatted": {
+        "en": "The temperature !{{is|isn't}} less than [[temperature]]",
+        "nl": "De temperatuur !{{is|is niet}} minder dan [[temperature]]"
+      },
+      "args": [
+        {
+          "name": "temperature",
+          "type": "number",
+          "placeholder": {
+            "en": "in C",
+            "nl": "in C"
+          }
+        }
+      ]
+    },
+    {
+      "id": "has_temperature_between",
+      "title": {
+        "en": "The temperature !{{is|isn't}} between",
+        "nl": "De temperatuur !{{is|is niet}} tussen"
+      },
+      "titleFormatted": {
+        "en": "The temperature !{{is|isn't}} between [[temperature_from]] and [[temperature_to]]",
+        "nl": "De temperatuur !{{is|is niet}} tussen [[temperature_from]] en [[temperature_to]]"
+      },
+      "args": [
+        {
+          "name": "temperature_from",
+          "type": "number",
+          "placeholder": {
+            "en": "in C",
+            "nl": "in C"
+          }
+        },
+        {
+          "name": "temperature_to",
+          "type": "number",
+          "placeholder": {
+            "en": "in C",
+            "nl": "in C"
+          }
+        }
+      ]
+    }
+  ]
+}

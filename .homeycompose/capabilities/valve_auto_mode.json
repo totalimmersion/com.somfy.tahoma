@@ -1,0 +1,9 @@
+{
+  "type": "boolean",
+  "getable": true,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Auto (Schedule Mode)"
+  }
+}

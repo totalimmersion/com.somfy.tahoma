@@ -1,0 +1,304 @@
+{
+  "triggers": [
+    {
+      "id": "tahoma_alarm_state_changed",
+      "title": {
+        "en": "The state changed",
+        "nl": "De status is veranderd",
+        "de": "Der Status hat sich geändert",
+        "fr": "L'état a été modifié",
+        "it": "Lo stato è cambiato",
+        "sv": "Statusen ändrad",
+        "no": "Statusen ble endret",
+        "es": "El estado ha cambiado",
+        "da": "Status ændret"
+      },
+      "titleFormatted": {
+        "en": "The alarm state changed to [[state]]"
+      },
+      "args": [
+        {
+          "name": "state",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "off",
+              "title": {
+                "en": "Disarmed",
+                "nl": "Gedeactiveerd",
+                "de": "unscharf",
+                "fr": "Désarmé",
+                "it": "Disattivato",
+                "sv": "Avlarmat",
+                "no": "Deaktivert",
+                "es": "Desactivada",
+                "da": "Deaktiveret"
+              }
+            },
+            {
+              "id": "partial1",
+              "title": {
+                "en": "Partially armed (1)",
+                "nl": "Deels geactiveerd (1)",
+                "de": "teilweise scharf (1)",
+                "fr": "Partiellement armé (1)",
+                "it": "Parzialmente attivato (1)",
+                "sv": "Delvis larmat (1)",
+                "no": "Delvis aktivert (1)",
+                "es": "Parcialmente activada (1)",
+                "da": "Delvist aktiveret (1)"
+              }
+            },
+            {
+              "id": "partial2",
+              "title": {
+                "en": "Partially armed",
+                "nl": "Deels geactiveerd",
+                "de": "teilweise scharf",
+                "fr": "Partiellement armé",
+                "it": "Parzialmente attivato",
+                "sv": "Delvis larmat",
+                "no": "Delvis aktivert",
+                "es": "Parcialmente activada",
+                "da": "Delvist aktiveret"
+              }
+            },
+            {
+              "id": "total",
+              "title": {
+                "en": "Armed",
+                "nl": "Geactiveerd",
+                "de": "scharf",
+                "fr": "Armé",
+                "it": "Attivato",
+                "sv": "Larmat",
+                "no": "Aktivert",
+                "es": "Activada",
+                "da": "Aktiveret"
+              }
+            },
+            {
+              "id": "sos",
+              "title": {
+                "en": "SOS"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "id": "tahoma_alarm_state_is",
+      "title": {
+        "en": "The state is !{{|not}}",
+        "nl": "De status is !{{|niet}}",
+        "de": "Der Status ist !{{|nicht}}",
+        "fr": "L'état !{{est|n'est pas}}",
+        "it": "Lo stato è !{{|non}}",
+        "sv": "Statusen är !{{|inte}}",
+        "no": "Statusen er !{{|ikke}}",
+        "es": "El estado !{{|no}} es",
+        "da": "Status er !{{|ikke}}"
+      },
+      "titleFormatted": {
+        "en": "The alarm state is {{| not}} set to [[state]]"
+      },
+      "args": [
+        {
+          "name": "state",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "off",
+              "title": {
+                "en": "Disarmed",
+                "nl": "Gedeactiveerd",
+                "de": "unscharf",
+                "fr": "Désarmé",
+                "it": "Disattivato",
+                "sv": "Avlarmat",
+                "no": "Deaktivert",
+                "es": "Desactivada",
+                "da": "Deaktiveret"
+              }
+            },
+            {
+              "id": "partial1",
+              "title": {
+                "en": "Partially armed (1)",
+                "nl": "Deels geactiveerd (1)",
+                "de": "teilweise scharf (1)",
+                "fr": "Partiellement armé (1)",
+                "it": "Parzialmente attivato (1)",
+                "sv": "Delvis larmat (1)",
+                "no": "Delvis aktivert (1)",
+                "es": "Parcialmente activada (1)",
+                "da": "Delvist aktiveret (1)"
+              }
+            },
+            {
+              "id": "partial2",
+              "title": {
+                "en": "Partially armed (2)",
+                "nl": "Deels geactiveerd (2)",
+                "de": "teilweise scharf (2)",
+                "fr": "Partiellement armé (2)",
+                "it": "Parzialmente attivato (2)",
+                "sv": "Delvis larmat (2)",
+                "no": "Delvis aktivert (2)",
+                "es": "Parcialmente activada (2)",
+                "da": "Delvist aktiveret (2)"
+              }
+            },
+            {
+              "id": "armed",
+              "title": {
+                "en": "Armed",
+                "nl": "Geactiveerd",
+                "de": "scharf",
+                "fr": "Armé",
+                "it": "Attivato",
+                "sv": "Larmat",
+                "no": "Aktivert",
+                "es": "Activada",
+                "da": "Aktiveret"
+              }
+            },
+            {
+              "id": "sos",
+              "title": {
+                "en": "SOS"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "set_tahoma_alarm_state",
+      "title": {
+        "en": "Set state",
+        "nl": "Zet de status",
+        "de": "Status setzen",
+        "fr": "Définir l'état",
+        "it": "Imposta stato",
+        "sv": "Ställ in status",
+        "no": "Innstill status",
+        "es": "Definir estado",
+        "da": "Indstil status"
+      },
+      "titleFormatted": {
+        "en": "Set the alarm state to [[state]]"
+      },
+      "args": [
+        {
+          "name": "state",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "off",
+              "title": {
+                "en": "Disarmed",
+                "nl": "Gedeactiveerd",
+                "de": "unscharf",
+                "fr": "Désarmé",
+                "it": "Disattivato",
+                "sv": "Avlarmat",
+                "no": "Deaktivert",
+                "es": "Desactivada",
+                "da": "Deaktiveret"
+              }
+            },
+            {
+              "id": "partial1",
+              "title": {
+                "en": "Partially armed",
+                "nl": "Deels geactiveerd",
+                "de": "teilweise scharf",
+                "fr": "Partiellement armé",
+                "it": "Parzialmente attivato",
+                "sv": "Delvis larmat",
+                "no": "Delvis aktivert",
+                "es": "Parcialmente activada",
+                "da": "Delvist aktiveret"
+              }
+            },
+            {
+              "id": "partial2",
+              "title": {
+                "en": "Partially armed",
+                "nl": "Deels geactiveerd",
+                "de": "teilweise scharf",
+                "fr": "Partiellement armé",
+                "it": "Parzialmente attivato",
+                "sv": "Delvis larmat",
+                "no": "Delvis aktivert",
+                "es": "Parcialmente activada",
+                "da": "Delvist aktiveret"
+              }
+            },
+            {
+              "id": "total",
+              "title": {
+                "en": "Armed",
+                "nl": "Geactiveerd",
+                "de": "scharf",
+                "fr": "Armé",
+                "it": "Attivato",
+                "sv": "Larmat",
+                "no": "Aktivert",
+                "es": "Activada",
+                "da": "Aktiveret"
+              }
+            },
+            {
+              "id": "sos",
+              "title": {
+                "en": "SOS"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trigger_tahoma_alarm",
+      "title": {
+        "en": "Set intrusion state"
+      },
+      "titleFormatted": {
+        "en": "Set the intrusion state to [[state]]"
+      },
+      "args": [
+        {
+          "name": "state",
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "detected",
+              "title": {
+                "en": "Detected"
+              }
+            },
+            {
+              "id": "notDetected",
+              "title": {
+                "en": "Not Detected"
+              }
+            },
+            {
+              "id": "pending",
+              "title": {
+                "en": "Pending"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

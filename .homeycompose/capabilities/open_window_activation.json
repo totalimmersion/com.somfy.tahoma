@@ -1,0 +1,17 @@
+{
+  "type": "boolean",
+  "getable": true,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Open Window Activation"
+  },
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Open Windows detection turned on"
+  },
+  "insightsTitleFalse": {
+    "en": "Open Windows detection turned off"
+  },
+  "icon": "/assets/open_windows.svg"
+}

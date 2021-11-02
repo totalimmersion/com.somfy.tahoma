@@ -1,0 +1,8 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Thermal Scheduling Mode"
+  },
+  "getable": true,
+  "setable": false
+}

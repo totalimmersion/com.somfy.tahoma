@@ -1,0 +1,27 @@
+{
+  "name": {
+    "en": "Sliding gate (io)"
+  },
+  "images": {
+    "large": "/drivers/io_sliding_gate/assets/images/large.png",
+    "small": "/drivers/io_sliding_gate/assets/images/small.png"
+  },
+  "class": "other",
+  "capabilities": [
+    "pedestrian",
+    "windowcoverings_state"
+  ],
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

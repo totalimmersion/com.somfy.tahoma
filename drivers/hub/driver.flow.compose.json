@@ -1,0 +1,18 @@
+{
+  "actions": [
+    {
+      "id": "calendar_state_on",
+      "title": {
+        "en": "Activate Agenda / Timer"
+      },
+      "args": []
+    },
+    {
+      "id": "calendar_state_off",
+      "title": {
+        "en": "Deactivate Agenda / Timer"
+      },
+      "args": []
+    }
+  ]
+}

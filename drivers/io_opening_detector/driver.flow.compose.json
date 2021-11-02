@@ -1,0 +1,23 @@
+{
+  "triggers": [
+    {
+      "id": "contact_has_changed",
+      "title": {
+        "en": "The state of the opening detector has changed",
+        "nl": "De staat van de openingsmelder is veranderd"
+      },
+      "tokens": [
+        {
+          "name": "isOpen",
+          "type": "boolean",
+          "title": {
+            "en": "is open?",
+            "nl": "is open?"
+          },
+          "example": "open"
+        }
+      ],
+      "args": []
+    }
+  ]
+}

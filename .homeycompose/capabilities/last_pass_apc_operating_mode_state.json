@@ -1,0 +1,8 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Last Pass Operating Mode"
+  },
+  "getable": true,
+  "setable": false
+}

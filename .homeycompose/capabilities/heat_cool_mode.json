@@ -1,0 +1,58 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Heat / Cool Mode"
+  },
+  "values": [
+    {
+      "id": "absence",
+      "title": {
+        "en": "Absent"
+      }
+    },
+    {
+      "id": "auto",
+      "title": {
+        "en": "Auto"
+      }
+    },
+    {
+      "id": "comfort",
+      "title": {
+        "en": "Comfort"
+      }
+    },
+    {
+      "id": "eco",
+      "title": {
+        "en": "Eco"
+      }
+    },
+    {
+      "id": "externalScheduling",
+      "title": {
+        "en": "External Scheduling"
+      }
+    },
+    {
+      "id": "internalScheduling",
+      "title": {
+        "en": "Internal Scheduling"
+      }
+    },
+    {
+      "id": "manu",
+      "title": {
+        "en": "Manual"
+      }
+    },
+    {
+      "id": "stop",
+      "title": {
+        "en": "Stop"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

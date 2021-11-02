@@ -1,0 +1,33 @@
+{
+  "name": {
+    "en": "Tahoma / Connexoon Hub"
+  },
+  "images": {
+    "large": "/drivers/hub/assets/images/large.png",
+    "small": "/drivers/hub/assets/images/small.png"
+  },
+  "class": "other",
+  "capabilities": [
+    "calendar_state_on",
+    "calendar_state_off",
+    "dim"
+  ],
+  "capabilitiesOptions": {
+    "dim": {
+      "title": "LED"
+    }
+  },
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

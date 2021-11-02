@@ -1,0 +1,9 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Signal Strength"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/signal_strength.svg"
+}

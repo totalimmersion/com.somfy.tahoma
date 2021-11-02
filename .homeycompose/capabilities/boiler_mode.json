@@ -1,0 +1,60 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Hot Water Mode",
+    "nl": "Heetwatermodus",
+    "de": "Heißwassermodus"
+  },
+  "values": [
+    {
+      "id": "comfort",
+      "title": {
+        "en": "Comfort"
+      }
+    },
+    {
+      "id": "eco",
+      "title": {
+        "en": "Eco"
+      }
+    },
+    {
+      "id": "externalScheduling",
+      "title": {
+        "en": "External Scheduling"
+      }
+    },
+    {
+      "id": "internalScheduling",
+      "title": {
+        "en": "Internal Scheduling"
+      }
+    },
+    {
+      "id": "manu",
+      "title": {
+        "en": "Manual"
+      }
+    },
+    {
+      "id": "peakAndOffPeakScheduling",
+      "title": {
+        "en": "Peak And Off Peak Scheduling"
+      }
+    },
+    {
+      "id": "peakAndOffPeakTimes",
+      "title": {
+        "en": "Peak And Off Peak Times"
+      }
+    },
+    {
+      "id": "stop",
+      "title": {
+        "en": "Stop"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

@@ -1,0 +1,28 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Operating Until"
+  },
+  "values": [
+    {
+      "id": "date",
+      "title": {
+        "en": "Date"
+      }
+    },
+    {
+      "id": "further_notice",
+      "title": {
+        "en": "Further Notice"
+      }
+    },
+    {
+      "id": "next_mode",
+      "title": {
+        "en": "Next Mode"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

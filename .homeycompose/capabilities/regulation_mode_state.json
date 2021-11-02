@@ -1,0 +1,28 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Regulation Mode"
+  },
+  "values": [
+    {
+      "id": "increase",
+      "title": {
+        "en": "Increase"
+      }
+    },
+    {
+      "id": "none",
+      "title": {
+        "en": "None"
+      }
+    },
+    {
+      "id": "standby",
+      "title": {
+        "en": "Standby"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

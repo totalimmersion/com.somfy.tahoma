@@ -1,0 +1,20 @@
+{
+  "triggers": [
+    {
+      "id": "pedestrian_changed",
+      "title": {
+        "en": "Pedestrian changed"
+      },
+      "tokens": [
+        {
+          "name": "pedestrian",
+          "type": "boolean",
+          "title": {
+            "en": "At Pedestrian Position"
+          }
+        }
+      ],
+      "args": []
+    }
+  ]
+}

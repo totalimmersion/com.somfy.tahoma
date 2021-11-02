@@ -1,0 +1,45 @@
+{
+  "name": {
+    "en": "Smoke Detector",
+    "nl": "Rookmelder"
+  },
+  "images": {
+    "large": "/drivers/smoke_detector/assets/images/large.png",
+    "small": "/drivers/smoke_detector/assets/images/small.png"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_smoke",
+    "alarm_battery.radio",
+    "alarm_battery.sensor",
+    "alarm_room_state",
+    "test_smoke"
+  ],
+  "capabilitiesOptions": {
+    "alarm_battery.radio": {
+      "title": "Radio Battery"
+    },
+    "alarm_battery.sensor": {
+      "title": "Sensor Battery"
+    }
+  },
+  "energy": {
+    "batteries": [
+      "AA",
+      "AA"
+    ]
+  },
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Operating Mode"
+  },
+  "values": [
+    {
+      "id": "antifreeze",
+      "title": {
+        "en": "Antifreeze"
+      }
+    },
+    {
+      "id": "auto",
+      "title": {
+        "en": "Auto"
+      }
+    },
+    {
+      "id": "away",
+      "title": {
+        "en": "Away"
+      }
+    },
+    {
+      "id": "boost",
+      "title": {
+        "en": "Boost"
+      }
+    },
+    {
+      "id": "eco",
+      "title": {
+        "en": "Eco"
+      }
+    },
+    {
+      "id": "frostprotection",
+      "title": {
+        "en": "Frost Protection"
+      }
+    },
+    {
+      "id": "manual",
+      "title": {
+        "en": "Manual"
+      }
+    },
+    {
+      "id": "max",
+      "title": {
+        "en": "Maximum"
+      }
+    },
+    {
+      "id": "normal",
+      "title": {
+        "en": "Normal"
+      }
+    },
+    {
+      "id": "off",
+      "title": {
+        "en": "Off"
+      }
+    },
+    {
+      "id": "on",
+      "title": {
+        "en": "On"
+      }
+    },
+    {
+      "id": "prog",
+      "title": {
+        "en": "Prog"
+      }
+    },
+    {
+      "id": "program",
+      "title": {
+        "en": "Program"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

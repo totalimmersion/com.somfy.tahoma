@@ -1,0 +1,27 @@
+{
+  "name": {
+    "en": "Pilot Wire Programmer"
+  },
+  "class": "heater",
+  "capabilities": [
+    "onoff",
+    "heating_mode"
+  ],
+  "images": {
+    "large": "/drivers/pilot_wire_programmer/assets/images/large.png",
+    "small": "/drivers/pilot_wire_programmer/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

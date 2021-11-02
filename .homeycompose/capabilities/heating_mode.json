@@ -1,0 +1,41 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Heating Mode"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "values": [
+    {
+      "id": "auto",
+      "title": {
+        "en": "Auto"
+      }
+    },
+    {
+      "id": "comfort",
+      "title": {
+        "en": "Comfort"
+      }
+    },
+    {
+      "id": "eco",
+      "title": {
+        "en": "Eco"
+      }
+    },
+    {
+      "id": "free",
+      "title": {
+        "en": "Free"
+      }
+    },
+    {
+      "id": "secured",
+      "title": {
+        "en": "Secured"
+      }
+    }
+  ]
+}

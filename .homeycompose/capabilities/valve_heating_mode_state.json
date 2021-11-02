@@ -1,0 +1,10 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Heating Mode"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "icon": "/assets/dark_mode.svg"
+}

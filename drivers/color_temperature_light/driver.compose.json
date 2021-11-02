@@ -1,0 +1,60 @@
+{
+  "name": {
+    "en": "Light, Colour + Temperature"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "light_hue",
+    "light_saturation",
+    "light_mode",
+    "light_temperature"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "setOnDim": false
+    }
+  },
+  "images": {
+    "large": "/drivers/color_temperature_light/assets/images/large.png",
+    "small": "/drivers/color_temperature_light/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ],
+  "settings": [
+    {
+      "id": "minTemperature",
+      "type": "number",
+      "label": {
+        "en": "Min Colour Temperature (K)"
+      },
+      "value": 2200,
+      "hint": {
+        "en": "Min colour temperature of the light"
+      }
+    },
+    {
+      "id": "maxTemperature",
+      "type": "number",
+      "label": {
+        "en": "Max Colour Temperature (K)"
+      },
+      "value": 6500,
+      "hint": {
+        "en": "Max colour temperature of the light"
+      }
+    }
+  ]
+}

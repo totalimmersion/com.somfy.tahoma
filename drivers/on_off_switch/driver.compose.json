@@ -1,0 +1,26 @@
+{
+  "name": {
+    "en": "On / Off (RTS & io)"
+  },
+  "images": {
+    "large": "/drivers/on_off_switch/assets/images/large.png",
+    "small": "/drivers/on_off_switch/assets/images/small.png"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff"
+  ],
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

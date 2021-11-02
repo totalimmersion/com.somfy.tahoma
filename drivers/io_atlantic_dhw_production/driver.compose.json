@@ -1,0 +1,37 @@
+{
+  "name": {
+    "en": "Atlantic Hot Water Production"
+  },
+  "images": {
+    "large": "/drivers/io_atlantic_apc_zone_controller/assets/images/large.png",
+    "small": "/drivers/io_atlantic_apc_zone_controller/assets/images/small.png"
+  },
+  "class": "heater",
+  "capabilities": [
+    "target_temperature",
+    "measure_temperature"
+  ],
+  "capabilitiesOptions": {
+    "target_temperature": {
+      "min": 30,
+      "max": 60
+    },
+    "measure_temperature": {
+      "min": 30,
+      "max": 60
+    }
+  },
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

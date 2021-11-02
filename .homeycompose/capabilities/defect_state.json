@@ -1,0 +1,10 @@
+{
+  "type": "string",
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "title": {
+    "en": "Sensor Defect State"
+  },
+  "icon": "/assets/wrench.svg"
+}

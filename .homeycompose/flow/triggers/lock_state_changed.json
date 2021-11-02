@@ -1,0 +1,23 @@
+{
+  "id": "lock_state_changed",
+  "title": {
+    "en": "The lock state changed"
+  },
+  "tokens": [
+    {
+      "name": "lock_state",
+      "type": "string",
+      "title": {
+        "en": "Lock state"
+      },
+      "example": "wind"
+    }
+  ],
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=io_horizontal_awning|io_vertical_exterior_blind|io_velux_roof_window"
+    }
+  ]
+}

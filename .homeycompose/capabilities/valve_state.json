@@ -1,0 +1,17 @@
+{
+  "type": "boolean",
+  "getable": true,
+  "setable": true,
+  "uiComponent": "sensor",
+  "title": {
+    "en": "Valve Open"
+  },
+  "icon": "/assets/valve.svg",
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Valve Open"
+  },
+  "insightsTitleFalse": {
+    "en": "Valve Closed"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "boolean",
+  "getable": true,
+  "setable": true,
+  "uiComponent": "toggle",
+  "title": {
+    "en": "Quiet Mode",
+    "nl": "Stille modus"
+  }
+}

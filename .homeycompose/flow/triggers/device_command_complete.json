@@ -1,0 +1,30 @@
+{
+  "id": "device_command_complete",
+  "title": {
+    "en": "A command completed"
+  },
+  "tokens": [
+    {
+      "name": "state",
+      "type": "boolean",
+      "title": {
+        "en": "Successful"
+      },
+      "example": "true"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "title": {
+        "en": "Command Name"
+      }
+    }
+  ],
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=io_exterior_venetian_blind|io_garage_door|io_garage_door_partial|io_horizontal_awning|io_pergola|io_roller_shutter|io_roller_shutter_quiet|io_sliding_gate|io_velux_interior_blind|io_velux_roller_shutter|io_velux_roof_window|io_vertical_exterior_blind|io_vertical_interior_blind|rts_gate_opener|rts_horizontal_awning|rts_interior_blind|rts_interior_curtain|rts_interior_venetian_blind"
+    }
+  ]
+}

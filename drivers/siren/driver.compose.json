@@ -1,0 +1,36 @@
+{
+  "name": {
+    "en": "Siren (io)"
+  },
+  "images": {
+    "large": "/drivers/siren/assets/images/large.png",
+    "small": "/drivers/siren/assets/images/small.png"
+  },
+  "class": "homealarm",
+  "energy": {
+    "batteries": [
+      "AA",
+      "AA"
+    ]
+  },
+  "capabilities": [
+    "ring_button",
+    "stop_button",
+    "soundAlarm_1_button",
+    "alarm_siren",
+    "alarm_battery"
+  ],
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_my_devices"
+      }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

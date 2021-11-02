@@ -1,0 +1,17 @@
+{
+  "type": "boolean",
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "title": {
+    "en": "Sensor Dirty"
+  },
+  "icon": "/assets/dirty.svg",
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "clean"
+  },
+  "insightsTitleFalse": {
+    "en": "dirty"
+  }
+}
