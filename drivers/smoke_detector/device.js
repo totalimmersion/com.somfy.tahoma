@@ -1,14 +1,25 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
-    { homeyName: 'alarm_smoke', somfyNameGet: 'core:SmokeState', somfyNameSet: [], compare: ['', 'detected'] },
-    { homeyName: 'alarm_battery.radio', somfyNameGet: 'io:MaintenanceRadioPartBatteryState', somfyNameSet: [], compare: ['normal', 'low'] },
-    { homeyName: 'alarm_battery.sensor', somfyNameGet: 'io:MaintenanceSensorPartBatteryState', somfyNameSet: [], compare: ['normal', 'low'] },
-    { homeyName: 'alarm_room_state', somfyNameGet: 'io:SensorRoomState', somfyNameSet: [], compare: ['0', '1'] },
-    { homeyName: 'test_smoke', somfyNameGet: '', somfyNameSet: ['checkEventTrigger'], parameters: 'short' }
+    {
+ homeyName: 'alarm_smoke', somfyNameGet: 'core:SmokeState', somfyNameSet: [], compare: ['', 'detected'],
+},
+    {
+ homeyName: 'alarm_battery.radio', somfyNameGet: 'io:MaintenanceRadioPartBatteryState', somfyNameSet: [], compare: ['normal', 'low'],
+},
+    {
+ homeyName: 'alarm_battery.sensor', somfyNameGet: 'io:MaintenanceSensorPartBatteryState', somfyNameSet: [], compare: ['normal', 'low'],
+},
+    {
+ homeyName: 'alarm_room_state', somfyNameGet: 'io:SensorRoomState', somfyNameSet: [], compare: ['0', '1'],
+},
+    {
+ homeyName: 'test_smoke', somfyNameGet: '', somfyNameSet: ['checkEventTrigger'], parameters: 'short',
+},
 ];
 class SmokeDetectorDevice extends SensorDevice
 {
@@ -43,6 +54,7 @@ class SmokeDetectorDevice extends SensorDevice
     {
         this.syncEventsList(events, CapabilitiesXRef);
     }
+
 }
 
 module.exports = SmokeDetectorDevice;

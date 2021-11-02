@@ -1,7 +1,8 @@
-/*jslint node: true */
-"use strict";
+/* jslint node: true */
 
-const WindowCoveringsDevice = require("../WindowCoveringsDevice");
+'use strict';
+
+const WindowCoveringsDevice = require('../WindowCoveringsDevice');
 
 /**
  * Device class for roller shutters with the io:RollerShutterWithLowSpeedManagementIOComponent controllable name in TaHoma
@@ -9,37 +10,37 @@ const WindowCoveringsDevice = require("../WindowCoveringsDevice");
  */
 class RollerShutterDeviceQuiet extends WindowCoveringsDevice
 {
+
     async onInit()
     {
-        if (this.hasCapability("lock_state"))
+        if (this.hasCapability('lock_state'))
         {
-            this.removeCapability("lock_state").catch(this.error);
+            this.removeCapability('lock_state').catch(this.error);
         }
 
         await super.onInit();
 
-        if (!this.hasCapability("my_position"))
+        if (!this.hasCapability('my_position'))
         {
-            this.addCapability("my_position").catch(this.error);
+            this.addCapability('my_position').catch(this.error);
         }
 
-        if (!this.hasCapability("quick_open"))
+        if (!this.hasCapability('quick_open'))
         {
-            this.addCapability("quick_open").catch(this.error);
+            this.addCapability('quick_open').catch(this.error);
         }
 
-        this.registerCapabilityListener("quiet_mode",
-            this.onCapabilityQuietMode.bind(this)
-        );
+        this.registerCapabilityListener('quiet_mode',
+            this.onCapabilityQuietMode.bind(this));
 
-        this.quietMode = this.getCapabilityValue("quiet_mode");
+        this.quietMode = this.getCapabilityValue('quiet_mode');
         if (this.quietMode)
         {
-            this.setPositionActionName = "setPositionAndLinearSpeed";
+            this.setPositionActionName = 'setPositionAndLinearSpeed';
         }
         else
         {
-            this.setPositionActionName = "setClosure";
+            this.setPositionActionName = 'setClosure';
         }
     }
 
@@ -48,40 +49,37 @@ class RollerShutterDeviceQuiet extends WindowCoveringsDevice
         this.quietMode = value;
         if (value)
         {
-            this.setPositionActionName = "setPositionAndLinearSpeed";
+            this.setPositionActionName = 'setPositionAndLinearSpeed';
         }
         else
         {
-            this.setPositionActionName = "setClosure";
+            this.setPositionActionName = 'setClosure';
         }
     }
 
     async onCapabilityWindowcoveringsState(value, opts)
     {
-        if ((!opts || !opts.fromCloudSync) &&
-            this.setPositionActionName === "setPositionAndLinearSpeed" &&
-            (value === "up" || value === "down")
+        if ((!opts || !opts.fromCloudSync)
+            && this.setPositionActionName === 'setPositionAndLinearSpeed'
+            && (value === 'up' || value === 'down')
         )
         {
-            return super.onCapabilityWindowcoveringsSet(value === "up" ? 1 : 0, opts);
+            return super.onCapabilityWindowcoveringsSet(value === 'up' ? 1 : 0, opts);
         }
-        else
-        {
+
             return super.onCapabilityWindowcoveringsState(value, opts);
-        }
     }
 
     async onCapabilityMyPosition(value, opts)
     {
-        if (this.setPositionActionName === "setPositionAndLinearSpeed")
+        if (this.setPositionActionName === 'setPositionAndLinearSpeed')
         {
             return super.onCapabilityWindowcoveringsSet(0.14, opts);
         }
-        else
-        {
+
             return super.onCapabilityMyPosition(value, opts);
-        }
     }
+
 }
 
 module.exports = RollerShutterDeviceQuiet;

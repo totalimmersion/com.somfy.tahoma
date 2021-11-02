@@ -1,7 +1,7 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
@@ -14,8 +14,8 @@ class DoorLockDriver extends Driver
     async onInit()
     {
         this.deviceType = ['io:LockUnlockDoorLockWithUnknownPositionIOComponent'];
-        
     }
+
 }
 
 module.exports = DoorLockDriver;

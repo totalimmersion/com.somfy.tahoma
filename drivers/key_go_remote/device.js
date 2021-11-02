@@ -1,16 +1,18 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const Device = require('../Device');
-const Homey = require('homey');
 
 /**
  * Device class for the remote controller with the "io:IORemoteController" controllable name in TaHoma
  * @extends {Device}
  */
 
+// eslint-disable-next-line camelcase
 class key_go_remoteDevice extends Device
 {
+
     async onInit()
     {
         this.registerCapabilityListener('key_go_remote_state', this.onCapabilityRemoteState.bind(this));
@@ -27,13 +29,13 @@ class key_go_remoteDevice extends Device
 
             const device = this;
             const tokens = {
-                'key_go_remote_state': value
+                key_go_remote_state: value,
             };
             const state = {
-                'expected_state': value
-            }
+                expected_state: value,
+            };
 
-            //trigger flows
+            // trigger flows
             this.driver.triggerRemoteSateChange(device, tokens, state);
             this.driver.triggerRemoteSateChangeTo(device, tokens, state);
         }
@@ -54,7 +56,7 @@ class key_go_remoteDevice extends Device
                 const remoteState = states.find(state => state.name === 'io:OneWayStoppableButtonState');
                 if (remoteState)
                 {
-                    this.homey.app.logStates(this.getName() + ": io:OneWayStoppableButtonState = " + remoteState.value);
+                    this.homey.app.logStates(`${this.getName()}: io:OneWayStoppableButtonState = ${remoteState.value}`);
                     this.triggerCapabilityListener('key_go_remote_state', remoteState.value);
                 }
             }
@@ -65,9 +67,8 @@ class key_go_remoteDevice extends Device
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
-                stack: error.stack
+                stack: error.stack,
             });
-
         }
     }
 
@@ -76,13 +77,14 @@ class key_go_remoteDevice extends Device
     {
         if (events === null)
         {
-            return this.sync();
+            this.sync();
+            return;
         }
 
         const myURL = this.getDeviceUrl();
 
         // Process events sequentially so they are in the correct order
-        for (var i = 0; i < events.length; i++)
+        for (let i = 0; i < events.length; i++)
         {
             const element = events[i];
             if (element.name === 'DeviceStateChangedEvent')
@@ -93,17 +95,17 @@ class key_go_remoteDevice extends Device
                     {
                         this.homey.app.logInformation(this.getName(),
                         {
-                            message: "Processing device state change event",
-                            stack: element
+                            message: 'Processing device state change event',
+                            stack: element,
                         });
                     }
                     // Got what we need to update the device so lets find it
-                    for (var x = 0; x < element.deviceStates.length; x++)
+                    for (let x = 0; x < element.deviceStates.length; x++)
                     {
                         const deviceState = element.deviceStates[x];
                         if (deviceState.name === 'io:OneWayStoppableButtonState')
                         {
-                            this.homey.app.logStates(this.getName() + ": io:OneWayStoppableButtonState = " + deviceState.value);
+                            this.homey.app.logStates(`${this.getName()}: io:OneWayStoppableButtonState = ${deviceState.value}`);
                             const oldState = this.getState().key_go_remote_state;
                             const newSate = deviceState.value;
                             if (oldState !== newSate)
@@ -116,6 +118,8 @@ class key_go_remoteDevice extends Device
             }
         }
     }
+
 }
 
+// eslint-disable-next-line camelcase
 module.exports = key_go_remoteDevice;

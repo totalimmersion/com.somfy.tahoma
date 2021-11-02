@@ -1,7 +1,7 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const ioWindowCoveringsDriver = require('../ioWindowCoveringsDriver');
 
 /**
@@ -15,7 +15,7 @@ class SlidingGateDriver extends ioWindowCoveringsDriver {
 
       this.pedestrian_changedTrigger = this.homey.flow.getDeviceTriggerCard('pedestrian_changed');
 
-    await super.onInit();    
+    await super.onInit();
   }
 
   triggerPedestrianChange(device, tokens, state)
@@ -23,6 +23,7 @@ class SlidingGateDriver extends ioWindowCoveringsDriver {
       this.triggerFlow(this.pedestrian_changedTrigger, device, tokens, state);
       return this;
   }
+
 }
 
 module.exports = SlidingGateDriver;

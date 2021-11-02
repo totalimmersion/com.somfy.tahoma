@@ -22,6 +22,12 @@
     "tough-cookie": "^4.0.0"
   },
   "devDependencies": {
+    "@types/homey": "npm:homey-apps-sdk-v3-types@^0.2.2",
+    "eslint": "^8.1.0",
+    "eslint-config-athom": "^3.0.1",
     "homey": "^2.9.2"
+  },
+  "engines": {
+    "node": ">=12.16.1"
   }
 }

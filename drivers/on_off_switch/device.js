@@ -1,8 +1,8 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const LightControllerDevice = require('../LightControllerDevice');
-const Homey = require('homey');
 
 /**
  * Device class for the light controller with the rts:LightRTSComponent, io:LightMicroModuleSomfyIOComponent and io:OnOffIOComponent controllable name in TaHoma
@@ -11,11 +11,12 @@ const Homey = require('homey');
 
 class onOffLightControllerDevice extends LightControllerDevice
 {
+
     async onInit()
     {
-        let dd = this.getData();
+        const dd = this.getData();
 
-        let controllableName = "";
+        let controllableName = '';
         if (dd.controllableName)
         {
             controllableName = dd.controllableName.toString().toLowerCase();
@@ -23,13 +24,14 @@ class onOffLightControllerDevice extends LightControllerDevice
 
         if (controllableName === 'io:OnOffIOComponent')
         {
-            if (this.getClass() != 'socket')
+            if (this.getClass() !== 'socket')
             {
                 this.setClass('socket');
             }
         }
         await super.onInit();
     }
+
 }
 
 module.exports = onOffLightControllerDevice;

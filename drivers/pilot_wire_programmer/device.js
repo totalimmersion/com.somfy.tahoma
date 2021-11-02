@@ -1,8 +1,8 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const SensorDevice = require('../SensorDevice');
-const Homey = require('homey');
 
 /**
  * Device class for the opening detector with the ovp:SomfyPilotWireHeatingInterfaceOVPComponent controllable name in TaHoma
@@ -11,6 +11,7 @@ const Homey = require('homey');
 
 class PilotWireProgrammerDevice extends SensorDevice
 {
+
     async onInit()
     {
         this.boostSync = true;
@@ -41,22 +42,22 @@ class PilotWireProgrammerDevice extends SensorDevice
                 }
             }
 
-            var action;
-            if (value == false)
+            let action;
+            if (value === false)
             {
                 action = {
                     name: 'setOnOff',
-                    parameters: ['off']
+                    parameters: ['off'],
                 };
             }
             else
             {
                 action = {
                     name: 'setOnOff',
-                    parameters: ['on']
+                    parameters: ['on'],
                 };
             }
-            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -64,7 +65,7 @@ class PilotWireProgrammerDevice extends SensorDevice
                     this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
-                        stack: result.errorCode
+                        stack: result.errorCode,
                     });
 
                     if (this.boostSync)
@@ -81,12 +82,12 @@ class PilotWireProgrammerDevice extends SensorDevice
             }
             else
             {
-                this.homey.app.logInformation(this.getName() + ": onCapabilityOnOff", "Failed to send command");
+                this.homey.app.logInformation(`${this.getName()}: onCapabilityOnOff`, 'Failed to send command');
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error("Failed to send command"));
+                throw (new Error('Failed to send command'));
             }
         }
         else
@@ -100,44 +101,44 @@ class PilotWireProgrammerDevice extends SensorDevice
         const deviceData = this.getData();
         if (!opts || !opts.fromCloudSync)
         {
-            var action;
-            if (value == 'auto')
+            let action;
+            if (value === 'auto')
             {
                 action = {
                     name: 'setActiveMode',
-                    parameters: ['auto']
+                    parameters: ['auto'],
                 };
             }
-            else if (value == 'comfort')
+            else if (value === 'comfort')
             {
                 action = {
                     name: 'comfort',
-                    parameters: ['comfort']
+                    parameters: ['comfort'],
                 };
             }
-            else if (value == 'eco')
+            else if (value === 'eco')
             {
                 action = {
                     name: 'comfort',
-                    parameters: ['eco']
+                    parameters: ['eco'],
                 };
             }
-            else if (value == 'free')
+            else if (value === 'free')
             {
                 action = {
                     name: 'comfort',
-                    parameters: ['free']
+                    parameters: ['free'],
                 };
             }
-            else if (value == 'secured')
+            else if (value === 'secured')
             {
                 action = {
                     name: 'comfort',
-                    parameters: ['secured']
+                    parameters: ['secured'],
                 };
             }
 
-            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -145,7 +146,7 @@ class PilotWireProgrammerDevice extends SensorDevice
                     this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
-                        stack: result.errorCode
+                        stack: result.errorCode,
                     });
                     throw (new Error(result.error));
                 }
@@ -161,8 +162,8 @@ class PilotWireProgrammerDevice extends SensorDevice
             }
             else
             {
-                this.homey.app.logInformation(this.getName() + ": onCapabilityAlarmArmedState", "Failed to send command");
-                throw (new Error("Failed to send command"));
+                this.homey.app.logInformation(`${this.getName()}: onCapabilityAlarmArmedState`, 'Failed to send command');
+                throw (new Error('Failed to send command'));
             }
         }
         else
@@ -184,20 +185,20 @@ class PilotWireProgrammerDevice extends SensorDevice
                 const onOffState = states.find(state => state.name === 'core:OnOffState');
                 if (onOffState)
                 {
-                    this.homey.app.logStates(this.getName() + ": core:OnOffState = " + onOffState.value);
+                    this.homey.app.logStates(`${this.getName()}: core:OnOffState = ${onOffState.value}`);
                     this.triggerCapabilityListener('onoff', (onOffState.value === 'on'),
                     {
-                        fromCloudSync: true
+                        fromCloudSync: true,
                     });
                 }
 
                 const heatingMode = states.find(state => state.name === 'ovp:HeatingTemperatureInterfaceActiveModeState');
                 if (heatingMode)
                 {
-                    this.homey.app.logStates(this.getName() + ": ovp:HeatingTemperatureInterfaceActiveModeState = " + heatingMode.value);
+                    this.homey.app.logStates(`${this.getName()}: ovp:HeatingTemperatureInterfaceActiveModeState = ${heatingMode.value}`);
                     this.triggerCapabilityListener('heatingMode', heatingMode.value,
                     {
-                        fromCloudSync: true
+                        fromCloudSync: true,
                     });
                 }
             }
@@ -208,7 +209,7 @@ class PilotWireProgrammerDevice extends SensorDevice
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
-                stack: error.stack
+                stack: error.stack,
             });
         }
     }
@@ -218,13 +219,14 @@ class PilotWireProgrammerDevice extends SensorDevice
     {
         if (events === null)
         {
-            return this.sync();
+            this.sync();
+            return;
         }
 
         const myURL = this.getDeviceUrl();
 
         // Process events sequentially so they are in the correct order
-        for (var i = 0; i < events.length; i++)
+        for (let i = 0; i < events.length; i++)
         {
             const element = events[i];
             if (element.name === 'DeviceStateChangedEvent')
@@ -235,17 +237,17 @@ class PilotWireProgrammerDevice extends SensorDevice
                     {
                         this.homey.app.logInformation(this.getName(),
                         {
-                            message: "Processing device state change event",
-                            stack: element
+                            message: 'Processing device state change event',
+                            stack: element,
                         });
                     }
                     // Got what we need to update the device so lets find it
-                    for (var x = 0; x < element.deviceStates.length; x++)
+                    for (let x = 0; x < element.deviceStates.length; x++)
                     {
                         const deviceState = element.deviceStates[x];
                         if (deviceState.name === 'core:OnOffState')
                         {
-                            this.homey.app.logStates(this.getName() + ": core:OnOffState = " + deviceState.value);
+                            this.homey.app.logStates(`${this.getName()}: core:OnOffState = ${deviceState.value}`);
                             const oldState = this.getState().onoff;
                             const newState = (deviceState.value === 'on');
                             if (oldState !== newState)
@@ -255,14 +257,14 @@ class PilotWireProgrammerDevice extends SensorDevice
                         }
                         else if (deviceState.name === 'ovp:HeatingTemperatureInterfaceActiveModeState')
                         {
-                            this.homey.app.logStates(this.getName() + ": ovp:HeatingTemperatureInterfaceActiveModeState = " + deviceState.value);
+                            this.homey.app.logStates(`${this.getName()}: ovp:HeatingTemperatureInterfaceActiveModeState = ${deviceState.value}`);
                             const oldState = this.getState().heatingMode;
                             const newState = deviceState.value;
                             if (oldState !== newState)
                             {
                                 this.triggerCapabilityListener('heatingMode', newState,
                                 {
-                                    fromCloudSync: true
+                                    fromCloudSync: true,
                                 });
                             }
                         }
@@ -271,6 +273,7 @@ class PilotWireProgrammerDevice extends SensorDevice
             }
         }
     }
+
 }
 
 module.exports = PilotWireProgrammerDevice;

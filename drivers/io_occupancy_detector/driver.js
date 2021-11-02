@@ -1,7 +1,7 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
@@ -13,26 +13,26 @@ class MotionDetectorDriver extends Driver {
   async onInit() {
     this.deviceType = ['io:SomfyOccupancyIOSystemSensor', 'rtds:RTDSMotionSensor', 'zwave:ZWaveNotificationMotionSensor'];
 
-    /*** MOTION TRIGGERS ***/
+    /** * MOTION TRIGGERS ** */
     this._triggerMotionChange = this.homey.flow.getDeviceTriggerCard('motion_has_changed');
     this._triggerMotionChange.registerRunListener(() => {
       return Promise.resolve(true);
     });
   }
 
-
   triggerFlows(device, capability, value)
   {
       const tokens = {
-          'isMotion': value
+          isMotion: value,
       };
 
       const state = {
-          'alarm_motion': value
+          alarm_motion: value,
       };
 
       this.triggerFlow(this._triggerMotionChange, device, tokens, state);
   }
+
 }
 
 module.exports = MotionDetectorDriver;

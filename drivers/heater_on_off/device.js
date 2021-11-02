@@ -1,10 +1,13 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
-    { homeyName: 'onoff', somfyNameGet: 'core:OnOffState', somfyNameSet: ['off', 'on'], compare: ['off', 'on'] },
+    {
+ homeyName: 'onoff', somfyNameGet: 'core:OnOffState', somfyNameSet: ['off', 'on'], compare: ['off', 'on'],
+},
 ];
 class HeaterOnOffDevice extends SensorDevice
 {
@@ -19,6 +22,7 @@ class HeaterOnOffDevice extends SensorDevice
     {
         this.syncEventsList(events, CapabilitiesXRef);
     }
+
 }
 
 module.exports = HeaterOnOffDevice;

@@ -1,8 +1,8 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require( 'homey' );
-const Driver = require( '../Driver' );
+const Driver = require('../Driver');
 
 /**
  * Driver class for the opening detector with the myfox:SomfyProtectAlarmController controllable name in TaHoma
@@ -10,16 +10,17 @@ const Driver = require( '../Driver' );
  */
 class OneAlarmDriver extends Driver
 {
+
     async onInit()
     {
-        this.deviceType = [ 'myfox:SomfyProtectAlarmController', 'myfox:HomeKeeperProAlarmController' ];
+        this.deviceType = ['myfox:SomfyProtectAlarmController', 'myfox:HomeKeeperProAlarmController'];
 
-        /*** CONTACT TRIGGERS ***/
-        this._triggerContactChange = this.homey.flow.getDeviceTriggerCard( 'contact_has_changed' );
-        this._triggerContactChange.registerRunListener( () =>
+        /** * CONTACT TRIGGERS ** */
+        this._triggerContactChange = this.homey.flow.getDeviceTriggerCard('contact_has_changed');
+        this._triggerContactChange.registerRunListener(() =>
         {
-            return Promise.resolve( true );
-        } );
+            return Promise.resolve(true);
+        });
     }
 
     /**
@@ -28,11 +29,12 @@ class OneAlarmDriver extends Driver
      * @param {Object} tokens - An object with tokens and their typed values, as defined in the app.json
      * @param {Object} state - An object with properties which are accessible throughout the Flow
      */
-    triggerContactChange( device, tokens, state )
+    triggerContactChange(device, tokens, state)
     {
-        this.triggerFlow( this._triggerContactChange, device, tokens, state );
+        this.triggerFlow(this._triggerContactChange, device, tokens, state);
         return this;
     }
+
 }
 
 module.exports = OneAlarmDriver;

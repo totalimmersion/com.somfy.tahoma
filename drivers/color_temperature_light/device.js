@@ -1,8 +1,8 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const LightControllerDevice = require('../LightControllerDevice');
-const Homey = require('homey');
 
 /**
  * Device class for the light controller with the io_dimmable_light controllable name in TaHoma
@@ -11,6 +11,7 @@ const Homey = require('homey');
 
 class ColorTemperatureLightControllerDevice extends LightControllerDevice
 {
+
     async onInit()
     {
         this.hueDelayTimerId = null;
@@ -27,7 +28,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
             // Delay hue as the UI send both hue and saturation. Flows will only send one
             if (!opts.timer)
             {
-                this.log("Hue delayed: ", this.hueDelayTimerId);
+                this.log('Hue delayed: ', this.hueDelayTimerId);
                 if (this.hueDelayTimerId)
                 {
                     clearTimeout(this.hueDelayTimerId);
@@ -61,12 +62,11 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
             }
 
             const saturation = this.getState().light_saturation;
-            var action;
-            action = {
+            const action = {
                 name: 'setHueAndSaturation',
-                parameters: [Math.round(value * 360), saturation * 100]
+                parameters: [Math.round(value * 360), saturation * 100],
             };
-            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -74,7 +74,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
                     this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
-                        stack: result.errorCode
+                        stack: result.errorCode,
                     });
                     if (this.boostSync)
                     {
@@ -91,12 +91,12 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
             }
             else
             {
-                this.homey.app.logInformation(this.getName() + ": onCapabilityLight_hue", "Failed to send command");
+                this.homey.app.logInformation(`${this.getName()}: onCapabilityLight_hue`, 'Failed to send command');
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error("Failed to send command"));
+                throw (new Error('Failed to send command'));
             }
         }
         else
@@ -113,10 +113,10 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
             {
                 clearTimeout(this.hueDelayTimerId);
                 this.hueDelayTimerId = null;
-                this.log("Hue cleared");
+                this.log('Hue cleared');
             }
 
-            this.log("saturation run");
+            this.log('saturation run');
 
             if (this.commandExecuting === 'light_saturation')
             {
@@ -140,13 +140,12 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
                 }
             }
 
-            const hue = this.getState().hue;
-            var action;
-            action = {
+            const { hue } = this.getState();
+            const action = {
                 name: 'setHueAndSaturation',
-                parameters: [hue * 360, value * 100]
+                parameters: [hue * 360, value * 100],
             };
-            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -154,7 +153,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
                     this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
-                        stack: result.errorCode
+                        stack: result.errorCode,
                     });
                     if (this.boostSync)
                     {
@@ -171,12 +170,12 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
             }
             else
             {
-                this.homey.app.logInformation(this.getName() + ": onCapabilityDim", "Failed to send command");
+                this.homey.app.logInformation(`${this.getName()}: onCapabilityDim`, 'Failed to send command');
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-            throw (new Error("Failed to send command"));
+                throw (new Error('Failed to send command'));
             }
         }
         else
@@ -184,8 +183,6 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
             this.setCapabilityValue('light_saturation', value).catch(this.error);
         }
     }
-
-    async onCapabilityLight_mode(value, opts) {}
 
     /**
      * Gets the data from the TaHoma cloud
@@ -201,10 +198,10 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
                 const hueState = states.find(state => state.name === 'core:ColorHueState');
                 if (hueState)
                 {
-                    this.homey.app.logStates(this.getName() + ": core:ColorHueState = " + hueState.value);
+                    this.homey.app.logStates(`${this.getName()}: core:ColorHueState = ${hueState.value}`);
                     this.triggerCapabilityListener('light_hue', (hueState.value / 360),
                     {
-                        fromCloudSync: true
+                        fromCloudSync: true,
                     });
                 }
 
@@ -212,10 +209,10 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
                 const saturationState = states.find(state => state.name === 'core:ColorSaturationState');
                 if (saturationState)
                 {
-                    this.homey.app.logStates(this.getName() + ": core:ColorSaturationState = " + saturationState.value);
+                    this.homey.app.logStates(`${this.getName()}: core:ColorSaturationState = ${saturationState.value}`);
                     this.triggerCapabilityListener('light_hue', (saturationState.value / 100),
                     {
-                        fromCloudSync: true
+                        fromCloudSync: true,
                     });
                 }
             }
@@ -226,7 +223,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
-                stack: error.stack
+                stack: error.stack,
             });
         }
     }
@@ -240,14 +237,14 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
 
         if (deviceState.name === 'core:ColorHueState')
         {
-            this.homey.app.logStates(this.getName() + ": core:ColorHueState = " + deviceState.value);
+            this.homey.app.logStates(`${this.getName()}: core:ColorHueState = ${deviceState.value}`);
             const oldState = this.getState().light_hue;
-            const newSate = (parseInt(deviceState.value) / 360);
+            const newSate = (parseInt(deviceState.value, 10) / 360);
             if (oldState !== newSate)
             {
                 this.triggerCapabilityListener('light_hue', newSate,
                 {
-                    fromCloudSync: true
+                    fromCloudSync: true,
                 });
             }
             return true;
@@ -255,14 +252,14 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
 
         if (deviceState.name === 'core:ColorSaturationState')
         {
-            this.homey.app.logStates(this.getName() + ": core:ColorSaturationState = " + deviceState.value);
+            this.homey.app.logStates(`${this.getName()}: core:ColorSaturationState = ${deviceState.value}`);
             const oldState = this.getState().light_saturation;
-            const newSate = (parseInt(deviceState.value) / 100);
+            const newSate = (parseInt(deviceState.value, 10) / 100);
             if (oldState !== newSate)
             {
                 this.triggerCapabilityListener('light_saturation', newSate,
                 {
-                    fromCloudSync: true
+                    fromCloudSync: true,
                 });
             }
             return true;
@@ -270,6 +267,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
 
         return false;
     }
+
 }
 
 module.exports = ColorTemperatureLightControllerDevice;

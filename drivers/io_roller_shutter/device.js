@@ -1,4 +1,5 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const WindowCoveringsDevice = require('../WindowCoveringsDevice');
@@ -9,15 +10,16 @@ const WindowCoveringsDevice = require('../WindowCoveringsDevice');
  */
 class RollerShutterDevice extends WindowCoveringsDevice
 {
+
     async onInit()
     {
-        if (this.hasCapability("lock_state"))
+        if (this.hasCapability('lock_state'))
         {
-            this.removeCapability("lock_state").catch(this.error);
+            this.removeCapability('lock_state').catch(this.error);
         }
 
-        let dd = this.getData();
-        let controllableName = "";
+        const dd = this.getData();
+        let controllableName = '';
         if (dd.controllableName)
         {
             controllableName = dd.controllableName.toString().toLowerCase();
@@ -25,25 +27,21 @@ class RollerShutterDevice extends WindowCoveringsDevice
 
         if ((controllableName === 'io:rollershuttergenericiocomponent') || (controllableName === 'io:rollershutterunoiocomponent') || (controllableName === 'io:screenreceiverunoiocomponent'))
         {
-            if (!this.hasCapability("my_position"))
+            if (!this.hasCapability('my_position'))
             {
-                this.addCapability("my_position").catch(this.error);
+                this.addCapability('my_position').catch(this.error);
             }
         }
-        else
+        else if (this.hasCapability('my_position'))
         {
-            // I don't know if the other type  support MY position
-            if (this.hasCapability("my_position"))
-            {
-                this.removeCapability("my_position").catch(this.error);
-            }
+            this.removeCapability('my_position').catch(this.error);
         }
 
         await super.onInit();
 
-        if (!this.hasCapability("quick_open"))
+        if (!this.hasCapability('quick_open'))
         {
-            this.addCapability("quick_open").catch(this.error);
+            this.addCapability('quick_open').catch(this.error);
         }
 
         if (controllableName === 'io:screenreceiverunoiocomponent')
@@ -55,6 +53,7 @@ class RollerShutterDevice extends WindowCoveringsDevice
             this.setPositionActionName = 'setPosition';
         }
     }
+
 }
 
 module.exports = RollerShutterDevice;

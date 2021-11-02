@@ -1,7 +1,7 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const ioWindowCoveringsDriver = require('../ioWindowCoveringsDriver');
 
 /**
@@ -10,6 +10,7 @@ const ioWindowCoveringsDriver = require('../ioWindowCoveringsDriver');
  */
 class ExteriorVenetianBlindDriver extends ioWindowCoveringsDriver
 {
+
     async onInit()
     {
         this.deviceType = ['io:ExteriorVenetianBlindIOComponent'];
@@ -30,6 +31,7 @@ class ExteriorVenetianBlindDriver extends ioWindowCoveringsDriver
         this.triggerFlow(this.tilt_changedTrigger, device, tokens, state);
         return this;
     }
+
 }
 
 module.exports = ExteriorVenetianBlindDriver;

@@ -1,11 +1,12 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const Device = require('../Device');
-const Homey = require('homey');
 
 class rtsGateOpenerDevice extends Device
 {
+
     async onInit()
     {
         await super.onInit();
@@ -24,7 +25,7 @@ class rtsGateOpenerDevice extends Device
             return;
         }
 
-        return this.sendOpenCloseStop('open');
+        this.sendOpenCloseStop('open');
     }
 
     async onCapabilityClose(value)
@@ -35,7 +36,7 @@ class rtsGateOpenerDevice extends Device
             return;
         }
 
-        return this.sendOpenCloseStop('close');
+        this.sendOpenCloseStop('close');
     }
 
     async onCapabilityStop(value)
@@ -46,7 +47,7 @@ class rtsGateOpenerDevice extends Device
             return;
         }
 
-        return this.sendOpenCloseStop('stop');
+        this.sendOpenCloseStop('stop');
     }
 
     async sendOpenCloseStop(value)
@@ -62,27 +63,26 @@ class rtsGateOpenerDevice extends Device
             await this.homey.app.tahoma.cancelExecution(this.executionId);
         }
 
-        var action;
-        let actionParam = this.getSetting('open_command');
+        let action;
+        const actionParam = this.getSetting('open_command');
         if (actionParam && value === 'open')
         {
             action = {
                 name: actionParam,
-                parameters: []
+                parameters: [],
             };
         }
         else
         {
             action = {
                 name: value,
-                parameters:[]
+                parameters: [],
             };
-
         }
 
         try
         {
-            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -90,7 +90,7 @@ class rtsGateOpenerDevice extends Device
                     this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
-                        stack: result.errorCode
+                        stack: result.errorCode,
                     });
 
                     if (this.boostSync)
@@ -108,17 +108,17 @@ class rtsGateOpenerDevice extends Device
             }
             else
             {
-                this.homey.app.logInformation(this.getName() + ": sendOpenClose", "Failed to send command");
+                this.homey.app.logInformation(`${this.getName()}: sendOpenClose`, 'Failed to send command');
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error("Failed to send command"));
+                throw (new Error('Failed to send command'));
             }
         }
         catch (err)
         {
-            this.homey.app.logInformation(this.getName() + ": sendOpenClose", "Failed to send command");
+            this.homey.app.logInformation(`${this.getName()}: sendOpenClose`, 'Failed to send command');
             if (this.boostSync)
             {
                 await this.homey.app.unBoostSync();
@@ -152,7 +152,7 @@ class rtsGateOpenerDevice extends Device
                         if (this.boostSync)
                         {
                             await this.homey.app.boostSync();
-                        }            
+                        }
                     }
                 }
             }

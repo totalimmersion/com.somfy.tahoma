@@ -1,7 +1,6 @@
-"use strict";
+'use strict';
 
-/*jslint node: true */
-const Homey = require('homey');
+/* jslint node: true */
 const Driver = require('../Driver');
 
 /**
@@ -15,7 +14,7 @@ class WindowHandleDriver extends Driver
     {
         this.deviceType = ['enocean:EnOceanWindowHandle'];
 
-        /*** CONTACT TRIGGERS ***/
+        /** * CONTACT TRIGGERS ** */
         this._triggerContactChange = this.homey.flow.getDeviceTriggerCard('contact_has_changed');
         this._triggerContactChange.registerRunListener(() =>
         {
@@ -34,6 +33,7 @@ class WindowHandleDriver extends Driver
         this.triggerFlow(this._triggerContactChange, device, tokens, state);
         return this;
     }
+
 }
 
 module.exports = WindowHandleDriver;

@@ -1,5 +1,6 @@
 /*jslint node: true */
 'use strict';
+
 if (process.env.DEBUG === '1')
 {
     require('inspector').open(9223, '0.0.0.0', true);

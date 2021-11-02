@@ -1,6 +1,6 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
-const Homey = require('homey');
 
 const WindowCoveringsDevice = require('../WindowCoveringsDevice');
 
@@ -9,9 +9,10 @@ const WindowCoveringsDevice = require('../WindowCoveringsDevice');
  * @extends {WindowCoveringsDevice}
  */
 class InteriorVenetianBlindDevice extends WindowCoveringsDevice {
+
     async onInit() {
-        if (this.hasCapability("lock_state")) {
-            this.removeCapability("lock_state").catch(this.error);
+        if (this.hasCapability('lock_state')) {
+            this.removeCapability('lock_state').catch(this.error);
         }
 
         await super.onInit();
@@ -24,6 +25,7 @@ class InteriorVenetianBlindDevice extends WindowCoveringsDevice {
     async sync() {
         // No states are available so no need to call anything
     }
+
 }
 
 module.exports = InteriorVenetianBlindDevice;

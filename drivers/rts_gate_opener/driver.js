@@ -1,7 +1,7 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
@@ -10,11 +10,13 @@ const Driver = require('../Driver');
  */
 class rtsGateOpenerDriver extends Driver
 {
+
     async onInit()
     {
-        this.deviceType = ["rts:GateOpenerRTSComponent"];
+        this.deviceType = ['rts:GateOpenerRTSComponent'];
         await super.onInit();
     }
+
 }
 
 module.exports = rtsGateOpenerDriver;

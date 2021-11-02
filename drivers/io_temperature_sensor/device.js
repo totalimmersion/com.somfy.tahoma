@@ -1,10 +1,11 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
-    { homeyName: 'measure_temperature', somfyNameGet: 'core:TemperatureState', somfyNameSet: [] }
+    { homeyName: 'measure_temperature', somfyNameGet: 'core:TemperatureState', somfyNameSet: [] },
 ];
 class TemperatureSensorDevice extends SensorDevice
 {
@@ -19,6 +20,7 @@ class TemperatureSensorDevice extends SensorDevice
     {
         this.syncEventsList(events, CapabilitiesXRef);
     }
+
 }
 
 module.exports = TemperatureSensorDevice;

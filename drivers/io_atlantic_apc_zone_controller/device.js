@@ -1,8 +1,8 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const SensorDevice = require('../SensorDevice');
-const Homey = require('homey');
 
 /**
  * Device class for the opening detector with the io:AtlanticDomesticHotWaterProductionV2_AEX_IOComponent controllable name in TaHoma
@@ -28,12 +28,15 @@ const CapabilitiesXRef = [
     { somfyNameGet: 'io:ThermalSchedulingModeState', somfyNameSet: [], homeyName: 'thermal_scheduling_mode_state' },
     { somfyNameGet: 'core:AbsenceCoolingTargetTemperatureState', somfyNameSet: ['setAbsenceCoolingTargetTemperature'], homeyName: 'target_temperature.absence_cooling' },
     { somfyNameGet: 'core:AbsenceHeatingTargetTemperatureState', somfyNameSet: ['setAbsenceHeatingTargetTemperature'], homeyName: 'target_temperature.absence_heating' },
-    { somfyNameGet: 'core:HeatingCoolingAutoSwitchState', somfyNameSet: ['setHeatingCoolingAutoSwitch'], homeyName: 'heating_cooling_auto_switch', compare: ['off', 'on']},
+    {
+ somfyNameGet: 'core:HeatingCoolingAutoSwitchState', somfyNameSet: ['setHeatingCoolingAutoSwitch'], homeyName: 'heating_cooling_auto_switch', compare: ['off', 'on'],
+},
     { somfyNameGet: 'io:PassAPCOperatingModeState', somfyNameSet: ['setPassAPCOperatingMode'], homeyName: 'pass_apc_operating_mode' },
 ];
 
 class AtlanticZoneControllerDevice extends SensorDevice
 {
+
     async onInit()
     {
         this.boostSync = true;
@@ -43,7 +46,6 @@ class AtlanticZoneControllerDevice extends SensorDevice
             this.registerCapabilityListener(element.homeyName, this.onCapability.bind(this, element));
         });
 
-
         await super.onInit();
     }
 
@@ -52,6 +54,7 @@ class AtlanticZoneControllerDevice extends SensorDevice
     {
         this.syncEventsList(events, CapabilitiesXRef);
     }
+
 }
 
 module.exports = AtlanticZoneControllerDevice;

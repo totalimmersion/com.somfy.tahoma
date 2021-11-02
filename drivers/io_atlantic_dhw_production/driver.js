@@ -1,7 +1,7 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
@@ -10,6 +10,7 @@ const Driver = require('../Driver');
  */
 class WaterBoilerProductionDriver extends Driver
 {
+
     async onInit()
     {
         this.deviceType = ['io:AtlanticDomesticHotWaterProductionV2_AEX_IOComponent'];

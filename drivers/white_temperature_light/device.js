@@ -1,8 +1,8 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const LightControllerDevice = require('../LightControllerDevice');
-const Homey = require('homey');
 
 /**
  * Device class for the light controller with the hue:ColorTemperatureLightBulbHUEComponent or hue:ColorTemperatureLightSpotHUEComponent controllable name in TaHoma
@@ -11,6 +11,7 @@ const Homey = require('homey');
 
 class WhiteTemperatureLightControllerDevice extends LightControllerDevice
 {
+
     async onInit()
     {
         await super.onInit();

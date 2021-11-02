@@ -1,4 +1,5 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const WindowCoveringsDevice = require('../WindowCoveringsDevice');
@@ -15,21 +16,21 @@ class HorizontalAwningDevice extends WindowCoveringsDevice
         this.checkLockStateTimer = null;
         this.checkLockSate = this.checkLockSate.bind(this);
 
-        if (!this.hasCapability("lock_state"))
+        if (!this.hasCapability('lock_state'))
         {
-            this.addCapability("lock_state").catch(this.error);
+            this.addCapability('lock_state').catch(this.error);
         }
 
         await super.onInit();
 
-        if (!this.hasCapability("quick_open"))
+        if (!this.hasCapability('quick_open'))
         {
-            this.addCapability("quick_open").catch(this.error);
+            this.addCapability('quick_open').catch(this.error);
         }
 
-        let dd = this.getData();
+        const dd = this.getData();
 
-        let controllableName = "";
+        let controllableName = '';
         if (dd.controllableName)
         {
             controllableName = dd.controllableName.toString().toLowerCase();
@@ -64,21 +65,21 @@ class HorizontalAwningDevice extends WindowCoveringsDevice
         if (states)
         {
             // Look for each of the required capabilities
-            const lockState = states.find(state => state.name === "io:PriorityLockOriginatorState");
+            const lockState = states.find(state => state.name === 'io:PriorityLockOriginatorState');
             if (lockState)
             {
-                this.setCapabilityValue("lock_state", lockState.value).catch(this.error);
+                this.setCapabilityValue('lock_state', lockState.value).catch(this.error);
                 clearTimeout(this.checkLockStateTimer);
                 this.checkLockStateTimer = this.homey.setTimeout(this.checkLockSate, (60 * 1000));
             }
             else
             {
-                const lockStateTimer = states.find(state => state.name === "core:PriorityLockTimerState");
+                const lockStateTimer = states.find(state => state.name === 'core:PriorityLockTimerState');
                 if (lockStateTimer)
                 {
                     if (lockStateTimer.value === 0)
                     {
-                        this.setCapabilityValue("lock_state", "").catch(this.error);
+                        this.setCapabilityValue('lock_state', '').catch(this.error);
                     }
                     else
                     {
@@ -89,5 +90,6 @@ class HorizontalAwningDevice extends WindowCoveringsDevice
             }
         }
     }
+
 }
 module.exports = HorizontalAwningDevice;

@@ -1,15 +1,16 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
  * Driver class for the opening detector with the io:DomesticHotWaterTankComponent controllable name in TaHoma
  * @extends {Driver}
  */
-class  WaterTankDriver extends Driver
+class WaterTankDriver extends Driver
 {
+
     async onInit()
     {
         this.deviceType = ['io:DomesticHotWaterTankComponent'];
@@ -17,4 +18,4 @@ class  WaterTankDriver extends Driver
 
 }
 
-module.exports =  WaterTankDriver;
+module.exports = WaterTankDriver;

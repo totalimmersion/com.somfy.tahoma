@@ -1,4 +1,5 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const ioWindowCoveringsDriver = require('../ioWindowCoveringsDriver');
@@ -9,6 +10,7 @@ const ioWindowCoveringsDriver = require('../ioWindowCoveringsDriver');
  */
 class HorizontalAwningDriver extends ioWindowCoveringsDriver
 {
+
     async onInit()
     {
         this.deviceType = ['io:VerticalInteriorBlindGenericIOComponent'];

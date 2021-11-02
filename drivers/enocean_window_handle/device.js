@@ -1,8 +1,8 @@
-/*jslint node: true */
-"use strict";
+/* jslint node: true */
+
+'use strict';
 
 const SensorDevice = require('../SensorDevice');
-const Homey = require('homey');
 
 /**
  * Device class for the opening detector with the enocean:EnOceanWindowHandle controllable name in TaHoma
@@ -10,6 +10,7 @@ const Homey = require('homey');
  */
 class WindowHandleDevice extends SensorDevice
 {
+
     async onInit()
     {
         this.registerCapabilityListener('alarm_contact', this.onCapabilityAlarmContact.bind(this));
@@ -26,14 +27,14 @@ class WindowHandleDevice extends SensorDevice
 
             const device = this;
             const tokens = {
-                'isOpen': value
+                isOpen: value,
             };
 
             const state = {
-                'alarm_contact': value
+                alarm_contact: value,
             };
 
-            //trigger flows
+            // trigger flows
             return this.driver.triggerContactChange(device, tokens, state);
         }
 
@@ -54,8 +55,8 @@ class WindowHandleDevice extends SensorDevice
                 const contactState = states.find(state => state.name === 'core:ThreeWayHandleDirectionState');
                 if (contactState)
                 {
-                    this.homey.app.logStates(this.getName() + ": core:ThreeWayHandleDirectionState = " + contactState.value);
-                    this.triggerCapabilityListener('alarm_contact', contactState.value != 'closed');
+                    this.homey.app.logStates(`${this.getName()}: core:ThreeWayHandleDirectionState = ${contactState.value}`);
+                    this.triggerCapabilityListener('alarm_contact', contactState.value !== 'closed');
                 }
             }
         }
@@ -65,9 +66,8 @@ class WindowHandleDevice extends SensorDevice
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
-                stack: error.stack
+                stack: error.stack,
             });
-
         }
     }
 
@@ -76,13 +76,14 @@ class WindowHandleDevice extends SensorDevice
     {
         if (events === null)
         {
-            return this.sync();
+            this.sync();
+            return;
         }
 
         const myURL = this.getDeviceUrl();
 
         // Process events sequentially so they are in the correct order
-        for (var i = 0; i < events.length; i++)
+        for (let i = 0; i < events.length; i++)
         {
             const element = events[i];
             if (element.name === 'DeviceStateChangedEvent')
@@ -93,19 +94,19 @@ class WindowHandleDevice extends SensorDevice
                     {
                         this.homey.app.logInformation(this.getName(),
                         {
-                            message: "Processing device state change event",
-                            stack: element
+                            message: 'Processing device state change event',
+                            stack: element,
                         });
                     }
                     // Got what we need to update the device so lets find it
-                    for (var x = 0; x < element.deviceStates.length; x++)
+                    for (let x = 0; x < element.deviceStates.length; x++)
                     {
                         const deviceState = element.deviceStates[x];
                         if (deviceState.name === 'core:ThreeWayHandleDirectionState')
                         {
-                            this.homey.app.logStates(this.getName() + ": core:ThreeWayHandleDirectionState = " + deviceState.value);
+                            this.homey.app.logStates(`${this.getName()}: core:ThreeWayHandleDirectionState = ${deviceState.value}`);
                             const oldState = this.getState().alarm_contact;
-                            const newState = (deviceState.value != 'closed');
+                            const newState = (deviceState.value !== 'closed');
                             if (oldState !== newState)
                             {
                                 this.triggerCapabilityListener('alarm_contact', newState);
@@ -116,6 +117,7 @@ class WindowHandleDevice extends SensorDevice
             }
         }
     }
+
 }
 
 module.exports = WindowHandleDevice;

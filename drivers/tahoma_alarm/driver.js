@@ -1,7 +1,7 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
@@ -15,13 +15,14 @@ class TahomaAlarmDriver extends Driver
     {
         this.deviceType = ['internal:TSKAlarmComponent'];
 
-        /*** ALARM STATE CHANGE TRIGGER ***/
+        /** * ALARM STATE CHANGE TRIGGER ** */
         this._triggerTahoma_alarm_stateChange = this.homey.flow.getDeviceTriggerCard('tahoma_alarm_state_changed');
         this._triggerTahoma_alarm_stateChange.registerRunListener(() =>
         {
             return Promise.resolve(true);
         });
     }
+
 }
 
 module.exports = TahomaAlarmDriver;

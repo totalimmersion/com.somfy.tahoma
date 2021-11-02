@@ -1,4 +1,5 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const SensorDevice = require('../SensorDevice');
@@ -10,11 +11,12 @@ const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
     { somfyNameGet: 'core:TargetTemperatureState', somfyNameSet: ['setTargetTemperature'], homeyName: 'target_temperature' },
-    { somfyNameGet: 'core:TemperatureState', somfyNameSet: [], homeyName: 'measure_temperature' }
+    { somfyNameGet: 'core:TemperatureState', somfyNameSet: [], homeyName: 'measure_temperature' },
 ];
 
 class WaterBoilerProductionDevice extends SensorDevice
 {
+
     async onInit()
     {
         this.boostSync = true;
@@ -27,6 +29,7 @@ class WaterBoilerProductionDevice extends SensorDevice
     {
         this.syncEventsList(events, CapabilitiesXRef);
     }
+
 }
 
 module.exports = WaterBoilerProductionDevice;

@@ -1,7 +1,7 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
@@ -15,6 +15,7 @@ class HubDriver extends Driver
     {
         this.deviceType = ['internal:PodV2Component', 'internal:PodMiniComponent'];
     }
+
 }
 
 module.exports = HubDriver;

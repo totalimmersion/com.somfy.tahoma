@@ -1,7 +1,7 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const Device = require('./Device');
 
 /**
@@ -10,9 +10,10 @@ const Device = require('./Device');
  */
 class WindowCoveringsDevice extends Device
 {
+
     async onInit()
     {
-        if (this.hasCapability("lock_state"))
+        if (this.hasCapability('lock_state'))
         {
             this.driver.lock_state_changedTrigger = this.homey.flow.getDeviceTriggerCard('lock_state_changed');
         }
@@ -41,14 +42,14 @@ class WindowCoveringsDevice extends Device
             this.windowcoveringsActions = {
                 up: 'close',
                 idle: 'stop',
-                down: 'open'
+                down: 'open',
             };
 
             // Somfy state to Homey capability map
             this.windowcoveringsStatesMap = {
                 open: 'down',
                 closed: 'up',
-                unknown: 'idle'
+                unknown: 'idle',
             };
         }
         else
@@ -56,13 +57,13 @@ class WindowCoveringsDevice extends Device
             this.windowcoveringsActions = {
                 up: 'open',
                 idle: 'stop',
-                down: 'close'
+                down: 'close',
             };
 
             this.windowcoveringsStatesMap = {
                 open: 'up',
                 closed: 'down',
-                unknown: 'idle'
+                unknown: 'idle',
             };
         }
 
@@ -93,7 +94,7 @@ class WindowCoveringsDevice extends Device
 
     async onSettings(oldSettingsObj, newSettingsObj, changedKeysArr)
     {
-        if (changedKeysArr.indexOf("invertUpDown") >= 0)
+        if (changedKeysArr.indexOf('invertUpDown') >= 0)
         {
             this.invertUpDown = newSettingsObj.invertUpDown;
 
@@ -102,13 +103,13 @@ class WindowCoveringsDevice extends Device
                 this.windowcoveringsActions = {
                     up: 'close',
                     idle: 'stop',
-                    down: 'open'
+                    down: 'open',
                 };
 
                 this.windowcoveringsStatesMap = {
                     open: 'down',
                     closed: 'up',
-                    unknown: 'idle'
+                    unknown: 'idle',
                 };
             }
             else
@@ -116,23 +117,23 @@ class WindowCoveringsDevice extends Device
                 this.windowcoveringsActions = {
                     up: 'open',
                     idle: 'stop',
-                    down: 'close'
+                    down: 'close',
                 };
 
                 this.windowcoveringsStatesMap = {
                     open: 'up',
                     closed: 'down',
-                    unknown: 'idle'
+                    unknown: 'idle',
                 };
             }
         }
 
-        if (changedKeysArr.indexOf("invertTile") >= 0)
+        if (changedKeysArr.indexOf('invertTile') >= 0)
         {
             this.invertTile = newSettingsObj.invertTile;
         }
 
-        if (changedKeysArr.indexOf("invertPosition") >= 0)
+        if (changedKeysArr.indexOf('invertPosition') >= 0)
         {
             this.invertPosition = newSettingsObj.invertPosition;
         }
@@ -145,7 +146,7 @@ class WindowCoveringsDevice extends Device
             if (this.windowcoveringsActions[value] === null)
             {
                 // Action is not supported
-                this.homey.app.logInformation(this.getName() + ": onCapabilityWindowcoveringsState", 'option not supported');
+                this.homey.app.logInformation(`${this.getName()}: onCapabilityWindowcoveringsState`, 'option not supported');
                 return;
             }
 
@@ -159,7 +160,7 @@ class WindowCoveringsDevice extends Device
             if (value === 'idle' && (this.executionId !== null))
             {
                 await this.homey.app.tahoma.cancelExecution(this.executionId);
-                this.executionCmd = "";
+                this.executionCmd = '';
                 this.executionId = null;
             }
             else
@@ -167,15 +168,15 @@ class WindowCoveringsDevice extends Device
                 if (this.executionId !== null)
                 {
                     await this.homey.app.tahoma.cancelExecution(this.executionId);
-                    this.executionCmd = "";
+                    this.executionCmd = '';
                     this.executionId = null;
                 }
 
                 const action = {
                     name: this.windowcoveringsActions[value],
-                    parameters: []
+                    parameters: [],
                 };
-                let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+                const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
                 if (result !== undefined)
                 {
                     if (result.errorCode)
@@ -184,7 +185,7 @@ class WindowCoveringsDevice extends Device
                         this.homey.app.logInformation(this.getName(),
                         {
                             message: result.error,
-                            stack: result.errorCode
+                            stack: result.errorCode,
                         });
                         if (this.boostSync)
                         {
@@ -200,12 +201,12 @@ class WindowCoveringsDevice extends Device
                 }
                 else
                 {
-                    this.homey.app.logInformation(this.getName() + ": onCapabilityWindowcoveringsState", "Failed to send command");
+                    this.homey.app.logInformation(`${this.getName()}: onCapabilityWindowcoveringsState`, 'Failed to send command');
                     if (this.boostSync)
                     {
                         await this.homey.app.unBoostSync();
                     }
-                    throw (new Error("Failed to send command"));
+                    throw (new Error('Failed to send command'));
                 }
             }
 
@@ -221,15 +222,15 @@ class WindowCoveringsDevice extends Device
         {
             // New value from Tahoma
             this.setCapabilityValue('windowcoverings_state', value).catch(this.error);
-            if (this.hasCapability("quick_open"))
+            if (this.hasCapability('quick_open'))
             {
                 if (this.invertTile)
                 {
-                    this.setCapabilityValue("quick_open", value !== "up").catch(this.error);
+                    this.setCapabilityValue('quick_open', value !== 'up').catch(this.error);
                 }
                 else
                 {
-                    this.setCapabilityValue("quick_open", value !== "down").catch(this.error);
+                    this.setCapabilityValue('quick_open', value !== 'down').catch(this.error);
                 }
             }
         }
@@ -249,7 +250,7 @@ class WindowCoveringsDevice extends Device
             if (this.executionId !== null)
             {
                 await this.homey.app.tahoma.cancelExecution(this.executionId);
-                this.executionCmd = "";
+                this.executionCmd = '';
                 this.executionId = null;
             }
 
@@ -259,16 +260,16 @@ class WindowCoveringsDevice extends Device
             }
             const action = {
                 name: this.setPositionActionName, // Anders pull request
-                parameters: [Math.round((1 - value) * 100)]
+                parameters: [Math.round((1 - value) * 100)],
             };
 
             if (this.setPositionActionName === 'setPositionAndLinearSpeed')
             {
                 // Add low speed option if quiet mode is selected
-                action.parameters.push("lowspeed");
+                action.parameters.push('lowspeed');
             }
 
-            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -277,7 +278,7 @@ class WindowCoveringsDevice extends Device
                     this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
-                        stack: result.errorCode
+                        stack: result.errorCode,
                     });
                     if (this.boostSync)
                     {
@@ -293,12 +294,12 @@ class WindowCoveringsDevice extends Device
             }
             else
             {
-                this.homey.app.logInformation(this.getName() + ": onCapabilityWindowcoveringsSet", "Failed to send command");
+                this.homey.app.logInformation(`${this.getName()}: onCapabilityWindowcoveringsSet`, 'Failed to send command');
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error("Failed to send command"));
+                throw (new Error('Failed to send command'));
             }
         }
         else
@@ -321,16 +322,16 @@ class WindowCoveringsDevice extends Device
             if (this.executionId !== null)
             {
                 await this.homey.app.tahoma.cancelExecution(this.executionId);
-                this.executionCmd = "";
+                this.executionCmd = '';
                 this.executionId = null;
             }
-            
+
             const action = {
-                name: "setOrientation",
-                parameters: [Math.round((1 - value) * 100)]
+                name: 'setOrientation',
+                parameters: [Math.round((1 - value) * 100)],
             };
 
-            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -339,7 +340,7 @@ class WindowCoveringsDevice extends Device
                     this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
-                        stack: result.errorCode
+                        stack: result.errorCode,
                     });
                     if (this.boostSync)
                     {
@@ -355,12 +356,12 @@ class WindowCoveringsDevice extends Device
             }
             else
             {
-                this.homey.app.logInformation(this.getName() + ": onCapabilityWindowcoveringsTiltSet", "Failed to send command");
+                this.homey.app.logInformation(`${this.getName()}: onCapabilityWindowcoveringsTiltSet`, 'Failed to send command');
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error("Failed to send command"));
+                throw (new Error('Failed to send command'));
             }
         }
         else
@@ -368,12 +369,11 @@ class WindowCoveringsDevice extends Device
             // New value from Tahoma
             this.setCapabilityValue('windowcoverings_tilt_set', value).catch(this.error);
 
-            //trigger flows
+            // trigger flows
             const tokens = {
-                'windowcoverings_tilt': value
+                windowcoverings_tilt: value,
             };
-            return this.driver.triggerTiltChange(this, tokens);
-
+            this.driver.triggerTiltChange(this, tokens);
         }
     }
 
@@ -390,15 +390,15 @@ class WindowCoveringsDevice extends Device
             if (this.executionId !== null)
             {
                 await this.homey.app.tahoma.cancelExecution(this.executionId);
-                this.executionCmd = "";
+                this.executionCmd = '';
                 this.executionId = null;
             }
 
             const action = {
                 name: 'tiltPositive',
-                parameters: [3, 1]
+                parameters: [3, 1],
             };
-            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -407,7 +407,7 @@ class WindowCoveringsDevice extends Device
                     this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
-                        stack: result.errorCode
+                        stack: result.errorCode,
                     });
                     if (this.boostSync)
                     {
@@ -423,12 +423,12 @@ class WindowCoveringsDevice extends Device
             }
             else
             {
-                this.homey.app.logInformation(this.getName() + ": onCapabilityWindowcoveringsTiltUp", "Failed to send command");
+                this.homey.app.logInformation(`${this.getName()}: onCapabilityWindowcoveringsTiltUp`, 'Failed to send command');
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error("Failed to send command"));
+                throw (new Error('Failed to send command'));
             }
         }
     }
@@ -446,15 +446,15 @@ class WindowCoveringsDevice extends Device
             if (this.executionId !== null)
             {
                 await this.homey.app.tahoma.cancelExecution(this.executionId);
-                this.executionCmd = "";
+                this.executionCmd = '';
                 this.executionId = null;
             }
 
             const action = {
                 name: 'tiltNegative',
-                parameters: [3, 1]
+                parameters: [3, 1],
             };
-            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -462,7 +462,7 @@ class WindowCoveringsDevice extends Device
                     this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
-                        stack: result.errorCode
+                        stack: result.errorCode,
                     });
                     if (this.boostSync)
                     {
@@ -478,12 +478,12 @@ class WindowCoveringsDevice extends Device
             }
             else
             {
-                this.homey.app.logInformation(this.getName() + ": onCapabilityWindowcoveringsTiltDown", "Failed to send command");
+                this.homey.app.logInformation(`${this.getName()}: onCapabilityWindowcoveringsTiltDown`, 'Failed to send command');
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error("Failed to send command"));
+                throw (new Error('Failed to send command'));
             }
         }
     }
@@ -505,9 +505,9 @@ class WindowCoveringsDevice extends Device
 
             const action = {
                 name: this.myCommand,
-                parameters: []
+                parameters: [],
             };
-            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -515,7 +515,7 @@ class WindowCoveringsDevice extends Device
                     this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
-                        stack: result.errorCode
+                        stack: result.errorCode,
                     });
                     if (this.boostSync)
                     {
@@ -531,12 +531,12 @@ class WindowCoveringsDevice extends Device
             }
             else
             {
-                this.homey.app.logInformation(this.getName() + ": onCapabilityMyPosition", "Failed to send command");
+                this.homey.app.logInformation(`${this.getName()}: onCapabilityMyPosition`, 'Failed to send command');
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error("Failed to send command"));
+                throw (new Error('Failed to send command'));
             }
         }
     }
@@ -558,9 +558,9 @@ class WindowCoveringsDevice extends Device
 
             const action = {
                 name: 'setPedestrianPosition',
-                parameters: []
+                parameters: [],
             };
-            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -568,7 +568,7 @@ class WindowCoveringsDevice extends Device
                     this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
-                        stack: result.errorCode
+                        stack: result.errorCode,
                     });
                     if (this.boostSync)
                     {
@@ -584,12 +584,12 @@ class WindowCoveringsDevice extends Device
             }
             else
             {
-                this.homey.app.logInformation(this.getName() + ": onCapabilityPedestrian", "Failed to send command");
+                this.homey.app.logInformation(`${this.getName()}: onCapabilityPedestrian`, 'Failed to send command');
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error("Failed to send command"));
+                throw (new Error('Failed to send command'));
             }
         }
         else
@@ -597,12 +597,11 @@ class WindowCoveringsDevice extends Device
             // New value from Tahoma
             this.setCapabilityValue('pedestrian', value).catch(this.error);
 
-            //trigger flows
+            // trigger flows
             const tokens = {
-                'pedestrian': value
+                pedestrian: value,
             };
-            return this.driver.triggerPedestrianChange(this, tokens);
-
+            this.driver.triggerPedestrianChange(this, tokens);
         }
     }
 
@@ -612,10 +611,8 @@ class WindowCoveringsDevice extends Device
         {
             return this.onCapabilityWindowcoveringsState(value ? 'down' : 'up', null);
         }
-        else
-        {
+
             return this.onCapabilityWindowcoveringsState(value ? 'up' : 'down', null);
-        }
     }
 
     /**
@@ -628,13 +625,13 @@ class WindowCoveringsDevice extends Device
             const states = await super.getStates();
             if (states)
             {
-                if (this.hasCapability("lock_state"))
+                if (this.hasCapability('lock_state'))
                 {
-                    const lockState = states.find(state => state.name === "io:PriorityLockOriginatorState");
+                    const lockState = states.find(state => state.name === 'io:PriorityLockOriginatorState');
                     if (lockState)
                     {
-                        this.homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + lockState.value);
-                        this.setCapabilityValue("lock_state", lockState.value).catch(this.error);
+                        this.homey.app.logStates(`${this.getName()}: io:PriorityLockOriginatorState = ${lockState.value}`);
+                        this.setCapabilityValue('lock_state', lockState.value).catch(this.error);
 
                         if (this.checkLockSate)
                         {
@@ -644,10 +641,10 @@ class WindowCoveringsDevice extends Device
                     }
                     else
                     {
-                        const lockStateTimer = states.find(state => state.name === "core:PriorityLockTimerState");
+                        const lockStateTimer = states.find(state => state.name === 'core:PriorityLockTimerState');
                         if (lockStateTimer)
                         {
-                            this.homey.app.logStates(this.getName() + ": core:PriorityLockTimerState = " + lockStateTimer.value);
+                            this.homey.app.logStates(`${this.getName()}: core:PriorityLockTimerState = ${lockStateTimer.value}`);
                             if (lockStateTimer.value === 0)
                             {
                                 this.setCapabilityValue.catch(this.error);
@@ -656,22 +653,22 @@ class WindowCoveringsDevice extends Device
                     }
                 }
 
-                const myPosition = states.find(state => state.name === "core:Memorized1PositionState");
+                const myPosition = states.find(state => state.name === 'core:Memorized1PositionState');
                 if (myPosition)
                 {
-                    if (!this.hasCapability("my_value"))
+                    if (!this.hasCapability('my_value'))
                     {
                         this.addCapability('my_value').catch(this.error);
                     }
 
-                    this.homey.app.logStates(this.getName() + ": core:Memorized1PositionState = " + myPosition.value);
-                    this.setCapabilityValue("my_value", myPosition.value).catch(this.error);
+                    this.homey.app.logStates(`${this.getName()}: core:Memorized1PositionState = ${myPosition.value}`);
+                    this.setCapabilityValue('my_value', myPosition.value).catch(this.error);
                 }
 
-                //device exists -> let's sync the state of the device
+                // device exists -> let's sync the state of the device
                 const closureState = states.find(state => state.name === this.positionStateName);
                 const openClosedState = states.find(state => state.name === this.openClosedStateName);
-                const tiltState = states.find(state => state.name === "core:SlateOrientationState");
+                const tiltState = states.find(state => state.name === 'core:SlateOrientationState');
 
                 if (this.unavailable)
                 {
@@ -681,7 +678,7 @@ class WindowCoveringsDevice extends Device
 
                 if (openClosedState)
                 {
-                    this.homey.app.logStates(this.getName() + ": " + this.openClosedStateName + " = " + openClosedState.value);
+                    this.homey.app.logStates(`${this.getName()}: ${this.openClosedStateName} = ${openClosedState.value}`);
 
                     // Convert Tahoma states to Homey equivalent
                     if (closureState && (closureState.value !== 0) && (closureState.value !== 100))
@@ -694,9 +691,9 @@ class WindowCoveringsDevice extends Device
                         if (this.openClosedStateName === 'core:OpenClosedPedestrianState')
                         {
                             // Special state = My Position
-                            this.triggerCapabilityListener('pedestrian', (openClosedState.value === "pedestrian"),
+                            this.triggerCapabilityListener('pedestrian', (openClosedState.value === 'pedestrian'),
                             {
-                                fromCloudSync: true
+                                fromCloudSync: true,
                             });
                         }
 
@@ -705,13 +702,13 @@ class WindowCoveringsDevice extends Device
 
                     this.triggerCapabilityListener('windowcoverings_state', openClosedState.value,
                     {
-                        fromCloudSync: true
+                        fromCloudSync: true,
                     });
                 }
 
                 if (closureState)
                 {
-                    this.homey.app.logStates(this.getName() + ": " + this.positionStateName + " = " + closureState.value);
+                    this.homey.app.logStates(`${this.getName()}: ${this.positionStateName} = ${closureState.value}`);
 
                     if (this.invertPosition)
                     {
@@ -719,17 +716,17 @@ class WindowCoveringsDevice extends Device
                     }
                     this.triggerCapabilityListener('windowcoverings_set', 1 - (closureState.value / 100),
                     {
-                        fromCloudSync: true
+                        fromCloudSync: true,
                     });
                 }
 
                 if (tiltState)
                 {
-                    this.homey.app.logStates(this.getName() + ": core:SlateOrientationState = " + tiltState.value);
+                    this.homey.app.logStates(`${this.getName()}: core:SlateOrientationState = ${tiltState.value}`);
 
                     this.triggerCapabilityListener('windowcoverings_tilt_set', 1 - (tiltState.value / 100),
                     {
-                        fromCloudSync: true
+                        fromCloudSync: true,
                     });
                 }
             }
@@ -742,7 +739,7 @@ class WindowCoveringsDevice extends Device
                     this.setAvailable().catch(this.error);
                 }
 
-                this.log(this.getName(), " No device status");
+                this.log(this.getName(), ' No device status');
 
                 this.setCapabilityValue('windowcoverings_state', null).catch(this.error);
             }
@@ -753,9 +750,8 @@ class WindowCoveringsDevice extends Device
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
-                stack: error.stack
+                stack: error.stack,
             });
-
         }
     }
 
@@ -766,14 +762,15 @@ class WindowCoveringsDevice extends Device
     {
         if (events === null)
         {
-            return this.sync();
+            this.sync();
+            return;
         }
 
         try
         {
             const myURL = this.getDeviceUrl();
 
-            var lastPosition = null;
+            let lastPosition = null;
 
             // Process events sequentially so they are in the correct order
             for (let i = 0; i < events.length; i++)
@@ -787,8 +784,8 @@ class WindowCoveringsDevice extends Device
                         {
                             this.homey.app.logInformation(this.getName(),
                             {
-                                message: "Processing device state change event",
-                                stack: element
+                                message: 'Processing device state change event',
+                                stack: element,
                             });
                         }
 
@@ -806,10 +803,10 @@ class WindowCoveringsDevice extends Device
                             // Device lock state
                             if (deviceState.name === 'io:PriorityLockOriginatorState')
                             {
-                                if (this.hasCapability("lock_state") && (deviceState.value))
+                                if (this.hasCapability('lock_state') && (deviceState.value))
                                 {
-                                    this.homey.app.logStates(this.getName() + ": io:PriorityLockOriginatorState = " + deviceState.value);
-                                    this.setCapabilityValue("lock_state", deviceState.value).catch(this.error);
+                                    this.homey.app.logStates(`${this.getName()}: io:PriorityLockOriginatorState = ${deviceState.value}`);
+                                    this.setCapabilityValue('lock_state', deviceState.value).catch(this.error);
                                     if (this.checkLockSate)
                                     {
                                         // Setup timer to call a function to check if it can be cleared
@@ -820,12 +817,12 @@ class WindowCoveringsDevice extends Device
                             }
                             else if (deviceState.name === this.positionStateName)
                             {
-                                //Check for more message that are the same
+                                // Check for more message that are the same
                                 if (!this.checkForDuplicatesEvents(events, i, x + 1, myURL, this.positionStateName))
                                 {
                                     // Device position
-                                    var closureStateValue = parseInt(deviceState.value);
-                                    this.homey.app.logStates(this.getName() + ": " + this.positionStateName + " = " + closureStateValue);
+                                    let closureStateValue = parseInt(deviceState.value, 10);
+                                    this.homey.app.logStates(`${this.getName()}: ${this.positionStateName} = ${closureStateValue}`);
 
                                     if (this.invertPosition)
                                     {
@@ -834,7 +831,7 @@ class WindowCoveringsDevice extends Device
 
                                     this.triggerCapabilityListener('windowcoverings_set', 1 - (closureStateValue / 100),
                                     {
-                                        fromCloudSync: true
+                                        fromCloudSync: true,
                                     });
 
                                     if ((closureStateValue !== 0) && (closureStateValue !== 100))
@@ -842,7 +839,7 @@ class WindowCoveringsDevice extends Device
                                         // Not fully open or closed
                                         this.triggerCapabilityListener('windowcoverings_state', 'idle',
                                         {
-                                            fromCloudSync: true
+                                            fromCloudSync: true,
                                         });
 
                                         lastPosition = closureStateValue;
@@ -855,39 +852,39 @@ class WindowCoveringsDevice extends Device
                             }
                             else if (deviceState.name === this.openClosedStateName)
                             {
-                                //Check for more message that are the same
+                                // Check for more message that are the same
                                 if (!this.checkForDuplicatesEvents(events, i, x + 1, myURL, this.openClosedStateName))
                                 {
                                     // Device Open / Closed state. Only process if the last position was 0 or 100
                                     if (lastPosition === null)
                                     {
-                                        var openClosedStateValue = deviceState.value;
-                                        this.homey.app.logStates(this.getName() + ": " + this.openClosedStateName + " = " + openClosedStateValue);
+                                        let openClosedStateValue = deviceState.value;
+                                        this.homey.app.logStates(`${this.getName()}: ${this.openClosedStateName} = ${openClosedStateValue}`);
 
                                         // Convert Tahoma states to Homey equivalent
                                         openClosedStateValue = this.windowcoveringsStatesMap[openClosedStateValue];
 
                                         this.triggerCapabilityListener('windowcoverings_state', openClosedStateValue,
                                         {
-                                            fromCloudSync: true
+                                            fromCloudSync: true,
                                         });
                                     }
 
                                     lastPosition = null;
                                 }
                             }
-                            else if (deviceState.name === "core:SlateOrientationState")
+                            else if (deviceState.name === 'core:SlateOrientationState')
                             {
                                 // Device tilt position
-                                //Check for more message that are the same
-                                if (!this.checkForDuplicatesEvents(events, i, x + 1, myURL, "core:SlateOrientationState"))
+                                // Check for more message that are the same
+                                if (!this.checkForDuplicatesEvents(events, i, x + 1, myURL, 'core:SlateOrientationState'))
                                 {
-                                    var tiltStateValue = parseInt(deviceState.value);
-                                    this.homey.app.logStates(this.getName() + ": core:SlateOrientationState = " + tiltStateValue);
+                                    const tiltStateValue = parseInt(deviceState.value, 10);
+                                    this.homey.app.logStates(`${this.getName()}: core:SlateOrientationState = ${tiltStateValue}`);
 
                                     this.triggerCapabilityListener('windowcoverings_tilt_set', 1 - (tiltStateValue / 100),
                                     {
-                                        fromCloudSync: true
+                                        fromCloudSync: true,
                                     });
                                 }
                             }
@@ -923,7 +920,7 @@ class WindowCoveringsDevice extends Device
                             this.homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
                             this.driver.triggerDeviceCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
                             this.executionId = null;
-                            this.executionCmd = "";
+                            this.executionCmd = '';
                         }
                     }
                 }
@@ -935,11 +932,11 @@ class WindowCoveringsDevice extends Device
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
-                stack: error.stack
+                stack: error.stack,
             });
-
         }
     }
+
 }
 
 module.exports = WindowCoveringsDevice;

@@ -1,8 +1,8 @@
-/*jslint node: true */
-"use strict";
+/* jslint node: true */
+
+'use strict';
 
 const Device = require('../Device');
-const Homey = require('homey');
 
 /**
  * Device class for the opening detector with the rts:GarageDoor4TRTSComponent, rts:SlidingGateOpener4TRTSComponent controllable name in TaHoma
@@ -10,6 +10,7 @@ const Homey = require('homey');
  */
 class OpenCloseDevice extends Device
 {
+
     async onInit()
     {
         this.registerCapabilityListener('button', this.onCapabilityButton.bind(this));
@@ -26,11 +27,11 @@ class OpenCloseDevice extends Device
             return;
         }
 
-        var action = {
+        const action = {
             name: 'cycle',
-            parameters: []
+            parameters: [],
         };
-        let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+        const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
         if (result !== undefined)
         {
             if (result.errorCode)
@@ -38,7 +39,7 @@ class OpenCloseDevice extends Device
                 this.homey.app.logInformation(this.getName(),
                 {
                     message: result.error,
-                    stack: result.errorCode
+                    stack: result.errorCode,
                 });
                 throw (new Error(result.error));
             }
@@ -54,24 +55,24 @@ class OpenCloseDevice extends Device
         }
         else
         {
-            this.homey.app.logInformation(this.getName() + ": onCapabilityOnOff", "Failed to send command");
-            throw (new Error("Failed to send command"));
+            this.homey.app.logInformation(`${this.getName()}: onCapabilityOnOff`, 'Failed to send command');
+            throw (new Error('Failed to send command'));
         }
-
     }
 
     /**
      * Gets the sensor data from the TaHoma cloud
      * @param {Array} data - device data from all the devices in the TaHoma cloud
      */
-    async sync() {}
+    async sync() { return null; }
 
     // look for updates in the events array
     async syncEvents(events)
     {
         if (events === null)
         {
-            return this.sync();
+            this.sync();
+            return;
         }
 
         try
@@ -122,11 +123,11 @@ class OpenCloseDevice extends Device
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
-                stack: error.stack
+                stack: error.stack,
             });
-
         }
     }
+
 }
 
 module.exports = OpenCloseDevice;

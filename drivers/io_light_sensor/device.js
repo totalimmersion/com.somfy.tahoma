@@ -1,14 +1,16 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
-    { homeyName: 'measure_luminance', somfyNameGet: 'core:LuminanceState', somfyNameSet: [] }
+    { homeyName: 'measure_luminance', somfyNameGet: 'core:LuminanceState', somfyNameSet: [] },
 ];
 
 class LightSensorDevice extends SensorDevice
 {
+
     async onInit()
     {
         await super.onInit(CapabilitiesXRef);
@@ -19,5 +21,6 @@ class LightSensorDevice extends SensorDevice
     {
         this.syncEventsList(events, CapabilitiesXRef);
     }
+
 }
 module.exports = LightSensorDevice;

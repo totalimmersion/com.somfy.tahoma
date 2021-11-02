@@ -1,8 +1,8 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require( 'homey' );
-const Driver = require( '../Driver' );
+const Driver = require('../Driver');
 
 /**
  * Driver class for the opening detector with the ovp:SomfyPilotWireHeatingInterfaceOVPComponent controllable name in TaHoma
@@ -10,9 +10,10 @@ const Driver = require( '../Driver' );
  */
 class PilotWireProgrammerDriver extends Driver
 {
+
     async onInit()
     {
-        this.deviceType = [ 'ovp:SomfyPilotWireHeatingInterfaceOVPComponent' ];
+        this.deviceType = ['ovp:SomfyPilotWireHeatingInterfaceOVPComponent'];
     }
 
 }

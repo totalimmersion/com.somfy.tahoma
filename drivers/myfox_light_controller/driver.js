@@ -1,8 +1,8 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require( 'homey' );
-const Driver = require( '../Driver' );
+const Driver = require('../Driver');
 
 /**
  * Driver class for the opening detector with the myfox:LightController controllable name in TaHoma
@@ -10,9 +10,10 @@ const Driver = require( '../Driver' );
  */
 class myFoxLightControllerDriver extends Driver
 {
+
     async onInit()
     {
-        this.deviceType = [ 'myfox:LightController' ];
+        this.deviceType = ['myfox:LightController'];
         await super.onInit();
     }
 
@@ -22,11 +23,12 @@ class myFoxLightControllerDriver extends Driver
      * @param {Object} tokens - An object with tokens and their typed values, as defined in the app.json
      * @param {Object} state - An object with properties which are accessible throughout the Flow
      */
-    triggerOnOffChange( device, tokens, state )
+    triggerOnOffChange(device, tokens, state)
     {
-        this.triggerFlow( this._triggerOnOffChange, device, tokens, state );
+        this.triggerFlow(this._triggerOnOffChange, device, tokens, state);
         return this;
     }
+
 }
 
 module.exports = myFoxLightControllerDriver;

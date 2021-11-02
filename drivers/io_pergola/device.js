@@ -1,4 +1,5 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const WindowCoveringsDevice = require('../WindowCoveringsDevice');
@@ -8,9 +9,10 @@ const WindowCoveringsDevice = require('../WindowCoveringsDevice');
  * @extends {WindowCoveringsDevice}
  */
 class PergolaDevice extends WindowCoveringsDevice {
+
     async onInit() {
-        if (this.hasCapability("lock_state")) {
-            this.removeCapability("lock_state").catch(this.error);
+        if (this.hasCapability('lock_state')) {
+            this.removeCapability('lock_state').catch(this.error);
         }
 
         await super.onInit();
@@ -18,14 +20,14 @@ class PergolaDevice extends WindowCoveringsDevice {
         this.windowcoveringsActions = {
             up: 'openSlats',
             idle: null,
-            down: 'closeSlats'
+            down: 'closeSlats',
         };
 
         this.positionStateName = 'core:SlatsOrientationState';
         this.setPositionActionName = 'setOrientation';
         this.openClosedStateName = 'core:SlatsOpenClosedState';
-
     }
+
 }
 
 module.exports = PergolaDevice;

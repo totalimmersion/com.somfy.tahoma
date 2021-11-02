@@ -1,11 +1,13 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const SensorDevice = require('../SensorDevice');
-const Homey = require('homey');
 
 const CapabilitiesXRef = [
-    { homeyName: 'alarm_contact', somfyNameGet: 'core:ContactState', somfyNameSet: [], compare: ['close', 'open'] }
+    {
+ homeyName: 'alarm_contact', somfyNameGet: 'core:ContactState', somfyNameSet: [], compare: ['close', 'open'],
+},
 ];
 class OpeningDetectorDevice extends SensorDevice
 {
@@ -20,6 +22,7 @@ class OpeningDetectorDevice extends SensorDevice
     {
         this.syncEventsList(events, CapabilitiesXRef);
     }
+
 }
 
 module.exports = OpeningDetectorDevice;

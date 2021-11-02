@@ -1,4 +1,5 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const SensorDevice = require('../SensorDevice');
@@ -13,10 +14,16 @@ const CapabilitiesXRef = [
     { homeyName: 'power_state', somfyNameGet: 'io:PowerState', somfyNameSet: [] },
     { homeyName: 'native_function_level_state', somfyNameGet: 'io:NativeFunctionalLevelState', somfyNameSet: [] },
     { homeyName: 'heating_level_state', somfyNameGet: 'io:TargetHeatingLevelState', somfyNameSet: [] },
-    { homeyName: 'occupancy_activation', somfyNameGet: 'core:OccupancyActivationState', somfyNameSet: ['setOccupancyActivation'], compare: ['inactive', 'active'] },
-    { homeyName: 'open_window_activation', somfyNameGet: 'core:OpenWindowDetectionActivationState', somfyNameSet: ['setOpenWindowDetectionActivation'], compare: ['inactive', 'active'] },
+    {
+ homeyName: 'occupancy_activation', somfyNameGet: 'core:OccupancyActivationState', somfyNameSet: ['setOccupancyActivation'], compare: ['inactive', 'active'],
+},
+    {
+ homeyName: 'open_window_activation', somfyNameGet: 'core:OpenWindowDetectionActivationState', somfyNameSet: ['setOpenWindowDetectionActivation'], compare: ['inactive', 'active'],
+},
     { homeyName: 'eh_operating_mode', somfyNameGet: 'core:OperatingModeState', somfyNameSet: ['setOperatingMode'] },
-    { homeyName: 'onoff', somfyNameGet: 'core:OnOffState', somfyNameSet: ['off', 'on'], compare: ['off', 'on'] }
+    {
+ homeyName: 'onoff', somfyNameGet: 'core:OnOffState', somfyNameSet: ['off', 'on'], compare: ['off', 'on'],
+},
 ];
 class ElectricHeaterDevice extends SensorDevice
 {
@@ -33,6 +40,7 @@ class ElectricHeaterDevice extends SensorDevice
     {
         this.syncEventsList(events, CapabilitiesXRef);
     }
+
 }
 
 module.exports = ElectricHeaterDevice;

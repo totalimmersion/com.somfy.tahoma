@@ -1,13 +1,20 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
-    { homeyName: 'alarm_generic', somfyNameGet: 'internal:IntrusionDetectedState', somfyNameSet: [], compare: ['notDetected', 'detected'] },
-    { homeyName: 'tahoma_alarm_state', somfyNameGet: 'internal:CurrentAlarmModeState', somfyNameSet: ['setTargetAlarmMode'], conversions:{zone1: "partial1", zone2: "partial2"},
-        secondaryCommand:{sos: {name: 'setIntrusionDetected', parameters:['detected']}} },
+    {
+ homeyName: 'alarm_generic', somfyNameGet: 'internal:IntrusionDetectedState', somfyNameSet: [], compare: ['notDetected', 'detected'],
+},
+    {
+ homeyName: 'tahoma_alarm_state',
+somfyNameGet: 'internal:CurrentAlarmModeState',
+somfyNameSet: ['setTargetAlarmMode'],
+conversions: { zone1: 'partial1', zone2: 'partial2' },
+        secondaryCommand: { sos: { name: 'setIntrusionDetected', parameters: ['detected'] } },
+},
 ];
 
 class TahomaAlarmDevice extends SensorDevice
@@ -26,15 +33,15 @@ class TahomaAlarmDevice extends SensorDevice
         this.syncEventsList(events, CapabilitiesXRef);
     }
 
-    async triggerAlarmAction( state )
+    async triggerAlarmAction(state)
     {
         const deviceData = this.getData();
-        var action = {
+        const action = {
             name: 'setIntrusionDetected',
-            parameters: [state]
+            parameters: [state],
         };
 
-        let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+        const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
         if (result !== undefined)
         {
             if (result.errorCode)
@@ -42,7 +49,7 @@ class TahomaAlarmDevice extends SensorDevice
                 this.homey.app.logInformation(this.getName(),
                 {
                     message: result.error,
-                    stack: result.errorCode
+                    stack: result.errorCode,
                 });
 
                 throw (new Error(result.error));
@@ -50,12 +57,13 @@ class TahomaAlarmDevice extends SensorDevice
         }
         else
         {
-            this.homey.app.logInformation(this.getName() + ": setIntrusionDetected", "Failed to send command");
-            throw (new Error("Failed to send command"));
+            this.homey.app.logInformation(`${this.getName()}: setIntrusionDetected`, 'Failed to send command');
+            throw (new Error('Failed to send command'));
         }
 
         return true;
     }
+
 }
 
 module.exports = TahomaAlarmDevice;

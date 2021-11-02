@@ -1,7 +1,7 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
@@ -15,7 +15,7 @@ class OpeningDetectorDriver extends Driver
     {
         this.deviceType = ['io:SomfyContactIOSystemSensor', 'rtds:RTDSContactSensor', 'io:SomfyBasicContactIOSystemSensor'];
 
-        /*** CONTACT TRIGGERS ***/
+        /** * CONTACT TRIGGERS ** */
         this._triggerContactChange = this.homey.flow.getDeviceTriggerCard('contact_has_changed');
         this._triggerContactChange.registerRunListener(() =>
         {
@@ -26,10 +26,11 @@ class OpeningDetectorDriver extends Driver
     triggerFlows(device, capability, value)
     {
         const tokens = {
-            'isOpen': value
+            isOpen: value,
         };
         this.triggerFlow(this._triggerContactChange, device, tokens);
     }
+
 }
 
 module.exports = OpeningDetectorDriver;

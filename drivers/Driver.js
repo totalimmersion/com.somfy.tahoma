@@ -1,5 +1,7 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
+
 const Homey = require('homey');
 /**
  * Base class for drivers
@@ -8,15 +10,16 @@ const Homey = require('homey');
  */
 class Driver extends Homey.Driver
 {
+
     async onInit()
     {
-        /*** Command Complete ***/
+        /** * Command Complete ** */
         this._triggerCommandComplete = this.homey.flow.getDeviceTriggerCard('device_command_complete');
     }
 
     triggerDeviceCommandComplete(device, commandName, success)
     {
-        let tokens = { 'state': success, 'name': commandName };
+        const tokens = { state: success, name: commandName };
         this.triggerFlow(this._triggerCommandComplete, device, tokens);
         return this;
     }
@@ -30,7 +33,7 @@ class Driver extends Homey.Driver
             const password = this.homey.settings.get('password');
             if (!username || !password)
             {
-                throw new Error(Homey.__("errors.on_pair_login_failure"));
+                throw new Error(Homey.__('errors.on_pair_login_failure'));
             }
             return this.onReceiveSetupData();
         });
@@ -53,17 +56,20 @@ class Driver extends Homey.Driver
                         deviceURL: device.deviceURL,
                         label: device.label,
                         controllableName: device.controllableName,
-                    }
+                    },
                 }));
                 return homeyDevices;
             }
         }
         catch (error)
         {
-            this.homey.app.logInformation("OnReceiveSetupData", error);
+            this.homey.app.logInformation('OnReceiveSetupData', error);
             throw new Error(error.message);
         }
+
+        return null;
     }
+
     /**
      * Triggers a flow
      * @param {this.homey.flow.getDeviceTriggerCard} trigger - A this.homey.flow.getDeviceTriggerCard instance
@@ -84,10 +90,11 @@ class Driver extends Homey.Driver
                 })
                 .catch(error =>
                 {
-                    this.homey.app.logInformation("triggerFlow (" + trigger.id + ")", error);
+                    this.homey.app.logInformation(`triggerFlow (${trigger.id})`, error);
                 });
         }
     }
+
     /**
      * Returns the io controllable name(s) of TaHoma
      * @return {Array} deviceType
@@ -96,5 +103,6 @@ class Driver extends Homey.Driver
     {
         return this.deviceType ? this.deviceType : false;
     }
+
 }
 module.exports = Driver;

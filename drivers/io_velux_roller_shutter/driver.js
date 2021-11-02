@@ -1,4 +1,5 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const ioWindowCoveringsDriver = require('../ioWindowCoveringsDriver');
@@ -12,7 +13,7 @@ class VeluxRollerShutterDriver extends ioWindowCoveringsDriver {
   async onInit() {
     this.deviceType = ['io:RollerShutterVeluxIOComponent'];
 
-    await super.onInit();    
+    await super.onInit();
   }
 
 }

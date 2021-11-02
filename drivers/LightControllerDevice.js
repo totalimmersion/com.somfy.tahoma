@@ -1,23 +1,24 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 const Device = require('./Device');
-const Homey = require('homey');
 
 /**
- * Device class for a light controller 
+ * Device class for a light controller
  * @extends {Device}
  */
 
 class LightControllerDevice extends Device
 {
+
     async onInit()
     {
         this.commandExecuting = '';
 
         this.lightState = {
             off: false,
-            on: true
+            on: true,
         };
 
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
@@ -53,26 +54,26 @@ class LightControllerDevice extends Device
                 {
                     await this.homey.app.asyncDelay(500);
                 }
-                this.executionCmd = "";
+                this.executionCmd = '';
                 this.executionId = null;
             }
 
-            var action;
-            if (value == false)
+            let action;
+            if (value === false)
             {
                 action = {
                     name: 'off',
-                    parameters: []
+                    parameters: [],
                 };
             }
             else
             {
                 action = {
                     name: 'on',
-                    parameters: []
+                    parameters: [],
                 };
             }
-            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -80,7 +81,7 @@ class LightControllerDevice extends Device
                     this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
-                        stack: result.errorCode
+                        stack: result.errorCode,
                     });
 
                     if (this.boostSync)
@@ -98,17 +99,17 @@ class LightControllerDevice extends Device
             }
             else
             {
-                this.homey.app.logInformation(this.getName() + ": onCapabilityOnOff", "Failed to send command");
+                this.homey.app.logInformation(`${this.getName()}: onCapabilityOnOff`, 'Failed to send command');
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error("Failed to send command"));
+                throw (new Error('Failed to send command'));
             }
         }
         else
         {
-            this.setCapabilityValue('onoff', (value == true)).catch(this.error);
+            this.setCapabilityValue('onoff', (value === true)).catch(this.error);
         }
     }
 
@@ -137,16 +138,15 @@ class LightControllerDevice extends Device
                     await this.homey.app.asyncDelay(500);
                 }
 
-                this.executionCmd = "";
+                this.executionCmd = '';
                 this.executionId = null;
             }
 
-            var action;
-            action = {
+            const action = {
                 name: 'setIntensity',
-                parameters: [Math.round(value * 100)]
+                parameters: [Math.round(value * 100)],
             };
-            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -154,7 +154,7 @@ class LightControllerDevice extends Device
                     this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
-                        stack: result.errorCode
+                        stack: result.errorCode,
                     });
 
                     if (this.boostSync)
@@ -174,14 +174,14 @@ class LightControllerDevice extends Device
             {
                 if (this.homey.app.infoLogEnabled)
                 {
-                    this.homey.app.logInformation(this.getName() + ": onCapabilityDim", "Failed to send command");
+                    this.homey.app.logInformation(`${this.getName()}: onCapabilityDim`, 'Failed to send command');
                 }
 
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error("Failed to send command"));
+                throw (new Error('Failed to send command'));
             }
         }
         else
@@ -215,18 +215,17 @@ class LightControllerDevice extends Device
                     await this.homey.app.asyncDelay();
                 }
 
-                this.executionCmd = "";
+                this.executionCmd = '';
                 this.executionId = null;
             }
 
             const minTemperature = this.getSetting('minTemperature');
             const maxTemperature = this.getSetting('maxTemperature');
-            var action;
-            action = {
+            const action = {
                 name: 'setColorTemperature',
-                parameters: [Math.round(value * (maxTemperature - minTemperature) + minTemperature)]
+                parameters: [Math.round(value * (maxTemperature - minTemperature) + minTemperature)],
             };
-            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -236,7 +235,7 @@ class LightControllerDevice extends Device
                         this.homey.app.logInformation(this.getName(),
                         {
                             message: result.error,
-                            stack: result.errorCode
+                            stack: result.errorCode,
                         });
                     }
 
@@ -255,12 +254,12 @@ class LightControllerDevice extends Device
             }
             else
             {
-                this.homey.app.logInformation(this.getName() + ": onCapabilityDim", "Failed to send command");
+                this.homey.app.logInformation(`${this.getName()}: onCapabilityDim`, 'Failed to send command');
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error("Failed to send command"));
+                throw (new Error('Failed to send command'));
             }
         }
         else
@@ -283,10 +282,10 @@ class LightControllerDevice extends Device
                 const OnOffState = states.find(state => state.name === 'core:OnOffState');
                 if (OnOffState)
                 {
-                    this.homey.app.logStates(this.getName() + ": core:OnOffState = " + OnOffState.value);
+                    this.homey.app.logStates(`${this.getName()}: core:OnOffState = ${OnOffState.value}`);
                     this.triggerCapabilityListener('onoff', (OnOffState.value === 'on'),
                     {
-                        fromCloudSync: true
+                        fromCloudSync: true,
                     });
                 }
 
@@ -294,10 +293,10 @@ class LightControllerDevice extends Device
                 const dimState = states.find(state => state.name === 'core:LightIntensityState');
                 if (dimState)
                 {
-                    this.homey.app.logStates(this.getName() + ": core:dimState = " + dimState.value);
+                    this.homey.app.logStates(`${this.getName()}: core:dimState = ${dimState.value}`);
                     this.triggerCapabilityListener('dim', (dimState.value / 100),
                     {
-                        fromCloudSync: true
+                        fromCloudSync: true,
                     });
                 }
 
@@ -308,10 +307,10 @@ class LightControllerDevice extends Device
                     const minTemperature = this.getSetting('minTemperature');
                     const maxTemperature = this.getSetting('maxTemperature');
 
-                    this.homey.app.logStates(this.getName() + ": core:ColorTemperatureState = " + colorState.value);
+                    this.homey.app.logStates(`${this.getName()}: core:ColorTemperatureState = ${colorState.value}`);
                     this.triggerCapabilityListener('light_temperature', ((colorState.value - minTemperature) / (maxTemperature - minTemperature)),
                     {
-                        fromCloudSync: true
+                        fromCloudSync: true,
                     });
                 }
             }
@@ -324,7 +323,7 @@ class LightControllerDevice extends Device
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
-                stack: error.stack
+                stack: error.stack,
             });
         }
 
@@ -353,8 +352,8 @@ class LightControllerDevice extends Device
                     {
                         this.homey.app.logInformation(this.getName(),
                         {
-                            message: "Processing device state change event",
-                            stack: element
+                            message: 'Processing device state change event',
+                            stack: element,
                         });
                     }
                     // Got what we need to update the device so lets find it
@@ -398,8 +397,7 @@ class LightControllerDevice extends Device
                         this.homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
                         this.commandExecuting = '';
                         this.executionId = null;
-                        this.executionCmd = "";
-
+                        this.executionCmd = '';
                     }
                 }
             }
@@ -413,14 +411,14 @@ class LightControllerDevice extends Device
     {
         if (deviceState.name === 'core:OnOffState')
         {
-            this.homey.app.logStates(this.getName() + ": core:OnOffState = " + deviceState.value);
+            this.homey.app.logStates(`${this.getName()}: core:OnOffState = ${deviceState.value}`);
             const oldState = this.getState().onoff;
             const newSate = (deviceState.value === 'on');
             if (oldState !== newSate)
             {
                 this.triggerCapabilityListener('onoff', newSate,
                 {
-                    fromCloudSync: true
+                    fromCloudSync: true,
                 });
             }
             return true;
@@ -428,14 +426,14 @@ class LightControllerDevice extends Device
 
         if (deviceState.name === 'core:LightIntensityState')
         {
-            this.homey.app.logStates(this.getName() + ": core:LightIntensityState = " + deviceState.value);
+            this.homey.app.logStates(`${this.getName()}: core:LightIntensityState = ${deviceState.value}`);
             const oldState = this.getState().dim;
-            const newSate = parseInt(deviceState.value) / 100;
+            const newSate = parseInt(deviceState.value, 10) / 100;
             if (oldState !== newSate)
             {
                 this.triggerCapabilityListener('dim', newSate,
                 {
-                    fromCloudSync: true
+                    fromCloudSync: true,
                 });
             }
             return true;
@@ -446,14 +444,14 @@ class LightControllerDevice extends Device
             const minTemperature = this.getSetting('minTemperature');
             const maxTemperature = this.getSetting('maxTemperature');
 
-            this.homey.app.logStates(this.getName() + ": core:ColorTemperatureState = " + deviceState.value);
+            this.homey.app.logStates(`${this.getName()}: core:ColorTemperatureState = ${deviceState.value}`);
             const oldState = this.getState().light_temperature;
-            const newSate = ((parseInt(deviceState.value) - minTemperature) / (maxTemperature - minTemperature));
+            const newSate = ((parseInt(deviceState.value, 10) - minTemperature) / (maxTemperature - minTemperature));
             if (oldState !== newSate)
             {
                 this.triggerCapabilityListener('light_temperature', newSate,
                 {
-                    fromCloudSync: true
+                    fromCloudSync: true,
                 });
             }
             return true;
@@ -461,6 +459,7 @@ class LightControllerDevice extends Device
 
         return false;
     }
+
 }
 
 module.exports = LightControllerDevice;

@@ -1,7 +1,7 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
@@ -15,7 +15,7 @@ class SmokeDetectorDriver extends Driver
     {
         this.deviceType = ['rtds:RTDSSmokeSensor', 'io:SomfySmokeIOSystemSensor'];
 
-        /*** ALARM SMOKE TRIGGERS ***/
+        /** * ALARM SMOKE TRIGGERS ** */
         this._triggerSmokeChange = this.homey.flow.getDeviceTriggerCard('smoke_has_changed');
         this._triggerSmokeChange.registerRunListener(() =>
         {
@@ -26,11 +26,12 @@ class SmokeDetectorDriver extends Driver
     triggerFlows(device, capability, value)
     {
         const tokens = {
-            'isSmoke': value
+            isSmoke: value,
         };
 
         this.triggerFlow(this._triggerSmokeChange, device, tokens);
     }
+
 }
 
 module.exports = SmokeDetectorDriver;

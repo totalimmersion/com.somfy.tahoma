@@ -1,4 +1,5 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
 module.exports = {
@@ -21,5 +22,5 @@ module.exports = {
     async SendInfoLog({ homey, body })
     {
         return homey.app.sendLog('infoLog');
-    }
+    },
 };

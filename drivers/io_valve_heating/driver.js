@@ -1,7 +1,7 @@
-/*jslint node: true */
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
@@ -61,6 +61,7 @@ class ElectricHeaterDriver extends Driver
         //         this.triggerFlow(this._valve_heating_mode_state_changed, device, tokens);
         //     }
     }
+
 }
 
 module.exports = ElectricHeaterDriver;
