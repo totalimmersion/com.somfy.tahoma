@@ -2,7 +2,6 @@
 'use strict';
 
 const Device = require('../Device');
-const Tahoma = require('../../lib/Tahoma');
 const Homey = require('homey');
 
 class rtsGateOpenerDevice extends Device
@@ -60,7 +59,7 @@ class rtsGateOpenerDevice extends Device
         const deviceData = this.getData();
         if (this.executionId !== null)
         {
-            await Tahoma.cancelExecution(this.executionId);
+            await Homey.app.tahoma.cancelExecution(this.executionId);
         }
 
         var action;
@@ -83,7 +82,7 @@ class rtsGateOpenerDevice extends Device
 
         try
         {
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)

@@ -3,7 +3,7 @@
 
 const Homey = require('homey');
 const Driver = require('../Driver');
-const Tahoma = require('../../lib/Tahoma');
+
 
 /**
  * Driver class for the remote controller with the "io:IORemoteController" controllable name in TaHoma
@@ -32,7 +32,7 @@ class key_go_remoteDriver extends Driver
     {
         try
         {
-            const devices = await Tahoma.getDeviceData();
+            const devices = await Homey.app.tahoma.getDeviceData();
             if (devices)
             {
                 this.log('setup resolve');

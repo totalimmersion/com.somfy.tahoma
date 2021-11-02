@@ -3,7 +3,6 @@
 
 const Homey = require('homey');
 const Device = require('./Device');
-const Tahoma = require('../lib/Tahoma');
 
 /**
  * Base class for window coverings devices
@@ -162,7 +161,7 @@ class WindowCoveringsDevice extends Device
 
             if (value === 'idle' && (this.executionId !== null))
             {
-                await Tahoma.cancelExecution(this.executionId);
+                await Homey.app.tahoma.cancelExecution(this.executionId);
                 this.executionCmd = "";
                 this.executionId = null;
             }
@@ -170,7 +169,7 @@ class WindowCoveringsDevice extends Device
             {
                 if (this.executionId !== null)
                 {
-                    await Tahoma.cancelExecution(this.executionId);
+                    await Homey.app.tahoma.cancelExecution(this.executionId);
                     this.executionCmd = "";
                     this.executionId = null;
                 }
@@ -179,7 +178,7 @@ class WindowCoveringsDevice extends Device
                     name: this.windowcoveringsActions[value],
                     parameters: []
                 };
-                let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+                let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
                 if (result !== undefined)
                 {
                     if (result.errorCode)
@@ -252,7 +251,7 @@ class WindowCoveringsDevice extends Device
 
             if (this.executionId !== null)
             {
-                await Tahoma.cancelExecution(this.executionId);
+                await Homey.app.tahoma.cancelExecution(this.executionId);
                 this.executionCmd = "";
                 this.executionId = null;
             }
@@ -272,7 +271,7 @@ class WindowCoveringsDevice extends Device
                 action.parameters.push("lowspeed");
             }
 
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -324,7 +323,7 @@ class WindowCoveringsDevice extends Device
             const deviceData = this.getData();
             if (this.executionId !== null)
             {
-                await Tahoma.cancelExecution(this.executionId);
+                await Homey.app.tahoma.cancelExecution(this.executionId);
                 this.executionCmd = "";
                 this.executionId = null;
             }
@@ -334,7 +333,7 @@ class WindowCoveringsDevice extends Device
                 parameters: [Math.round((1 - value) * 100)]
             };
 
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -393,7 +392,7 @@ class WindowCoveringsDevice extends Device
             const deviceData = this.getData();
             if (this.executionId !== null)
             {
-                await Tahoma.cancelExecution(this.executionId);
+                await Homey.app.tahoma.cancelExecution(this.executionId);
                 this.executionCmd = "";
                 this.executionId = null;
             }
@@ -402,7 +401,7 @@ class WindowCoveringsDevice extends Device
                 name: 'tiltPositive',
                 parameters: [3, 1]
             };
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -449,7 +448,7 @@ class WindowCoveringsDevice extends Device
             const deviceData = this.getData();
             if (this.executionId !== null)
             {
-                await Tahoma.cancelExecution(this.executionId);
+                await Homey.app.tahoma.cancelExecution(this.executionId);
                 this.executionCmd = "";
                 this.executionId = null;
             }
@@ -458,7 +457,7 @@ class WindowCoveringsDevice extends Device
                 name: 'tiltNegative',
                 parameters: [3, 1]
             };
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -504,14 +503,14 @@ class WindowCoveringsDevice extends Device
             const deviceData = this.getData();
             if (this.executionId !== null)
             {
-                await Tahoma.cancelExecution(this.executionId);
+                await Homey.app.tahoma.cancelExecution(this.executionId);
             }
 
             const action = {
                 name: this.myCommand,
                 parameters: []
             };
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -557,14 +556,14 @@ class WindowCoveringsDevice extends Device
             const deviceData = this.getData();
             if (this.executionId !== null)
             {
-                await Tahoma.cancelExecution(this.executionId);
+                await Homey.app.tahoma.cancelExecution(this.executionId);
             }
 
             const action = {
                 name: 'setPedestrianPosition',
                 parameters: []
             };
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)

@@ -1,7 +1,6 @@
 /*jslint node: true */
 'use strict';
 const Homey = require('homey');
-const Tahoma = require('../lib/Tahoma');
 /**
  * Base class for drivers
  * @class
@@ -43,7 +42,7 @@ class Driver extends Homey.Driver
     {
         try
         {
-            const devices = await Tahoma.getDeviceData();
+            const devices = await Homey.app.tahoma.getDeviceData();
             if (devices)
             {
                 this.log('setup resolve');

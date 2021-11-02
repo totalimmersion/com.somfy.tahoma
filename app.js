@@ -154,6 +154,8 @@ class myApp extends Homey.App
             }
         });
 
+        this.tahoma = new Tahoma(Homey);
+
         // Setup the flow listeners
         this.addScenarioActionListeners();
         this.addPollingSpeedActionListeners();
@@ -251,7 +253,7 @@ class myApp extends Homey.App
         await this.stopSync();
 
         // make sure we logout from old method first
-        await Tahoma.logout();
+        await this.tahoma.logout();
 
         // Allow a short delay before logging back in
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -266,7 +268,7 @@ class myApp extends Homey.App
         {
             // Allow a short delay before logging back in
             await new Promise(resolve => setTimeout(resolve, 1000));
-            await Tahoma.login(username, password, linkurl, loginMethod, ignoreBlock);
+            await this.tahoma.login(username, password, linkurl, loginMethod, ignoreBlock);
             this.loggedIn = true;
         }
         catch (error)
@@ -278,7 +280,7 @@ class myApp extends Homey.App
         if (!this.loggedIn)
         {
             // Try once more with the alternative method but let an error break us out of here
-            await Tahoma.login(username, password, linkurl, loginMethod, ignoreBlock);
+            await this.tahoma.login(username, password, linkurl, loginMethod, ignoreBlock);
             this.loggedIn = true;
         }
 
@@ -298,7 +300,7 @@ class myApp extends Homey.App
         await Homey.app.stopSync();
         try
         {
-            await Tahoma.logout();
+            await this.tahoma.logout();
             if (ClearCredentials)
             {
                 Homey.ManagerSettings.unset('username');
@@ -319,7 +321,7 @@ class myApp extends Homey.App
             this.logInformation("logDevices", "Fetching devices");
         }
 
-        const devices = await Tahoma.getDeviceData();
+        const devices = await this.tahoma.getDeviceData();
 
         // Do a deep copy
         let logData = JSON.parse(JSON.stringify(devices));
@@ -578,10 +580,10 @@ class myApp extends Homey.App
                 this.timerId = null;
             }
 
-            if (!Tahoma.eventsRegistered())
+            if (!this.tahoma.eventsRegistered())
             {
                 // The events are not currently registered so do that now
-                await Tahoma.getEvents();
+                await this.tahoma.getEvents();
             }
 
             this.nextInterval = 3000;
@@ -642,7 +644,7 @@ class myApp extends Homey.App
 
             console.log("Stop sync requested");
 
-            await Tahoma.eventsClearRegistered();
+            await this.tahoma.eventsClearRegistered();
             if (this.infoLogEnabled)
             {
                 this.logInformation("stopSync", "Stopping Event Polling");
@@ -719,7 +721,7 @@ class myApp extends Homey.App
 
                 try
                 {
-                    const events = await Tahoma.getEvents();
+                    const events = await this.tahoma.getEvents();
                     if ((events === null && this.boostTimerId === null) || events.length > 0)
                     {
                         // If events === null and boostTimer === null then refresh all the devices, but don't do that if the boost is on
@@ -837,10 +839,10 @@ class myApp extends Homey.App
         /*** ADD FLOW ACTION LISTENERS ***/
         new Homey.FlowCardAction('activate_scenario').register().registerRunListener(args =>
         {
-            return Tahoma.executeScenario(args.scenario.oid);
+            return this.tahoma.executeScenario(args.scenario.oid);
         }).getArgument('scenario').registerAutocompleteListener(query =>
         {
-            return Tahoma.getActionGroups().then(data => data.map((
+            return this.tahoma.getActionGroups().then(data => data.map((
             {
                 oid,
                 label

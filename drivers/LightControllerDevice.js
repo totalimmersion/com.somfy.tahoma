@@ -2,7 +2,6 @@
 'use strict';
 
 const Device = require('./Device');
-const Tahoma = require('./../lib/Tahoma');
 const Homey = require('homey');
 
 /**
@@ -73,7 +72,7 @@ class LightControllerDevice extends Device
                     parameters: []
                 };
             }
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -147,7 +146,7 @@ class LightControllerDevice extends Device
                 name: 'setIntensity',
                 parameters: [Math.round(value * 100)]
             };
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -227,7 +226,7 @@ class LightControllerDevice extends Device
                 name: 'setColorTemperature',
                 parameters: [Math.round(value * (maxTemperature - minTemperature) + minTemperature)]
             };
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)

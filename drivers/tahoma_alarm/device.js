@@ -2,7 +2,6 @@
 'use strict';
 
 const Homey = require('homey');
-const Tahoma = require('./../../lib/Tahoma');
 const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
@@ -35,7 +34,7 @@ class TahomaAlarmDevice extends SensorDevice
             parameters: [state]
         };
 
-        let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+        let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
         if (result !== undefined)
         {
             if (result.errorCode)

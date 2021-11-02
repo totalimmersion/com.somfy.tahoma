@@ -2,7 +2,6 @@
 'use strict';
 
 const Homey = require('homey');
-const Tahoma = require('../../lib/Tahoma');
 
 const SensorDevice = require('../SensorDevice');
 
@@ -67,7 +66,7 @@ class ValveHeatingDevice extends SensorDevice
             {
                 try
                 {
-                    await Tahoma.cancelExecution(this.executionCommands[idx].id);
+                    await Homey.app.tahoma.cancelExecution(this.executionCommands[idx].id);
                 }
                 catch(err)
                 {
@@ -85,7 +84,7 @@ class ValveHeatingDevice extends SensorDevice
                 parameters: somfyValues
             };
 
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)

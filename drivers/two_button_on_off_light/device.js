@@ -2,7 +2,6 @@
 'use strict';
 
 const Device = require('../Device');
-const Tahoma = require('../../lib/Tahoma');
 const Homey = require('homey');
 
 /**
@@ -84,7 +83,7 @@ class two_button_on_offDevice extends Device
                 parameters: []
             };
         }
-        let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+        let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
         if (result !== undefined)
         {
             if (result.errorCode)
@@ -153,7 +152,7 @@ class two_button_on_offDevice extends Device
             parameters: [value]
         };
 
-        let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+        let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
         if (result !== undefined)
         {
             if (result.errorCode)

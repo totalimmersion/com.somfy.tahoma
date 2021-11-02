@@ -2,7 +2,6 @@
 'use strict';
 
 const SensorDevice = require('../SensorDevice');
-const Tahoma = require('../../lib/Tahoma');
 const Homey = require('homey');
 
 /**
@@ -57,7 +56,7 @@ class PilotWireProgrammerDevice extends SensorDevice
                     parameters: ['on']
                 };
             }
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -138,7 +137,7 @@ class PilotWireProgrammerDevice extends SensorDevice
                 };
             }
 
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)

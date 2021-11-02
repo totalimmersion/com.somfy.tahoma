@@ -1,7 +1,6 @@
 /*jslint node: true */
 'use strict';
 const Homey = require('homey');
-const Tahoma = require('./../lib/Tahoma');
 /**
  * Base class for devices
  * @extends {Homey.Device}
@@ -142,7 +141,7 @@ class Device extends Homey.Device
             {
                 try
                 {
-                    await Tahoma.cancelExecution(this.executionCommands[idx].id);
+                    await Homey.app.tahoma.cancelExecution(this.executionCommands[idx].id);
                 }
                 catch(err)
                 {
@@ -182,7 +181,7 @@ class Device extends Homey.Device
                 action2 = capabilityXRef.secondaryCommand[somfyValue];
             }
 
-            let result = await Tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action, action2);
+            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action, action2);
             if (result !== undefined)
             {
                 if (result.errorCode)
@@ -556,14 +555,14 @@ class Device extends Homey.Device
                 const deviceURL = this.getDeviceUrl(1);
                 if (deviceURL)
                 {
-                    let states = await Tahoma.getDeviceStates(deviceURL);
+                    let states = await Homey.app.tahoma.getDeviceStates(deviceURL);
 
                     // Get the next sub url if the original url ended with #1
                     let url2 = this.getDeviceUrl(2);
                     if (url2)
                     {
                         // We have a sub url to check
-                        let states2 = await Tahoma.getDeviceStates(url2);
+                        let states2 = await Homey.app.tahoma.getDeviceStates(url2);
                         states = states.concat( states2);
                     }
                     return states;
