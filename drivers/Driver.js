@@ -21,20 +21,22 @@ class Driver extends Homey.Driver
         return this;
     }
 
-    onPair(socket)
+    async onPair(session)
     {
-        socket.on('list_devices', (data, callback) => {
+        session.setHandler('list_devices', async () =>
+        {
             this.log('list_devices');
             const username = this.homey.settings.get('username');
             const password = this.homey.settings.get('password');
-            if (!username || !password) {
-                callback(new Error(Homey.__("errors.on_pair_login_failure")));
-                return;
+            if (!username || !password)
+            {
+                throw new Error(Homey.__("errors.on_pair_login_failure"));
             }
-            this.onReceiveSetupData(callback);
+            return this.onReceiveSetupData();
         });
     }
-    async onReceiveSetupData(callback)
+
+    async onReceiveSetupData()
     {
         try
         {
@@ -53,13 +55,13 @@ class Driver extends Homey.Driver
                         controllableName: device.controllableName,
                     }
                 }));
-                callback(null, homeyDevices);
+                return homeyDevices;
             }
         }
         catch (error)
         {
             this.homey.app.logInformation("OnReceiveSetupData", error);
-            callback(error);
+            throw new Error(error.message);
         }
     }
     /**
@@ -73,17 +75,17 @@ class Driver extends Homey.Driver
         if (trigger)
         {
             trigger.trigger(device, tokens, state)
-            .then(result =>
-            {
-                if (result)
+                .then(result =>
                 {
-                    this.log(result);
-                }
-            })
-            .catch(error =>
-            {
-                this.homey.app.logInformation("triggerFlow (" + trigger.id + ")", error);
-            });
+                    if (result)
+                    {
+                        this.log(result);
+                    }
+                })
+                .catch(error =>
+                {
+                    this.homey.app.logInformation("triggerFlow (" + trigger.id + ")", error);
+                });
         }
     }
     /**
