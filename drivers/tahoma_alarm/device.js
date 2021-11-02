@@ -34,12 +34,12 @@ class TahomaAlarmDevice extends SensorDevice
             parameters: [state]
         };
 
-        let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+        let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
         if (result !== undefined)
         {
             if (result.errorCode)
             {
-                Homey.app.logInformation(this.getName(),
+                this.homey.app.logInformation(this.getName(),
                 {
                     message: result.error,
                     stack: result.errorCode
@@ -50,7 +50,7 @@ class TahomaAlarmDevice extends SensorDevice
         }
         else
         {
-            Homey.app.logInformation(this.getName() + ": setIntrusionDetected", "Failed to send command");
+            this.homey.app.logInformation(this.getName() + ": setIntrusionDetected", "Failed to send command");
             throw (new Error("Failed to send command"));
         }
 

@@ -26,7 +26,7 @@ class WaterTankDevice extends SensorDevice
         {
             if (this.boostSync)
             {
-                await Homey.app.boostSync();
+                await this.homey.app.boostSync();
             }
 
             const deviceData = this.getData();
@@ -45,12 +45,12 @@ class WaterTankDevice extends SensorDevice
                     parameters: ['on']
                 };
             }
-            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
                 {
-                    Homey.app.logInformation(this.getName(),
+                    this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
                         stack: result.errorCode
@@ -58,7 +58,7 @@ class WaterTankDevice extends SensorDevice
 
                     if (this.boostSync)
                     {
-                        await Homey.app.unBoostSync();
+                        await this.homey.app.unBoostSync();
                     }
                     throw (new Error(result.error));
                 }
@@ -70,10 +70,10 @@ class WaterTankDevice extends SensorDevice
             }
             else
             {
-                Homey.app.logInformation(this.getName() + ": onCapabilityOnOff", "Failed to send command");
+                this.homey.app.logInformation(this.getName() + ": onCapabilityOnOff", "Failed to send command");
                 if (this.boostSync)
                 {
-                    await Homey.app.unBoostSync();
+                    await this.homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
             }
@@ -97,7 +97,7 @@ class WaterTankDevice extends SensorDevice
                 const onOffState = states.find(state => state.name === 'core:ForceHeatingState');
                 if (onOffState)
                 {
-                    Homey.app.logStates(this.getName() + ": core:ForceHeatingState = " + onOffState.value);
+                    this.homey.app.logStates(this.getName() + ": core:ForceHeatingState = " + onOffState.value);
                     this.triggerCapabilityListener('onoff', (onOffState.value === 'on'),
                     {
                         fromCloudSync: true
@@ -108,7 +108,7 @@ class WaterTankDevice extends SensorDevice
         catch (error)
         {
             this.setUnavailable(null);
-            Homey.app.logInformation(this.getName(),
+            this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
                 stack: error.stack
@@ -134,9 +134,9 @@ class WaterTankDevice extends SensorDevice
             {
                 if ((element.deviceURL === myURL) && element.deviceStates)
                 {
-                    if (Homey.app.infoLogEnabled)
+                    if (this.homey.app.infoLogEnabled)
                     {
-                        Homey.app.logInformation(this.getName(),
+                        this.homey.app.logInformation(this.getName(),
                         {
                             message: "Processing device state change event",
                             stack: element
@@ -148,7 +148,7 @@ class WaterTankDevice extends SensorDevice
                         const deviceState = element.deviceStates[x];
                         if (deviceState.name === 'core:ForceHeatingState')
                         {
-                            Homey.app.logStates(this.getName() + ": core:ForceHeatingState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": core:ForceHeatingState = " + deviceState.value);
                             const oldState = this.getState().onoff;
                             const newState = (deviceState.value === 'on');
                             if (oldState !== newState)

@@ -54,7 +54,7 @@ class two_button_on_offDevice extends Device
 
         if (this.boostSync)
         {
-            await Homey.app.boostSync();
+            await this.homey.app.boostSync();
         }
 
         const deviceData = this.getData();
@@ -64,7 +64,7 @@ class two_button_on_offDevice extends Device
             let retries = 20;
             while ((this.executionId !== null) && (retries-- > 0))
             {
-                await Homey.app.asyncDelay(500);
+                await this.homey.app.asyncDelay(500);
             }
         }
 
@@ -83,12 +83,12 @@ class two_button_on_offDevice extends Device
                 parameters: []
             };
         }
-        let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+        let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
         if (result !== undefined)
         {
             if (result.errorCode)
             {
-                Homey.app.logInformation(this.getName(),
+                this.homey.app.logInformation(this.getName(),
                 {
                     message: result.error,
                     stack: result.errorCode
@@ -96,7 +96,7 @@ class two_button_on_offDevice extends Device
 
                 if (this.boostSync)
                 {
-                    await Homey.app.unBoostSync();
+                    await this.homey.app.unBoostSync();
                 }
                 throw (new Error(result.error));
             }
@@ -109,10 +109,10 @@ class two_button_on_offDevice extends Device
         }
         else
         {
-            Homey.app.logInformation(this.getName() + ": sendOnOff", "Failed to send command");
+            this.homey.app.logInformation(this.getName() + ": sendOnOff", "Failed to send command");
             if (this.boostSync)
             {
-                await Homey.app.unBoostSync();
+                await this.homey.app.unBoostSync();
             }
             throw (new Error("Failed to send command"));
         }
@@ -132,7 +132,7 @@ class two_button_on_offDevice extends Device
 
         if (this.boostSync)
         {
-            await Homey.app.boostSync();
+            await this.homey.app.boostSync();
         }
 
         const deviceData = this.getData();
@@ -142,7 +142,7 @@ class two_button_on_offDevice extends Device
             let retries = 20;
             while ((this.executionId !== null) && (retries-- > 0))
             {
-                await Homey.app.asyncDelay(500);
+                await this.homey.app.asyncDelay(500);
             }
         }
 
@@ -152,12 +152,12 @@ class two_button_on_offDevice extends Device
             parameters: [value]
         };
 
-        let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+        let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
         if (result !== undefined)
         {
             if (result.errorCode)
             {
-                Homey.app.logInformation(this.getName(),
+                this.homey.app.logInformation(this.getName(),
                 {
                     message: result.error,
                     stack: result.errorCode
@@ -165,7 +165,7 @@ class two_button_on_offDevice extends Device
 
                 if (this.boostSync)
                 {
-                    await Homey.app.unBoostSync();
+                    await this.homey.app.unBoostSync();
                 }
                 throw (new Error(result.error));
             }
@@ -180,10 +180,10 @@ class two_button_on_offDevice extends Device
         }
         else
         {
-            Homey.app.logInformation(this.getName() + ": sendOnWithTimer", "Failed to send command");
+            this.homey.app.logInformation(this.getName() + ": sendOnWithTimer", "Failed to send command");
             if (this.boostSync)
             {
-                await Homey.app.unBoostSync();
+                await this.homey.app.unBoostSync();
             }
 
             this.doOnTimer();
@@ -195,7 +195,7 @@ class two_button_on_offDevice extends Device
 
     doOnTimer()
     {
-        this.onTime = setTimeout(() =>
+        this.onTime = this.homey.setTimeout(() =>
         {
             let timeRemaining = this.getCapabilityValue('on_with_timer');
 
@@ -231,7 +231,7 @@ class two_button_on_offDevice extends Device
                         this.executionCmd = element.actions[x].commands[0].name;
                         if (this.boostSync)
                         {
-                            await Homey.app.boostSync();
+                            await this.homey.app.boostSync();
                         }            
                     }
                 }
@@ -244,10 +244,10 @@ class two_button_on_offDevice extends Device
                     {
                         if (this.boostSync)
                         {
-                            await Homey.app.unBoostSync();
+                            await this.homey.app.unBoostSync();
                         }
 
-                        Homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
+                        this.homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
                         this.commandExecuting = '';
                         this.executionId = null;
                         this.executionCmd = '';

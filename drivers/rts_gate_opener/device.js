@@ -53,13 +53,13 @@ class rtsGateOpenerDevice extends Device
     {
         if (this.boostSync)
         {
-            await Homey.app.boostSync();
+            await this.homey.app.boostSync();
         }
 
         const deviceData = this.getData();
         if (this.executionId !== null)
         {
-            await Homey.app.tahoma.cancelExecution(this.executionId);
+            await this.homey.app.tahoma.cancelExecution(this.executionId);
         }
 
         var action;
@@ -82,12 +82,12 @@ class rtsGateOpenerDevice extends Device
 
         try
         {
-            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
                 {
-                    Homey.app.logInformation(this.getName(),
+                    this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
                         stack: result.errorCode
@@ -95,7 +95,7 @@ class rtsGateOpenerDevice extends Device
 
                     if (this.boostSync)
                     {
-                        await Homey.app.unBoostSync();
+                        await this.homey.app.unBoostSync();
                     }
                     throw (new Error(result.error));
                 }
@@ -108,20 +108,20 @@ class rtsGateOpenerDevice extends Device
             }
             else
             {
-                Homey.app.logInformation(this.getName() + ": sendOpenClose", "Failed to send command");
+                this.homey.app.logInformation(this.getName() + ": sendOpenClose", "Failed to send command");
                 if (this.boostSync)
                 {
-                    await Homey.app.unBoostSync();
+                    await this.homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
             }
         }
         catch (err)
         {
-            Homey.app.logInformation(this.getName() + ": sendOpenClose", "Failed to send command");
+            this.homey.app.logInformation(this.getName() + ": sendOpenClose", "Failed to send command");
             if (this.boostSync)
             {
-                await Homey.app.unBoostSync();
+                await this.homey.app.unBoostSync();
             }
             throw (err);
         }
@@ -151,7 +151,7 @@ class rtsGateOpenerDevice extends Device
                         this.executionCmd = element.actions[x].commands[0].name;
                         if (this.boostSync)
                         {
-                            await Homey.app.boostSync();
+                            await this.homey.app.boostSync();
                         }            
                     }
                 }
@@ -164,11 +164,11 @@ class rtsGateOpenerDevice extends Device
                     {
                         if (this.boostSync)
                         {
-                            await Homey.app.unBoostSync();
+                            await this.homey.app.unBoostSync();
                         }
 
-                        Homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
-                        this.getDriver().triggerDeviceCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
+                        this.homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
+                        this.driver.triggerDeviceCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
                         this.commandExecuting = '';
                         this.executionId = null;
                         this.executionCmd = '';

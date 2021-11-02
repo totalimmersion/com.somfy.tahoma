@@ -16,7 +16,7 @@ class WindowHandleDriver extends Driver
         this.deviceType = ['enocean:EnOceanWindowHandle'];
 
         /*** CONTACT TRIGGERS ***/
-        this._triggerContactChange = new Homey.FlowCardTriggerDevice('contact_has_changed').register();
+        this._triggerContactChange = this.homey.flow.getDeviceTriggerCard('contact_has_changed');
         this._triggerContactChange.registerRunListener(() =>
         {
             return Promise.resolve(true);

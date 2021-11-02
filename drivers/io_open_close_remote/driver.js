@@ -15,16 +15,14 @@ class io_open_close_remoteDriver extends Driver
         this.deviceType = ["io:IORemoteController"];
         await super.onInit();
 
-        this._remoteSateChangedTrigger = new Homey.FlowCardTriggerDevice('remote_state_changed')
-            .register();
+        this._remoteSateChangedTrigger = this.homey.flow.getDeviceTriggerCard('remote_state_changed')
 
-        this._remoteSateChangedTriggerTo = new Homey.FlowCardTriggerDevice('remote_state_changed_to')
+        this._remoteSateChangedTriggerTo = this.homey.flow.getDeviceTriggerCard('remote_state_changed_to')
             .registerRunListener((args, state) =>
             {
                 // If true, this flow should run
                 return Promise.resolve(args.expected_state === state.expected_state);
             })
-            .register();
     }
 
     triggerRemoteSateChange(device, tokens, state)

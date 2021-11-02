@@ -16,7 +16,7 @@ class SmokeDetectorDriver extends Driver
         this.deviceType = ['rtds:RTDSSmokeSensor', 'io:SomfySmokeIOSystemSensor'];
 
         /*** ALARM SMOKE TRIGGERS ***/
-        this._triggerSmokeChange = new Homey.FlowCardTriggerDevice('smoke_has_changed').register();
+        this._triggerSmokeChange = this.homey.flow.getDeviceTriggerCard('smoke_has_changed');
         this._triggerSmokeChange.registerRunListener(() =>
         {
             return Promise.resolve(true);

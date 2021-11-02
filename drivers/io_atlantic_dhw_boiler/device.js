@@ -34,12 +34,12 @@ class WaterBoilerDevice extends SensorDevice
                 parameters: [value]
             };
 
-            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
                 {
-                    Homey.app.logInformation(this.getName(),
+                    this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
                         stack: result.errorCode
@@ -47,7 +47,7 @@ class WaterBoilerDevice extends SensorDevice
 
                     if (this.boostSync)
                     {
-                        await Homey.app.unBoostSync();
+                        await this.homey.app.unBoostSync();
                     }
                     throw (new Error(result.error));
                 }
@@ -59,10 +59,10 @@ class WaterBoilerDevice extends SensorDevice
             }
             else
             {
-                Homey.app.logInformation(this.getName() + ": onCapabilityTargetTemperatureComfort", "Failed to send command");
+                this.homey.app.logInformation(this.getName() + ": onCapabilityTargetTemperatureComfort", "Failed to send command");
                 if (this.boostSync)
                 {
-                    await Homey.app.unBoostSync();
+                    await this.homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
             }
@@ -83,12 +83,12 @@ class WaterBoilerDevice extends SensorDevice
                 parameters: [value]
             };
 
-            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
                 {
-                    Homey.app.logInformation(this.getName(),
+                    this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
                         stack: result.errorCode
@@ -96,7 +96,7 @@ class WaterBoilerDevice extends SensorDevice
 
                     if (this.boostSync)
                     {
-                        await Homey.app.unBoostSync();
+                        await this.homey.app.unBoostSync();
                     }
                     throw (new Error(result.error));
                 }
@@ -108,10 +108,10 @@ class WaterBoilerDevice extends SensorDevice
             }
             else
             {
-                Homey.app.logInformation(this.getName() + ": onCapabilityTargetTemperatureEco", "Failed to send command");
+                this.homey.app.logInformation(this.getName() + ": onCapabilityTargetTemperatureEco", "Failed to send command");
                 if (this.boostSync)
                 {
-                    await Homey.app.unBoostSync();
+                    await this.homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
             }
@@ -128,7 +128,7 @@ class WaterBoilerDevice extends SensorDevice
         {
             if (this.boostSync)
             {
-                await Homey.app.boostSync();
+                await this.homey.app.boostSync();
             }
 
             const deviceData = this.getData();
@@ -138,7 +138,7 @@ class WaterBoilerDevice extends SensorDevice
                 let retries = 20;
                 while ((this.executionId !== null) && (retries-- > 0))
                 {
-                    await Homey.app.asyncDelay(500);
+                    await this.homey.app.asyncDelay(500);
                 }
             }
 
@@ -157,12 +157,12 @@ class WaterBoilerDevice extends SensorDevice
                     parameters: ['on']
                 };
             }
-            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
                 {
-                    Homey.app.logInformation(this.getName(),
+                    this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
                         stack: result.errorCode
@@ -170,7 +170,7 @@ class WaterBoilerDevice extends SensorDevice
 
                     if (this.boostSync)
                     {
-                        await Homey.app.unBoostSync();
+                        await this.homey.app.unBoostSync();
                     }
                     throw (new Error(result.error));
                 }
@@ -182,10 +182,10 @@ class WaterBoilerDevice extends SensorDevice
             }
             else
             {
-                Homey.app.logInformation(this.getName() + ": onCapabilityOnOff", "Failed to send command");
+                this.homey.app.logInformation(this.getName() + ": onCapabilityOnOff", "Failed to send command");
                 if (this.boostSync)
                 {
-                    await Homey.app.unBoostSync();
+                    await this.homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
             }
@@ -206,12 +206,12 @@ class WaterBoilerDevice extends SensorDevice
                 parameters: [value]
             };
 
-            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
                 {
-                    Homey.app.logInformation(this.getName(),
+                    this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
                         stack: result.errorCode
@@ -224,13 +224,13 @@ class WaterBoilerDevice extends SensorDevice
                     this.executionId = result.execId;
                     if (this.boostSync)
                     {
-                        await Homey.app.boostSync();
+                        await this.homey.app.boostSync();
                     }
                 }
             }
             else
             {
-                Homey.app.logInformation(this.getName() + ": onCapabilityBoilerMode", "Failed to send command");
+                this.homey.app.logInformation(this.getName() + ": onCapabilityBoilerMode", "Failed to send command");
                 throw (new Error("Failed to send command"));
             }
         }
@@ -260,12 +260,12 @@ class WaterBoilerDevice extends SensorDevice
                     parameters: ['on']
                 };
             }
-            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
                 {
-                    Homey.app.logInformation(this.getName(),
+                    this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
                         stack: result.errorCode
@@ -273,7 +273,7 @@ class WaterBoilerDevice extends SensorDevice
 
                     if (this.boostSync)
                     {
-                        await Homey.app.unBoostSync();
+                        await this.homey.app.unBoostSync();
                     }
                     throw (new Error(result.error));
                 }
@@ -285,10 +285,10 @@ class WaterBoilerDevice extends SensorDevice
             }
             else
             {
-                Homey.app.logInformation(this.getName() + ": onCapabilityBoostState", "Failed to send command");
+                this.homey.app.logInformation(this.getName() + ": onCapabilityBoostState", "Failed to send command");
                 if (this.boostSync)
                 {
-                    await Homey.app.unBoostSync();
+                    await this.homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
             }
@@ -312,7 +312,7 @@ class WaterBoilerDevice extends SensorDevice
                 const onOffState = states.find(state => state.name === 'core:OnOffState');
                 if (onOffState)
                 {
-                    Homey.app.logStates(this.getName() + ": core:OnOffState = " + onOffState.value);
+                    this.homey.app.logStates(this.getName() + ": core:OnOffState = " + onOffState.value);
                     this.triggerCapabilityListener('onoff', (onOffState.value === 'on'),
                     {
                         fromCloudSync: true
@@ -322,7 +322,7 @@ class WaterBoilerDevice extends SensorDevice
                 const boilerMode = states.find(state => state.name === 'io:PassAPCDHWModeState');
                 if (boilerMode)
                 {
-                    Homey.app.logStates(this.getName() + ": io:PassAPCDHWModeState = " + boilerMode.value);
+                    this.homey.app.logStates(this.getName() + ": io:PassAPCDHWModeState = " + boilerMode.value);
                     this.triggerCapabilityListener('boiler_mode', boilerMode.value,
                     {
                         fromCloudSync: true
@@ -332,7 +332,7 @@ class WaterBoilerDevice extends SensorDevice
                 const boost = states.find(state => state.name === 'core:BoostOnOffState');
                 if (boost)
                 {
-                    Homey.app.logStates(this.getName() + ": core:BoostOnOffState = " + boost.value);
+                    this.homey.app.logStates(this.getName() + ": core:BoostOnOffState = " + boost.value);
                     this.triggerCapabilityListener('boost', boost.value === 'on',
                     {
                         fromCloudSync: true
@@ -342,7 +342,7 @@ class WaterBoilerDevice extends SensorDevice
                 const comfortTemp = states.find(state => state.name === 'core:ComfortTargetDHWTemperatureState');
                 if (comfortTemp)
                 {
-                    Homey.app.logStates(this.getName() + ": core:ComfortTargetDHWTemperatureState = " + comfortTemp.value);
+                    this.homey.app.logStates(this.getName() + ": core:ComfortTargetDHWTemperatureState = " + comfortTemp.value);
                     this.triggerCapabilityListener('target_temperature.comfort', comfortTemp.value,
                     {
                         fromCloudSync: true
@@ -352,7 +352,7 @@ class WaterBoilerDevice extends SensorDevice
                 const ecoTemp = states.find(state => state.name === 'core:EcoTargetDHWTemperatureState');
                 if (ecoTemp)
                 {
-                    Homey.app.logStates(this.getName() + ": core:EcoTargetDHWTemperatureState = " + ecoTemp.value);
+                    this.homey.app.logStates(this.getName() + ": core:EcoTargetDHWTemperatureState = " + ecoTemp.value);
                     this.triggerCapabilityListener('target_temperature.eco', ecoTemp.value,
                     {
                         fromCloudSync: true
@@ -364,7 +364,7 @@ class WaterBoilerDevice extends SensorDevice
         catch (error)
         {
             this.setUnavailable(null);
-            Homey.app.logInformation(this.getName(),
+            this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
                 stack: error.stack
@@ -390,9 +390,9 @@ class WaterBoilerDevice extends SensorDevice
             {
                 if ((element.deviceURL === myURL) && element.deviceStates)
                 {
-                    if (Homey.app.infoLogEnabled)
+                    if (this.homey.app.infoLogEnabled)
                     {
-                        Homey.app.logInformation(this.getName(),
+                        this.homey.app.logInformation(this.getName(),
                         {
                             message: "Processing device state change event",
                             stack: element
@@ -404,7 +404,7 @@ class WaterBoilerDevice extends SensorDevice
                         const deviceState = element.deviceStates[x];
                         if (deviceState.name === 'core:OnOffState')
                         {
-                            Homey.app.logStates(this.getName() + ": core:OnOffState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": core:OnOffState = " + deviceState.value);
                             const oldState = this.getState().onoff;
                             const newState = (deviceState.value === 'on');
                             if (oldState !== newState)
@@ -414,7 +414,7 @@ class WaterBoilerDevice extends SensorDevice
                         }
                         else if (deviceState.name === 'core:BoostOnOffState')
                         {
-                            Homey.app.logStates(this.getName() + ": core:BoostOnOffState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": core:BoostOnOffState = " + deviceState.value);
                             const oldState = this.getState().boost;
                             const newState = deviceState.value === 'on';
                             if (oldState !== newState)
@@ -427,7 +427,7 @@ class WaterBoilerDevice extends SensorDevice
                         }
                         else if (deviceState.name === 'io:PassAPCDHWModeState')
                         {
-                            Homey.app.logStates(this.getName() + ": io:PassAPCDHWModeState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": io:PassAPCDHWModeState = " + deviceState.value);
                             const oldState = this.getState().boiler_mode;
                             const newState = deviceState.value;
                             if (oldState !== newState)
@@ -440,7 +440,7 @@ class WaterBoilerDevice extends SensorDevice
                         }
                         else if (deviceState.name === 'core:ComfortTargetDHWTemperatureState')
                         {
-                            Homey.app.logStates(this.getName() + ": core:ComfortTargetDHWTemperatureState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": core:ComfortTargetDHWTemperatureState = " + deviceState.value);
                             const oldState = this.getState().target_temperature.comfort;
                             const newState = deviceState.value;
                             if (oldState !== newState)
@@ -453,7 +453,7 @@ class WaterBoilerDevice extends SensorDevice
                         }
                         else if (deviceState.name === 'core:EcoTargetDHWTemperatureState')
                         {
-                            Homey.app.logStates(this.getName() + ": core:EcoTargetDHWTemperatureState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": core:EcoTargetDHWTemperatureState = " + deviceState.value);
                             const oldState = this.getState().target_temperature.eco;
                             const newState = deviceState.value;
                             if (oldState !== newState)

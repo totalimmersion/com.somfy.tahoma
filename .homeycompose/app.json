@@ -1,89 +1,112 @@
 {
-  "id": "com.somfy.tahoma",
-  "sdk": 2,
-  "brandColor": "#FAB800",
-  "name": {
-    "en": "Somfy TaHoma & Connexoon",
-    "nl": "Somfy TaHoma & Connexoon"
-  },
-  "description": {
-    "en": "Bring the richness of Homey to your Somfy world"
-  },
-  "version": "2.1.78",
-  "compatibility": ">=2.0.0",
-  "author": {
-    "name": "Adrian Rockall",
-    "email": "ady@rockall.plus.com"
-  },
-  "contributing": {
-    "donate": {
-      "paypal": {
-        "username": "adyrock"
-      }
-    }
-  },
-  "bugs": {
-    "url": "https://github.com/AdyRock/com.somfy.tahoma/issues"
-  },
-  "source": "https://github.com/AdyRock/com.somfy.tahoma",
-  "homeyCommunityTopicId": 35206,
-  "contributors": {
-    "developers": [
-      {
-        "name": "Lennart Kuijs",
-        "email": "info@totalimmersion.nl"
-      },
-      {
+    "id": "com.somfy.tahoma",
+    "sdk": 3,
+    "brandColor": "#FAB800",
+    "name": {
+        "en": "Somfy TaHoma & Connexoon",
+        "nl": "Somfy TaHoma & Connexoon"
+    },
+    "description": {
+        "en": "Bring the richness of Homey to your Somfy world"
+    },
+    "version": "2.1.78",
+    "compatibility": ">=5.0.0",
+    "author": {
         "name": "Adrian Rockall",
         "email": "ady@rockall.plus.com"
-      },
-      {
-        "name": "Anders Fjeldstad",
-        "email": "anders@fjeldstad.se"
-      }
-    ]
-  },
-  "images": {
-    "small": "assets/images/small.png",
-    "large": "assets/images/large.png"
-  },
-  "category": [
-    "appliances",
-    "climate",
-    "security"
-  ],
-  "tags": {
-    "en": [
-      "Somfy TaHoma",
-      "Somfy Connexoon",
-      "io-homecontrol",
-      "io",
-      "Sunis Wirefree",
-      "lightsensor",
-      "Thermis WireFree",
-      "temperature sensor",
-      "exterior blinds",
-      "screens",
-      "Velux",
-      "roof window",
-      "One Alarm",
-      "Outdoor Camera"
+    },
+    "contributing": {
+        "donate": {
+            "paypal": {
+                "username": "adyrock"
+            }
+        }
+    },
+    "bugs": {
+        "url": "https://github.com/AdyRock/com.somfy.tahoma/issues"
+    },
+    "source": "https://github.com/AdyRock/com.somfy.tahoma",
+    "homeyCommunityTopicId": 35206,
+    "contributors": {
+        "developers": [
+            {
+                "name": "Lennart Kuijs",
+                "email": "info@totalimmersion.nl"
+            },
+            {
+                "name": "Adrian Rockall",
+                "email": "ady@rockall.plus.com"
+            },
+            {
+                "name": "Anders Fjeldstad",
+                "email": "anders@fjeldstad.se"
+            }
+        ]
+    },
+    "images": {
+        "small": "assets/images/small.png",
+        "large": "assets/images/large.png"
+    },
+    "category": [
+        "appliances",
+        "climate",
+        "security"
     ],
-    "nl": [
-      "Somfy TaHoma",
-      "Somfy Connexoon",
-      "io-homecontrol",
-      "io",
-      "Sunis Wirefree",
-      "lichtsensor",
-      "Thermis WireFree",
-      "temperatuur sensor",
-      "zonwering",
-      "screens",
-      "Velux",
-      "dakraam",
-      "One Alarm",
-      "Outdoor Camera"
-    ]
-  }
+    "tags": {
+        "en": [
+            "Somfy TaHoma",
+            "Somfy Connexoon",
+            "io-homecontrol",
+            "io",
+            "Sunis Wirefree",
+            "lightsensor",
+            "Thermis WireFree",
+            "temperature sensor",
+            "exterior blinds",
+            "screens",
+            "Velux",
+            "roof window",
+            "One Alarm",
+            "Outdoor Camera"
+        ],
+        "nl": [
+            "Somfy TaHoma",
+            "Somfy Connexoon",
+            "io-homecontrol",
+            "io",
+            "Sunis Wirefree",
+            "lichtsensor",
+            "Thermis WireFree",
+            "temperatuur sensor",
+            "zonwering",
+            "screens",
+            "Velux",
+            "dakraam",
+            "One Alarm",
+            "Outdoor Camera"
+        ]
+    },
+    "api": {
+        "login": {
+            "method": "post",
+            "path": "/login/"
+        },
+        "logout": {
+            "method": "post",
+            "path": "/logout/"
+        },
+        "GetDeviceLog": {
+            "method": "post",
+            "path": "/GetDeviceLog/"
+        },
+        "SendDeviceLog": {
+            "method": "post",
+            "path": "/SendDeviceLog/",
+            "public": true
+        },
+        "SendInfoLog": {
+            "method": "post",
+            "path": "/SendInfoLog/"
+        }
+    }
 }

@@ -69,7 +69,7 @@ class HorizontalAwningDevice extends WindowCoveringsDevice
             {
                 this.setCapabilityValue("lock_state", lockState.value);
                 clearTimeout(this.checkLockStateTimer);
-                this.checkLockStateTimer = setTimeout(this.checkLockSate, (60 * 1000));
+                this.checkLockStateTimer = this.homey.setTimeout(this.checkLockSate, (60 * 1000));
             }
             else
             {
@@ -83,7 +83,7 @@ class HorizontalAwningDevice extends WindowCoveringsDevice
                     else
                     {
                         clearTimeout(this.checkLockStateTimer);
-                        this.checkLockStateTimer = setTimeout(this.checkLockSate, (60 * 1000));
+                        this.checkLockStateTimer = this.homey.setTimeout(this.checkLockSate, (60 * 1000));
                     }
                 }
             }

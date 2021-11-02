@@ -14,15 +14,6 @@ class rtsGateOpenerDriver extends Driver
     {
         this.deviceType = ["rts:GateOpenerRTSComponent"];
         await super.onInit();
-
-        this.openCloseAction = new Homey.FlowCardAction('set_open_close_stop');
-        this.openCloseAction
-            .register()
-            .registerRunListener(async (args, state) =>
-            {
-                console.log("open_close_stop");
-                return args.device.sendOpenCloseStop(args.state, null);
-            });
     }
 }
 

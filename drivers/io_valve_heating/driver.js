@@ -15,47 +15,19 @@ class ElectricHeaterDriver extends Driver
     {
         this.deviceType = ['io:HeatingValveIOComponent'];
 
-        this.set_open_window_activationAction = new Homey.FlowCardAction('set_open_window_activation');
-        this.set_open_window_activationAction
-            .register()
-            .registerRunListener(async (args, state) =>
-            {
-                console.log("set_open_window_activation");
-                return args.device.triggerCapabilityListener('open_window_activation', args.open_window_activation == 'on', null);
-            });
-
-        this.set_valve_auto_modeAction = new Homey.FlowCardAction('set_valve_auto_mode');
-        this.set_valve_auto_modeAction
-            .register()
-            .registerRunListener(async (args, state) =>
-            {
-                console.log("set_valve_auto_mode");
-                return args.device.triggerCapabilityListener('valve_auto_mode', args.set_valve_auto == 'on', null);
-            });
-
-        this.set_derogation_modeAction = new Homey.FlowCardAction('set_derogation_mode');
-        this.set_derogation_modeAction
-            .register()
-            .registerRunListener(async (args, state) =>
-            {
-                console.log("set_derogation_mode");
-                await args.device.setCapabilityValue('derogation_type', args.type);
-                return args.device.triggerCapabilityListener('derogation_mode', args.derogation_mode, null);
-            });
-
-        this._derogation_mode_changed = new Homey.FlowCardTriggerDevice('derogation_mode_changed').register();
+        this._derogation_mode_changed = this.homey.flow.getDeviceTriggerCard('derogation_mode_changed');
         this._derogation_mode_changed.registerRunListener(() =>
         {
             return Promise.resolve(true);
         });
 
-        this._valve_heating_mode_state_changed = new Homey.FlowCardTriggerDevice('valve_heating_mode_state_changed').register();
+        this._valve_heating_mode_state_changed = this.homey.flow.getDeviceTriggerCard('valve_heating_mode_state_changed');
         this._valve_heating_mode_state_changed.registerRunListener(() =>
         {
             return Promise.resolve(true);
         });
 
-        this._defect_state_changed = new Homey.FlowCardTriggerDevice('defect_state_changed').register();
+        this._defect_state_changed = this.homey.flow.getDeviceTriggerCard('defect_state_changed');
         this._defect_state_changed.registerRunListener(() =>
         {
             return Promise.resolve(true);

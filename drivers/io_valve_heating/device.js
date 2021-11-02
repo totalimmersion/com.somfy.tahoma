@@ -33,7 +33,7 @@ class ValveHeatingDevice extends SensorDevice
 
     async onCapability(capabilityXRef, value, opts)
     {
-        Homey.app.logInformation(this.getName(),
+        this.homey.app.logInformation(this.getName(),
         {
             message: 'onCapability',
             stack: {'capabilityXRef': capabilityXRef, 'value': value, 'opts': opts}
@@ -49,7 +49,7 @@ class ValveHeatingDevice extends SensorDevice
 
             if (this.boostSync)
             {
-                await Homey.app.boostSync();
+                await this.homey.app.boostSync();
             }
 
             const applicableEntries = CapabilitiesXRef.filter(entry => entry.somfyNameSet[0] === capabilityXRef.somfyNameSet[0]).sort((a, b) => a.somfyArray - b.somfyArray);
@@ -66,11 +66,11 @@ class ValveHeatingDevice extends SensorDevice
             {
                 try
                 {
-                    await Homey.app.tahoma.cancelExecution(this.executionCommands[idx].id);
+                    await this.homey.app.tahoma.cancelExecution(this.executionCommands[idx].id);
                 }
                 catch(err)
                 {
-                    Homey.app.logInformation(this.getName(),
+                    this.homey.app.logInformation(this.getName(),
                     {
                         message: err.message,
                         stack: err.stack
@@ -84,12 +84,12 @@ class ValveHeatingDevice extends SensorDevice
                 parameters: somfyValues
             };
 
-            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
                 {
-                    Homey.app.logInformation(this.getName(),
+                    this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
                         stack: result.errorCode
@@ -97,7 +97,7 @@ class ValveHeatingDevice extends SensorDevice
 
                     if (this.boostSync)
                     {
-                        await Homey.app.unBoostSync();
+                        await this.homey.app.unBoostSync();
                     }
                     throw (new Error(result.error));
                 }
@@ -110,16 +110,16 @@ class ValveHeatingDevice extends SensorDevice
                     }
                     else
                     {
-                        await Homey.app.unBoostSync();
+                        await this.homey.app.unBoostSync();
                     }
                 }
             }
             else
             {
-                Homey.app.logInformation(this.getName() + ": onCapability " + capabilityXRef.somfyNameSet[0], "Failed to send command");
+                this.homey.app.logInformation(this.getName() + ": onCapability " + capabilityXRef.somfyNameSet[0], "Failed to send command");
                 if (this.boostSync)
                 {
-                    await Homey.app.unBoostSync();
+                    await this.homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
             }

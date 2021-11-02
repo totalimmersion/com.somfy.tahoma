@@ -11,11 +11,7 @@ class Driver extends Homey.Driver
     async onInit()
     {
         /*** Command Complete ***/
-        this._triggerCommandComplete = new Homey.FlowCardTriggerDevice('device_command_complete').register();
-        this._triggerCommandComplete.registerRunListener(() =>
-        {
-            return Promise.resolve(true);
-        });
+        this._triggerCommandComplete = this.homey.flow.getDeviceTriggerCard('device_command_complete');
     }
 
     triggerDeviceCommandComplete(device, commandName, success)
@@ -29,8 +25,8 @@ class Driver extends Homey.Driver
     {
         socket.on('list_devices', (data, callback) => {
             this.log('list_devices');
-            const username = Homey.ManagerSettings.get('username');
-            const password = Homey.ManagerSettings.get('password');
+            const username = this.homey.settings.get('username');
+            const password = this.homey.settings.get('password');
             if (!username || !password) {
                 callback(new Error(Homey.__("errors.on_pair_login_failure")));
                 return;
@@ -42,7 +38,7 @@ class Driver extends Homey.Driver
     {
         try
         {
-            const devices = await Homey.app.tahoma.getDeviceData();
+            const devices = await this.homey.app.tahoma.getDeviceData();
             if (devices)
             {
                 this.log('setup resolve');
@@ -62,13 +58,13 @@ class Driver extends Homey.Driver
         }
         catch (error)
         {
-            Homey.app.logInformation("OnReceiveSetupData", error);
+            this.homey.app.logInformation("OnReceiveSetupData", error);
             callback(error);
         }
     }
     /**
      * Triggers a flow
-     * @param {Homey.FlowCardTriggerDevice} trigger - A Homey.FlowCardTriggerDevice instance
+     * @param {this.homey.flow.getDeviceTriggerCard} trigger - A this.homey.flow.getDeviceTriggerCard instance
      * @param {Device} device - A Device instance
      * @param {Object} tokens - An object with tokens and their typed values, as defined in the app.json
      */
@@ -86,7 +82,7 @@ class Driver extends Homey.Driver
             })
             .catch(error =>
             {
-                Homey.app.logInformation("triggerFlow (" + trigger.id + ")", error);
+                this.homey.app.logInformation("triggerFlow (" + trigger.id + ")", error);
             });
         }
     }

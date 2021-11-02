@@ -114,7 +114,7 @@
         "en": "* Fix possible error for old io:HorizontalAwningIOComponent"
     },
     "1.6.20": {
-        "en": "* Changed setInterval to setTimeout so missing responses that timeout don't overlap.\n* Added Quick UI feature to most blinds and awnings so tile shows open close state and can toggle the state"
+        "en": "* Changed setInterval to this.homey.setTimeout so missing responses that timeout don't overlap.\n* Added Quick UI feature to most blinds and awnings so tile shows open close state and can toggle the state"
     },
     "1.6.21": {
         "en": "* Added Lock State capability and flow trigger when io:PriorityLockOriginatorState is available"

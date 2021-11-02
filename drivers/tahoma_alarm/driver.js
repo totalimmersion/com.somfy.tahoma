@@ -16,20 +16,11 @@ class TahomaAlarmDriver extends Driver
         this.deviceType = ['internal:TSKAlarmComponent'];
 
         /*** ALARM STATE CHANGE TRIGGER ***/
-        this._triggerTahoma_alarm_stateChange = new Homey.FlowCardTriggerDevice('tahoma_alarm_state_changed').register();
+        this._triggerTahoma_alarm_stateChange = this.homey.flow.getDeviceTriggerCard('tahoma_alarm_state_changed');
         this._triggerTahoma_alarm_stateChange.registerRunListener(() =>
         {
             return Promise.resolve(true);
         });
-
-        this.triggerTahomaAlarmAction = new Homey.FlowCardAction('trigger_tahoma_alarm');
-        this.triggerTahomaAlarmAction
-            .register()
-            .registerRunListener(async (args, state) =>
-            {
-                console.log("trigger_tahoma_alarm");
-                return args.device.triggerAlarmAction(args.state);
-            });
     }
 }
 

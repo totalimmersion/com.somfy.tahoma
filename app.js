@@ -9,11 +9,6 @@ const Tahoma = require('./lib/Tahoma');
 const nodemailer = require("nodemailer");
 const INITIAL_SYNC_INTERVAL = 60; //interval of 60 seconds
 const MIN_SYNC_INTERVAL = 30;
-/**
- * This class is the starting point of the app and initializes the necessary
- * services, listeners, etc.
- * @extends {Homey.App}
- **/
 class myApp extends Homey.App
 {
     /**
@@ -21,7 +16,7 @@ class myApp extends Homey.App
      */
     async onInit()
     {
-        this.log(`${Homey.app.manifest.id} running...`);
+        this.log(`${Homey.manifest.id} running...`);
         this.loggedIn = false;
         this.syncing = false;
         this.timerId = null;
@@ -31,68 +26,68 @@ class myApp extends Homey.App
 
         if (process.env.DEBUG === '1')
         {
-            Homey.ManagerSettings.set('debugMode', true);
+            this.homey.settings.set('debugMode', true);
         }
         else
         {
-            Homey.ManagerSettings.set('debugMode', false);
+            this.homey.settings.set('debugMode', false);
         }
-        Homey.ManagerSettings.unset('errorLog'); // Clean out obsolete entry
-        Homey.ManagerSettings.unset('diagLog');
-        Homey.ManagerSettings.unset('logEnabled');
+        this.homey.settings.unset('errorLog'); // Clean out obsolete entry
+        this.homey.settings.unset('diagLog');
+        this.homey.settings.unset('logEnabled');
 
-        Homey.ManagerSettings.set('deviceLog', "");
-        Homey.ManagerSettings.set('infoLog', "");
-        Homey.ManagerSettings.set('statusLogEnabled', false);
-        Homey.ManagerSettings.set('statusLog', "");
+        this.homey.settings.set('deviceLog', "");
+        this.homey.settings.set('infoLog', "");
+        this.homey.settings.set('statusLogEnabled', false);
+        this.homey.settings.set('statusLog', "");
 
-        this.homeyHash = await Homey.ManagerCloud.getHomeyId();
+        this.homeyHash = await this.homey.cloud.getHomeyId();
         this.homeyHash = this.hashCode(this.homeyHash).toString();
 
         // Default to old login method if not already setup
-        if (Homey.ManagerSettings.get('loginMethod') === null)
+        if (this.homey.settings.get('loginMethod') === null)
         {
-            Homey.ManagerSettings.set('loginMethod', false);
+            this.homey.settings.set('loginMethod', false);
         }
 
-        this.infoLogEnabled = Homey.ManagerSettings.get('infoLogEnabled');
+        this.infoLogEnabled = this.homey.settings.get('infoLogEnabled');
         if (this.infoLogEnabled === null)
         {
             this.infoLogEnabled = false;
-            Homey.ManagerSettings.set('infoLogEnabled', this.infoLogEnabled);
+            this.homey.settings.set('infoLogEnabled', this.infoLogEnabled);
         }
 
-        this.pollingEnabled = Homey.ManagerSettings.get('pollingEnabled');
+        this.pollingEnabled = this.homey.settings.get('pollingEnabled');
         if (this.pollingEnabled === null)
         {
             this.pollingEnabled = true;
-            Homey.ManagerSettings.set('pollingEnabled', this.pollingEnabled);
+            this.homey.settings.set('pollingEnabled', this.pollingEnabled);
         }
 
-        if (!Homey.ManagerSettings.get('syncInterval'))
+        if (!this.homey.settings.get('syncInterval'))
         {
-            Homey.ManagerSettings.set('syncInterval', INITIAL_SYNC_INTERVAL);
+            this.homey.settings.set('syncInterval', INITIAL_SYNC_INTERVAL);
         }
         try
         {
-            this.interval = Number(Homey.ManagerSettings.get('syncInterval'));
+            this.interval = Number(this.homey.settings.get('syncInterval'));
             if (this.interval < MIN_SYNC_INTERVAL)
             {
                 this.interval = MIN_SYNC_INTERVAL;
-                Homey.ManagerSettings.set('syncInterval', this.interval);
+                this.homey.settings.set('syncInterval', this.interval);
             }
         }
         catch (e)
         {
             this.interval = INITIAL_SYNC_INTERVAL;
-            Homey.ManagerSettings.set('syncInterval', this.interval);
+            this.homey.settings.set('syncInterval', this.interval);
         }
 
-        var linkUrl = Homey.ManagerSettings.get('linkurl');
+        var linkUrl = this.homey.settings.get('linkurl');
         if (!linkUrl)
         {
             linkUrl = "default";
-            Homey.ManagerSettings.set('linkurl', linkUrl);
+            this.homey.settings.set('linkurl', linkUrl);
         }
 
         process.on('unhandledRejection', (reason, promise) =>
@@ -105,16 +100,16 @@ class myApp extends Homey.App
             });
         });
 
-        Homey.on('unload', async () =>
+        this.homey.on('unload', async () =>
         {
             await this.logOut(false);
         });
 
-        Homey.ManagerSettings.on('set', (setting) =>
+        this.homey.settings.on('set', (setting) =>
         {
             if (setting === 'pollingEnabled')
             {
-                this.pollingEnabled = Homey.ManagerSettings.get('pollingEnabled');
+                this.pollingEnabled = this.homey.settings.get('pollingEnabled');
 
                 console.log("Polling option changed to: ", this.pollingEnabled);
 
@@ -134,19 +129,19 @@ class myApp extends Homey.App
             {
                 try
                 {
-                    this.interval = Number(Homey.ManagerSettings.get('syncInterval'));
+                    this.interval = Number(this.homey.settings.get('syncInterval'));
                 }
                 catch (e)
                 {
                     this.interval = INITIAL_SYNC_INTERVAL;
-                    Homey.ManagerSettings.set('syncInterval', this.interval);
+                    this.homey.settings.set('syncInterval', this.interval);
                 }
 
                 this.startSync();
             }
             else if (setting === 'infoLogEnabled')
             {
-                this.infoLogEnabled = Homey.ManagerSettings.get('infoLogEnabled');
+                this.infoLogEnabled = this.homey.settings.get('infoLogEnabled');
             }
             else if (setting === 'simData')
             {
@@ -154,7 +149,7 @@ class myApp extends Homey.App
             }
         });
 
-        this.tahoma = new Tahoma(Homey);
+        this.tahoma = new Tahoma(this.homey);
 
         // Setup the flow listeners
         this.addScenarioActionListeners();
@@ -162,7 +157,7 @@ class myApp extends Homey.App
         this.addPollingActionListeners();
 
         /*** TEMPERATURE CONDITIONS ***/
-        this._conditionTemperatureMoreThan = new Homey.FlowCardCondition('has_temperature_more_than').register();
+        this._conditionTemperatureMoreThan = this.homey.flow.getConditionCard('has_temperature_more_than');
         this._conditionTemperatureMoreThan.registerRunListener(args =>
         {
             let device = args.device;
@@ -170,7 +165,7 @@ class myApp extends Homey.App
             return Promise.resolve(conditionMet);
         });
 
-        this._conditionTemperatureLessThan = new Homey.FlowCardCondition('has_temperature_less_than').register();
+        this._conditionTemperatureLessThan = this.homey.flow.getConditionCard('has_temperature_less_than');
         this._conditionTemperatureLessThan.registerRunListener(args =>
         {
             let device = args.device;
@@ -178,7 +173,7 @@ class myApp extends Homey.App
             return Promise.resolve(conditionMet);
         });
 
-        this._conditionTemperatureBetween = new Homey.FlowCardCondition('has_temperature_between').register();
+        this._conditionTemperatureBetween = this.homey.flow.getConditionCard('has_temperature_between');
         this._conditionTemperatureBetween.registerRunListener(args =>
         {
             let device = args.device;
@@ -187,7 +182,7 @@ class myApp extends Homey.App
         });
 
         /*** LUMINANCE CONDITIONS ***/
-        this._conditionLuminanceMoreThan = new Homey.FlowCardCondition('has_luminance_more_than').register();
+        this._conditionLuminanceMoreThan = this.homey.flow.getConditionCard('has_luminance_more_than');
         this._conditionLuminanceMoreThan.registerRunListener(args =>
         {
             let device = args.device;
@@ -195,7 +190,7 @@ class myApp extends Homey.App
             return Promise.resolve(conditionMet);
         });
 
-        this._conditionLuminanceLessThan = new Homey.FlowCardCondition('has_luminance_less_than').register();
+        this._conditionLuminanceLessThan = this.homey.flow.getConditionCard('has_luminance_less_than');
         this._conditionLuminanceLessThan.registerRunListener(args =>
         {
             let device = args.device;
@@ -203,7 +198,7 @@ class myApp extends Homey.App
             return Promise.resolve(conditionMet);
         });
 
-        this._conditionLuminanceBetween = new Homey.FlowCardCondition('has_luminance_between').register();
+        this._conditionLuminanceBetween = this.homey.flow.getConditionCard('has_luminance_between');
         this._conditionLuminanceBetween.registerRunListener(args =>
         {
             let device = args.device;
@@ -212,25 +207,281 @@ class myApp extends Homey.App
         });
 
         /*** IS MOVING CONDITION ***/
-        this._conditionIsMoving = new Homey.FlowCardCondition('is_moving').register();
-        this._conditionIsMoving.registerRunListener(args => {
-          let device = args.device;
-          let conditionMet = (device.executionId !== null);
-          return Promise.resolve(conditionMet);
+        this._conditionIsMoving = this.homey.flow.getConditionCard('is_moving');
+        this._conditionIsMoving.registerRunListener(args =>
+        {
+            let device = args.device;
+            let conditionMet = (device.executionId !== null);
+            return Promise.resolve(conditionMet);
         });
 
         /*** COMMAND COMPLETE TRIGGER ***/
-        this.commandCompleteTrigger = new Homey.FlowCardTrigger('command_complete');
+        this.commandCompleteTrigger = this.homey.flow.getTriggerCard('command_complete');
         this.commandCompleteTrigger
             .registerRunListener(async (args, state) =>
             {
                 return (args.device.getAppId() === state.device.appId);
-            })
-            .register();
+            });
+
+        this.registerActionFlowCards();
 
         this.initSync();
 
-        this.log(`${Homey.app.manifest.id} Initialised`);
+        this.log(`${Homey.manifest.id} Initialised`);
+    }
+
+    registerActionFlowCards()
+    {
+        this.homey.flow.getActionCard("absence_heating_temperature_set")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("absence_heating_temperature_set");
+                await args.device.onCapabilityTargetTemperatureEco(args.target_temperature, null);
+                return args.device.setCapabilityValue("target_temperature.absence_cooling", args.target_temperature);
+            });
+
+        this.homey.flow.getActionCard("cancel_absence_set")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("cancel_absence_set");
+                await args.device.onCapabilityBoilerMode(args.state, null);
+            });
+
+        this.homey.flow.getActionCard("set_auto_heat_cool")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("set_auto_heat_cool");
+                await args.device.onCapabilityBoostState(args.state, null);
+                return args.device.setCapabilityValue("heating_cooling_auto_switch", args.state);
+            });
+
+        this.homey.flow.getActionCard("set_pac_operating_mode")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("set_pac_operating_mode");
+                await args.device.onCapabilityBoostState(args.state, null);
+                return args.device.setCapabilityValue("pass_apc_operating_mode", args.state);
+            });
+
+        this.homey.flow.getActionCard("eco_temperature_set")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("eco_temperature_set");
+                await args.device.onCapabilityTargetTemperatureEco(args.target_temperature, null);
+                return args.device.setCapabilityValue("target_temperature.eco", args.target_temperature);
+            });
+
+        this.homey.flow.getActionCard("comfort_temperature_set")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("comfort_temperature_set");
+                await args.device.onCapabilityTargetTemperatureComfort(args.target_temperature, null);
+                return args.device.setCapabilityValue("target_temperature.comfort", args.target_temperature);
+            });
+
+        this.homey.flow.getActionCard("boiler_mode_set")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("boiler_mode_set");
+                await args.device.onCapabilityBoilerMode(args.state, null);
+                return args.device.setCapabilityValue("boiler_mode", args.state);
+            });
+
+        this.homey.flow.getActionCard("boost_on_off")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("boost_on_off");
+                await args.device.onCapabilityBoostState(args.state, null);
+                return args.device.setCapabilityValue("boost", args.state);
+            });
+
+        this.homey.flow.getActionCard('calendar_state_on')
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("calendar_state_on");
+                return args.device.triggerCapabilityListener('calendar_state_on', true, null);
+            });
+
+        this.homey.flow.getActionCard('calendar_state_off')
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("calendar_state_off");
+                return args.device.triggerCapabilityListener('calendar_state_off', true, null);
+            });
+
+        this.homey.flow.getActionCard('windowcoverings_tilt')
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("windowcoverings_tilt");
+                return args.device.onCapabilityWindowcoveringsTiltSet(args.windowcoverings_set, null);
+            });
+
+        this.homey.flow.getActionCard("set_quiet_mode")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("set_quiet_mode");
+                await args.device.onCapabilityQuietMode(args.newQuietMode == "on", null);
+                return args.device.setCapabilityValue("quiet_mode", args.newQuietMode == "on");
+            });
+
+        this.homey.flow.getActionCard('set_my_position')
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("set_my_position");
+                return args.device.onCapabilityMyPosition(true, null);
+            });
+
+        this.homey.flow.getActionCard('set_open_window_activation')
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("set_open_window_activation");
+                return args.device.triggerCapabilityListener('open_window_activation', args.open_window_activation == 'on', null);
+            });
+
+        this.homey.flow.getActionCard('set_valve_auto_mode')
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("set_valve_auto_mode");
+                return args.device.triggerCapabilityListener('valve_auto_mode', args.set_valve_auto == 'on', null);
+            });
+
+        this.homey.flow.getActionCard('set_derogation_mode')
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("set_derogation_mode");
+                await args.device.setCapabilityValue('derogation_type', args.type);
+                return args.device.triggerCapabilityListener('derogation_mode', args.derogation_mode, null);
+            });
+
+        this.homey.flow.getActionCard('set_open_close_stop')
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("open_close_stop");
+                return args.device.sendOpenCloseStop(args.state, null);
+            });
+
+        this.homey.flow.getActionCard('start_siren')
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("start_siren");
+                return args.device.triggerCapabilityListener('ring_button', null);
+            });
+
+        this.homey.flow.getActionCard('sound_alarm1')
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("sound_alarm1");
+                let parameters = [args.duration * 1000, args.on_off_ratio, args.repeats - 1, args.volume];
+                return args.device.triggerCapabilityListener('soundAlarm_1_button', null, parameters);
+            });
+
+        this.homey.flow.getActionCard('stop_siren')
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("stop_siren");
+                return args.device.triggerCapabilityListener('stop_button', null);
+            });
+
+        this.homey.flow.getActionCard('trigger_tahoma_alarm')
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("trigger_tahoma_alarm");
+                return args.device.triggerAlarmAction(args.state);
+            });
+
+        this.homey.flow.getActionCard('set_on_off')
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("set_on_off");
+                return args.device.sendOnOff(args.state === "on", null);
+            });
+
+        this.homey.flow.getActionCard('set_on_with_timer')
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("set_on_with_timer");
+                return args.device.sendOnWithTimer(args.onTime, null);
+            });
+
+            this.homey.flow.getActionCard("eco_cooling_temperature_set")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("eco_cooling_temperature_set");
+                await args.device.onCapabilityTargetTemperatureEcoCooling(args.target_temperature, null);
+                return args.device.setCapabilityValue("target_temperature.eco_cooling", args.target_temperature);
+            });
+
+        this.homey.flow.getActionCard("eco_heating_temperature_set")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("eco_heating_temperature_set");
+                await args.device.onCapabilityTargetTemperatureEcoHeating(args.target_temperature, null);
+                return args.device.setCapabilityValue("target_temperature.eco_heating", args.target_temperature);
+            });
+
+        this.homey.flow.getActionCard("comfort_cooling_temperature_set")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("comfort_cooling_temperature_set");
+                await args.device.onCapabilityTargetTemperatureComfortCooling(args.target_temperature, null);
+                return args.device.setCapabilityValue("target_temperature.comfort_cooling", args.target_temperature);
+            });
+
+        this.homey.flow.getActionCard("comfort_heating_temperature_set")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("comfort_heating_temperature_set");
+                await args.device.onCapabilityTargetTemperatureComfortHeating(args.target_temperature, null);
+                return args.device.setCapabilityValue("target_temperature.comfort_heating", args.target_temperature);
+            });
+
+        this.homey.flow.getActionCard("derogation_temperature_set")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("derogation_temperature_set");
+                await args.device.onCapabilityTargetTemperatureDerogated(args.target_temperature, null);
+                return args.device.setCapabilityValue("target_temperature.derogated", args.target_temperature);
+            });
+
+        this.homey.flow.getActionCard("cooling_on_off")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("cooling_on_off");
+                await args.device.onCapabilityOnOffCooling(args.state, null);
+                return args.device.setCapabilityValue("boost.cooling", args.state === 'on');
+            });
+
+        this.homey.flow.getActionCard("heating_on_off")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("heating_on_off");
+                await args.device.onCapabilityOnOffHeating(args.state, null);
+                return args.device.setCapabilityValue("boost.heating", args.state === 'on');
+            });
+
+        this.homey.flow.getActionCard("derogation_on_off")
+           .registerRunListener(async (args, state) =>
+            {
+                console.log("derogation_on_off");
+                await args.device.onCapabilityOnOffDerogated(args.state, null);
+                return args.device.setCapabilityValue("boost.derogated", args.state === 'on');
+            });
+
+        this.homey.flow.getActionCard("cool_mode_set")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("pass_apc_cooling_mode_set");
+                await args.device.onCapabilityHeatCoolModeCool(args.state, null);
+                return args.device.setCapabilityValue("heat_cool_mode.cool", args.state);
+            });
+
+        this.homey.flow.getActionCard("heat_mode_set")
+            .registerRunListener(async (args, state) =>
+            {
+                console.log("pass_apc_heating_mode_set");
+                await args.device.onCapabilityHeatCoolModeHeat(args.state, null);
+                return args.device.setCapabilityValue("heat_cool_mode.heat", args.state);
+            });
     }
 
     hashCode(s)
@@ -256,10 +507,10 @@ class myApp extends Homey.App
         await this.tahoma.logout();
 
         // Allow a short delay before logging back in
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => this.homey.setTimeout(resolve, 1000));
 
         // Get the last login method to use again
-        //var loginMethod = Homey.ManagerSettings.get('loginMethod');
+        //var loginMethod = this.homey.settings.get('loginMethod');
 
         var loginMethod = false; // Start with old method
 
@@ -267,7 +518,7 @@ class myApp extends Homey.App
         try
         {
             // Allow a short delay before logging back in
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise(resolve => this.homey.setTimeout(resolve, 1000));
             await this.tahoma.login(username, password, linkurl, loginMethod, ignoreBlock);
             this.loggedIn = true;
         }
@@ -285,10 +536,10 @@ class myApp extends Homey.App
         }
 
         // All good so save the credentials
-        Homey.ManagerSettings.set('username', username);
-        Homey.ManagerSettings.set('password', password);
-        Homey.ManagerSettings.set('linkurl', linkurl);
-        Homey.ManagerSettings.set('loginMethod', loginMethod);
+        this.homey.settings.set('username', username);
+        this.homey.settings.set('password', password);
+        this.homey.settings.set('linkurl', linkurl);
+        this.homey.settings.set('loginMethod', loginMethod);
 
         this.startSync();
         return true;
@@ -297,14 +548,14 @@ class myApp extends Homey.App
     async logOut(ClearCredentials = true)
     {
         this.loggedIn = false;
-        await Homey.app.stopSync();
+        await this.homey.app.stopSync();
         try
         {
             await this.tahoma.logout();
             if (ClearCredentials)
             {
-                Homey.ManagerSettings.unset('username');
-                Homey.ManagerSettings.unset('password');
+                this.homey.settings.unset('username');
+                this.homey.settings.unset('password');
             }
         }
         catch (error)
@@ -331,7 +582,7 @@ class myApp extends Homey.App
             this.logInformation("logDevices", `Log contains ${devices.length} devices`);
         }
 
-        if (Homey.ManagerSettings.get('debugMode'))
+        if (this.homey.settings.get('debugMode'))
         {
             if (this.infoLogEnabled)
             {
@@ -353,11 +604,11 @@ class myApp extends Homey.App
             });
         }
 
-        Homey.ManagerSettings.set('deviceLog',
+        this.homey.settings.set('deviceLog',
         {
             "devices": logData
         });
-        Homey.ManagerSettings.unset('sendLog');
+        this.homey.settings.unset('sendLog');
     }
 
     logInformation(source, error)
@@ -388,7 +639,7 @@ class myApp extends Homey.App
                     }
                 }
             }
-            let logData = Homey.ManagerSettings.get('infoLog');
+            let logData = this.homey.settings.get('infoLog');
             if (!Array.isArray(logData))
             {
                 logData = [];
@@ -404,7 +655,7 @@ class myApp extends Homey.App
             {
                 logData.splice(0, 1);
             }
-            Homey.ManagerSettings.set('infoLog', logData);
+            this.homey.settings.set('infoLog', logData);
         }
         catch (err)
         {
@@ -414,30 +665,30 @@ class myApp extends Homey.App
 
     logStates(txt)
     {
-        if (Homey.ManagerSettings.get('stateLogEnabled'))
+        if (this.homey.settings.get('stateLogEnabled'))
         {
-            let log = Homey.ManagerSettings.get('stateLog') + txt + "\n";
+            let log = this.homey.settings.get('stateLog') + txt + "\n";
             if (log.length > 30000)
             {
-                Homey.ManagerSettings.set('stateLogEnabled', false);
+                this.homey.settings.set('stateLogEnabled', false);
             }
             else
             {
-                Homey.ManagerSettings.set('stateLog', log);
+                this.homey.settings.set('stateLog', log);
             }
         }
     }
 
     logEvents(txt)
     {
-        // let log = Homey.ManagerSettings.get('stateLog') + txt + "\n";
+        // let log = this.homey.settings.get('stateLog') + txt + "\n";
         // if (log.length > 30000)
         // {
-        //     Homey.ManagerSettings.set('stateLogEnabled', false);
+        //     this.homey.settings.set('stateLogEnabled', false);
         // }
         // else
         // {
-        //     Homey.ManagerSettings.set('stateLog', log);
+        //     this.homey.settings.set('stateLog', log);
         // }
     }
 
@@ -454,12 +705,12 @@ class myApp extends Homey.App
                 if (logType === 'infoLog')
                 {
                     subject = "Tahoma Information log";
-                    text = JSON.stringify(Homey.ManagerSettings.get('infoLog'), null, 2).replace(/\\n/g, ' \n           ');
+                    text = JSON.stringify(this.homey.settings.get('infoLog'), null, 2).replace(/\\n/g, ' \n           ');
                 }
                 else
                 {
                     subject = "Tahoma device log";
-                    text = JSON.stringify(Homey.ManagerSettings.get('deviceLog'), null, 2).replace(/\\n/g, '\n            ');
+                    text = JSON.stringify(this.homey.settings.get('deviceLog'), null, 2).replace(/\\n/g, '\n            ');
                 }
 
                 subject += "(" + this.homeyHash + " : " + Homey.manifest.version + ")";
@@ -512,9 +763,9 @@ class myApp extends Homey.App
      */
     async initSync()
     {
-        const username = Homey.ManagerSettings.get('username');
-        const password = Homey.ManagerSettings.get('password');
-        const linkurl = Homey.ManagerSettings.get('linkurl');
+        const username = this.homey.settings.get('username');
+        const password = this.homey.settings.get('password');
+        const linkurl = this.homey.settings.get('linkurl');
         if (!username || !password)
         {
             return;
@@ -544,7 +795,7 @@ class myApp extends Homey.App
             }
 
             // Try again later
-            this.timerId = setTimeout(() => this.initSync(), timeout);
+            this.timerId = this.homey.setTimeout(() => this.initSync(), timeout);
         }
     }
 
@@ -560,7 +811,7 @@ class myApp extends Homey.App
         }
 
         // Set a time limit in case the command complete signal is missed
-        this.boostTimerId = setTimeout(() => this.unBoostSync(true), 45000);
+        this.boostTimerId = this.homey.setTimeout(() => this.unBoostSync(true), 45000);
 
         if (this.infoLogEnabled)
         {
@@ -590,7 +841,7 @@ class myApp extends Homey.App
             if (!this.syncing)
             {
                 // We can't run the sync loop from here so fire it from a timer
-                this.timerId = setTimeout(() => this.syncLoop(3000), 1000);
+                this.timerId = this.homey.setTimeout(() => this.syncLoop(3000), 1000);
             }
         }
     }
@@ -627,7 +878,7 @@ class myApp extends Homey.App
     async stopSync()
     {
         this.pollingEnabled = false;
-        
+
         if (this.commandsQueued > 0)
         {
             this.commandsQueued = 0;
@@ -668,7 +919,7 @@ class myApp extends Homey.App
             this.timerId = null;
         }
 
-        this.pollingEnabled = Homey.ManagerSettings.get('pollingEnabled');
+        this.pollingEnabled = this.homey.settings.get('pollingEnabled');
         if (this.pollingEnabled)
         {
             console.log("Start sync requested");
@@ -690,7 +941,7 @@ class myApp extends Homey.App
             this.nextInterval = this.interval * 1000;
             if (!this.syncing)
             {
-                this.timerId = setTimeout(() => this.syncLoop(), interval * 1000);
+                this.timerId = this.homey.setTimeout(() => this.syncLoop(), interval * 1000);
             }
         }
     }
@@ -743,7 +994,7 @@ class myApp extends Homey.App
             if (this.nextInterval > 0)
             {
                 // Setup timer for next sync
-                this.timerId = setTimeout(() => this.syncLoop(), this.nextInterval);
+                this.timerId = this.homey.setTimeout(() => this.syncLoop(), this.nextInterval);
             }
             else
             {
@@ -786,10 +1037,10 @@ class myApp extends Homey.App
 
             let promises = [];
 
-            const drivers = Homey.ManagerDrivers.getDrivers();
+            const drivers = this.homey.drivers.getDrivers();
             for (const driver in drivers)
             {
-                let devices = Homey.ManagerDrivers.getDriver(driver).getDevices();
+                let devices = this.homey.drivers.getDriver(driver).getDevices();
                 let numDevices = devices.length;
                 for (var i = 0; i < numDevices; i++)
                 {
@@ -837,27 +1088,29 @@ class myApp extends Homey.App
     addScenarioActionListeners()
     {
         /*** ADD FLOW ACTION LISTENERS ***/
-        new Homey.FlowCardAction('activate_scenario').register().registerRunListener(args =>
-        {
-            return this.tahoma.executeScenario(args.scenario.oid);
-        }).getArgument('scenario').registerAutocompleteListener(query =>
-        {
-            return this.tahoma.getActionGroups().then(data => data.map((
+        this.homey.flow.getActionCard('activate_scenario')
+            .registerRunListener(async (args, state) =>
             {
-                oid,
-                label
-            }) => (
+                return this.tahoma.executeScenario(args.scenario.oid);
+            })
+            .getArgument('scenario').registerAutocompleteListener(query =>
             {
-                oid,
-                name: label
-            })).filter((
-            {
-                name
-            }) => name.toLowerCase().indexOf(query.toLowerCase()) > -1)).catch(error =>
-            {
-                this.logInformation("addScenarioActionListeners", error.message);
+                return this.tahoma.getActionGroups().then(data => data.map((
+                {
+                    oid,
+                    label
+                }) => (
+                {
+                    oid,
+                    name: label
+                })).filter((
+                {
+                    name
+                }) => name.toLowerCase().indexOf(query.toLowerCase()) > -1)).catch(error =>
+                {
+                    this.logInformation("addScenarioActionListeners", error.message);
+                });
             });
-        });
     }
 
     /**
@@ -865,20 +1118,21 @@ class myApp extends Homey.App
      */
     addPollingSpeedActionListeners()
     {
-        new Homey.FlowCardAction('set_polling_speed').register().registerRunListener(args =>
-        {
-            this.interval = Math.max(args.syncSpeed, 30);
-            Homey.ManagerSettings.set('syncInterval', this.interval.toString());
-            Homey.ManagerSettings.set('pollingEnabled', true);
-
-            if (this.commandsQueued > 0)
+        this.homey.flow.getActionCard('set_polling_speed')
+            .registerRunListener(async (args, state) =>
             {
-                // Sync is currently boosted so don't make any changes now
-                return;
-            }
+                this.interval = Math.max(args.syncSpeed, 30);
+                this.homey.settings.set('syncInterval', this.interval.toString());
+                this.homey.settings.set('pollingEnabled', true);
 
-            return this.startSync();
-        });
+                if (this.commandsQueued > 0)
+                {
+                    // Sync is currently boosted so don't make any changes now
+                    return;
+                }
+
+                return this.startSync();
+            });
     }
 
     /**
@@ -886,50 +1140,51 @@ class myApp extends Homey.App
      */
     addPollingActionListeners()
     {
-        new Homey.FlowCardAction('set_polling_mode').register().registerRunListener(args =>
-        {
-            this.pollingEnabled = args.newPollingMode === 'on';
-            Homey.ManagerSettings.set('pollingEnabled', this.pollingEnabled);
-
-            if (this.commandsQueued > 0)
+        this.homey.flow.getActionCard('set_polling_mode')
+            .registerRunListener(async (args, state) =>
             {
-                // Sync is currently boosted so don't make any changes now
+                this.pollingEnabled = args.newPollingMode === 'on';
+                this.homey.settings.set('pollingEnabled', this.pollingEnabled);
+
+                if (this.commandsQueued > 0)
+                {
+                    // Sync is currently boosted so don't make any changes now
+                    return true;
+                }
+
+                if (args.newPollingMode === 'on')
+                {
+                    this.startSync();
+                }
+                else if (args.newPollingMode === 'once')
+                {
+                    this.nextInterval = 0;
+
+                    if (this.timerId)
+                    {
+                        clearTimeout(this.timerId);
+                        this.timerId = null;
+                    }
+
+                    if (!this.syncing)
+                    {
+                        this.timerId = this.homey.setTimeout(() => this.syncLoop(), 3000);
+                    }
+                }
+                else
+                {
+                    if (this.commandsQueued === 0)
+                    {
+                        return this.stopSync();
+                    }
+                }
                 return true;
-            }
-
-            if (args.newPollingMode === 'on')
-            {
-                this.startSync();
-            }
-            else if (args.newPollingMode === 'once')
-            {
-                this.nextInterval = 0;
-
-                if (this.timerId)
-                {
-                    clearTimeout(this.timerId);
-                    this.timerId = null;
-                }
-
-                if (!this.syncing)
-                {
-                    this.timerId = setTimeout(() => this.syncLoop(), 3000);
-                }    
-            }
-            else
-            {
-                if (this.commandsQueued === 0)
-                {
-                    return this.stopSync();
-                }
-            }
-            return true;
-        });
+            });
     }
 
     async asyncDelay(period)
     {
-        await new Promise(resolve => setTimeout(resolve, period));
+        await new Promise(resolve => this.homey.setTimeout(resolve, period));
     }
 
     varToString(source)

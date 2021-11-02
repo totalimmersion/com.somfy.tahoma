@@ -14,15 +14,6 @@ class InteriorCurtainDriver extends Driver
     async onInit()
     {
         this.deviceType = ['rts:DualCurtainRTSComponent', 'rts:CurtainRTSComponent'];
-
-        this.set_my_position = new Homey.FlowCardAction('set_my_position');
-        this.set_my_position
-            .register()
-            .registerRunListener(async (args, state) =>
-            {
-                console.log("set_my_position");
-                return args.device.onCapabilityMyPosition(true, null);
-            });
     }
 
 }

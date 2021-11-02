@@ -40,12 +40,12 @@ class HotColdZoneDevice extends SensorDevice
                 parameters: [value]
             };
 
-            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
                 {
-                    Homey.app.logInformation(this.getName(),
+                    this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
                         stack: result.errorCode
@@ -53,7 +53,7 @@ class HotColdZoneDevice extends SensorDevice
 
                     if (this.boostSync)
                     {
-                        await Homey.app.unBoostSync();
+                        await this.homey.app.unBoostSync();
                     }
                     throw (new Error(result.error));
                 }
@@ -65,10 +65,10 @@ class HotColdZoneDevice extends SensorDevice
             }
             else
             {
-                Homey.app.logInformation(this.getName() + ": onCapabilityTargetTemperature " + capability, "Failed to send command");
+                this.homey.app.logInformation(this.getName() + ": onCapabilityTargetTemperature " + capability, "Failed to send command");
                 if (this.boostSync)
                 {
-                    await Homey.app.unBoostSync();
+                    await this.homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
             }
@@ -110,7 +110,7 @@ class HotColdZoneDevice extends SensorDevice
         {
             if (this.boostSync)
             {
-                await Homey.app.boostSync();
+                await this.homey.app.boostSync();
             }
 
             const deviceData = this.getData();
@@ -120,7 +120,7 @@ class HotColdZoneDevice extends SensorDevice
                 let retries = 20;
                 while ((this.executionId !== null) && (retries-- > 0))
                 {
-                    await Homey.app.asyncDelay(500);
+                    await this.homey.app.asyncDelay(500);
                 }
             }
 
@@ -139,12 +139,12 @@ class HotColdZoneDevice extends SensorDevice
                     parameters: ['on']
                 };
             }
-            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
                 {
-                    Homey.app.logInformation(this.getName(),
+                    this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
                         stack: result.errorCode
@@ -152,7 +152,7 @@ class HotColdZoneDevice extends SensorDevice
 
                     if (this.boostSync)
                     {
-                        await Homey.app.unBoostSync();
+                        await this.homey.app.unBoostSync();
                     }
                     throw (new Error(result.error));
                 }
@@ -164,10 +164,10 @@ class HotColdZoneDevice extends SensorDevice
             }
             else
             {
-                Homey.app.logInformation(this.getName() + ": onCapabilityOnOff " + capability, "Failed to send command");
+                this.homey.app.logInformation(this.getName() + ": onCapabilityOnOff " + capability, "Failed to send command");
                 if (this.boostSync)
                 {
-                    await Homey.app.unBoostSync();
+                    await this.homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
             }
@@ -203,12 +203,12 @@ class HotColdZoneDevice extends SensorDevice
                 parameters: [value]
             };
 
-            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
                 {
-                    Homey.app.logInformation(this.getName(),
+                    this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
                         stack: result.errorCode
@@ -221,13 +221,13 @@ class HotColdZoneDevice extends SensorDevice
                     this.executionId = result.execId;
                     if (this.boostSync)
                     {
-                        await Homey.app.boostSync();
+                        await this.homey.app.boostSync();
                     }
                 }
             }
             else
             {
-                Homey.app.logInformation(this.getName() + ": onCapability " + capability, "Failed to send command");
+                this.homey.app.logInformation(this.getName() + ": onCapability " + capability, "Failed to send command");
                 throw (new Error("Failed to send command"));
             }
         }
@@ -260,7 +260,7 @@ class HotColdZoneDevice extends SensorDevice
                 const onOffStateCooling = states.find(state => state.name === 'core:CoolingOnOffState');
                 if (onOffStateCooling)
                 {
-                    Homey.app.logStates(this.getName() + ": core:CoolingOnOffState = " + onOffStateCooling.value);
+                    this.homey.app.logStates(this.getName() + ": core:CoolingOnOffState = " + onOffStateCooling.value);
                     this.triggerCapabilityListener('boost.cooling', (onOffStateCooling.value === 'on'),
                     {
                         fromCloudSync: true
@@ -270,7 +270,7 @@ class HotColdZoneDevice extends SensorDevice
                 const onOffStateHating = states.find(state => state.name === 'core:HeatingOnOffState');
                 if (onOffStateHating)
                 {
-                    Homey.app.logStates(this.getName() + ": core:HeatingOnOffState = " + onOffStateHating.value);
+                    this.homey.app.logStates(this.getName() + ": core:HeatingOnOffState = " + onOffStateHating.value);
                     this.triggerCapabilityListener('boost.heating', (onOffStateHating.value === 'on'),
                     {
                         fromCloudSync: true
@@ -280,7 +280,7 @@ class HotColdZoneDevice extends SensorDevice
                 const onOffStateDerogated = states.find(state => state.name === 'core:DerogationOnOffState');
                 if (onOffStateDerogated)
                 {
-                    Homey.app.logStates(this.getName() + ": core:DerogationOnOffState = " + onOffStateDerogated.value);
+                    this.homey.app.logStates(this.getName() + ": core:DerogationOnOffState = " + onOffStateDerogated.value);
                     this.triggerCapabilityListener('boost.derogated', (onOffStateDerogated.value === 'on'),
                     {
                         fromCloudSync: true
@@ -290,7 +290,7 @@ class HotColdZoneDevice extends SensorDevice
                 const coolingMode = states.find(state => state.name === 'io:PassAPCCoolingModeState');
                 if (coolingMode)
                 {
-                    Homey.app.logStates(this.getName() + ": io:PassAPCCoolingModeState = " + coolingMode.value);
+                    this.homey.app.logStates(this.getName() + ": io:PassAPCCoolingModeState = " + coolingMode.value);
                     this.triggerCapabilityListener('heat_cool_mode.cool', coolingMode.value,
                     {
                         fromCloudSync: true
@@ -300,7 +300,7 @@ class HotColdZoneDevice extends SensorDevice
                 const heatingMode = states.find(state => state.name === 'io:PassAPCHeatingModeState');
                 if (heatingMode)
                 {
-                    Homey.app.logStates(this.getName() + ": io:PassAPCHeatingModeState = " + heatingMode.value);
+                    this.homey.app.logStates(this.getName() + ": io:PassAPCHeatingModeState = " + heatingMode.value);
                     this.triggerCapabilityListener('heat_cool_mode.heat', heatingMode.value,
                     {
                         fromCloudSync: true
@@ -310,7 +310,7 @@ class HotColdZoneDevice extends SensorDevice
                 const comfortCoolingTemp = states.find(state => state.name === 'core:ComfortCoolingTargetTemperatureState');
                 if (comfortCoolingTemp)
                 {
-                    Homey.app.logStates(this.getName() + ": core:ComfortCoolingTargetTemperatureState = " + comfortCoolingTemp.value);
+                    this.homey.app.logStates(this.getName() + ": core:ComfortCoolingTargetTemperatureState = " + comfortCoolingTemp.value);
                     this.triggerCapabilityListener('target_temperature.comfort_cooling', comfortCoolingTemp.value,
                     {
                         fromCloudSync: true
@@ -319,7 +319,7 @@ class HotColdZoneDevice extends SensorDevice
                 const comfortHeatingTemp = states.find(state => state.name === 'core:ComfortHeatingTargetTemperatureState');
                 if (comfortHeatingTemp)
                 {
-                    Homey.app.logStates(this.getName() + ": core:ComfortHeatingTargetTemperatureState = " + comfortHeatingTemp.value);
+                    this.homey.app.logStates(this.getName() + ": core:ComfortHeatingTargetTemperatureState = " + comfortHeatingTemp.value);
                     this.triggerCapabilityListener('target_temperature.comfort_heating', comfortHeatingTemp.value,
                     {
                         fromCloudSync: true
@@ -329,7 +329,7 @@ class HotColdZoneDevice extends SensorDevice
                 const ecoCoolingTemp = states.find(state => state.name === 'core:EcoCoolingTargetTemperatureState');
                 if (ecoCoolingTemp)
                 {
-                    Homey.app.logStates(this.getName() + ": core:ComfortCoolingTargetTemperatureState = " + ecoCoolingTemp.value);
+                    this.homey.app.logStates(this.getName() + ": core:ComfortCoolingTargetTemperatureState = " + ecoCoolingTemp.value);
                     this.triggerCapabilityListener('target_temperature.eco_cooling', ecoCoolingTemp.value,
                     {
                         fromCloudSync: true
@@ -339,7 +339,7 @@ class HotColdZoneDevice extends SensorDevice
                 const ecoHeatingTemp = states.find(state => state.name === 'core:EcoHeatingTargetTemperatureState');
                 if (ecoHeatingTemp)
                 {
-                    Homey.app.logStates(this.getName() + ": core:EcoHeatingTargetTemperatureState = " + ecoHeatingTemp.value);
+                    this.homey.app.logStates(this.getName() + ": core:EcoHeatingTargetTemperatureState = " + ecoHeatingTemp.value);
                     this.triggerCapabilityListener('target_temperature.eco_heating', ecoHeatingTemp.value,
                     {
                         fromCloudSync: true
@@ -349,7 +349,7 @@ class HotColdZoneDevice extends SensorDevice
                 const DerogatedHeatingTemp = states.find(state => state.name === 'core:DerogatedHeatingTargetTemperatureState');
                 if (DerogatedHeatingTemp)
                 {
-                    Homey.app.logStates(this.getName() + ": core:DerogatedHeatingTargetTemperatureState = " + DerogatedHeatingTemp.value);
+                    this.homey.app.logStates(this.getName() + ": core:DerogatedHeatingTargetTemperatureState = " + DerogatedHeatingTemp.value);
                     this.triggerCapabilityListener('target_temperature.derogated', DerogatedHeatingTemp.value,
                     {
                         fromCloudSync: true
@@ -360,7 +360,7 @@ class HotColdZoneDevice extends SensorDevice
         catch (error)
         {
             this.setUnavailable(null);
-            Homey.app.logInformation(this.getName(),
+            this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
                 stack: error.stack
@@ -386,9 +386,9 @@ class HotColdZoneDevice extends SensorDevice
             {
                 if ((element.deviceURL === myURL) && element.deviceStates)
                 {
-                    if (Homey.app.infoLogEnabled)
+                    if (this.homey.app.infoLogEnabled)
                     {
-                        Homey.app.logInformation(this.getName(),
+                        this.homey.app.logInformation(this.getName(),
                         {
                             message: "Processing device state change event",
                             stack: element
@@ -400,7 +400,7 @@ class HotColdZoneDevice extends SensorDevice
                         const deviceState = element.deviceStates[x];
                         if (deviceState.name === 'core:CoolingOnOffState')
                         {
-                            Homey.app.logStates(this.getName() + ": core:CoolingOnOffState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": core:CoolingOnOffState = " + deviceState.value);
                             const oldState = this.getState().boost.cooling;
                             const newState = (deviceState.value === 'on');
                             if (oldState !== newState)
@@ -413,7 +413,7 @@ class HotColdZoneDevice extends SensorDevice
                         }
                         else if (deviceState.name === 'core:HeatingOnOffState')
                         {
-                            Homey.app.logStates(this.getName() + ": core:HeatingOnOffState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": core:HeatingOnOffState = " + deviceState.value);
                             const oldState = this.getState().boost.heating;
                             const newState = (deviceState.value === 'on');
                             if (oldState !== newState)
@@ -426,7 +426,7 @@ class HotColdZoneDevice extends SensorDevice
                         }
                         else if (deviceState.name === 'core:DerogationOnOffState')
                         {
-                            Homey.app.logStates(this.getName() + ": core:DerogationOnOffState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": core:DerogationOnOffState = " + deviceState.value);
                             const oldState = this.getState().boost.derogated;
                             const newState = (deviceState.value === 'on');
                             if (oldState !== newState)
@@ -439,7 +439,7 @@ class HotColdZoneDevice extends SensorDevice
                         }
                         else if (deviceState.name === 'io:PassAPCCoolingModeState')
                         {
-                            Homey.app.logStates(this.getName() + ": io:PassAPCCoolingModeState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": io:PassAPCCoolingModeState = " + deviceState.value);
                             const oldState = this.getState().heat_cool_mode.cool;
                             const newState = deviceState.value;
                             if (oldState !== newState)
@@ -452,7 +452,7 @@ class HotColdZoneDevice extends SensorDevice
                         }
                         else if (deviceState.name === 'io:PassAPCHeatingModeState')
                         {
-                            Homey.app.logStates(this.getName() + ": io:PassAPCHeatingModeState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": io:PassAPCHeatingModeState = " + deviceState.value);
                             const oldState = this.getState().heat_cool_mode.heat;
                             const newState = deviceState.value;
                             if (oldState !== newState)
@@ -465,7 +465,7 @@ class HotColdZoneDevice extends SensorDevice
                         }
                         else if (deviceState.name === 'core:ComfortCoolingTargetTemperatureState')
                         {
-                            Homey.app.logStates(this.getName() + ": core:ComfortCoolingTargetTemperatureState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": core:ComfortCoolingTargetTemperatureState = " + deviceState.value);
                             const oldState = this.getState().target_temperature.comfort_cooling;
                             const newState = deviceState.value;
                             if (oldState !== newState)
@@ -478,7 +478,7 @@ class HotColdZoneDevice extends SensorDevice
                         }
                         else if (deviceState.name === 'core:ComfortHeatingTargetTemperatureState')
                         {
-                            Homey.app.logStates(this.getName() + ": core:ComfortHeatingTargetTemperatureState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": core:ComfortHeatingTargetTemperatureState = " + deviceState.value);
                             const oldState = this.getState().target_temperature.comfort_heating;
                             const newState = deviceState.value;
                             if (oldState !== newState)
@@ -491,7 +491,7 @@ class HotColdZoneDevice extends SensorDevice
                         }
                         else if (deviceState.name === 'core:EcoCoolingTargetTemperatureState')
                         {
-                            Homey.app.logStates(this.getName() + ": core:EcoCoolingTargetTemperatureState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": core:EcoCoolingTargetTemperatureState = " + deviceState.value);
                             const oldState = this.getState().target_temperature.comfort_cooling;
                             const newState = deviceState.value;
                             if (oldState !== newState)
@@ -504,7 +504,7 @@ class HotColdZoneDevice extends SensorDevice
                         }
                         else if (deviceState.name === 'core:EcoHeatingTargetTemperatureState')
                         {
-                            Homey.app.logStates(this.getName() + ": core:EcoHeatingTargetTemperatureState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": core:EcoHeatingTargetTemperatureState = " + deviceState.value);
                             const oldState = this.getState().target_temperature.eco_heating;
                             const newState = deviceState.value;
                             if (oldState !== newState)
@@ -517,7 +517,7 @@ class HotColdZoneDevice extends SensorDevice
                         }
                         else if (deviceState.name === 'core:DerogatedHeatingTargetTemperatureState')
                         {
-                            Homey.app.logStates(this.getName() + ": core:DerogatedHeatingTargetTemperatureState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": core:DerogatedHeatingTargetTemperatureState = " + deviceState.value);
                             const oldState = this.getState().target_temperature.derogated;
                             const newState = deviceState.value;
                             if (oldState !== newState)

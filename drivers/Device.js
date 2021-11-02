@@ -81,7 +81,7 @@ class Device extends Homey.Device
      */
     getDeviceType()
     {
-        return this.getDriver().getDeviceType();
+        return this.driver.getDeviceType();
     }
 
     isReady()
@@ -95,7 +95,7 @@ class Device extends Homey.Device
         {
             if (this.boostSync)
             {
-                await Homey.app.boostSync();
+                await this.homey.app.boostSync();
             }
 
             let somfyValue = value;
@@ -141,11 +141,11 @@ class Device extends Homey.Device
             {
                 try
                 {
-                    await Homey.app.tahoma.cancelExecution(this.executionCommands[idx].id);
+                    await this.homey.app.tahoma.cancelExecution(this.executionCommands[idx].id);
                 }
                 catch(err)
                 {
-                    Homey.app.logInformation(this.getName(),
+                    this.homey.app.logInformation(this.getName(),
                     {
                         message: err.message,
                         stack: err.stack
@@ -181,12 +181,12 @@ class Device extends Homey.Device
                 action2 = capabilityXRef.secondaryCommand[somfyValue];
             }
 
-            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action, action2);
+            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action, action2);
             if (result !== undefined)
             {
                 if (result.errorCode)
                 {
-                    Homey.app.logInformation(this.getName(),
+                    this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
                         stack: result.errorCode
@@ -194,7 +194,7 @@ class Device extends Homey.Device
 
                     if (this.boostSync)
                     {
-                        await Homey.app.unBoostSync();
+                        await this.homey.app.unBoostSync();
                     }
                     throw (new Error(result.error));
                 }
@@ -207,16 +207,16 @@ class Device extends Homey.Device
                     }
                     else
                     {
-                        await Homey.app.unBoostSync();
+                        await this.homey.app.unBoostSync();
                     }
                 }
             }
             else
             {
-                Homey.app.logInformation(this.getName() + ": onCapability " + capabilityXRef.somfyNameSet[cmdIdx], "Failed to send command");
+                this.homey.app.logInformation(this.getName() + ": onCapability " + capabilityXRef.somfyNameSet[cmdIdx], "Failed to send command");
                 if (this.boostSync)
                 {
-                    await Homey.app.unBoostSync();
+                    await this.homey.app.unBoostSync();
                 }
                 throw (new Error("Failed to send command"));
             }
@@ -234,7 +234,7 @@ class Device extends Homey.Device
                 {
                     if (value && (value != oldValue))
                     {
-                        this.checkTimerID = setTimeout(() =>
+                        this.checkTimerID = this.homey.setTimeout(() =>
                         {
                             this.syncEvents(null);
                         }, 60000);
@@ -245,16 +245,16 @@ class Device extends Homey.Device
                     }
                 }
 
-                if (this.getDriver().triggerFlows)
+                if (this.driver.triggerFlows)
                 {
                     //trigger flows
-                    this.getDriver().triggerFlows(this, capabilityXRef.homeyName, value);
+                    this.driver.triggerFlows(this, capabilityXRef.homeyName, value);
 
                 }
             }
             catch (err)
             {
-                Homey.app.logInformation(this.getName() + ": onCapability " + capabilityXRef.homeyName, err);
+                this.homey.app.logInformation(this.getName() + ": onCapability " + capabilityXRef.homeyName, err);
             }
         }
     }
@@ -317,13 +317,13 @@ class Device extends Homey.Device
                             }
             
                             // Found the entry
-                            Homey.app.logStates(this.getName() + ": " + xRefEntry.somfyNameGet + "= " + tahomaState.value);
+                            this.homey.app.logStates(this.getName() + ": " + xRefEntry.somfyNameGet + "= " + tahomaState.value);
                             await this.triggerCapabilityListener(xRefEntry.homeyName, (xRefEntry.compare ? (tahomaState.value === xRefEntry.compare[1]) : (xRefEntry.scale ? tahomaState.value / xRefEntry.scale : tahomaState.value)), { fromCloudSync: true });
                         }
                     }
                     catch (error)
                     {
-                        Homey.app.logInformation(this.getName(),
+                        this.homey.app.logInformation(this.getName(),
                         {
                             message: error.message,
                             stack: error.stack
@@ -334,7 +334,7 @@ class Device extends Homey.Device
         }
         catch (error)
         {
-            Homey.app.logInformation(this.getName(),
+            this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
                 stack: error.stack
@@ -367,9 +367,9 @@ class Device extends Homey.Device
                 // If the URL matches then it is for this device
                 if (event.deviceStates && (event.deviceURL.startsWith(myURL)))
                 {
-                    if (Homey.app.infoLogEnabled)
+                    if (this.homey.app.infoLogEnabled)
                     {
-                        Homey.app.logInformation(this.getName(),
+                        this.homey.app.logInformation(this.getName(),
                         {
                             message: "Processing device state change event",
                             stack: event
@@ -396,9 +396,9 @@ class Device extends Homey.Device
                                 }
                                 else if (!xRefEntry.allowNull)
                                 {
-                                    if (Homey.app.infoLogEnabled)
+                                    if (this.homey.app.infoLogEnabled)
                                     {
-                                        Homey.app.logInformation(this.getName(),
+                                        this.homey.app.logInformation(this.getName(),
                                         {
                                             message: "State has no value",
                                             stack: {capability: xRefEntry.homeyName}
@@ -415,7 +415,7 @@ class Device extends Homey.Device
                                     tahomaState.value = xRefEntry.conversions[tahomaState.value];
                                 }
 
-                                Homey.app.logStates(this.getName() + ": " + xRefEntry.somfyNameGet + "= " + deviceValue);
+                                this.homey.app.logStates(this.getName() + ": " + xRefEntry.somfyNameGet + "= " + deviceValue);
                                 const oldState = oldCapabilityStates[xRefEntry.homeyName];
                                 let newState = (xRefEntry.compare ? (deviceValue === xRefEntry.compare[1]) : (deviceValue));
 
@@ -458,9 +458,9 @@ class Device extends Homey.Device
                                         }
                                     }
 
-                                    if (Homey.app.infoLogEnabled)
+                                    if (this.homey.app.infoLogEnabled)
                                     {
-                                        Homey.app.logInformation(this.getName(),
+                                        this.homey.app.logInformation(this.getName(),
                                         {
                                             message: "Setting new state",
                                             stack: {capability: xRefEntry.homeyName, state: newState}
@@ -470,9 +470,9 @@ class Device extends Homey.Device
                                 }
                                 else
                                 {
-                                    if (Homey.app.infoLogEnabled)
+                                    if (this.homey.app.infoLogEnabled)
                                     {
-                                        Homey.app.logInformation(this.getName(),
+                                        this.homey.app.logInformation(this.getName(),
                                         {
                                             message: "Same as existing state",
                                             stack:  {capability: xRefEntry.homeyName, state: newState}
@@ -497,7 +497,7 @@ class Device extends Homey.Device
                             this.executionCommands.push({ id: event.execId, name: eventAction.commands[0].name });
                             if (this.boostSync)
                             {
-                                await Homey.app.boostSync();
+                                await this.homey.app.boostSync();
                             }
                         }
                     }
@@ -510,11 +510,11 @@ class Device extends Homey.Device
                     let idx = this.executionCommands.findIndex(element2 => element2.id === event.execId);
                     if (idx >= 0)
                     {
-                        await Homey.app.unBoostSync();
+                        await this.homey.app.unBoostSync();
                         this.executionCommands.splice(idx, 1);
 
-                        Homey.app.triggerCommandComplete(this, this.executionCmd, (event.newState === 'COMPLETED'));
-                        this.getDriver().triggerDeviceCommandComplete(this, this.executionCmd, (event.newState === 'COMPLETED'));
+                        this.homey.app.triggerCommandComplete(this, this.executionCmd, (event.newState === 'COMPLETED'));
+                        this.driver.triggerDeviceCommandComplete(this, this.executionCmd, (event.newState === 'COMPLETED'));
                         this.commandExecuting = '';
 
                         if (event.newState === 'COMPLETED')
@@ -544,33 +544,33 @@ class Device extends Homey.Device
     {
         try
         {
-            if (Homey.app.loggedIn)
+            if (this.homey.app.loggedIn)
             {
-                if (Homey.app.infoLogEnabled)
+                if (this.homey.app.infoLogEnabled)
                 {
-                    Homey.app.logInformation("Device initial sync.", this.getName());
+                    this.homey.app.logInformation("Device initial sync.", this.getName());
                 }
 
                 // Get the recorded url (might include a #1 on the end)
                 const deviceURL = this.getDeviceUrl(1);
                 if (deviceURL)
                 {
-                    let states = await Homey.app.tahoma.getDeviceStates(deviceURL);
+                    let states = await this.homey.app.tahoma.getDeviceStates(deviceURL);
 
                     // Get the next sub url if the original url ended with #1
                     let url2 = this.getDeviceUrl(2);
                     if (url2)
                     {
                         // We have a sub url to check
-                        let states2 = await Homey.app.tahoma.getDeviceStates(url2);
+                        let states2 = await this.homey.app.tahoma.getDeviceStates(url2);
                         states = states.concat( states2);
                     }
                     return states;
                 }
 
-                if (Homey.ManagerSettings.get('debugMode'))
+                if (this.homey.settings.get('debugMode'))
                 {
-                    const simData = Homey.ManagerSettings.get('simData');
+                    const simData = this.homey.settings.get('simData');
                     if (simData)
                     {
                         const deviceOid = this.getData().id;
@@ -588,7 +588,7 @@ class Device extends Homey.Device
         }
         catch (error)
         {
-            Homey.app.logInformation("Device initial sync.",
+            this.homey.app.logInformation("Device initial sync.",
             {
                 message: this.getName(),
                 stack: error
@@ -610,9 +610,9 @@ class Device extends Homey.Device
                     if (deviceState.name === stateName)
                     {
                         // Found a duplicate
-                        if (Homey.app.infoLogEnabled)
+                        if (this.homey.app.infoLogEnabled)
                         {
-                            Homey.app.logInformation(this.getName(),
+                            this.homey.app.logInformation(this.getName(),
                             {
                                 message: "Ignoring duplicate event",
                                 stack: deviceState

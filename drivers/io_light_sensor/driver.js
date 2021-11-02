@@ -16,21 +16,21 @@ class LightSensorDriver extends Driver
         this.deviceType = ['io:LightIOSystemSensor', 'zwave:ZWaveLightSensor'];
 
         /*** LUMINANCE TRIGGERS ***/
-        this._triggerLuminanceMoreThan = new Homey.FlowCardTriggerDevice('change_luminance_more_than').register();
+        this._triggerLuminanceMoreThan = this.homey.flow.getDeviceTriggerCard('change_luminance_more_than');
         this._triggerLuminanceMoreThan.registerRunListener((args, state) =>
         {
             let conditionMet = state.measure_luminance > args.luminance;
             return Promise.resolve(conditionMet);
         });
 
-        this._triggerLuminanceLessThan = new Homey.FlowCardTriggerDevice('change_luminance_less_than').register();
+        this._triggerLuminanceLessThan = this.homey.flow.getDeviceTriggerCard('change_luminance_less_than');
         this._triggerLuminanceLessThan.registerRunListener((args, state) =>
         {
             let conditionMet = state.measure_luminance < args.luminance;
             return Promise.resolve(conditionMet);
         });
 
-        this._triggerLuminanceBetween = new Homey.FlowCardTriggerDevice('change_luminance_between').register();
+        this._triggerLuminanceBetween = this.homey.flow.getDeviceTriggerCard('change_luminance_between');
         this._triggerLuminanceBetween.registerRunListener((args, state) =>
         {
             let conditionMet = state.measure_luminance > args.luminance_from && state.measure_luminance < args.luminance_to;

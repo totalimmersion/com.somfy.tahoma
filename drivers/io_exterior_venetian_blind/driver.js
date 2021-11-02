@@ -14,17 +14,7 @@ class ExteriorVenetianBlindDriver extends ioWindowCoveringsDriver
     {
         this.deviceType = ['io:ExteriorVenetianBlindIOComponent'];
 
-        this.tilt_changedTrigger = new Homey.FlowCardTriggerDevice('windowcoverings_tilt_changed')
-            .register();
-
-        this.set_tilt_position = new Homey.FlowCardAction('windowcoverings_tilt');
-        this.set_tilt_position
-            .register()
-            .registerRunListener(async (args, state) =>
-            {
-                console.log("windowcoverings_tilt");
-                return args.device.onCapabilityWindowcoveringsTiltSet(args.windowcoverings_set, null);
-            });
+        this.tilt_changedTrigger = this.homey.flow.getDeviceTriggerCard('windowcoverings_tilt_changed');
 
         await super.onInit();
     }

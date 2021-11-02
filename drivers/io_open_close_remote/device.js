@@ -34,8 +34,8 @@ class io_open_close_remoteDevice extends Device
             };
 
             //trigger flows
-            this.getDriver().triggerRemoteSateChange(device, tokens, state);
-            this.getDriver().triggerRemoteSateChangeTo(device, tokens, state);
+            this.driver.triggerRemoteSateChange(device, tokens, state);
+            this.driver.triggerRemoteSateChangeTo(device, tokens, state);
         }
 
         return Promise.resolve();
@@ -54,7 +54,7 @@ class io_open_close_remoteDevice extends Device
                 const remoteState = states.find(state => state.name === 'io:OneWayControllerButtonState');
                 if (remoteState)
                 {
-                    Homey.app.logStates(this.getName() + ": io:OneWayControllerButtonState = " + remoteState.value);
+                    this.homey.app.logStates(this.getName() + ": io:OneWayControllerButtonState = " + remoteState.value);
                     this.triggerCapabilityListener('remote_state', remoteState.value);
                 }
             }
@@ -62,7 +62,7 @@ class io_open_close_remoteDevice extends Device
         catch (error)
         {
             this.setUnavailable(null);
-            Homey.app.logInformation(this.getName(),
+            this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
                 stack: error.stack
@@ -89,9 +89,9 @@ class io_open_close_remoteDevice extends Device
             {
                 if ((element.deviceURL === myURL) && element.deviceStates)
                 {
-                    if (Homey.app.infoLogEnabled)
+                    if (this.homey.app.infoLogEnabled)
                     {
-                        Homey.app.logInformation(this.getName(),
+                        this.homey.app.logInformation(this.getName(),
                         {
                             message: "Processing device state change event",
                             stack: element
@@ -103,7 +103,7 @@ class io_open_close_remoteDevice extends Device
                         const deviceState = element.deviceStates[x];
                         if (deviceState.name === 'io:OneWayControllerButtonState')
                         {
-                            Homey.app.logStates(this.getName() + ": io:OneWayControllerButtonState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": io:OneWayControllerButtonState = " + deviceState.value);
                             const oldState = this.getState().remote_state;
                             const newSate = deviceState.value;
                             if (oldState !== newSate)

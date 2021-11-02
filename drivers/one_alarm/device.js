@@ -39,7 +39,7 @@ class OneAlarmDevice extends SensorDevice
         {
             if (value)
             {
-                this.checkTimerID = setTimeout(() =>
+                this.checkTimerID = this.homey.setTimeout(() =>
                 {
                     this.sync();
                 }, 60000);
@@ -80,12 +80,12 @@ class OneAlarmDevice extends SensorDevice
                     parameters: []
                 };
             }
-            let result = await Homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
             if (result !== undefined)
             {
                 if (result.errorCode)
                 {
-                    Homey.app.logInformation(this.getName(),
+                    this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
                         stack: result.errorCode
@@ -98,13 +98,13 @@ class OneAlarmDevice extends SensorDevice
                     this.executionId = result.execId;
                     if (this.boostSync)
                     {
-                        await Homey.app.boostSync();
+                        await this.homey.app.boostSync();
                     }
                 }
             }
             else
             {
-                Homey.app.logInformation(this.getName() + ": onCapabilityAlarmArmedState", "Failed to send command");
+                this.homey.app.logInformation(this.getName() + ": onCapabilityAlarmArmedState", "Failed to send command");
                 throw (new Error("Failed to send command"));
             }
         }
@@ -127,14 +127,14 @@ class OneAlarmDevice extends SensorDevice
                 const intrusionState = states.find(state => state.name === 'core:IntrusionState');
                 if (intrusionState)
                 {
-                    Homey.app.logStates(this.getName() + ": core:IntrusionState = " + intrusionState.value);
+                    this.homey.app.logStates(this.getName() + ": core:IntrusionState = " + intrusionState.value);
                     this.triggerCapabilityListener('alarm_generic', intrusionState.value === 'detected');
                 }
 
                 const alarmStatusState = states.find(state => state.name === 'myfox:AlarmStatusState');
                 if (alarmStatusState)
                 {
-                    Homey.app.logStates(this.getName() + ": myfox:AlarmStatusState = " + alarmStatusState.value);
+                    this.homey.app.logStates(this.getName() + ": myfox:AlarmStatusState = " + alarmStatusState.value);
                     this.triggerCapabilityListener('homealarm_state', this.alarmArmedState[alarmStatusState.value],
                     {
                         fromCloudSync: true
@@ -145,7 +145,7 @@ class OneAlarmDevice extends SensorDevice
         catch (error)
         {
             this.setUnavailable(null);
-            Homey.app.logInformation(this.getName(),
+            this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
                 stack: error.stack
@@ -171,9 +171,9 @@ class OneAlarmDevice extends SensorDevice
             {
                 if ((element.deviceURL === myURL) && element.deviceStates)
                 {
-                    if (Homey.app.infoLogEnabled)
+                    if (this.homey.app.infoLogEnabled)
                     {
-                        Homey.app.logInformation(this.getName(),
+                        this.homey.app.logInformation(this.getName(),
                         {
                             message: "Processing device state change event",
                             stack: element
@@ -185,7 +185,7 @@ class OneAlarmDevice extends SensorDevice
                         const deviceState = element.deviceStates[x];
                         if (deviceState.name === 'core:IntrusionState')
                         {
-                            Homey.app.logStates(this.getName() + ": core:IntrusionState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": core:IntrusionState = " + deviceState.value);
                             const oldState = this.getState().alarm_generic;
                             const newState = (deviceState.value === 'detected');
                             if (oldState !== newState)
@@ -195,7 +195,7 @@ class OneAlarmDevice extends SensorDevice
                         }
                         else if (deviceState.name === 'myfox:AlarmStatusState')
                         {
-                            Homey.app.logStates(this.getName() + ": myfox:AlarmStatusState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": myfox:AlarmStatusState = " + deviceState.value);
                             const oldState = this.getState().homealarm_state;
                             const newState = this.alarmArmedState[deviceState.value];
                             if (oldState !== newState)

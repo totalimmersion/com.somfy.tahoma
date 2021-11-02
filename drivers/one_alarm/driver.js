@@ -15,7 +15,7 @@ class OneAlarmDriver extends Driver
         this.deviceType = [ 'myfox:SomfyProtectAlarmController', 'myfox:HomeKeeperProAlarmController' ];
 
         /*** CONTACT TRIGGERS ***/
-        this._triggerContactChange = new Homey.FlowCardTriggerDevice( 'contact_has_changed' ).register();
+        this._triggerContactChange = this.homey.flow.getDeviceTriggerCard( 'contact_has_changed' );
         this._triggerContactChange.registerRunListener( () =>
         {
             return Promise.resolve( true );

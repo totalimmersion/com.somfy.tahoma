@@ -34,7 +34,7 @@ class WindowHandleDevice extends SensorDevice
             };
 
             //trigger flows
-            return this.getDriver().triggerContactChange(device, tokens, state);
+            return this.driver.triggerContactChange(device, tokens, state);
         }
 
         return Promise.resolve();
@@ -54,7 +54,7 @@ class WindowHandleDevice extends SensorDevice
                 const contactState = states.find(state => state.name === 'core:ThreeWayHandleDirectionState');
                 if (contactState)
                 {
-                    Homey.app.logStates(this.getName() + ": core:ThreeWayHandleDirectionState = " + contactState.value);
+                    this.homey.app.logStates(this.getName() + ": core:ThreeWayHandleDirectionState = " + contactState.value);
                     this.triggerCapabilityListener('alarm_contact', contactState.value != 'closed');
                 }
             }
@@ -62,7 +62,7 @@ class WindowHandleDevice extends SensorDevice
         catch (error)
         {
             this.setUnavailable(null);
-            Homey.app.logInformation(this.getName(),
+            this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
                 stack: error.stack
@@ -89,9 +89,9 @@ class WindowHandleDevice extends SensorDevice
             {
                 if ((element.deviceURL === myURL) && element.deviceStates)
                 {
-                    if (Homey.app.infoLogEnabled)
+                    if (this.homey.app.infoLogEnabled)
                     {
-                        Homey.app.logInformation(this.getName(),
+                        this.homey.app.logInformation(this.getName(),
                         {
                             message: "Processing device state change event",
                             stack: element
@@ -103,7 +103,7 @@ class WindowHandleDevice extends SensorDevice
                         const deviceState = element.deviceStates[x];
                         if (deviceState.name === 'core:ThreeWayHandleDirectionState')
                         {
-                            Homey.app.logStates(this.getName() + ": core:ThreeWayHandleDirectionState = " + deviceState.value);
+                            this.homey.app.logStates(this.getName() + ": core:ThreeWayHandleDirectionState = " + deviceState.value);
                             const oldState = this.getState().alarm_contact;
                             const newState = (deviceState.value != 'closed');
                             if (oldState !== newState)

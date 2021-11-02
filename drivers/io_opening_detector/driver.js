@@ -16,7 +16,7 @@ class OpeningDetectorDriver extends Driver
         this.deviceType = ['io:SomfyContactIOSystemSensor', 'rtds:RTDSContactSensor', 'io:SomfyBasicContactIOSystemSensor'];
 
         /*** CONTACT TRIGGERS ***/
-        this._triggerContactChange = new Homey.FlowCardTriggerDevice('contact_has_changed').register();
+        this._triggerContactChange = this.homey.flow.getDeviceTriggerCard('contact_has_changed');
         this._triggerContactChange.registerRunListener(() =>
         {
             return Promise.resolve(true);
