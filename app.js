@@ -501,7 +501,7 @@ class myApp extends Homey.App
     // Throws an exception if the login fails
     async newLogin(args)
     {
-        await this.newLogin_2(args.body.username, args.body.password, args.body.linkurl, true);
+        await this.newLogin_2(args.username, args.password, args.linkurl, true);
     }
 
     // Throws an exception if the login fails
