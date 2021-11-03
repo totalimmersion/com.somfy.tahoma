@@ -2,25 +2,9 @@
   "name": {
     "en": "Open / Close (RTS)"
   },
-  "images": {
-    "large": "/drivers/rts_open_close/assets/images/large.png",
-    "small": "/drivers/rts_open_close/assets/images/small.png"
-  },
   "class": "button",
   "capabilities": [
     "button"
   ],
-  "pair": [
-    {
-      "id": "list_my_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_my_devices"
-      }
-    },
-    {
-      "id": "add_my_devices",
-      "template": "add_devices"
-    }
-  ]
+  "$extends": ["cloudDriver"]
 }

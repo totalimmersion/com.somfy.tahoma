@@ -1,22 +1,25 @@
 {
-  "id": "set_polling_speed",
-  "title": {
-    "en": "Polling Interval",
-    "nl": "Update frequentie"
-  },
-  "titleFormatted": {
-    "en": "Polling Interval to [[syncSpeed]]",
-    "nl": "Update frequentie naar [[syncSpeed]]"
-  },
-  "args": [
-    {
-      "name": "syncSpeed",
-      "type": "number",
-      "min": 30,
-      "placeholder": {
-        "en": "Seconds",
-        "nl": "Seconden"
-      }
-    }
-  ]
+    "id": "set_polling_speed",
+    "title": {
+        "en": "Polling Interval",
+        "nl": "Update frequentie"
+    },
+    "titleFormatted": {
+        "en": "Polling Interval to [[syncSpeed]]",
+        "nl": "Update frequentie naar [[syncSpeed]]"
+    },
+    "args": [
+        {
+            "name": "syncSpeed",
+            "type": "number",
+            "title": {
+                "en": "Polling Interval"
+            },
+            "min": 30,
+            "placeholder": {
+                "en": "Seconds",
+                "nl": "Seconden"
+            }
+        }
+    ]
 }

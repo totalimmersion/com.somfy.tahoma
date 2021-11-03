@@ -2,28 +2,11 @@
   "name": {
     "en": "Gate Opener (RTS)"
   },
-  "images": {
-    "large": "/drivers/rts_gate_opener/assets/images/large.png",
-    "small": "/drivers/rts_gate_opener/assets/images/small.png"
-  },
   "class": "other",
   "capabilities": [
     "open_button",
     "close_button",
     "stop_button"
-  ],
-  "pair": [
-    {
-      "id": "list_my_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_my_devices"
-      }
-    },
-    {
-      "id": "add_my_devices",
-      "template": "add_devices"
-    }
   ],
   "settings": [
     {
@@ -60,5 +43,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$extends": ["cloudDriver"]
 }

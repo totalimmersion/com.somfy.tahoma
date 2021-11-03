@@ -1,61 +1,67 @@
 {
-  "actions": [
-    {
-      "id": "set_on_off",
-      "title": {
-        "en": "Switch On / Off",
-        "nl": "Zet aan / uit"
-      },
-      "titleFormatted": {
-        "en": "Switch [[state]]",
-        "nl": "Zet  [[state]]"
-      },
-      "args": [
+    "actions": [
         {
-          "name": "state",
-          "type": "dropdown",
-          "values": [
-            {
-              "id": "on",
-              "label": {
-                "en": "On",
-                "nl": "aan"
-              }
+            "id": "set_on_off",
+            "title": {
+                "en": "Switch On / Off",
+                "nl": "Zet aan / uit"
             },
-            {
-              "id": "off",
-              "label": {
-                "en": "Off",
-                "nl": "uit"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "set_on_with_timer",
-      "title": {
-        "en": "Switch On for...",
-        "nl": "Inschakelen voor ..."
-      },
-      "titleFormatted": {
-        "en": "Switch On for [[onTime]] minutes",
-        "nl": "Schakel [[onTime]] minuten in"
-      },
-      "args": [
+            "titleFormatted": {
+                "en": "Switch [[state]]",
+                "nl": "Zet  [[state]]"
+            },
+            "args": [
+                {
+                    "name": "state",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Power"
+                    },
+                    "values": [
+                        {
+                            "id": "on",
+                            "label": {
+                                "en": "On",
+                                "nl": "aan"
+                            }
+                        },
+                        {
+                            "id": "off",
+                            "label": {
+                                "en": "Off",
+                                "nl": "uit"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
         {
-          "name": "onTime",
-          "type": "number",
-          "min": 1,
-          "max": 10,
-          "step": 1,
-          "placeholder": {
-            "en": "In minutes",
-            "nl": "In minuten"
-          }
+            "id": "set_on_with_timer",
+            "title": {
+                "en": "Switch On for...",
+                "nl": "Inschakelen voor ..."
+            },
+            "titleFormatted": {
+                "en": "Switch On for [[onTime]] minutes",
+                "nl": "Schakel [[onTime]] minuten in"
+            },
+            "args": [
+                {
+                    "name": "onTime",
+                    "type": "number",
+                    "title": {
+                        "en": "On Time"
+                    },
+                    "min": 1,
+                    "max": 10,
+                    "step": 1,
+                    "placeholder": {
+                        "en": "In minutes",
+                        "nl": "In minuten"
+                    }
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

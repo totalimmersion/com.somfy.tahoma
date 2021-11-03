@@ -2,25 +2,9 @@
   "name": {
     "en": "KeyGo Remote Control"
   },
-  "images": {
-    "large": "/drivers/key_go_remote/assets/images/large.png",
-    "small": "/drivers/key_go_remote/assets/images/small.png"
-  },
   "class": "remote",
   "capabilities": [
     "key_go_remote_state"
   ],
-  "pair": [
-    {
-      "id": "list_my_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_my_devices"
-      }
-    },
-    {
-      "id": "add_my_devices",
-      "template": "add_devices"
-    }
-  ]
+  "$extends": ["cloudDriver"]
 }

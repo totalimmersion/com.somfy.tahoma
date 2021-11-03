@@ -2,27 +2,10 @@
   "name": {
     "en": "Interior Curtain (RTS)"
   },
-  "images": {
-    "large": "/drivers/rts_interior_curtain/assets/images/large.png",
-    "small": "/drivers/rts_interior_curtain/assets/images/small.png"
-  },
   "class": "curtain",
   "capabilities": [
     "windowcoverings_state",
     "my_position"
-  ],
-  "pair": [
-    {
-      "id": "list_my_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_my_devices"
-      }
-    },
-    {
-      "id": "add_my_devices",
-      "template": "add_devices"
-    }
   ],
   "settings": [
     {
@@ -36,5 +19,6 @@
         "en": "Reverse the Up / Down direction controls"
       }
     }
-  ]
+  ],
+  "$extends": ["cloudDriver"]
 }

@@ -1,62 +1,65 @@
 {
-  "triggers": [
-    {
-      "id": "remote_state_changed",
-      "title": {
-        "en": "Remote state changed"
-      },
-      "tokens": [
+    "triggers": [
         {
-          "name": "remote_state",
-          "type": "string",
-          "title": {
-            "en": "New State"
-          },
-          "example": "up"
-        }
-      ],
-      "args": []
-    },
-    {
-      "id": "remote_state_changed_to",
-      "title": {
-        "en": "Remote state changed to"
-      },
-      "titleFormatted": {
-        "en": "Remote state changed to [[expected_state]]"
-      },
-      "args": [
+            "id": "remote_state_changed",
+            "title": {
+                "en": "Remote state changed"
+            },
+            "tokens": [
+                {
+                    "name": "remote_state",
+                    "type": "string",
+                    "title": {
+                        "en": "New State"
+                    },
+                    "example": "up"
+                }
+            ],
+            "args": []
+        },
         {
-          "type": "dropdown",
-          "name": "expected_state",
-          "values": [
-            {
-              "id": "up",
-              "label": {
-                "en": "Up"
-              }
+            "id": "remote_state_changed_to",
+            "title": {
+                "en": "Remote state changed to"
             },
-            {
-              "id": "down",
-              "label": {
-                "en": "Down"
-              }
+            "titleFormatted": {
+                "en": "Remote state changed to [[expected_state]]"
             },
-            {
-              "id": "stop",
-              "label": {
-                "en": "Stop"
-              }
-            },
-            {
-              "id": "prog",
-              "label": {
-                "en": "Prog"
-              }
-            }
-          ]
+            "args": [
+                {
+                    "type": "dropdown",
+                    "name": "expected_state",
+                    "title": {
+                        "en": "Expected State"
+                    },
+                    "values": [
+                        {
+                            "id": "up",
+                            "label": {
+                                "en": "Up"
+                            }
+                        },
+                        {
+                            "id": "down",
+                            "label": {
+                                "en": "Down"
+                            }
+                        },
+                        {
+                            "id": "stop",
+                            "label": {
+                                "en": "Stop"
+                            }
+                        },
+                        {
+                            "id": "prog",
+                            "label": {
+                                "en": "Prog"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

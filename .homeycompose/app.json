@@ -1,6 +1,10 @@
 {
     "id": "com.somfy.tahoma",
     "sdk": 3,
+    "platforms": [
+        "local",
+        "cloud"
+    ],
     "brandColor": "#FAB800",
     "name": {
         "en": "Somfy TaHoma & Connexoon",
@@ -27,6 +31,7 @@
     },
     "source": "https://github.com/AdyRock/com.somfy.tahoma",
     "homeyCommunityTopicId": 35206,
+    "support": "https://github.com/AdyRock/com.somfy.tahoma/issues",
     "contributors": {
         "developers": [
             {

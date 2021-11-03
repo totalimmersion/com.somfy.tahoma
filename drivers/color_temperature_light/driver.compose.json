@@ -16,23 +16,6 @@
       "setOnDim": false
     }
   },
-  "images": {
-    "large": "/drivers/color_temperature_light/assets/images/large.png",
-    "small": "/drivers/color_temperature_light/assets/images/small.png"
-  },
-  "pair": [
-    {
-      "id": "list_my_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_my_devices"
-      }
-    },
-    {
-      "id": "add_my_devices",
-      "template": "add_devices"
-    }
-  ],
   "settings": [
     {
       "id": "minTemperature",
@@ -56,5 +39,6 @@
         "en": "Max colour temperature of the light"
       }
     }
-  ]
+  ],
+  "$extends": ["cloudDriver"]
 }

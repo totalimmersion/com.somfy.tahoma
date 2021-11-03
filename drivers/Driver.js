@@ -26,6 +26,33 @@ class Driver extends Homey.Driver
 
     async onPair(session)
     {
+        let username = this.homey.settings.get('username');
+        let password = this.homey.settings.get('password');
+        const linkurl = 'default';
+
+        session.setHandler('showView', async view =>
+        {
+            if (view === 'login_credentials')
+            {
+                if (username && password && this.homey.app.loggedIn)
+                {
+                    await session.nextView();
+                }
+            }
+        });
+
+        session.setHandler('login', async data =>
+        {
+            username = data.username;
+            password = data.password;
+            const credentialsAreValid = await this.homey.app.newLogin_2(username, password, linkurl, true);
+
+            // return true to continue adding the device if the login succeeded
+            // return false to indicate to the user the login attempt failed
+            // thrown errors will also be shown to the user
+            return credentialsAreValid;
+        });
+
         session.setHandler('list_devices', async () =>
         {
             this.log('list_devices');
@@ -36,6 +63,36 @@ class Driver extends Homey.Driver
                 throw new Error(Homey.__('errors.on_pair_login_failure'));
             }
             return this.onReceiveSetupData();
+        });
+    }
+
+    async onRepair(session, device)
+    {
+        let username = this.homey.settings.get('username');
+        let password = this.homey.settings.get('password');
+        const linkurl = 'default';
+
+        // session.setHandler('showView', async view =>
+        // {
+        //     if (view === 'login_credentials')
+        //     {
+        //         if (username && password && this.homey.app.loggedIn)
+        //         {
+        //             await session.nextView();
+        //         }
+        //     }
+        // });
+
+        session.setHandler('login', async data =>
+        {
+            username = data.username;
+            password = data.password;
+            const credentialsAreValid = await this.homey.app.newLogin_2(username, password, linkurl, true);
+
+            // return true to continue adding the device if the login succeeded
+            // return false to indicate to the user the login attempt failed
+            // thrown errors will also be shown to the user
+            return credentialsAreValid;
         });
     }
 

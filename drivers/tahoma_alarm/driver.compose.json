@@ -7,21 +7,5 @@
     "alarm_generic",
     "tahoma_alarm_state"
   ],
-  "images": {
-    "large": "/drivers/tahoma_alarm/assets/images/large.png",
-    "small": "/drivers/tahoma_alarm/assets/images/small.png"
-  },
-  "pair": [
-    {
-      "id": "list_my_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_my_devices"
-      }
-    },
-    {
-      "id": "add_my_devices",
-      "template": "add_devices"
-    }
-  ]
+  "$extends": ["cloudDriver"]
 }

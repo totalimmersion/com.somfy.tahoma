@@ -1,33 +1,43 @@
 {
-  "id": "command_complete",
-  "deprecated": true,
-  "title": {
-    "en": "A command completed"
-  },
-  "titleFormatted": {
-    "en": "A command completed on device [[device]]"
-  },
-  "tokens": [
-    {
-      "name": "state",
-      "type": "boolean",
-      "title": {
-        "en": "Successful"
-      },
-      "example": "true"
+    "id": "command_complete",
+    "deprecated": true,
+    "title": {
+        "en": "A command completed"
     },
-    {
-      "name": "name",
-      "type": "string",
-      "title": {
-        "en": "Command Name"
-      }
-    }
-  ],
-  "args": [
-    {
-      "name": "device",
-      "type": "device"
-    }
-  ]
+    "titleFormatted": {
+        "en": "A command completed on device [[device]]"
+    },
+    "platforms": [
+        "local",
+        "cloud"
+    ],
+    "connectivity": [
+        "cloud"
+    ],
+    "tokens": [
+        {
+            "name": "state",
+            "type": "boolean",
+            "title": {
+                "en": "Successful"
+            },
+            "example": "true"
+        },
+        {
+            "name": "name",
+            "type": "string",
+            "title": {
+                "en": "Command Name"
+            }
+        }
+    ],
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "title": {
+                "en": "Device"
+            }
+        }
+    ]
 }

@@ -2,27 +2,10 @@
   "name": {
     "en": "Garage Door (io)"
   },
-  "images": {
-    "large": "/drivers/io_garage_door/assets/images/large.png",
-    "small": "/drivers/io_garage_door/assets/images/small.png"
-  },
   "class": "blinds",
   "capabilities": [
     "windowcoverings_state",
     "windowcoverings_set"
-  ],
-  "pair": [
-    {
-      "id": "list_my_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_my_devices"
-      }
-    },
-    {
-      "id": "add_my_devices",
-      "template": "add_devices"
-    }
   ],
   "settings": [
     {
@@ -47,5 +30,6 @@
         "en": "Reverse the position control."
       }
     }
-  ]
+  ],
+  "$extends": ["cloudDriver"]
 }

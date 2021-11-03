@@ -1,40 +1,43 @@
 {
-  "id": "set_polling_mode",
-  "title": {
-    "en": "Poll for status updates",
-    "nl": "Status updates"
-  },
-  "titleFormatted": {
-    "en": "Poll for status updates [[newPollingMode]]",
-    "nl": "Status updates [[newPollingMode]]"
-  },
-  "args": [
-    {
-      "name": "newPollingMode",
-      "type": "dropdown",
-      "values": [
+    "id": "set_polling_mode",
+    "title": {
+        "en": "Poll for status updates",
+        "nl": "Status updates"
+    },
+    "titleFormatted": {
+        "en": "Poll for status updates [[newPollingMode]]",
+        "nl": "Status updates [[newPollingMode]]"
+    },
+    "args": [
         {
-          "id": "on",
-          "label": {
-            "en": "On",
-            "nl": "aan"
-          }
-        },
-        {
-          "id": "off",
-          "label": {
-            "en": "Off",
-            "nl": "uit"
-          }
-        },
-        {
-          "id": "once",
-          "label": {
-            "en": "Once",
-            "nl": "eenmaal"
-          }
+            "name": "newPollingMode",
+            "type": "dropdown",
+            "title": {
+                "en": "Polling Mode"
+            },
+            "values": [
+                {
+                    "id": "on",
+                    "label": {
+                        "en": "On",
+                        "nl": "aan"
+                    }
+                },
+                {
+                    "id": "off",
+                    "label": {
+                        "en": "Off",
+                        "nl": "uit"
+                    }
+                },
+                {
+                    "id": "once",
+                    "label": {
+                        "en": "Once",
+                        "nl": "eenmaal"
+                    }
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

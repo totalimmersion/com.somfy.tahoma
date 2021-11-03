@@ -2,6 +2,10 @@
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.somfy.tahoma",
   "sdk": 3,
+  "platforms": [
+    "local",
+    "cloud"
+  ],
   "brandColor": "#FAB800",
   "name": {
     "en": "Somfy TaHoma & Connexoon",
@@ -28,6 +32,7 @@
   },
   "source": "https://github.com/AdyRock/com.somfy.tahoma",
   "homeyCommunityTopicId": 35206,
+  "support": "https://github.com/AdyRock/com.somfy.tahoma/issues",
   "contributors": {
     "developers": [
       {
@@ -121,6 +126,13 @@
         "titleFormatted": {
           "en": "A command completed on device [[device]]"
         },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "connectivity": [
+          "cloud"
+        ],
         "tokens": [
           {
             "name": "state",
@@ -141,7 +153,10 @@
         "args": [
           {
             "name": "device",
-            "type": "device"
+            "type": "device",
+            "title": {
+              "en": "Device"
+            }
           }
         ]
       },
@@ -240,6 +255,9 @@
           {
             "name": "luminance",
             "type": "number",
+            "title": {
+              "en": "Luminance"
+            },
             "placeholder": {
               "en": "in Lux",
               "nl": "in Lux"
@@ -266,6 +284,9 @@
           {
             "name": "luminance",
             "type": "number",
+            "title": {
+              "en": "Luminance"
+            },
             "placeholder": {
               "en": "in Lux",
               "nl": "in Lux"
@@ -292,6 +313,9 @@
           {
             "name": "luminance_from",
             "type": "number",
+            "title": {
+              "en": "Luminance From"
+            },
             "placeholder": {
               "en": "in Lux",
               "nl": "in Lux"
@@ -300,6 +324,9 @@
           {
             "name": "luminance_to",
             "type": "number",
+            "title": {
+              "en": "Luminance Tp"
+            },
             "placeholder": {
               "en": "in Lux",
               "nl": "in Lux"
@@ -370,6 +397,9 @@
           {
             "type": "dropdown",
             "name": "expected_state",
+            "title": {
+              "en": "Expected State"
+            },
             "values": [
               {
                 "id": "up",
@@ -465,6 +495,9 @@
           {
             "name": "temperature",
             "type": "number",
+            "title": {
+              "en": "Temperature"
+            },
             "placeholder": {
               "en": "in C",
               "nl": "in C"
@@ -491,6 +524,9 @@
           {
             "name": "temperature",
             "type": "number",
+            "title": {
+              "en": "Temperature"
+            },
             "placeholder": {
               "en": "in C",
               "nl": "in C"
@@ -517,6 +553,9 @@
           {
             "name": "temperature_from",
             "type": "number",
+            "title": {
+              "en": "Temperature From"
+            },
             "placeholder": {
               "en": "in C",
               "nl": "in C"
@@ -525,6 +564,9 @@
           {
             "name": "temperature_to",
             "type": "number",
+            "title": {
+              "en": "Temperature To"
+            },
             "placeholder": {
               "en": "in C",
               "nl": "in C"
@@ -601,6 +643,9 @@
           {
             "name": "derogation_mode",
             "type": "dropdown",
+            "title": {
+              "en": "Operating Mode"
+            },
             "values": [
               {
                 "id": "comfort",
@@ -653,6 +698,9 @@
           {
             "name": "valve_heating_mode_state",
             "type": "dropdown",
+            "title": {
+              "en": "Heating Mode"
+            },
             "values": [
               {
                 "id": "comfort",
@@ -756,6 +804,9 @@
           {
             "type": "dropdown",
             "name": "expected_state",
+            "title": {
+              "en": "Expected State"
+            },
             "values": [
               {
                 "id": "pressed",
@@ -931,6 +982,9 @@
           {
             "name": "state",
             "type": "dropdown",
+            "title": {
+              "en": "Expected State"
+            },
             "values": [
               {
                 "id": "off",
@@ -1033,6 +1087,9 @@
           {
             "name": "luminance",
             "type": "number",
+            "title": {
+              "en": "Luminance"
+            },
             "placeholder": {
               "en": "in Lux",
               "nl": "in Lux"
@@ -1059,6 +1116,9 @@
           {
             "name": "luminance",
             "type": "number",
+            "title": {
+              "en": "Luminance"
+            },
             "placeholder": {
               "en": "in Lux",
               "nl": "in Lux"
@@ -1085,6 +1145,9 @@
           {
             "name": "luminance_from",
             "type": "number",
+            "title": {
+              "en": "Luminance From"
+            },
             "placeholder": {
               "en": "in Lux",
               "nl": "in Lux"
@@ -1093,6 +1156,9 @@
           {
             "name": "luminance_to",
             "type": "number",
+            "title": {
+              "en": "Luminance To"
+            },
             "placeholder": {
               "en": "in Lux",
               "nl": "in Lux"
@@ -1119,6 +1185,9 @@
           {
             "name": "temperature",
             "type": "number",
+            "title": {
+              "en": "Temperature"
+            },
             "placeholder": {
               "en": "in C",
               "nl": "in C"
@@ -1145,6 +1214,9 @@
           {
             "name": "temperature",
             "type": "number",
+            "title": {
+              "en": "Temperature"
+            },
             "placeholder": {
               "en": "in C",
               "nl": "in C"
@@ -1171,6 +1243,9 @@
           {
             "name": "temperature_from",
             "type": "number",
+            "title": {
+              "en": "Temperature From"
+            },
             "placeholder": {
               "en": "in C",
               "nl": "in C"
@@ -1179,6 +1254,9 @@
           {
             "name": "temperature_to",
             "type": "number",
+            "title": {
+              "en": "Temperature To"
+            },
             "placeholder": {
               "en": "in C",
               "nl": "in C"
@@ -1211,6 +1289,9 @@
           {
             "name": "state",
             "type": "dropdown",
+            "title": {
+              "en": "Expected State"
+            },
             "values": [
               {
                 "id": "off",
@@ -1292,6 +1373,9 @@
         },
         "args": [
           {
+            "title": {
+              "en": "Scenario Name"
+            },
             "name": "scenario",
             "type": "autocomplete"
           }
@@ -1325,6 +1409,9 @@
           {
             "name": "newPollingMode",
             "type": "dropdown",
+            "title": {
+              "en": "Polling Mode"
+            },
             "values": [
               {
                 "id": "on",
@@ -1365,6 +1452,9 @@
           {
             "name": "syncSpeed",
             "type": "number",
+            "title": {
+              "en": "Polling Interval"
+            },
             "min": 30,
             "placeholder": {
               "en": "Seconds",
@@ -1416,6 +1506,9 @@
           {
             "name": "target_temperature",
             "type": "range",
+            "title": {
+              "en": "Target Temperature"
+            },
             "min": 30,
             "max": 60,
             "step": 1,
@@ -1441,6 +1534,9 @@
           {
             "name": "target_temperature",
             "type": "range",
+            "title": {
+              "en": "Target Temperature"
+            },
             "min": 30,
             "max": 60,
             "step": 1,
@@ -1466,6 +1562,9 @@
           {
             "name": "state",
             "type": "dropdown",
+            "title": {
+              "en": "Mode"
+            },
             "values": [
               {
                 "id": "comfort",
@@ -1537,6 +1636,9 @@
           {
             "name": "state",
             "type": "dropdown",
+            "title": {
+              "en": "Boost State"
+            },
             "values": [
               {
                 "id": "on",
@@ -1573,6 +1675,9 @@
           {
             "name": "target_temperature",
             "type": "range",
+            "title": {
+              "en": "Target Temperature"
+            },
             "min": 0,
             "max": 40,
             "step": 1,
@@ -1598,6 +1703,9 @@
           {
             "name": "target_temperature",
             "type": "range",
+            "title": {
+              "en": "Target Temperature"
+            },
             "min": 0,
             "max": 40,
             "step": 1,
@@ -1636,6 +1744,9 @@
           {
             "name": "state",
             "type": "dropdown",
+            "title": {
+              "en": "Auto State"
+            },
             "values": [
               {
                 "id": "on",
@@ -1672,6 +1783,9 @@
           {
             "name": "state",
             "type": "dropdown",
+            "title": {
+              "en": "Operating Mode"
+            },
             "values": [
               {
                 "id": "cooling",
@@ -1718,6 +1832,9 @@
           {
             "name": "state",
             "type": "dropdown",
+            "title": {
+              "en": "Heat Mode"
+            },
             "values": [
               {
                 "id": "absence",
@@ -1788,6 +1905,9 @@
           {
             "name": "state",
             "type": "dropdown",
+            "title": {
+              "en": "Cooling Mode"
+            },
             "values": [
               {
                 "id": "absence",
@@ -1858,6 +1978,9 @@
           {
             "name": "state",
             "type": "dropdown",
+            "title": {
+              "en": "Cooling Mode"
+            },
             "values": [
               {
                 "id": "on",
@@ -1894,6 +2017,9 @@
           {
             "name": "state",
             "type": "dropdown",
+            "title": {
+              "en": "Heating Mode"
+            },
             "values": [
               {
                 "id": "on",
@@ -1930,6 +2056,9 @@
           {
             "name": "state",
             "type": "dropdown",
+            "title": {
+              "en": "Derogation Mode"
+            },
             "values": [
               {
                 "id": "on",
@@ -1966,6 +2095,9 @@
           {
             "name": "target_temperature",
             "type": "range",
+            "title": {
+              "en": "Target Temperature"
+            },
             "min": 4,
             "max": 35,
             "step": 1,
@@ -1991,6 +2123,9 @@
           {
             "name": "target_temperature",
             "type": "range",
+            "title": {
+              "en": "Target Temperature"
+            },
             "min": 4,
             "max": 35,
             "step": 1,
@@ -2016,6 +2151,9 @@
           {
             "name": "target_temperature",
             "type": "range",
+            "title": {
+              "en": "Target Temperature"
+            },
             "min": 4,
             "max": 35,
             "step": 1,
@@ -2041,6 +2179,9 @@
           {
             "name": "target_temperature",
             "type": "range",
+            "title": {
+              "en": "Target Temperature"
+            },
             "min": 4,
             "max": 35,
             "step": 1,
@@ -2066,6 +2207,9 @@
           {
             "name": "target_temperature",
             "type": "range",
+            "title": {
+              "en": "Target Temperature"
+            },
             "min": 4,
             "max": 35,
             "step": 1,
@@ -2094,6 +2238,9 @@
           {
             "name": "windowcoverings_set",
             "type": "range",
+            "title": {
+              "en": "Tilt level"
+            },
             "min": 0,
             "max": 1,
             "step": 0.01,
@@ -2123,6 +2270,9 @@
           {
             "name": "newQuietMode",
             "type": "dropdown",
+            "title": {
+              "en": "Quiet Mode"
+            },
             "values": [
               {
                 "id": "on",
@@ -2159,6 +2309,9 @@
           {
             "name": "open_window_activation",
             "type": "dropdown",
+            "title": {
+              "en": "Detection State"
+            },
             "values": [
               {
                 "id": "on",
@@ -2195,6 +2348,9 @@
           {
             "name": "set_valve_auto",
             "type": "dropdown",
+            "title": {
+              "en": "Auto Mode"
+            },
             "values": [
               {
                 "id": "on",
@@ -2231,6 +2387,9 @@
           {
             "name": "derogation_mode",
             "type": "dropdown",
+            "title": {
+              "en": "Operating Mode"
+            },
             "values": [
               {
                 "id": "comfort",
@@ -2267,6 +2426,9 @@
           {
             "name": "type",
             "type": "dropdown",
+            "title": {
+              "en": "Until"
+            },
             "values": [
               {
                 "id": "date",
@@ -2307,6 +2469,9 @@
           {
             "name": "state",
             "type": "dropdown",
+            "title": {
+              "en": "Open / Close state"
+            },
             "values": [
               {
                 "id": "open",
@@ -2470,6 +2635,9 @@
           {
             "name": "state",
             "type": "dropdown",
+            "title": {
+              "en": "New State"
+            },
             "values": [
               {
                 "id": "off",
@@ -2554,6 +2722,9 @@
           {
             "name": "state",
             "type": "dropdown",
+            "title": {
+              "en": "Intrusion State"
+            },
             "values": [
               {
                 "id": "detected",
@@ -2596,6 +2767,9 @@
           {
             "name": "state",
             "type": "dropdown",
+            "title": {
+              "en": "Power"
+            },
             "values": [
               {
                 "id": "on",
@@ -2634,6 +2808,9 @@
           {
             "name": "onTime",
             "type": "number",
+            "title": {
+              "en": "On Time"
+            },
             "min": 1,
             "max": 10,
             "step": 1,
@@ -2648,6 +2825,75 @@
   },
   "drivers": [
     {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices",
+            "prev": "login_credentials"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/color_temperature_light/assets/icon.svg",
+      "images": {
+        "large": "/drivers/color_temperature_light/assets/images/large.png",
+        "small": "/drivers/color_temperature_light/assets/images/small.png"
+      },
       "name": {
         "en": "Light, Colour + Temperature"
       },
@@ -2665,23 +2911,6 @@
           "setOnDim": false
         }
       },
-      "images": {
-        "large": "/drivers/color_temperature_light/assets/images/large.png",
-        "small": "/drivers/color_temperature_light/assets/images/small.png"
-      },
-      "pair": [
-        {
-          "id": "list_my_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_my_devices"
-          }
-        },
-        {
-          "id": "add_my_devices",
-          "template": "add_devices"
-        }
-      ],
       "settings": [
         {
           "id": "minTemperature",
@@ -2709,6 +2938,75 @@
       "id": "color_temperature_light"
     },
     {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices",
+            "prev": "login_credentials"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/dimmable_light/assets/icon.svg",
+      "images": {
+        "large": "/drivers/dimmable_light/assets/images/large.png",
+        "small": "/drivers/dimmable_light/assets/images/small.png"
+      },
       "name": {
         "en": "Light, Dimmable"
       },
@@ -2722,16 +3020,45 @@
           "setOnDim": false
         }
       },
-      "images": {
-        "large": "/drivers/dimmable_light/assets/images/large.png",
-        "small": "/drivers/dimmable_light/assets/images/small.png"
-      },
+      "id": "dimmable_light"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -2739,27 +3066,79 @@
           "template": "add_devices"
         }
       ],
-      "id": "dimmable_light"
-    },
-    {
-      "name": {
-        "en": "Window Handle (SecuSignal)",
-        "nl": "Window Handle (SecuSignal)"
-      },
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/enocean_window_handle/assets/icon.svg",
       "images": {
         "large": "/drivers/enocean_window_handle/assets/images/large.png",
         "small": "/drivers/enocean_window_handle/assets/images/small.png"
+      },
+      "name": {
+        "en": "Window Handle (SecuSignal)",
+        "nl": "Window Handle (SecuSignal)"
       },
       "class": "sensor",
       "capabilities": [
         "alarm_contact"
       ],
+      "id": "enocean_window_handle"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -2767,9 +3146,32 @@
           "template": "add_devices"
         }
       ],
-      "id": "enocean_window_handle"
-    },
-    {
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/heater_on_off/assets/icon.svg",
+      "images": {
+        "large": "/drivers/heater_on_off/assets/images/large.png",
+        "small": "/drivers/heater_on_off/assets/images/small.png"
+      },
       "name": {
         "en": "Heater"
       },
@@ -2777,16 +3179,45 @@
       "capabilities": [
         "onoff"
       ],
-      "images": {
-        "large": "/drivers/heater_on_off/assets/images/large.png",
-        "small": "/drivers/heater_on_off/assets/images/small.png"
-      },
+      "id": "heater_on_off"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -2794,15 +3225,34 @@
           "template": "add_devices"
         }
       ],
-      "id": "heater_on_off"
-    },
-    {
-      "name": {
-        "en": "Tahoma / Connexoon Hub"
-      },
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/hub/assets/icon.svg",
       "images": {
         "large": "/drivers/hub/assets/images/large.png",
         "small": "/drivers/hub/assets/images/small.png"
+      },
+      "name": {
+        "en": "Tahoma / Connexoon Hub"
       },
       "class": "other",
       "capabilities": [
@@ -2815,12 +3265,45 @@
           "title": "LED"
         }
       },
+      "id": "hub"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -2828,15 +3311,34 @@
           "template": "add_devices"
         }
       ],
-      "id": "hub"
-    },
-    {
-      "name": {
-        "en": "Atlantic Main Zone Controller"
-      },
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_atlantic_apc_zone_controller/assets/icon.svg",
       "images": {
         "large": "/drivers/io_atlantic_apc_zone_controller/assets/images/large.png",
         "small": "/drivers/io_atlantic_apc_zone_controller/assets/images/small.png"
+      },
+      "name": {
+        "en": "Atlantic Main Zone Controller"
       },
       "class": "heater",
       "capabilities": [
@@ -2861,12 +3363,45 @@
           "min": 0
         }
       },
+      "id": "io_atlantic_apc_zone_controller"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -2874,15 +3409,34 @@
           "template": "add_devices"
         }
       ],
-      "id": "io_atlantic_apc_zone_controller"
-    },
-    {
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_atlantic_dhw_boiler/assets/icon.svg",
+      "images": {
+        "large": "/drivers/io_atlantic_dhw_boiler/assets/images/large.png",
+        "small": "/drivers/io_atlantic_dhw_boiler/assets/images/small.png"
+      },
       "name": {
         "en": "Atlantic Water Boiler"
-      },
-      "images": {
-        "large": "/drivers/io_atlantic_apc_zone_controller/assets/images/large.png",
-        "small": "/drivers/io_atlantic_apc_zone_controller/assets/images/small.png"
       },
       "class": "heater",
       "capabilities": [
@@ -2904,12 +3458,45 @@
           "title": "Eco Temperature"
         }
       },
+      "id": "io_atlantic_dhw_boiler"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -2917,15 +3504,34 @@
           "template": "add_devices"
         }
       ],
-      "id": "io_atlantic_dhw_boiler"
-    },
-    {
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_atlantic_dhw_production/assets/icon.svg",
+      "images": {
+        "large": "/drivers/io_atlantic_dhw_production/assets/images/large.png",
+        "small": "/drivers/io_atlantic_dhw_production/assets/images/small.png"
+      },
       "name": {
         "en": "Atlantic Hot Water Production"
-      },
-      "images": {
-        "large": "/drivers/io_atlantic_apc_zone_controller/assets/images/large.png",
-        "small": "/drivers/io_atlantic_apc_zone_controller/assets/images/small.png"
       },
       "class": "heater",
       "capabilities": [
@@ -2942,12 +3548,45 @@
           "max": 60
         }
       },
+      "id": "io_atlantic_dhw_production"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -2955,15 +3594,34 @@
           "template": "add_devices"
         }
       ],
-      "id": "io_atlantic_dhw_production"
-    },
-    {
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_atlantic_dhw_tank/assets/icon.svg",
+      "images": {
+        "large": "/drivers/io_atlantic_dhw_tank/assets/images/large.png",
+        "small": "/drivers/io_atlantic_dhw_tank/assets/images/small.png"
+      },
       "name": {
         "en": "Atlantic Water Tank"
-      },
-      "images": {
-        "large": "/drivers/io_atlantic_apc_zone_controller/assets/images/large.png",
-        "small": "/drivers/io_atlantic_apc_zone_controller/assets/images/small.png"
       },
       "class": "heater",
       "capabilities": [
@@ -2974,12 +3632,45 @@
           "title": "Force Heating"
         }
       },
+      "id": "io_atlantic_dhw_tank"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -2987,15 +3678,34 @@
           "template": "add_devices"
         }
       ],
-      "id": "io_atlantic_dhw_tank"
-    },
-    {
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_atlantic_electric_heater/assets/icon.svg",
+      "images": {
+        "large": "/drivers/io_atlantic_electric_heater/assets/images/large.png",
+        "small": "/drivers/io_atlantic_electric_heater/assets/images/small.png"
+      },
       "name": {
         "en": "Atlantic Electric Heater"
-      },
-      "images": {
-        "large": "/drivers/io_atlantic_apc_zone_controller/assets/images/large.png",
-        "small": "/drivers/io_atlantic_apc_zone_controller/assets/images/small.png"
       },
       "class": "heater",
       "capabilities": [
@@ -3034,12 +3744,45 @@
           "title": "Derogated Temperature"
         }
       },
+      "id": "io_atlantic_electric_heater"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -3047,15 +3790,34 @@
           "template": "add_devices"
         }
       ],
-      "id": "io_atlantic_electric_heater"
-    },
-    {
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_atlantic_hot_cold_zone/assets/icon.svg",
+      "images": {
+        "large": "/drivers/io_atlantic_hot_cold_zone/assets/images/large.png",
+        "small": "/drivers/io_atlantic_hot_cold_zone/assets/images/small.png"
+      },
       "name": {
         "en": "Atlantic Heating And Cooling System"
-      },
-      "images": {
-        "large": "/drivers/io_atlantic_apc_zone_controller/assets/images/large.png",
-        "small": "/drivers/io_atlantic_apc_zone_controller/assets/images/small.png"
       },
       "class": "heater",
       "capabilities": [
@@ -3112,12 +3874,45 @@
           "title": "Heating Mode"
         }
       },
+      "id": "io_atlantic_hot_cold_zone"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -3125,9 +3920,32 @@
           "template": "add_devices"
         }
       ],
-      "id": "io_atlantic_hot_cold_zone"
-    },
-    {
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_door_lock/assets/icon.svg",
+      "images": {
+        "large": "/drivers/io_door_lock/assets/images/large.png",
+        "small": "/drivers/io_door_lock/assets/images/small.png"
+      },
       "name": {
         "en": "Door Lock (io)"
       },
@@ -3136,16 +3954,45 @@
         "onoff",
         "locked"
       ],
-      "images": {
-        "large": "/drivers/io_door_lock/assets/images/large.png",
-        "small": "/drivers/io_door_lock/assets/images/small.png"
-      },
+      "id": "io_door_lock"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -3153,15 +4000,34 @@
           "template": "add_devices"
         }
       ],
-      "id": "io_door_lock"
-    },
-    {
-      "name": {
-        "en": "Energy Meter"
-      },
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_energy_sensor/assets/icon.svg",
       "images": {
         "large": "/drivers/io_energy_sensor/assets/images/large.png",
         "small": "/drivers/io_energy_sensor/assets/images/small.png"
+      },
+      "name": {
+        "en": "Energy Meter"
       },
       "class": "sensor",
       "capabilities": [
@@ -3170,12 +4036,45 @@
       "energy": {
         "cumulative": true
       },
+      "id": "io_energy_sensor"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -3183,16 +4082,35 @@
           "template": "add_devices"
         }
       ],
-      "id": "io_energy_sensor"
-    },
-    {
-      "name": {
-        "en": "Exterior Venetian (io)",
-        "nl": "Buitenjaloezieën (io)"
-      },
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_exterior_venetian_blind/assets/icon.svg",
       "images": {
         "large": "/drivers/io_exterior_venetian_blind/assets/images/large.png",
         "small": "/drivers/io_exterior_venetian_blind/assets/images/small.png"
+      },
+      "name": {
+        "en": "Exterior Venetian (io)",
+        "nl": "Buitenjaloezieën (io)"
       },
       "class": "blinds",
       "capabilities": [
@@ -3200,19 +4118,6 @@
         "windowcoverings_set",
         "windowcoverings_tilt_set",
         "quick_open"
-      ],
-      "pair": [
-        {
-          "id": "list_my_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_my_devices"
-          }
-        },
-        {
-          "id": "add_my_devices",
-          "template": "add_devices"
-        }
       ],
       "settings": [
         {
@@ -3252,30 +4157,82 @@
       "id": "io_exterior_venetian_blind"
     },
     {
-      "name": {
-        "en": "Garage Door (io)"
-      },
-      "images": {
-        "large": "/drivers/io_garage_door/assets/images/large.png",
-        "small": "/drivers/io_garage_door/assets/images/small.png"
-      },
-      "class": "blinds",
-      "capabilities": [
-        "windowcoverings_state",
-        "windowcoverings_set"
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
       ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
           "id": "add_my_devices",
           "template": "add_devices"
         }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_garage_door/assets/icon.svg",
+      "images": {
+        "large": "/drivers/io_garage_door/assets/images/large.png",
+        "small": "/drivers/io_garage_door/assets/images/small.png"
+      },
+      "name": {
+        "en": "Garage Door (io)"
+      },
+      "class": "blinds",
+      "capabilities": [
+        "windowcoverings_state",
+        "windowcoverings_set"
       ],
       "settings": [
         {
@@ -3304,30 +4261,82 @@
       "id": "io_garage_door"
     },
     {
-      "name": {
-        "en": "Garage Door Partial (io)"
-      },
-      "images": {
-        "large": "/drivers/io_garage_door_partial/assets/images/large.png",
-        "small": "/drivers/io_garage_door_partial/assets/images/small.png"
-      },
-      "class": "blinds",
-      "capabilities": [
-        "windowcoverings_state",
-        "my_position"
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
       ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
           "id": "add_my_devices",
           "template": "add_devices"
         }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_garage_door_partial/assets/icon.svg",
+      "images": {
+        "large": "/drivers/io_garage_door_partial/assets/images/large.png",
+        "small": "/drivers/io_garage_door_partial/assets/images/small.png"
+      },
+      "name": {
+        "en": "Garage Door Partial (io)"
+      },
+      "class": "blinds",
+      "capabilities": [
+        "windowcoverings_state",
+        "my_position"
       ],
       "settings": [
         {
@@ -3345,13 +4354,78 @@
       "id": "io_garage_door_partial"
     },
     {
-      "name": {
-        "en": "Horizontal Awning (io)",
-        "nl": "Horizontale buitenzonwering (io)"
-      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices",
+            "prev": "login_credentials"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_horizontal_awning/assets/icon.svg",
       "images": {
         "large": "/drivers/io_horizontal_awning/assets/images/large.png",
         "small": "/drivers/io_horizontal_awning/assets/images/small.png"
+      },
+      "name": {
+        "en": "Horizontal Awning (io)",
+        "nl": "Horizontale buitenzonwering (io)"
       },
       "class": "sunshade",
       "capabilities": [
@@ -3359,19 +4433,6 @@
         "windowcoverings_set",
         "quick_open",
         "lock_state"
-      ],
-      "pair": [
-        {
-          "id": "list_my_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_my_devices"
-          }
-        },
-        {
-          "id": "add_my_devices",
-          "template": "add_devices"
-        }
       ],
       "settings": [
         {
@@ -3411,24 +4472,122 @@
       "id": "io_horizontal_awning"
     },
     {
-      "name": {
-        "en": "Sunis sun sensor (io)",
-        "nl": "Sunis zonsensor (io)"
-      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices",
+            "prev": "login_credentials"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_light_sensor/assets/icon.svg",
       "images": {
         "large": "/drivers/io_light_sensor/assets/images/large.png",
         "small": "/drivers/io_light_sensor/assets/images/small.png"
+      },
+      "name": {
+        "en": "Sunis sun sensor (io)",
+        "nl": "Sunis zonsensor (io)"
       },
       "class": "sensor",
       "capabilities": [
         "measure_luminance"
       ],
+      "id": "io_light_sensor"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -3436,26 +4595,78 @@
           "template": "add_devices"
         }
       ],
-      "id": "io_light_sensor"
-    },
-    {
-      "name": {
-        "en": "Occupancy Detector (io)"
-      },
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_occupancy_detector/assets/icon.svg",
       "images": {
         "large": "/drivers/io_occupancy_detector/assets/images/large.png",
         "small": "/drivers/io_occupancy_detector/assets/images/small.png"
+      },
+      "name": {
+        "en": "Occupancy Detector (io)"
       },
       "class": "sensor",
       "capabilities": [
         "alarm_motion"
       ],
+      "id": "io_occupancy_detector"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -3463,26 +4674,78 @@
           "template": "add_devices"
         }
       ],
-      "id": "io_occupancy_detector"
-    },
-    {
-      "name": {
-        "en": "Remote Control"
-      },
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_open_close_remote/assets/icon.svg",
       "images": {
         "large": "/drivers/io_open_close_remote/assets/images/large.png",
         "small": "/drivers/io_open_close_remote/assets/images/small.png"
+      },
+      "name": {
+        "en": "Remote Control"
       },
       "class": "remote",
       "capabilities": [
         "remote_state"
       ],
+      "id": "io_open_close_remote"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -3490,27 +4753,79 @@
           "template": "add_devices"
         }
       ],
-      "id": "io_open_close_remote"
-    },
-    {
-      "name": {
-        "en": "Opening Detector (io)",
-        "nl": "Openingsmelder (io)"
-      },
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_opening_detector/assets/icon.svg",
       "images": {
         "large": "/drivers/io_opening_detector/assets/images/large.png",
         "small": "/drivers/io_opening_detector/assets/images/small.png"
+      },
+      "name": {
+        "en": "Opening Detector (io)",
+        "nl": "Openingsmelder (io)"
       },
       "class": "sensor",
       "capabilities": [
         "alarm_contact"
       ],
+      "id": "io_opening_detector"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -3518,33 +4833,39 @@
           "template": "add_devices"
         }
       ],
-      "id": "io_opening_detector"
-    },
-    {
-      "name": {
-        "en": "Pergola (io)"
-      },
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_pergola/assets/icon.svg",
       "images": {
         "large": "/drivers/io_pergola/assets/images/large.png",
         "small": "/drivers/io_pergola/assets/images/small.png"
+      },
+      "name": {
+        "en": "Pergola (io)"
       },
       "class": "blinds",
       "capabilities": [
         "windowcoverings_state",
         "windowcoverings_set"
-      ],
-      "pair": [
-        {
-          "id": "list_my_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_my_devices"
-          }
-        },
-        {
-          "id": "add_my_devices",
-          "template": "add_devices"
-        }
       ],
       "settings": [
         {
@@ -3573,13 +4894,78 @@
       "id": "io_pergola"
     },
     {
-      "name": {
-        "en": "Roller shutter (io)",
-        "nl": "Rolluik (io)"
-      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices",
+            "prev": "login_credentials"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_roller_shutter/assets/icon.svg",
       "images": {
         "large": "/drivers/io_roller_shutter/assets/images/large.png",
         "small": "/drivers/io_roller_shutter/assets/images/small.png"
+      },
+      "name": {
+        "en": "Roller shutter (io)",
+        "nl": "Rolluik (io)"
       },
       "class": "blinds",
       "capabilities": [
@@ -3587,19 +4973,6 @@
         "windowcoverings_set",
         "my_position",
         "quick_open"
-      ],
-      "pair": [
-        {
-          "id": "list_my_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_my_devices"
-          }
-        },
-        {
-          "id": "add_my_devices",
-          "template": "add_devices"
-        }
       ],
       "settings": [
         {
@@ -3639,13 +5012,78 @@
       "id": "io_roller_shutter"
     },
     {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices",
+            "prev": "login_credentials"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_roller_shutter_quiet/assets/icon.svg",
+      "images": {
+        "large": "/drivers/io_roller_shutter_quiet/assets/images/large.png",
+        "small": "/drivers/io_roller_shutter_quiet/assets/images/small.png"
+      },
       "name": {
         "en": "Roller shutter Quiet (io)",
         "nl": "Rolluik Stille (io)"
-      },
-      "images": {
-        "large": "/drivers/io_roller_shutter/assets/images/large.png",
-        "small": "/drivers/io_roller_shutter/assets/images/small.png"
       },
       "class": "blinds",
       "capabilities": [
@@ -3654,19 +5092,6 @@
         "my_position",
         "quiet_mode",
         "quick_open"
-      ],
-      "pair": [
-        {
-          "id": "list_my_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_my_devices"
-          }
-        },
-        {
-          "id": "add_my_devices",
-          "template": "add_devices"
-        }
       ],
       "settings": [
         {
@@ -3706,24 +5131,122 @@
       "id": "io_roller_shutter_quiet"
     },
     {
-      "name": {
-        "en": "Sliding gate (io)"
-      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices",
+            "prev": "login_credentials"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_sliding_gate/assets/icon.svg",
       "images": {
         "large": "/drivers/io_sliding_gate/assets/images/large.png",
         "small": "/drivers/io_sliding_gate/assets/images/small.png"
+      },
+      "name": {
+        "en": "Sliding gate (io)"
       },
       "class": "other",
       "capabilities": [
         "pedestrian",
         "windowcoverings_state"
       ],
+      "id": "io_sliding_gate"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -3731,27 +5254,79 @@
           "template": "add_devices"
         }
       ],
-      "id": "io_sliding_gate"
-    },
-    {
-      "name": {
-        "en": "Temperature Sensor (io)",
-        "nl": "Thermis WireFree sensor (io)"
-      },
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_temperature_sensor/assets/icon.svg",
       "images": {
         "large": "/drivers/io_temperature_sensor/assets/images/large.png",
         "small": "/drivers/io_temperature_sensor/assets/images/small.png"
+      },
+      "name": {
+        "en": "Temperature Sensor (io)",
+        "nl": "Thermis WireFree sensor (io)"
       },
       "class": "sensor",
       "capabilities": [
         "measure_temperature"
       ],
+      "id": "io_temperature_sensor"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -3759,15 +5334,34 @@
           "template": "add_devices"
         }
       ],
-      "id": "io_temperature_sensor"
-    },
-    {
-      "name": {
-        "en": "Radiator Valve"
-      },
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_valve_heating/assets/icon.svg",
       "images": {
         "large": "/drivers/io_valve_heating/assets/images/large.png",
         "small": "/drivers/io_valve_heating/assets/images/small.png"
+      },
+      "name": {
+        "en": "Radiator Valve"
       },
       "class": "heater",
       "energy": {
@@ -3815,12 +5409,45 @@
           "title": "Frost Protection Temperature"
         }
       },
+      "id": "io_valve_heating"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -3828,35 +5455,41 @@
           "template": "add_devices"
         }
       ],
-      "id": "io_valve_heating"
-    },
-    {
-      "name": {
-        "en": "Velux interior blind (io)",
-        "nl": "Velux binnenzonwering (io)"
-      },
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_velux_interior_blind/assets/icon.svg",
       "images": {
         "large": "/drivers/io_velux_interior_blind/assets/images/large.png",
         "small": "/drivers/io_velux_interior_blind/assets/images/small.png"
+      },
+      "name": {
+        "en": "Velux interior blind (io)",
+        "nl": "Velux binnenzonwering (io)"
       },
       "class": "sunshade",
       "capabilities": [
         "windowcoverings_state",
         "windowcoverings_set",
         "quick_open"
-      ],
-      "pair": [
-        {
-          "id": "list_my_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_my_devices"
-          }
-        },
-        {
-          "id": "add_my_devices",
-          "template": "add_devices"
-        }
       ],
       "settings": [
         {
@@ -3896,32 +5529,84 @@
       "id": "io_velux_interior_blind"
     },
     {
-      "name": {
-        "en": "Velux roller shutter(io)",
-        "nl": "Velux rolluik (io)"
-      },
-      "images": {
-        "large": "/drivers/io_velux_roller_shutter/assets/images/large.png",
-        "small": "/drivers/io_velux_roller_shutter/assets/images/small.png"
-      },
-      "class": "blinds",
-      "capabilities": [
-        "windowcoverings_state",
-        "windowcoverings_set",
-        "quick_open"
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
       ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
           "id": "add_my_devices",
           "template": "add_devices"
         }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_velux_roller_shutter/assets/icon.svg",
+      "images": {
+        "large": "/drivers/io_velux_roller_shutter/assets/images/large.png",
+        "small": "/drivers/io_velux_roller_shutter/assets/images/small.png"
+      },
+      "name": {
+        "en": "Velux roller shutter(io)",
+        "nl": "Velux rolluik (io)"
+      },
+      "class": "blinds",
+      "capabilities": [
+        "windowcoverings_state",
+        "windowcoverings_set",
+        "quick_open"
       ],
       "settings": [
         {
@@ -3961,32 +5646,84 @@
       "id": "io_velux_roller_shutter"
     },
     {
-      "name": {
-        "en": "Velux roof window (io)",
-        "nl": "Velux dakraam (io)"
-      },
-      "images": {
-        "large": "/drivers/io_velux_roof_window/assets/images/large.png",
-        "small": "/drivers/io_velux_roof_window/assets/images/small.png"
-      },
-      "class": "windowcoverings",
-      "capabilities": [
-        "windowcoverings_state",
-        "windowcoverings_set",
-        "quick_open"
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
       ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
           "id": "add_my_devices",
           "template": "add_devices"
         }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_velux_roof_window/assets/icon.svg",
+      "images": {
+        "large": "/drivers/io_velux_roof_window/assets/images/large.png",
+        "small": "/drivers/io_velux_roof_window/assets/images/small.png"
+      },
+      "name": {
+        "en": "Velux roof window (io)",
+        "nl": "Velux dakraam (io)"
+      },
+      "class": "windowcoverings",
+      "capabilities": [
+        "windowcoverings_state",
+        "windowcoverings_set",
+        "quick_open"
       ],
       "settings": [
         {
@@ -4026,32 +5763,84 @@
       "id": "io_velux_roof_window"
     },
     {
-      "name": {
-        "en": "Exterior blind (io)",
-        "nl": "Verticale buitenzonwering (io)"
-      },
-      "images": {
-        "large": "/drivers/io_vertical_exterior_blind/assets/images/large.png",
-        "small": "/drivers/io_vertical_exterior_blind/assets/images/small.png"
-      },
-      "class": "sunshade",
-      "capabilities": [
-        "windowcoverings_state",
-        "windowcoverings_set",
-        "quick_open"
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
       ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
           "id": "add_my_devices",
           "template": "add_devices"
         }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_vertical_exterior_blind/assets/icon.svg",
+      "images": {
+        "large": "/drivers/io_vertical_exterior_blind/assets/images/large.png",
+        "small": "/drivers/io_vertical_exterior_blind/assets/images/small.png"
+      },
+      "name": {
+        "en": "Exterior blind (io)",
+        "nl": "Verticale buitenzonwering (io)"
+      },
+      "class": "sunshade",
+      "capabilities": [
+        "windowcoverings_state",
+        "windowcoverings_set",
+        "quick_open"
       ],
       "settings": [
         {
@@ -4091,31 +5880,83 @@
       "id": "io_vertical_exterior_blind"
     },
     {
-      "name": {
-        "en": "Interior Blind (io)"
-      },
-      "images": {
-        "large": "/drivers/io_vertical_interior_blind/assets/images/large.png",
-        "small": "/drivers/io_vertical_interior_blind/assets/images/small.png"
-      },
-      "class": "blinds",
-      "capabilities": [
-        "windowcoverings_state",
-        "windowcoverings_set",
-        "quick_open"
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
       ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
           "id": "add_my_devices",
           "template": "add_devices"
         }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/io_vertical_interior_blind/assets/icon.svg",
+      "images": {
+        "large": "/drivers/io_vertical_interior_blind/assets/images/large.png",
+        "small": "/drivers/io_vertical_interior_blind/assets/images/small.png"
+      },
+      "name": {
+        "en": "Interior Blind (io)"
+      },
+      "class": "blinds",
+      "capabilities": [
+        "windowcoverings_state",
+        "windowcoverings_set",
+        "quick_open"
       ],
       "settings": [
         {
@@ -4155,23 +5996,42 @@
       "id": "io_vertical_interior_blind"
     },
     {
-      "name": {
-        "en": "KeyGo Remote Control"
-      },
-      "images": {
-        "large": "/drivers/key_go_remote/assets/images/large.png",
-        "small": "/drivers/key_go_remote/assets/images/small.png"
-      },
-      "class": "remote",
-      "capabilities": [
-        "key_go_remote_state"
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
       ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -4179,9 +6039,111 @@
           "template": "add_devices"
         }
       ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/key_go_remote/assets/icon.svg",
+      "images": {
+        "large": "/drivers/key_go_remote/assets/images/large.png",
+        "small": "/drivers/key_go_remote/assets/images/small.png"
+      },
+      "name": {
+        "en": "KeyGo Remote Control"
+      },
+      "class": "remote",
+      "capabilities": [
+        "key_go_remote_state"
+      ],
       "id": "key_go_remote"
     },
     {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices",
+            "prev": "login_credentials"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/myfox_light_controller/assets/icon.svg",
+      "images": {
+        "large": "/drivers/myfox_light_controller/assets/images/large.png",
+        "small": "/drivers/myfox_light_controller/assets/images/small.png"
+      },
       "name": {
         "en": "Light Controllers"
       },
@@ -4189,16 +6151,45 @@
       "capabilities": [
         "onoff"
       ],
-      "images": {
-        "large": "/drivers/myfox_light_controller/assets/images/large.png",
-        "small": "/drivers/myfox_light_controller/assets/images/small.png"
-      },
+      "id": "myfox_light_controller"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -4206,26 +6197,78 @@
           "template": "add_devices"
         }
       ],
-      "id": "myfox_light_controller"
-    },
-    {
-      "name": {
-        "en": "On / Off (RTS & io)"
-      },
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/on_off_switch/assets/icon.svg",
       "images": {
         "large": "/drivers/on_off_switch/assets/images/large.png",
         "small": "/drivers/on_off_switch/assets/images/small.png"
+      },
+      "name": {
+        "en": "On / Off (RTS & io)"
       },
       "class": "light",
       "capabilities": [
         "onoff"
       ],
+      "id": "on_off_switch"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -4233,9 +6276,32 @@
           "template": "add_devices"
         }
       ],
-      "id": "on_off_switch"
-    },
-    {
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/one_alarm/assets/icon.svg",
+      "images": {
+        "large": "/drivers/one_alarm/assets/images/large.png",
+        "small": "/drivers/one_alarm/assets/images/small.png"
+      },
       "name": {
         "en": "One Alarm & Somfy Home Keeper "
       },
@@ -4244,16 +6310,45 @@
         "alarm_generic",
         "homealarm_state"
       ],
-      "images": {
-        "large": "/drivers/one_alarm/assets/images/large.png",
-        "small": "/drivers/one_alarm/assets/images/small.png"
-      },
+      "id": "one_alarm"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -4261,9 +6356,32 @@
           "template": "add_devices"
         }
       ],
-      "id": "one_alarm"
-    },
-    {
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/pilot_wire_programmer/assets/icon.svg",
+      "images": {
+        "large": "/drivers/pilot_wire_programmer/assets/images/large.png",
+        "small": "/drivers/pilot_wire_programmer/assets/images/small.png"
+      },
       "name": {
         "en": "Pilot Wire Programmer"
       },
@@ -4272,16 +6390,45 @@
         "onoff",
         "heating_mode"
       ],
-      "images": {
-        "large": "/drivers/pilot_wire_programmer/assets/images/large.png",
-        "small": "/drivers/pilot_wire_programmer/assets/images/small.png"
-      },
+      "id": "pilot_wire_programmer"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -4289,26 +6436,78 @@
           "template": "add_devices"
         }
       ],
-      "id": "pilot_wire_programmer"
-    },
-    {
-      "name": {
-        "en": "Water Sensor"
-      },
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/rtds_water_sensor/assets/icon.svg",
       "images": {
         "large": "/drivers/rtds_water_sensor/assets/images/large.png",
         "small": "/drivers/rtds_water_sensor/assets/images/small.png"
+      },
+      "name": {
+        "en": "Water Sensor"
       },
       "class": "sensor",
       "capabilities": [
         "alarm_water"
       ],
+      "id": "rtds_water_sensor"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -4316,34 +6515,40 @@
           "template": "add_devices"
         }
       ],
-      "id": "rtds_water_sensor"
-    },
-    {
-      "name": {
-        "en": "Gate Opener (RTS)"
-      },
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/rts_gate_opener/assets/icon.svg",
       "images": {
         "large": "/drivers/rts_gate_opener/assets/images/large.png",
         "small": "/drivers/rts_gate_opener/assets/images/small.png"
+      },
+      "name": {
+        "en": "Gate Opener (RTS)"
       },
       "class": "other",
       "capabilities": [
         "open_button",
         "close_button",
         "stop_button"
-      ],
-      "pair": [
-        {
-          "id": "list_my_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_my_devices"
-          }
-        },
-        {
-          "id": "add_my_devices",
-          "template": "add_devices"
-        }
       ],
       "settings": [
         {
@@ -4384,30 +6589,82 @@
       "id": "rts_gate_opener"
     },
     {
-      "name": {
-        "en": "Horizontal Awning (RTS)"
-      },
-      "images": {
-        "large": "/drivers/io_horizontal_awning/assets/images/large.png",
-        "small": "/drivers/io_horizontal_awning/assets/images/small.png"
-      },
-      "class": "sunshade",
-      "capabilities": [
-        "windowcoverings_state",
-        "my_position"
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
       ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
           "id": "add_my_devices",
           "template": "add_devices"
         }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/rts_horizontal_awning/assets/icon.svg",
+      "images": {
+        "large": "/drivers/rts_horizontal_awning/assets/images/large.png",
+        "small": "/drivers/rts_horizontal_awning/assets/images/small.png"
+      },
+      "name": {
+        "en": "Horizontal Awning (RTS)"
+      },
+      "class": "sunshade",
+      "capabilities": [
+        "windowcoverings_state",
+        "my_position"
       ],
       "settings": [
         {
@@ -4425,30 +6682,82 @@
       "id": "rts_horizontal_awning"
     },
     {
-      "name": {
-        "en": "Blind & Shutter (RTS)"
-      },
-      "images": {
-        "large": "/drivers/rts_interior_blind/assets/images/large.png",
-        "small": "/drivers/rts_interior_blind/assets/images/small.png"
-      },
-      "class": "blinds",
-      "capabilities": [
-        "windowcoverings_state",
-        "my_position"
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
       ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
           "id": "add_my_devices",
           "template": "add_devices"
         }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/rts_interior_blind/assets/icon.svg",
+      "images": {
+        "large": "/drivers/rts_interior_blind/assets/images/large.png",
+        "small": "/drivers/rts_interior_blind/assets/images/small.png"
+      },
+      "name": {
+        "en": "Blind & Shutter (RTS)"
+      },
+      "class": "blinds",
+      "capabilities": [
+        "windowcoverings_state",
+        "my_position"
       ],
       "settings": [
         {
@@ -4466,30 +6775,82 @@
       "id": "rts_interior_blind"
     },
     {
-      "name": {
-        "en": "Interior Curtain (RTS)"
-      },
-      "images": {
-        "large": "/drivers/rts_interior_curtain/assets/images/large.png",
-        "small": "/drivers/rts_interior_curtain/assets/images/small.png"
-      },
-      "class": "curtain",
-      "capabilities": [
-        "windowcoverings_state",
-        "my_position"
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
       ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
           "id": "add_my_devices",
           "template": "add_devices"
         }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/rts_interior_curtain/assets/icon.svg",
+      "images": {
+        "large": "/drivers/rts_interior_curtain/assets/images/large.png",
+        "small": "/drivers/rts_interior_curtain/assets/images/small.png"
+      },
+      "name": {
+        "en": "Interior Curtain (RTS)"
+      },
+      "class": "curtain",
+      "capabilities": [
+        "windowcoverings_state",
+        "my_position"
       ],
       "settings": [
         {
@@ -4507,12 +6868,77 @@
       "id": "rts_interior_curtain"
     },
     {
-      "name": {
-        "en": "Venetian blind (RTS)"
-      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices",
+            "prev": "login_credentials"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/rts_interior_venetian_blind/assets/icon.svg",
       "images": {
         "large": "/drivers/rts_interior_venetian_blind/assets/images/large.png",
         "small": "/drivers/rts_interior_venetian_blind/assets/images/small.png"
+      },
+      "name": {
+        "en": "Venetian blind (RTS)"
       },
       "class": "blinds",
       "capabilities": [
@@ -4526,19 +6952,6 @@
           "setable": false
         }
       },
-      "pair": [
-        {
-          "id": "list_my_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_my_devices"
-          }
-        },
-        {
-          "id": "add_my_devices",
-          "template": "add_devices"
-        }
-      ],
       "settings": [
         {
           "id": "invertUpDown",
@@ -4555,23 +6968,42 @@
       "id": "rts_interior_venetian_blind"
     },
     {
-      "name": {
-        "en": "Open / Close (RTS)"
-      },
-      "images": {
-        "large": "/drivers/rts_open_close/assets/images/large.png",
-        "small": "/drivers/rts_open_close/assets/images/small.png"
-      },
-      "class": "button",
-      "capabilities": [
-        "button"
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
       ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -4579,15 +7011,113 @@
           "template": "add_devices"
         }
       ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/rts_open_close/assets/icon.svg",
+      "images": {
+        "large": "/drivers/rts_open_close/assets/images/large.png",
+        "small": "/drivers/rts_open_close/assets/images/small.png"
+      },
+      "name": {
+        "en": "Open / Close (RTS)"
+      },
+      "class": "button",
+      "capabilities": [
+        "button"
+      ],
       "id": "rts_open_close"
     },
     {
-      "name": {
-        "en": "Siren (io)"
-      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices",
+            "prev": "login_credentials"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/siren/assets/icon.svg",
       "images": {
         "large": "/drivers/siren/assets/images/large.png",
         "small": "/drivers/siren/assets/images/small.png"
+      },
+      "name": {
+        "en": "Siren (io)"
       },
       "class": "homealarm",
       "energy": {
@@ -4603,12 +7133,45 @@
         "alarm_siren",
         "alarm_battery"
       ],
+      "id": "siren"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -4616,16 +7179,35 @@
           "template": "add_devices"
         }
       ],
-      "id": "siren"
-    },
-    {
-      "name": {
-        "en": "Smoke Detector",
-        "nl": "Rookmelder"
-      },
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/smoke_detector/assets/icon.svg",
       "images": {
         "large": "/drivers/smoke_detector/assets/images/large.png",
         "small": "/drivers/smoke_detector/assets/images/small.png"
+      },
+      "name": {
+        "en": "Smoke Detector",
+        "nl": "Rookmelder"
       },
       "class": "sensor",
       "capabilities": [
@@ -4649,12 +7231,45 @@
           "AA"
         ]
       },
+      "id": "smoke_detector"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -4662,9 +7277,32 @@
           "template": "add_devices"
         }
       ],
-      "id": "smoke_detector"
-    },
-    {
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/tahoma_alarm/assets/icon.svg",
+      "images": {
+        "large": "/drivers/tahoma_alarm/assets/images/large.png",
+        "small": "/drivers/tahoma_alarm/assets/images/small.png"
+      },
       "name": {
         "en": "Tahoma Alarm"
       },
@@ -4673,16 +7311,45 @@
         "alarm_generic",
         "tahoma_alarm_state"
       ],
-      "images": {
-        "large": "/drivers/tahoma_alarm/assets/images/large.png",
-        "small": "/drivers/tahoma_alarm/assets/images/small.png"
-      },
+      "id": "tahoma_alarm"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -4690,15 +7357,34 @@
           "template": "add_devices"
         }
       ],
-      "id": "tahoma_alarm"
-    },
-    {
-      "name": {
-        "en": "Two button On / Off"
-      },
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/two_button_on_off_light/assets/icon.svg",
       "images": {
         "large": "/drivers/two_button_on_off_light/assets/images/large.png",
         "small": "/drivers/two_button_on_off_light/assets/images/small.png"
+      },
+      "name": {
+        "en": "Two button On / Off"
       },
       "class": "button",
       "capabilities": [
@@ -4706,12 +7392,45 @@
         "off_button",
         "on_with_timer"
       ],
+      "id": "two_button_on_off_light"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "small.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          },
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
         {
           "id": "list_my_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_my_devices",
+            "prev": "login_credentials"
           }
         },
         {
@@ -4719,9 +7438,32 @@
           "template": "add_devices"
         }
       ],
-      "id": "two_button_on_off_light"
-    },
-    {
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/white_temperature_light/assets/icon.svg",
+      "images": {
+        "large": "/drivers/white_temperature_light/assets/images/large.png",
+        "small": "/drivers/white_temperature_light/assets/images/small.png"
+      },
       "name": {
         "en": "Light, White Temperature"
       },
@@ -4736,23 +7478,6 @@
           "setOnDim": false
         }
       },
-      "images": {
-        "large": "/drivers/white_temperature_light/assets/images/large.png",
-        "small": "/drivers/white_temperature_light/assets/images/small.png"
-      },
-      "pair": [
-        {
-          "id": "list_my_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_my_devices"
-          }
-        },
-        {
-          "id": "add_my_devices",
-          "template": "add_devices"
-        }
-      ],
       "settings": [
         {
           "id": "minTemperature",

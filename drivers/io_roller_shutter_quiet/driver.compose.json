@@ -3,10 +3,6 @@
     "en": "Roller shutter Quiet (io)",
     "nl": "Rolluik Stille (io)"
   },
-  "images": {
-    "large": "/drivers/io_roller_shutter/assets/images/large.png",
-    "small": "/drivers/io_roller_shutter/assets/images/small.png"
-  },
   "class": "blinds",
   "capabilities": [
     "windowcoverings_state",
@@ -14,19 +10,6 @@
     "my_position",
     "quiet_mode",
     "quick_open"
-  ],
-  "pair": [
-    {
-      "id": "list_my_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_my_devices"
-      }
-    },
-    {
-      "id": "add_my_devices",
-      "template": "add_devices"
-    }
   ],
   "settings": [
     {
@@ -62,5 +45,6 @@
         "en": "Reverse the position control."
       }
     }
-  ]
+  ],
+  "$extends": ["cloudDriver"]
 }

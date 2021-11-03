@@ -1,283 +1,301 @@
 {
-  "triggers": [
-    {
-      "id": "valve_state_true",
-      "title": {
-        "en": "The valve turned on"
-      },
-      "args": []
-    },
-    {
-      "id": "valve_state_false",
-      "title": {
-        "en": "The valve turned off"
-      },
-      "args": []
-    },
-    {
-      "id": "open_window_activation_true",
-      "title": {
-        "en": "The open window detection turned on"
-      },
-      "args": []
-    },
-    {
-      "id": "open_window_activation_false",
-      "title": {
-        "en": "The open window detection turned off"
-      },
-      "args": []
-    },
-    {
-      "id": "derogation_mode_changed",
-      "title": {
-        "en": "The operating mode changed"
-      },
-      "titleFormatted": {
-        "en": "The operating mode changed to [[derogation_mode]]"
-      },
-      "args": [
+    "triggers": [
         {
-          "name": "derogation_mode",
-          "type": "dropdown",
-          "values": [
-            {
-              "id": "comfort",
-              "title": {
-                "en": "Comfort"
-              }
+            "id": "valve_state_true",
+            "title": {
+                "en": "The valve turned on"
             },
-            {
-              "id": "away",
-              "title": {
-                "en": "Away"
-              }
-            },
-            {
-              "id": "eco",
-              "title": {
-                "en": "Night"
-              }
-            },
-            {
-              "id": "manual",
-              "title": {
-                "en": "Manual"
-              }
-            },
-            {
-              "id": "frostprotection",
-              "title": {
-                "en": "Frost Protection"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "valve_heating_mode_state_changed",
-      "title": {
-        "en": "The heating mode changed"
-      },
-      "titleFormatted": {
-        "en": "The heating mode changed to [[valve_heating_mode_state]]"
-      },
-      "args": [
-        {
-          "name": "valve_heating_mode_state",
-          "type": "dropdown",
-          "values": [
-            {
-              "id": "comfort",
-              "title": {
-                "en": "Comfort"
-              }
-            },
-            {
-              "id": "awayMode",
-              "title": {
-                "en": "Away"
-              }
-            },
-            {
-              "id": "eco",
-              "title": {
-                "en": "Night"
-              }
-            },
-            {
-              "id": "manual",
-              "title": {
-                "en": "Manual"
-              }
-            },
-            {
-              "id": "frostprotection",
-              "title": {
-                "en": "Frost Protection"
-              }
-            },
-            {
-              "id": "suddenDropMode",
-              "title": {
-                "en": "Open Window Mode"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "defect_state_changed",
-      "title": {
-        "en": "The defect state changed"
-      },
-      "tokens": [
-        {
-          "name": "defect_state",
-          "type": "string",
-          "title": {
-            "en": "New state"
-          }
-        }
-      ],
-      "args": []
-    }
-  ],
-  "actions": [
-    {
-      "id": "set_open_window_activation",
-      "title": {
-        "en": "Set the open window detection state"
-      },
-      "titleFormatted": {
-        "en": "Set the open window detection state to [[open_window_activation]]"
-      },
-      "args": [
-        {
-          "name": "open_window_activation",
-          "type": "dropdown",
-          "values": [
-            {
-              "id": "on",
-              "label": {
-                "en": "On",
-                "nl": "aan"
-              }
-            },
-            {
-              "id": "off",
-              "label": {
-                "en": "Off",
-                "nl": "uit"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "set_valve_auto_mode",
-      "title": {
-        "en": "Set the Auto (Schedual) mode"
-      },
-      "titleFormatted": {
-        "en": "Set the auto mode to [[set_valve_auto]]"
-      },
-      "args": [
-        {
-          "name": "set_valve_auto",
-          "type": "dropdown",
-          "values": [
-            {
-              "id": "on",
-              "label": {
-                "en": "On",
-                "nl": "aan"
-              }
-            },
-            {
-              "id": "off",
-              "label": {
-                "en": "Off",
-                "nl": "uit"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "set_derogation_mode",
-      "title": {
-        "en": "Set the operating mode"
-      },
-      "titleFormatted": {
-        "en": "Set the operating mode to [[derogation_mode]] until [[type]]"
-      },
-      "args": [
-        {
-          "name": "derogation_mode",
-          "type": "dropdown",
-          "values": [
-            {
-              "id": "comfort",
-              "title": {
-                "en": "Comfort"
-              }
-            },
-            {
-              "id": "away",
-              "title": {
-                "en": "Away"
-              }
-            },
-            {
-              "id": "eco",
-              "title": {
-                "en": "Night"
-              }
-            },
-            {
-              "id": "manual",
-              "title": {
-                "en": "Manual"
-              }
-            },
-            {
-              "id": "frostprotection",
-              "title": {
-                "en": "Frost Protection"
-              }
-            }
-          ]
+            "args": []
         },
         {
-          "name": "type",
-          "type": "dropdown",
-          "values": [
-            {
-              "id": "date",
-              "title": {
-                "en": "Date"
-              }
+            "id": "valve_state_false",
+            "title": {
+                "en": "The valve turned off"
             },
-            {
-              "id": "further_notice",
-              "title": {
-                "en": "Further notice"
-              }
+            "args": []
+        },
+        {
+            "id": "open_window_activation_true",
+            "title": {
+                "en": "The open window detection turned on"
             },
-            {
-              "id": "next_mode",
-              "title": {
-                "en": "Next mode"
-              }
-            }
-          ]
+            "args": []
+        },
+        {
+            "id": "open_window_activation_false",
+            "title": {
+                "en": "The open window detection turned off"
+            },
+            "args": []
+        },
+        {
+            "id": "derogation_mode_changed",
+            "title": {
+                "en": "The operating mode changed"
+            },
+            "titleFormatted": {
+                "en": "The operating mode changed to [[derogation_mode]]"
+            },
+            "args": [
+                {
+                    "name": "derogation_mode",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Operating Mode"
+                    },
+                    "values": [
+                        {
+                            "id": "comfort",
+                            "title": {
+                                "en": "Comfort"
+                            }
+                        },
+                        {
+                            "id": "away",
+                            "title": {
+                                "en": "Away"
+                            }
+                        },
+                        {
+                            "id": "eco",
+                            "title": {
+                                "en": "Night"
+                            }
+                        },
+                        {
+                            "id": "manual",
+                            "title": {
+                                "en": "Manual"
+                            }
+                        },
+                        {
+                            "id": "frostprotection",
+                            "title": {
+                                "en": "Frost Protection"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "valve_heating_mode_state_changed",
+            "title": {
+                "en": "The heating mode changed"
+            },
+            "titleFormatted": {
+                "en": "The heating mode changed to [[valve_heating_mode_state]]"
+            },
+            "args": [
+                {
+                    "name": "valve_heating_mode_state",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Heating Mode"
+                    },
+                    "values": [
+                        {
+                            "id": "comfort",
+                            "title": {
+                                "en": "Comfort"
+                            }
+                        },
+                        {
+                            "id": "awayMode",
+                            "title": {
+                                "en": "Away"
+                            }
+                        },
+                        {
+                            "id": "eco",
+                            "title": {
+                                "en": "Night"
+                            }
+                        },
+                        {
+                            "id": "manual",
+                            "title": {
+                                "en": "Manual"
+                            }
+                        },
+                        {
+                            "id": "frostprotection",
+                            "title": {
+                                "en": "Frost Protection"
+                            }
+                        },
+                        {
+                            "id": "suddenDropMode",
+                            "title": {
+                                "en": "Open Window Mode"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "defect_state_changed",
+            "title": {
+                "en": "The defect state changed"
+            },
+            "tokens": [
+                {
+                    "name": "defect_state",
+                    "type": "string",
+                    "title": {
+                        "en": "New state"
+                    }
+                }
+            ],
+            "args": []
         }
-      ]
-    }
-  ]
+    ],
+    "actions": [
+        {
+            "id": "set_open_window_activation",
+            "title": {
+                "en": "Set the open window detection state"
+            },
+            "titleFormatted": {
+                "en": "Set the open window detection state to [[open_window_activation]]"
+            },
+            "args": [
+                {
+                    "name": "open_window_activation",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Detection State"
+                    },
+                    "values": [
+                        {
+                            "id": "on",
+                            "label": {
+                                "en": "On",
+                                "nl": "aan"
+                            }
+                        },
+                        {
+                            "id": "off",
+                            "label": {
+                                "en": "Off",
+                                "nl": "uit"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "set_valve_auto_mode",
+            "title": {
+                "en": "Set the Auto (Schedual) mode"
+            },
+            "titleFormatted": {
+                "en": "Set the auto mode to [[set_valve_auto]]"
+            },
+            "args": [
+                {
+                    "name": "set_valve_auto",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Auto Mode"
+                    },
+                    "values": [
+                        {
+                            "id": "on",
+                            "label": {
+                                "en": "On",
+                                "nl": "aan"
+                            }
+                        },
+                        {
+                            "id": "off",
+                            "label": {
+                                "en": "Off",
+                                "nl": "uit"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "set_derogation_mode",
+            "title": {
+                "en": "Set the operating mode"
+            },
+            "titleFormatted": {
+                "en": "Set the operating mode to [[derogation_mode]] until [[type]]"
+            },
+            "args": [
+                {
+                    "name": "derogation_mode",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Operating Mode"
+                    },
+                    "values": [
+                        {
+                            "id": "comfort",
+                            "title": {
+                                "en": "Comfort"
+                            }
+                        },
+                        {
+                            "id": "away",
+                            "title": {
+                                "en": "Away"
+                            }
+                        },
+                        {
+                            "id": "eco",
+                            "title": {
+                                "en": "Night"
+                            }
+                        },
+                        {
+                            "id": "manual",
+                            "title": {
+                                "en": "Manual"
+                            }
+                        },
+                        {
+                            "id": "frostprotection",
+                            "title": {
+                                "en": "Frost Protection"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "type",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Until"
+                    },
+                    "values": [
+                        {
+                            "id": "date",
+                            "title": {
+                                "en": "Date"
+                            }
+                        },
+                        {
+                            "id": "further_notice",
+                            "title": {
+                                "en": "Further notice"
+                            }
+                        },
+                        {
+                            "id": "next_mode",
+                            "title": {
+                                "en": "Next mode"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }

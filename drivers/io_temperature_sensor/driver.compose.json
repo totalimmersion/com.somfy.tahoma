@@ -3,25 +3,9 @@
     "en": "Temperature Sensor (io)",
     "nl": "Thermis WireFree sensor (io)"
   },
-  "images": {
-    "large": "/drivers/io_temperature_sensor/assets/images/large.png",
-    "small": "/drivers/io_temperature_sensor/assets/images/small.png"
-  },
   "class": "sensor",
   "capabilities": [
     "measure_temperature"
   ],
-  "pair": [
-    {
-      "id": "list_my_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_my_devices"
-      }
-    },
-    {
-      "id": "add_my_devices",
-      "template": "add_devices"
-    }
-  ]
+  "$extends": ["cloudDriver"]
 }

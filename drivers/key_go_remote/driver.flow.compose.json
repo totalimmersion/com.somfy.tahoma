@@ -1,56 +1,59 @@
 {
-  "triggers": [
-    {
-      "id": "key_go_remote_state_changed",
-      "title": {
-        "en": "Remote state changed"
-      },
-      "tokens": [
+    "triggers": [
         {
-          "name": "remote_state",
-          "type": "string",
-          "title": {
-            "en": "New State"
-          },
-          "example": "pressed"
-        }
-      ],
-      "args": []
-    },
-    {
-      "id": "key_go_remote_state_changed_to",
-      "title": {
-        "en": "Remote state changed to"
-      },
-      "titleFormatted": {
-        "en": "Remote state changed to [[expected_state]]"
-      },
-      "args": [
+            "id": "key_go_remote_state_changed",
+            "title": {
+                "en": "Remote state changed"
+            },
+            "tokens": [
+                {
+                    "name": "remote_state",
+                    "type": "string",
+                    "title": {
+                        "en": "New State"
+                    },
+                    "example": "pressed"
+                }
+            ],
+            "args": []
+        },
         {
-          "type": "dropdown",
-          "name": "expected_state",
-          "values": [
-            {
-              "id": "pressed",
-              "label": {
-                "en": "Pressed"
-              }
+            "id": "key_go_remote_state_changed_to",
+            "title": {
+                "en": "Remote state changed to"
             },
-            {
-              "id": "released",
-              "label": {
-                "en": "Released"
-              }
+            "titleFormatted": {
+                "en": "Remote state changed to [[expected_state]]"
             },
-            {
-              "id": "stop",
-              "label": {
-                "en": "Stop"
-              }
-            }
-          ]
+            "args": [
+                {
+                    "type": "dropdown",
+                    "name": "expected_state",
+                    "title": {
+                        "en": "Expected State"
+                    },
+                    "values": [
+                        {
+                            "id": "pressed",
+                            "label": {
+                                "en": "Pressed"
+                            }
+                        },
+                        {
+                            "id": "released",
+                            "label": {
+                                "en": "Released"
+                            }
+                        },
+                        {
+                            "id": "stop",
+                            "label": {
+                                "en": "Stop"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

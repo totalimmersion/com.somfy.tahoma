@@ -3,28 +3,11 @@
     "en": "Exterior blind (io)",
     "nl": "Verticale buitenzonwering (io)"
   },
-  "images": {
-    "large": "/drivers/io_vertical_exterior_blind/assets/images/large.png",
-    "small": "/drivers/io_vertical_exterior_blind/assets/images/small.png"
-  },
   "class": "sunshade",
   "capabilities": [
     "windowcoverings_state",
     "windowcoverings_set",
     "quick_open"
-  ],
-  "pair": [
-    {
-      "id": "list_my_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_my_devices"
-      }
-    },
-    {
-      "id": "add_my_devices",
-      "template": "add_devices"
-    }
   ],
   "settings": [
     {
@@ -60,5 +43,6 @@
         "en": "Reverse the position control."
       }
     }
-  ]
+  ],
+  "$extends": ["cloudDriver"]
 }

@@ -1,123 +1,135 @@
 {
-  "actions": [
-    {
-      "id": "absence_cooling_temperature_set",
-      "title": {
-        "en": "Set the absence cooling temperature"
-      },
-      "titleFormatted": {
-        "en": "Set the Absence Cooling Temperature to [[target_temperature]]"
-      },
-      "args": [
+    "actions": [
         {
-          "name": "target_temperature",
-          "type": "range",
-          "min": 0,
-          "max": 40,
-          "step": 1,
-          "label": "°C",
-          "labelDecimals": 0
-        }
-      ]
-    },
-    {
-      "id": "absence_heating_temperature_set",
-      "title": {
-        "en": "Set the absence heating temperature"
-      },
-      "titleFormatted": {
-        "en": "Set the Absence Heating Temperature to [[target_temperature]]"
-      },
-      "args": [
+            "id": "absence_cooling_temperature_set",
+            "title": {
+                "en": "Set the absence cooling temperature"
+            },
+            "titleFormatted": {
+                "en": "Set the Absence Cooling Temperature to [[target_temperature]]"
+            },
+            "args": [
+                {
+                    "name": "target_temperature",
+                    "type": "range",
+                    "title": {
+                        "en": "Target Temperature"
+                    },
+                    "min": 0,
+                    "max": 40,
+                    "step": 1,
+                    "label": "°C",
+                    "labelDecimals": 0
+                }
+            ]
+        },
         {
-          "name": "target_temperature",
-          "type": "range",
-          "min": 0,
-          "max": 40,
-          "step": 1,
-          "label": "°C",
-          "labelDecimals": 0
-        }
-      ]
-    },
-    {
-      "id": "cancel_absence_set",
-      "title": {
-        "en": "Cancel Absence"
-      },
-      "args": []
-    },
-    {
-      "id": "set_auto_heat_cool",
-      "title": {
-        "en": "Switch Auto Heat Cool On / Off"
-      },
-      "titleFormatted": {
-        "en": "Switch [[state]] Auto Heat Cool"
-      },
-      "args": [
+            "id": "absence_heating_temperature_set",
+            "title": {
+                "en": "Set the absence heating temperature"
+            },
+            "titleFormatted": {
+                "en": "Set the Absence Heating Temperature to [[target_temperature]]"
+            },
+            "args": [
+                {
+                    "name": "target_temperature",
+                    "type": "range",
+                    "title": {
+                        "en": "Target Temperature"
+                    },
+                    "min": 0,
+                    "max": 40,
+                    "step": 1,
+                    "label": "°C",
+                    "labelDecimals": 0
+                }
+            ]
+        },
         {
-          "name": "state",
-          "type": "dropdown",
-          "values": [
-            {
-              "id": "on",
-              "label": {
-                "en": "On",
-                "nl": "aan"
-              }
+            "id": "cancel_absence_set",
+            "title": {
+                "en": "Cancel Absence"
             },
-            {
-              "id": "off",
-              "label": {
-                "en": "Off",
-                "nl": "uit"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "set_pac_operating_mode",
-      "title": {
-        "en": "Switch APC operating mode"
-      },
-      "titleFormatted": {
-        "en": "Set APC operating mode to [[state]]"
-      },
-      "args": [
+            "args": []
+        },
         {
-          "name": "state",
-          "type": "dropdown",
-          "values": [
-            {
-              "id": "cooling",
-              "label": {
-                "en": "Cooling"
-              }
+            "id": "set_auto_heat_cool",
+            "title": {
+                "en": "Switch Auto Heat Cool On / Off"
             },
-            {
-              "id": "drying",
-              "label": {
-                "en": "drying"
-              }
+            "titleFormatted": {
+                "en": "Switch [[state]] Auto Heat Cool"
             },
-            {
-              "id": "heating",
-              "label": {
-                "en": "Heating"
-              }
+            "args": [
+                {
+                    "name": "state",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Auto State"
+                    },
+                    "values": [
+                        {
+                            "id": "on",
+                            "label": {
+                                "en": "On",
+                                "nl": "aan"
+                            }
+                        },
+                        {
+                            "id": "off",
+                            "label": {
+                                "en": "Off",
+                                "nl": "uit"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "set_pac_operating_mode",
+            "title": {
+                "en": "Switch APC operating mode"
             },
-            {
-              "id": "stop",
-              "label": {
-                "en": "Stop"
-              }
-            }
-          ]
+            "titleFormatted": {
+                "en": "Set APC operating mode to [[state]]"
+            },
+            "args": [
+                {
+                    "name": "state",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Operating Mode"
+                    },
+                    "values": [
+                        {
+                            "id": "cooling",
+                            "label": {
+                                "en": "Cooling"
+                            }
+                        },
+                        {
+                            "id": "drying",
+                            "label": {
+                                "en": "drying"
+                            }
+                        },
+                        {
+                            "id": "heating",
+                            "label": {
+                                "en": "Heating"
+                            }
+                        },
+                        {
+                            "id": "stop",
+                            "label": {
+                                "en": "Stop"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

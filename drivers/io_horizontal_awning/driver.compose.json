@@ -3,29 +3,12 @@
     "en": "Horizontal Awning (io)",
     "nl": "Horizontale buitenzonwering (io)"
   },
-  "images": {
-    "large": "/drivers/io_horizontal_awning/assets/images/large.png",
-    "small": "/drivers/io_horizontal_awning/assets/images/small.png"
-  },
   "class": "sunshade",
   "capabilities": [
     "windowcoverings_state",
     "windowcoverings_set",
     "quick_open",
     "lock_state"
-  ],
-  "pair": [
-    {
-      "id": "list_my_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_my_devices"
-      }
-    },
-    {
-      "id": "add_my_devices",
-      "template": "add_devices"
-    }
   ],
   "settings": [
     {
@@ -61,5 +44,6 @@
         "en": "Reverse the position control."
       }
     }
-  ]
+  ],
+  "$extends": ["cloudDriver"]
 }
