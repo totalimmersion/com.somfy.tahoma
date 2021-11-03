@@ -421,5 +421,8 @@
     },
     "2.1.78": {
         "en": "Added IO door lock."
+    },
+    "3.0.0": {
+        "en": "Updated to SDK 3 and made cloud ready."
     }
 }
