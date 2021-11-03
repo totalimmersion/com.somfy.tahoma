@@ -647,7 +647,7 @@ class WindowCoveringsDevice extends Device
                             this.homey.app.logStates(`${this.getName()}: core:PriorityLockTimerState = ${lockStateTimer.value}`);
                             if (lockStateTimer.value === 0)
                             {
-                                this.setCapabilityValue.catch(this.error);
+                                this.setCapabilityValue('lock_state', '').catch(this.error);
                             }
                         }
                     }
