@@ -424,5 +424,8 @@
     },
     "3.0.0": {
         "en": "Updated to SDK 3 and made cloud ready."
+    },
+    "3.0.1": {
+        "en": "Fix logo on pairing wizards credentials screen."
     }
 }

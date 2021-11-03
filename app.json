@@ -14,7 +14,7 @@
   "description": {
     "en": "Bring the richness of Homey to your Somfy world"
   },
-  "version": "3.0.0",
+  "version": "3.0.1",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Adrian Rockall",
@@ -2837,7 +2837,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -2947,7 +2947,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -3029,7 +3029,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -3106,7 +3106,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -3182,7 +3182,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -3265,7 +3265,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -3360,7 +3360,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -3452,7 +3452,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -3539,7 +3539,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -3620,7 +3620,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -3729,7 +3729,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -3856,7 +3856,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -3933,7 +3933,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -4012,7 +4012,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -4127,7 +4127,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -4228,7 +4228,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -4318,7 +4318,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -4433,7 +4433,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -4510,7 +4510,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -4586,7 +4586,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -4662,7 +4662,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -4739,7 +4739,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -4840,7 +4840,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -4955,7 +4955,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -5071,7 +5071,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -5148,7 +5148,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -5225,7 +5225,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -5343,7 +5343,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -5457,7 +5457,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -5571,7 +5571,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -5685,7 +5685,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -5799,7 +5799,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -5912,7 +5912,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -5988,7 +5988,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -6064,7 +6064,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -6140,7 +6140,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -6217,7 +6217,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -6294,7 +6294,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -6370,7 +6370,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -6484,7 +6484,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -6574,7 +6574,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -6664,7 +6664,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -6754,7 +6754,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -6851,7 +6851,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -6927,7 +6927,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -7013,7 +7013,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -7108,7 +7108,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -7185,7 +7185,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
@@ -7263,7 +7263,7 @@
           "id": "login_credentials",
           "template": "login_credentials",
           "options": {
-            "logo": "small.png",
+            "logo": "../../../assets/images/logo.png",
             "usernameLabel": {
               "en": "E-mail address"
             },
