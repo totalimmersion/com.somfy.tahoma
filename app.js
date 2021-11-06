@@ -581,7 +581,7 @@ class myApp extends Homey.App
         // Do a deep copy
         const logData = JSON.parse(JSON.stringify(devices));
 
-        if (this.infoLogEnabled)
+        if (devices && this.infoLogEnabled)
         {
             this.logInformation('logDevices', `Log contains ${devices.length} devices`);
         }
@@ -653,8 +653,8 @@ class myApp extends Homey.App
                 source,
                 data,
             },
-);
-            if (logData.length > 100)
+            );
+            if (logData && logData.length > 100)
             {
                 logData.splice(0, 1);
             }
@@ -671,7 +671,7 @@ class myApp extends Homey.App
         if (this.homey.settings.get('stateLogEnabled'))
         {
             const log = `${this.homey.settings.get('stateLog') + txt}\n`;
-            if (log.length > 30000)
+            if (log && (log.length > 30000))
             {
                 this.homey.settings.set('stateLogEnabled', false);
             }
@@ -987,7 +987,7 @@ class myApp extends Homey.App
                 try
                 {
                     const events = await this.tahoma.getEvents();
-                    if ((events === null && this.boostTimerId === null) || events.length > 0)
+                    if ((events === null && this.boostTimerId === null) || (events && events.length > 0))
                     {
                         // If events === null and boostTimer === null then refresh all the devices, but don't do that if the boost is on
                         this.log(this.varToString(events));
@@ -1054,7 +1054,7 @@ class myApp extends Homey.App
                 if (Object.prototype.hasOwnProperty.call(drivers, driver))
                 {
                     const devices = this.homey.drivers.getDriver(driver).getDevices();
-                    const numDevices = devices.length;
+                    const numDevices = devices ? devices.length : 0;
                     for (let i = 0; i < numDevices; i++)
                     {
                         const device = devices[i];

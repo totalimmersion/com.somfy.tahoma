@@ -67,7 +67,7 @@ class Device extends Homey.Device
             return subUrl[0];
         }
 
-        if (subUrl.length < 2)
+        if (!subUrl || (subUrl.length < 2))
         {
             // There was no # so return null
             return null;
@@ -601,6 +601,10 @@ class Device extends Homey.Device
 
     checkForDuplicatesEvents(events, startElement, startState, myURL, stateName)
     {
+        if (!events)
+        {
+            return false;
+        }
         for (let i = startElement; i < events.length; i++)
         {
             const element = events[i];
