@@ -161,6 +161,31 @@
         ]
       },
       {
+        "id": "contact_has_changed",
+        "title": {
+          "en": "The state of the opening detector has changed",
+          "nl": "De staat van de openingsmelder is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "isOpen",
+            "type": "boolean",
+            "title": {
+              "en": "is open?",
+              "nl": "is open?"
+            },
+            "example": "open"
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=enocean_window_handle|io_opening_detector|one_alarm"
+          }
+        ]
+      },
+      {
         "id": "device_command_complete",
         "title": {
           "en": "A command completed"
@@ -426,31 +451,6 @@
                 }
               }
             ]
-          }
-        ]
-      },
-      {
-        "id": "contact_has_changed",
-        "title": {
-          "en": "The state of the opening detector has changed",
-          "nl": "De staat van de openingsmelder is veranderd"
-        },
-        "tokens": [
-          {
-            "name": "isOpen",
-            "type": "boolean",
-            "title": {
-              "en": "is open?",
-              "nl": "is open?"
-            },
-            "example": "open"
-          }
-        ],
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=io_opening_detector"
           }
         ]
       },

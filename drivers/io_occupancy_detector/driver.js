@@ -15,9 +15,6 @@ class MotionDetectorDriver extends Driver {
 
     /** * MOTION TRIGGERS ** */
     this._triggerMotionChange = this.homey.flow.getDeviceTriggerCard('motion_has_changed');
-    this._triggerMotionChange.registerRunListener(() => {
-      return Promise.resolve(true);
-    });
   }
 
   triggerFlows(device, capability, value)

@@ -16,10 +16,6 @@ class WindowHandleDriver extends Driver
 
         /** * CONTACT TRIGGERS ** */
         this._triggerContactChange = this.homey.flow.getDeviceTriggerCard('contact_has_changed');
-        this._triggerContactChange.registerRunListener(() =>
-        {
-            return Promise.resolve(true);
-        });
     }
 
     /**

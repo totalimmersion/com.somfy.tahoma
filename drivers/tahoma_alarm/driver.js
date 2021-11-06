@@ -17,10 +17,6 @@ class TahomaAlarmDriver extends Driver
 
         /** * ALARM STATE CHANGE TRIGGER ** */
         this._triggerTahoma_alarm_stateChange = this.homey.flow.getDeviceTriggerCard('tahoma_alarm_state_changed');
-        this._triggerTahoma_alarm_stateChange.registerRunListener(() =>
-        {
-            return Promise.resolve(true);
-        });
     }
 
 }

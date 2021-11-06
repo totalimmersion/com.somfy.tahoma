@@ -17,10 +17,6 @@ class SmokeDetectorDriver extends Driver
 
         /** * ALARM SMOKE TRIGGERS ** */
         this._triggerSmokeChange = this.homey.flow.getDeviceTriggerCard('smoke_has_changed');
-        this._triggerSmokeChange.registerRunListener(() =>
-        {
-            return Promise.resolve(true);
-        });
     }
 
     triggerFlows(device, capability, value)
