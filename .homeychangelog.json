@@ -430,5 +430,8 @@
     },
     "3.0.2": {
         "en": "Updated to SDK 3 and made cloud ready. Fix login issues. Fix bad capability."
+    },
+    "3.0.3": {
+        "en": "Updated to SDK 3 and made cloud ready. Fix login issues. Fix bad capability. Fix authentication issue after session timeout"
     }
 }
