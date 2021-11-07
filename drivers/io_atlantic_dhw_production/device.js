@@ -10,8 +10,16 @@ const SensorDevice = require('../SensorDevice');
  */
 
 const CapabilitiesXRef = [
-    { somfyNameGet: 'core:TargetTemperatureState', somfyNameSet: ['setTargetTemperature'], homeyName: 'target_temperature' },
-    { somfyNameGet: 'core:TemperatureState', somfyNameSet: [], homeyName: 'measure_temperature' },
+    {
+        somfyNameGet: 'core:TargetTemperatureState',
+        somfyNameSet: ['setTargetTemperature'],
+        homeyName: 'target_temperature',
+    },
+    {
+        somfyNameGet: 'core:TemperatureState',
+        somfyNameSet: [],
+        homeyName: 'measure_temperature',
+    },
 ];
 
 class WaterBoilerProductionDevice extends SensorDevice

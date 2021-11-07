@@ -11,11 +11,13 @@ const WindowCoveringsDevice = require('../WindowCoveringsDevice');
 class InteriorBlindDevice extends WindowCoveringsDevice {
 
     async onInit() {
-        if (this.hasCapability('lock_state')) {
+        if (this.hasCapability('lock_state'))
+        {
             this.removeCapability('lock_state').catch(this.error);
         }
 
-        if (!this.hasCapability('my_position')) {
+        if (!this.hasCapability('my_position'))
+        {
             this.addCapability('my_position').catch(this.error);
         }
 

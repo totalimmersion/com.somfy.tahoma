@@ -6,8 +6,11 @@ const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
     {
- homeyName: 'onoff', somfyNameGet: 'core:OnOffState', somfyNameSet: ['off', 'on'], compare: ['off', 'on'],
-},
+        homeyName: 'onoff',
+        somfyNameGet: 'core:OnOffState',
+        somfyNameSet: ['off', 'on'],
+        compare: ['off', 'on'],
+    },
 ];
 class HeaterOnOffDevice extends SensorDevice
 {

@@ -42,8 +42,16 @@ const CapabilitiesXRef = [
         compare: ['inactive', 'active'],
         parameters: [{ openWindow: false }, { openWindow: true }],
     },
-    { homeyName: 'measure_battery', somfyNameGet: 'core:BatteryLevelState', somfyNameSet: [] },
-    { homeyName: 'valve_heating_mode_state', somfyNameGet: 'io:CurrentHeatingModeState', somfyNameSet: [] },
+    {
+        homeyName: 'measure_battery',
+        somfyNameGet: 'core:BatteryLevelState',
+        somfyNameSet: [],
+    },
+    {
+        homeyName: 'valve_heating_mode_state',
+        somfyNameGet: 'io:CurrentHeatingModeState',
+        somfyNameSet: [],
+    },
     {
         homeyName: 'valve_operating_mode_state',
         somfyNameGet: 'core:OperatingModeState',
@@ -83,7 +91,11 @@ const CapabilitiesXRef = [
         somfyNameSet: [],
         allowNull: true,
     },
-    { homeyName: 'rssi', somfyNameGet: 'core:RSSILevelState', somfyNameSet: [] },
+    {
+        homeyName: 'rssi',
+        somfyNameGet: 'core:RSSILevelState',
+        somfyNameSet: [],
+    },
 ];
 class ValveHeatingDevice extends SensorDevice
 {

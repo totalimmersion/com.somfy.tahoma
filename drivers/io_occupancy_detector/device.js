@@ -6,8 +6,11 @@ const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
     {
- homeyName: 'alarm_motion', somfyNameGet: 'core:OccupancyState', somfyNameSet: [], compare: ['', 'personInside'],
-},
+        homeyName: 'alarm_motion',
+        somfyNameGet: 'core:OccupancyState',
+        somfyNameSet: [],
+        compare: ['', 'personInside'],
+    },
 ];
 class OccupancyDetectorDevice extends SensorDevice
 {

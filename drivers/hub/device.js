@@ -6,12 +6,22 @@ const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
     {
- homeyName: 'calendar_state_on', somfyNameGet: '', somfyNameSet: ['activateCalendar'], parameters: '',
-},
+        homeyName: 'calendar_state_on',
+        somfyNameGet: '',
+        somfyNameSet: ['activateCalendar'],
+        parameters: '',
+    },
     {
- homeyName: 'calendar_state_off', somfyNameGet: '', somfyNameSet: ['deactivateCalendar'], parameters: '',
-},
-    { homeyName: 'dim', somfyNameGet: 'internal:LightingLedPodModeState', somfyNameSet: ['setLightingLedPodMode'] },
+        homeyName: 'calendar_state_off',
+        somfyNameGet: '',
+        somfyNameSet: ['deactivateCalendar'],
+        parameters: '',
+    },
+    {
+        homeyName: 'dim',
+        somfyNameGet: 'internal:LightingLedPodModeState',
+        somfyNameSet: ['setLightingLedPodMode'],
+    },
 ];
 class SirenDevice extends SensorDevice
 {

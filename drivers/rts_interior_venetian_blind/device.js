@@ -8,10 +8,13 @@ const WindowCoveringsDevice = require('../WindowCoveringsDevice');
  * Device class for exterior venetian blinds with the rts:VenetianBlindRTSComponent and rts:ExteriorVenetianBlindRTSComponent controllable name in TaHoma
  * @extends {WindowCoveringsDevice}
  */
-class InteriorVenetianBlindDevice extends WindowCoveringsDevice {
+class InteriorVenetianBlindDevice extends WindowCoveringsDevice
+{
 
-    async onInit() {
-        if (this.hasCapability('lock_state')) {
+    async onInit()
+    {
+        if (this.hasCapability('lock_state'))
+        {
             this.removeCapability('lock_state').catch(this.error);
         }
 
@@ -22,7 +25,8 @@ class InteriorVenetianBlindDevice extends WindowCoveringsDevice {
         this.boostSync = true;
     }
 
-    async sync() {
+    async sync()
+    {
         // No states are available so no need to call anything
     }
 

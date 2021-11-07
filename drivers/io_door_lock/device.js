@@ -6,11 +6,17 @@ const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
     {
- homeyName: 'onoff', somfyNameGet: 'core:LockedUnlockedState', somfyNameSet: ['setLockedUnlocked'], compare: ['unlocked', 'locked'],
-},
+        homeyName: 'onoff',
+        somfyNameGet: 'core:LockedUnlockedState',
+        somfyNameSet: ['setLockedUnlocked'],
+        compare: ['unlocked', 'locked'],
+    },
     {
- homeyName: 'locked', somfyNameGet: 'core:LockedUnlockedState', somfyNameSet: [], compare: ['unlocked', 'locked'],
-},
+        homeyName: 'locked',
+        somfyNameGet: 'core:LockedUnlockedState',
+        somfyNameSet: [],
+        compare: ['unlocked', 'locked'],
+    },
 ];
 class DoorLockDevice extends SensorDevice
 {

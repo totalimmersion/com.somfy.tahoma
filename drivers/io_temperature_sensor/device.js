@@ -5,7 +5,11 @@
 const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
-    { homeyName: 'measure_temperature', somfyNameGet: 'core:TemperatureState', somfyNameSet: [] },
+    {
+        homeyName: 'measure_temperature',
+        somfyNameGet: 'core:TemperatureState',
+        somfyNameSet: [],
+    },
 ];
 class TemperatureSensorDevice extends SensorDevice
 {

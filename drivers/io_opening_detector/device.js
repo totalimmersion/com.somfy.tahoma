@@ -6,8 +6,11 @@ const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
     {
- homeyName: 'alarm_contact', somfyNameGet: 'core:ContactState', somfyNameSet: [], compare: ['close', 'open'],
-},
+        homeyName: 'alarm_contact',
+        somfyNameGet: 'core:ContactState',
+        somfyNameSet: [],
+        compare: ['close', 'open'],
+    },
 ];
 class OpeningDetectorDevice extends SensorDevice
 {
