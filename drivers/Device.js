@@ -305,7 +305,7 @@ class Device extends Homey.Device
                                 {
                                     // Find the translation for this capability with the Somfy enum id
                                     const translateName = `${xRefEntry.homeyName}.${tahomaState.value}`;
-                                    const translatedState = Homey.__(translateName);
+                                    const translatedState = this.homey.__(translateName);
                                     if (translatedState !== translateName)
                                     {
                                         tahomaState.value = translatedState;
@@ -446,7 +446,7 @@ class Device extends Homey.Device
                                         {
                                             // Find the translation for this capability with the Somfy enum id
                                             const translateName = `${xRefEntry.homeyName}.${newState}`;
-                                            const translatedState = Homey.__(translateName);
+                                            const translatedState = this.homey.__(translateName);
                                             if (translatedState !== translateName)
                                             {
                                                 newState = translatedState;
@@ -525,7 +525,7 @@ class Device extends Homey.Device
                         }
                         else
                         {
-                            this.setWarning(Homey.__('command_failed')).catch(this.error);
+                            this.setWarning(this.homey.__('command_failed')).catch(this.error);
                         }
                     }
                 }
@@ -534,7 +534,7 @@ class Device extends Homey.Device
                     const idx = this.executionCommands.findIndex(element2 => element2.id === event.execId);
                     if (idx >= 0)
                     {
-                        this.setWarning(Homey.__('command_queued')).catch(this.error);
+                        this.setWarning(this.homey.__('command_queued')).catch(this.error);
                     }
                 }
             }

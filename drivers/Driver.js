@@ -60,7 +60,7 @@ class Driver extends Homey.Driver
             const password = this.homey.settings.get('password');
             if (!username || !password)
             {
-                throw new Error(Homey.__('errors.on_pair_login_failure'));
+                throw new Error(this.homey.__('errors.on_pair_login_failure'));
             }
             return this.onReceiveSetupData();
         });
