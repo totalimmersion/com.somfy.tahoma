@@ -435,6 +435,9 @@
         "en": "Updated to SDK 3 and made cloud ready. Fix login issues. Fix bad capability. Fix authentication issue after session timeout"
     },
     "3.0.4": {
-        "en": "Updated to SDK 3 and made cloud ready. Fix contact changed flow trigger. Added extra checks for valid objects"
+        "en": "Updated to SDK 3 and made cloud ready. Fix contact changed flow trigger. Added extra checks for validating objects"
+    },
+    "3.0.5": {
+        "en": "Fixed crash due to a missed SDK3 conversion"
     }
 }
