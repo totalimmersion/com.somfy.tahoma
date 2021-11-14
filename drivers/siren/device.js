@@ -2,7 +2,6 @@
 
 'use strict';
 
-const Homey = require('homey');
 const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
@@ -44,8 +43,18 @@ class SirenDevice extends SensorDevice
     {
         if (!this.hasCapability('soundAlarm_1_button'))
         {
-            this.addCapability('soundAlarm_1_button').catch(this.error);
-            Homey.App.asyncDelay(200);
+            try
+            {
+                await this.addCapability('soundAlarm_1_button');
+            }
+            catch (error)
+            {
+                this.homey.app.logInformation(this.getName(),
+                {
+                    message: error.message,
+                    stack: error.stack,
+                });
+            }
         }
 
         await super.onInit(CapabilitiesXRef);
