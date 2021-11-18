@@ -67,7 +67,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
                 parameters: [Math.round(value * 360), saturation * 100],
             };
             const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result !== undefined)
+            if (result)
             {
                 if (result.errorCode)
                 {
@@ -146,7 +146,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
                 parameters: [hue * 360, value * 100],
             };
             const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result !== undefined)
+            if (result)
             {
                 if (result.errorCode)
                 {

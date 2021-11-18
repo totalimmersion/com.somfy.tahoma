@@ -42,7 +42,7 @@ class HotColdZoneDevice extends SensorDevice
             };
 
             const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result !== undefined)
+            if (result)
             {
                 if (result.errorCode)
                 {
@@ -141,7 +141,7 @@ class HotColdZoneDevice extends SensorDevice
                 };
             }
             const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result !== undefined)
+            if (result)
             {
                 if (result.errorCode)
                 {
@@ -205,7 +205,7 @@ class HotColdZoneDevice extends SensorDevice
             };
 
             const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result !== undefined)
+            if (result)
             {
                 if (result.errorCode)
                 {

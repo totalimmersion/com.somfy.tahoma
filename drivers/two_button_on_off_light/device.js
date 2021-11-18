@@ -5,7 +5,7 @@
 const Device = require('../Device');
 
 /**
- * Device class for the remote controller with the "enocean:EnOceanOnOffLight" controllable name in TaHoma
+ * Device class for the remote controller with the "enocean:EnOceanOnOffLight" and "rts:OnOffRTSComponent" controllable name in TaHoma
  * @extends {LightControllerDevice}
  */
 
@@ -86,7 +86,7 @@ class two_button_on_offDevice extends Device
             };
         }
         const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-        if (result !== undefined)
+        if (result)
         {
             if (result.errorCode)
             {
@@ -155,7 +155,7 @@ class two_button_on_offDevice extends Device
         };
 
         const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-        if (result !== undefined)
+        if (result)
         {
             if (result.errorCode)
             {

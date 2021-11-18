@@ -74,7 +74,7 @@ class LightControllerDevice extends Device
                 };
             }
             const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result !== undefined)
+            if (result)
             {
                 if (result.errorCode)
                 {
@@ -147,7 +147,7 @@ class LightControllerDevice extends Device
                 parameters: [Math.round(value * 100)],
             };
             const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result !== undefined)
+            if (result)
             {
                 if (result.errorCode)
                 {
@@ -226,7 +226,7 @@ class LightControllerDevice extends Device
                 parameters: [Math.round(value * (maxTemperature - minTemperature) + minTemperature)],
             };
             const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result !== undefined)
+            if (result)
             {
                 if (result.errorCode)
                 {

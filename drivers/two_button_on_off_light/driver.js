@@ -5,7 +5,7 @@
 const Driver = require('../Driver');
 
 /**
- * Driver class for the remote controller with the "enocean:EnOceanOnOffLight" controllable name in TaHoma
+ * Driver class for the remote controller with the "enocean:EnOceanOnOffLight" and "rts:OnOffRTSComponent" controllable name in TaHoma
  * @extends {Driver}
  */
 // eslint-disable-next-line camelcase
@@ -14,7 +14,7 @@ class two_button_on_offDriver extends Driver
 
     async onInit()
     {
-        this.deviceType = ['enocean:EnOceanOnOffLight'];
+        this.deviceType = ['enocean:EnOceanOnOffLight', 'rts:OnOffRTSComponent'];
         await super.onInit();
     }
 

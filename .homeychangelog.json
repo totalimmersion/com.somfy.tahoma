@@ -439,5 +439,8 @@
     },
     "3.0.5": {
         "en": "Fixed crash due to a missed SDK3 conversion"
+    },
+    "3.0.6": {
+        "en": "Fixed Heat On / Off command. Added rts:SwingingShutterRTSComponent and rts:OnOffRTSComponent"
     }
 }

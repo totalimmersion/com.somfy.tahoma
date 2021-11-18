@@ -185,7 +185,7 @@ class Device extends Homey.Device
             }
 
             const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action, action2);
-            if (result !== undefined)
+            if (result)
             {
                 if (result.errorCode)
                 {

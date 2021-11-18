@@ -177,7 +177,7 @@ class WindowCoveringsDevice extends Device
                     parameters: [],
                 };
                 const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-                if (result !== undefined)
+                if (result)
                 {
                     if (result.errorCode)
                     {
@@ -270,7 +270,7 @@ class WindowCoveringsDevice extends Device
             }
 
             const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result !== undefined)
+            if (result)
             {
                 if (result.errorCode)
                 {
@@ -332,7 +332,7 @@ class WindowCoveringsDevice extends Device
             };
 
             const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result !== undefined)
+            if (result)
             {
                 if (result.errorCode)
                 {
@@ -399,7 +399,7 @@ class WindowCoveringsDevice extends Device
                 parameters: [3, 1],
             };
             const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result !== undefined)
+            if (result)
             {
                 if (result.errorCode)
                 {
@@ -455,7 +455,7 @@ class WindowCoveringsDevice extends Device
                 parameters: [3, 1],
             };
             const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result !== undefined)
+            if (result)
             {
                 if (result.errorCode)
                 {
@@ -508,7 +508,7 @@ class WindowCoveringsDevice extends Device
                 parameters: [],
             };
             const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result !== undefined)
+            if (result)
             {
                 if (result.errorCode)
                 {
@@ -561,7 +561,7 @@ class WindowCoveringsDevice extends Device
                 parameters: [],
             };
             const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result !== undefined)
+            if (result)
             {
                 if (result.errorCode)
                 {

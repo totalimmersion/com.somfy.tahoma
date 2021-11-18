@@ -10,6 +10,7 @@ const CapabilitiesXRef = [
         somfyNameGet: 'core:OnOffState',
         somfyNameSet: ['off', 'on'],
         compare: ['off', 'on'],
+        parameters: '',
     },
 ];
 class HeaterOnOffDevice extends SensorDevice
