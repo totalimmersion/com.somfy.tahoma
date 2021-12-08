@@ -3,10 +3,10 @@
         {
             "id": "set_open_close_stop",
             "title": {
-                "en": "Open / Close / Stop gate"
+                "en": "Open, Close or Stop gate"
             },
             "titleFormatted": {
-                "en": "[[state]] gate"
+                "en": "[[state]] the gate"
             },
             "args": [
                 {

@@ -1,7 +1,7 @@
 {
   "name": {
-    "en": "Roller shutter Quiet (io)",
-    "nl": "Rolluik Stille (io)"
+    "en": "Roller shutter with quiet mode (io)",
+    "nl": "Rolluik met stille modus (io)"
   },
   "class": "blinds",
   "capabilities": [

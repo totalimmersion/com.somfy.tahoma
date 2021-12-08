@@ -3,15 +3,8 @@
         {
             "id": "tahoma_alarm_state_changed",
             "title": {
-                "en": "The state changed",
-                "nl": "De status is veranderd",
-                "de": "Der Status hat sich geändert",
-                "fr": "L'état a été modifié",
-                "it": "Lo stato è cambiato",
-                "sv": "Statusen ändrad",
-                "no": "Statusen ble endret",
-                "es": "El estado ha cambiado",
-                "da": "Status ændret"
+                "en": "The alarm state changed",
+                "nl": "De alarmstatus is gewijzigd"
             },
             "titleFormatted": {
                 "en": "The alarm state changed to [[state]]"
@@ -28,56 +21,28 @@
                             "id": "off",
                             "title": {
                                 "en": "Disarmed",
-                                "nl": "Gedeactiveerd",
-                                "de": "unscharf",
-                                "fr": "Désarmé",
-                                "it": "Disattivato",
-                                "sv": "Avlarmat",
-                                "no": "Deaktivert",
-                                "es": "Desactivada",
-                                "da": "Deaktiveret"
+                                "nl": "Gedeactiveerd"
                             }
                         },
                         {
                             "id": "partial1",
                             "title": {
                                 "en": "Partially armed (1)",
-                                "nl": "Deels geactiveerd (1)",
-                                "de": "teilweise scharf (1)",
-                                "fr": "Partiellement armé (1)",
-                                "it": "Parzialmente attivato (1)",
-                                "sv": "Delvis larmat (1)",
-                                "no": "Delvis aktivert (1)",
-                                "es": "Parcialmente activada (1)",
-                                "da": "Delvist aktiveret (1)"
+                                "nl": "Deels geactiveerd (1)"
                             }
                         },
                         {
                             "id": "partial2",
                             "title": {
                                 "en": "Partially armed",
-                                "nl": "Deels geactiveerd",
-                                "de": "teilweise scharf",
-                                "fr": "Partiellement armé",
-                                "it": "Parzialmente attivato",
-                                "sv": "Delvis larmat",
-                                "no": "Delvis aktivert",
-                                "es": "Parcialmente activada",
-                                "da": "Delvist aktiveret"
+                                "nl": "Deels geactiveerd"
                             }
                         },
                         {
                             "id": "total",
                             "title": {
                                 "en": "Armed",
-                                "nl": "Geactiveerd",
-                                "de": "scharf",
-                                "fr": "Armé",
-                                "it": "Attivato",
-                                "sv": "Larmat",
-                                "no": "Aktivert",
-                                "es": "Activada",
-                                "da": "Aktiveret"
+                                "nl": "Geactiveerd"
                             }
                         },
                         {

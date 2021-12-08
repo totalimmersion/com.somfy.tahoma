@@ -16,6 +16,12 @@ class InteriorBlindDevice extends WindowCoveringsDevice {
             this.removeCapability('lock_state').catch(this.error);
         }
 
+        if (this.hasCapability('windowcoverings_state'))
+        {
+            this.removeCapability('windowcoverings_state').catch(this.error);
+            this.addCapability('windowcoverings_state.rts').catch(this.error);
+        }
+
         if (!this.hasCapability('my_position'))
         {
             this.addCapability('my_position').catch(this.error);

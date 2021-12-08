@@ -474,7 +474,7 @@ class myApp extends Homey.App
         this.homey.flow.getActionCard('cool_mode_set')
             .registerRunListener(async (args, state) =>
             {
-                this.log('pass_apc_cooling_mode_set');
+                this.log('cool_mode_set');
                 await args.device.onCapabilityHeatCoolModeCool(args.state, null);
                 return args.device.setCapabilityValue('heat_cool_mode.cool', args.state);
             });
@@ -482,9 +482,16 @@ class myApp extends Homey.App
         this.homey.flow.getActionCard('heat_mode_set')
             .registerRunListener(async (args, state) =>
             {
-                this.log('pass_apc_heating_mode_set');
+                this.log('heat_mode_set');
                 await args.device.onCapabilityHeatCoolModeHeat(args.state, null);
                 return args.device.setCapabilityValue('heat_cool_mode.heat', args.state);
+            });
+
+        this.homey.flow.getActionCard('set_windowcoverings_state')
+            .registerRunListener(async (args, state) =>
+            {
+                this.log('set_windowcoverings_state_rts');
+                return args.device.onCapabilityWindowcoveringsState(args.state, null);
             });
     }
 

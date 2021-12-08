@@ -76,6 +76,7 @@ class WindowCoveringsDevice extends Device
         this.boostSync = true;
 
         this.registerCapabilityListener('windowcoverings_state', this.onCapabilityWindowcoveringsState.bind(this));
+        this.registerCapabilityListener('windowcoverings_state.rts', this.onCapabilityWindowcoveringsState.bind(this));
         this.registerCapabilityListener('windowcoverings_set', this.onCapabilityWindowcoveringsSet.bind(this));
         this.registerCapabilityListener('windowcoverings_tilt_up', this.onCapabilityWindowcoveringsTiltUp.bind(this));
         this.registerCapabilityListener('windowcoverings_tilt_down', this.onCapabilityWindowcoveringsTiltDown.bind(this));
@@ -214,7 +215,7 @@ class WindowCoveringsDevice extends Device
             {
                 this.homey.setTimeout(() =>
                 {
-                    this.setCapabilityValue('windowcoverings_state', null).catch(this.error);
+                    this.setCapabilityValue('windowcoverings_state.rts', null).catch(this.error);
                 }, 500);
             }
         }
@@ -730,7 +731,7 @@ class WindowCoveringsDevice extends Device
                     });
                 }
             }
-            else if (this.hasCapability('windowcoverings_state'))
+            else if (this.hasCapability('windowcoverings_state.rts'))
             {
                 // RTS devices have no feedback
                 if (this.unavailable)
@@ -741,7 +742,7 @@ class WindowCoveringsDevice extends Device
 
                 this.log(this.getName(), ' No device status');
 
-                this.setCapabilityValue('windowcoverings_state', null).catch(this.error);
+                this.setCapabilityValue('windowcoverings_state.rts', null).catch(this.error);
             }
         }
         catch (error)

@@ -1,6 +1,6 @@
 {
   "name": {
-    "en": "Light, Colour + Temperature"
+    "en": "RGBW Light"
   },
   "class": "light",
   "capabilities": [

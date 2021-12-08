@@ -1,7 +1,6 @@
 {
   "name": {
-    "en": "Window Handle (SecuSignal)",
-    "nl": "Window Handle (SecuSignal)"
+    "en": "Window Handle (SecuSignal)"
   },
   "class": "sensor",
   "capabilities": [

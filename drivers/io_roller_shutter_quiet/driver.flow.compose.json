@@ -3,12 +3,12 @@
         {
             "id": "set_quiet_mode",
             "title": {
-                "en": "Quiet mode",
-                "nl": "Stille modus"
+                "en": "Set quiet mode",
+                "nl": "Stille modus instellen"
             },
             "titleFormatted": {
-                "en": "Quiet mode to [[newQuietMode]]",
-                "nl": "Stille modus naar [[newQuietMode]]"
+                "en": "Set quiet mode to [[newQuietMode]]",
+                "nl": "Zet stille modus op [[newQuietMode]]"
             },
             "args": [
                 {

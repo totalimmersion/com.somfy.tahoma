@@ -1,6 +1,6 @@
 {
   "name": {
-    "en": "Light, White Temperature"
+    "en": "Tunable White light"
   },
   "class": "light",
   "capabilities": [

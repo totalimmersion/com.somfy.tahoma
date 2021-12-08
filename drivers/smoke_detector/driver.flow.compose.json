@@ -20,42 +20,42 @@
     {
       "id": "alarm_battery_radio_true",
       "title": {
-        "en": "The Radio battery alarm turned on"
+        "en": "The radio battery alarm turned on"
       },
       "args": []
     },
     {
       "id": "alarm_battery_radio_false",
       "title": {
-        "en": "The Radio battery alarm turned off"
+        "en": "The radio battery alarm turned off"
       },
       "args": []
     },
     {
       "id": "alarm_battery_sensor_true",
       "title": {
-        "en": "The Sensor battery alarm turned on"
+        "en": "The sensor battery alarm turned on"
       },
       "args": []
     },
     {
       "id": "alarm_battery_sensor_false",
       "title": {
-        "en": "The Sensor battery alarm turned off"
+        "en": "The sensor battery alarm turned off"
       },
       "args": []
     },
     {
       "id": "alarm_room_state_true",
       "title": {
-        "en": "The Dirty alarm turned on"
+        "en": "The dirty sensor alarm turned on"
       },
       "args": []
     },
     {
       "id": "alarm_room_state_false",
       "title": {
-        "en": "The Dirty alarm turned off"
+        "en": "The dirty sensor alarm turned off"
       },
       "args": []
     }

@@ -1,8 +1,8 @@
 {
     "id": "set_polling_speed",
     "title": {
-        "en": "Polling Interval",
-        "nl": "Update frequentie"
+        "en": "Set Polling Interval",
+        "nl": "Stel de update frequentie in"
     },
     "titleFormatted": {
         "en": "Polling Interval to [[syncSpeed]]",

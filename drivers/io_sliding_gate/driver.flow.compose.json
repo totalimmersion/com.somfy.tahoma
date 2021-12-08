@@ -3,7 +3,7 @@
     {
       "id": "pedestrian_changed",
       "title": {
-        "en": "Pedestrian changed"
+        "en": "The pedestrian state changed"
       },
       "tokens": [
         {

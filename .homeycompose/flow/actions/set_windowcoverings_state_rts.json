@@ -1,0 +1,69 @@
+{
+    "id": "set_windowcoverings_state",
+    "title": {
+        "en": "Set state",
+        "nl": "Zet de status",
+        "de": "Status setzen",
+        "fr": "Définir l'état",
+        "it": "Imposta lo stato",
+        "sv": "Ställ in status",
+        "no": "Innstill status",
+        "es": "Configurar estado",
+        "da": "Indstil status"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=rts_horizontal_awning|rts_interior_blind|rts_interior_curtain|rts_interior_venetian_blind"
+        },
+        {
+            "name": "state",
+            "type": "dropdown",
+            "values": [
+                {
+                    "id": "up",
+                    "title": {
+                        "en": "Up",
+                        "nl": "Omhoog",
+                        "de": "Oben",
+                        "fr": "Haut",
+                        "it": "Alzate",
+                        "sv": "Upp",
+                        "no": "Opp",
+                        "es": "Arriba",
+                        "da": "Oppe"
+                    }
+                },
+                {
+                    "id": "idle",
+                    "title": {
+                        "en": "Idle",
+                        "nl": "Stil",
+                        "de": "Inaktiv",
+                        "fr": "Inactif",
+                        "it": "Socchiuse",
+                        "sv": "Inaktiv",
+                        "no": "Ikke aktiv",
+                        "es": "Inactivos",
+                        "da": "Inaktiv"
+                    }
+                },
+                {
+                    "id": "down",
+                    "title": {
+                        "en": "Down",
+                        "nl": "Omlaag",
+                        "de": "Unten",
+                        "fr": "Bas",
+                        "it": "Abbassate",
+                        "sv": "Ned",
+                        "no": "Ned",
+                        "es": "Abajo",
+                        "da": "Nede"
+                    }
+                }
+            ]
+        }
+    ]
+}

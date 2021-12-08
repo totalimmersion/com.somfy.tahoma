@@ -3,7 +3,7 @@
         {
             "id": "key_go_remote_state_changed",
             "title": {
-                "en": "Remote state changed"
+                "en": "The remote state changed"
             },
             "tokens": [
                 {
@@ -20,10 +20,10 @@
         {
             "id": "key_go_remote_state_changed_to",
             "title": {
-                "en": "Remote state changed to"
+                "en": "The remote state changed to"
             },
             "titleFormatted": {
-                "en": "Remote state changed to [[expected_state]]"
+                "en": "The remote state changed to [[expected_state]]"
             },
             "args": [
                 {

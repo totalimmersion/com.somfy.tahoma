@@ -1,6 +1,6 @@
 {
   "name": {
-    "en": "Light Controllers"
+    "en": "Security Camera Light Controller"
   },
   "class": "light",
   "capabilities": [

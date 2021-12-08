@@ -9,8 +9,7 @@
             "name": "isOpen",
             "type": "boolean",
             "title": {
-                "en": "is open?",
-                "nl": "is open?"
+                "en": "is open?"
             },
             "example": "open"
         }

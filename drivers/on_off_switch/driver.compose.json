@@ -1,6 +1,6 @@
 {
   "name": {
-    "en": "On / Off (RTS & io)"
+    "en": "Switch (RTS & io)"
   },
   "class": "light",
   "capabilities": [

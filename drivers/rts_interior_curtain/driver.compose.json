@@ -4,7 +4,7 @@
   },
   "class": "curtain",
   "capabilities": [
-    "windowcoverings_state",
+    "windowcoverings_state.rts",
     "my_position"
   ],
   "settings": [

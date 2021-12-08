@@ -18,8 +18,7 @@
                         "en": "Luminance"
                     },
                     "placeholder": {
-                        "en": "in Lux",
-                        "nl": "in Lux"
+                        "en": "in Lux"
                     }
                 }
             ]
@@ -42,8 +41,7 @@
                         "en": "Luminance"
                     },
                     "placeholder": {
-                        "en": "in Lux",
-                        "nl": "in Lux"
+                        "en": "in Lux"
                     }
                 }
             ]
@@ -66,8 +64,7 @@
                         "en": "Luminance From"
                     },
                     "placeholder": {
-                        "en": "in Lux",
-                        "nl": "in Lux"
+                        "en": "in Lux"
                     }
                 },
                 {
@@ -77,8 +74,7 @@
                         "en": "Luminance Tp"
                     },
                     "placeholder": {
-                        "en": "in Lux",
-                        "nl": "in Lux"
+                        "en": "in Lux"
                     }
                 }
             ]
@@ -103,8 +99,7 @@
                         "en": "Luminance"
                     },
                     "placeholder": {
-                        "en": "in Lux",
-                        "nl": "in Lux"
+                        "en": "in Lux"
                     }
                 }
             ]
@@ -127,8 +122,7 @@
                         "en": "Luminance"
                     },
                     "placeholder": {
-                        "en": "in Lux",
-                        "nl": "in Lux"
+                        "en": "in Lux"
                     }
                 }
             ]
@@ -151,8 +145,7 @@
                         "en": "Luminance From"
                     },
                     "placeholder": {
-                        "en": "in Lux",
-                        "nl": "in Lux"
+                        "en": "in Lux"
                     }
                 },
                 {
@@ -162,8 +155,7 @@
                         "en": "Luminance To"
                     },
                     "placeholder": {
-                        "en": "in Lux",
-                        "nl": "in Lux"
+                        "en": "in Lux"
                     }
                 }
             ]

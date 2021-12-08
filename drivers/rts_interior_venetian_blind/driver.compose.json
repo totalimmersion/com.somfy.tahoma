@@ -4,13 +4,13 @@
   },
   "class": "blinds",
   "capabilities": [
-    "windowcoverings_state",
+    "windowcoverings_state.rts",
     "windowcoverings_tilt_up",
     "windowcoverings_tilt_down",
     "my_position"
   ],
   "capabilitiesOptions": {
-    "windowcoverings_state": {
+    "windowcoverings_state.rts": {
       "setable": false
     }
   },

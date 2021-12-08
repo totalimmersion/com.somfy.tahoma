@@ -1,6 +1,6 @@
 {
   "name": {
-    "en": "Garage Door (io)"
+    "en": "Garage Door with Position Control (io)"
   },
   "class": "blinds",
   "capabilities": [
