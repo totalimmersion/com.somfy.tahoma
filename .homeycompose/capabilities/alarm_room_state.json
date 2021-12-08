@@ -4,14 +4,17 @@
   "setable": false,
   "uiComponent": "sensor",
   "title": {
-    "en": "Sensor Dirty"
+    "en": "Sensor Dirty",
+    "nl": "Sensor vuil"
   },
   "icon": "/assets/dirty.svg",
   "insights": true,
   "insightsTitleTrue": {
-    "en": "clean"
+    "en": "clean",
+    "nl": "Schoon"
   },
   "insightsTitleFalse": {
-    "en": "dirty"
+    "en": "dirty",
+    "nl": "Vies"
   }
 }

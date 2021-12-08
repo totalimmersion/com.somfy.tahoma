@@ -1,13 +1,15 @@
 {
   "type": "enum",
   "title": {
-    "en": "Operating Mode"
+    "en": "Operating Mode",
+    "nl": "Bedrijfsmodus:"
   },
   "values": [
     {
       "id": "antifreeze",
       "title": {
-        "en": "Antifreeze"
+        "en": "Antifreeze",
+        "nl": "Antivries"
       }
     },
     {
@@ -19,7 +21,8 @@
     {
       "id": "away",
       "title": {
-        "en": "Away"
+        "en": "Away",
+        "nl": "Weg"
       }
     },
     {
@@ -37,37 +40,43 @@
     {
       "id": "frostprotection",
       "title": {
-        "en": "Frost Protection"
+        "en": "Frost Protection",
+        "nl": "Vorstbescherming"
       }
     },
     {
       "id": "manual",
       "title": {
-        "en": "Manual"
+        "en": "Manual",
+        "nl": "Handmatig"
       }
     },
     {
       "id": "max",
       "title": {
-        "en": "Maximum"
+        "en": "Maximum",
+        "nl": "Maximaal"
       }
     },
     {
       "id": "normal",
       "title": {
-        "en": "Normal"
+        "en": "Normal",
+        "nl": "Normaal"
       }
     },
     {
       "id": "off",
       "title": {
-        "en": "Off"
+        "en": "Off",
+        "nl": "Uit"
       }
     },
     {
       "id": "on",
       "title": {
-        "en": "On"
+        "en": "On",
+        "nl": "Op"
       }
     },
     {
@@ -79,7 +88,8 @@
     {
       "id": "program",
       "title": {
-        "en": "Program"
+        "en": "Program",
+        "nl": "Programma"
       }
     }
   ],

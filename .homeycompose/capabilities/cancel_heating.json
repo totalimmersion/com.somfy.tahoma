@@ -4,6 +4,7 @@
   "setable": true,
   "uiComponent": "button",
   "title": {
-    "en": "Cancel Heating level"
+    "en": "Cancel Heating level",
+    "nl": "Annuleren Verwarmingsniveau"
   }
 }

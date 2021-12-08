@@ -4,6 +4,7 @@
   "setable": true,
   "uiComponent": "button",
   "title": {
-    "en": "Cancel Absence"
+    "en": "Cancel Absence",
+    "nl": "Afwezigheid annuleren"
   }
 }

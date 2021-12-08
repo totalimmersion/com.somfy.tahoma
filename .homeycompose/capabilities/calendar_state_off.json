@@ -5,6 +5,7 @@
   "uiComponent": "button",
   "icon": "/assets/calendar_off.svg",
   "title": {
-    "en": "Deactivate Agenda / Timer"
+    "en": "Deactivate Agenda / Timer",
+    "nl": "Agenda / Timer deactiveren"
   }
 }

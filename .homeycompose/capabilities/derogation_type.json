@@ -1,25 +1,29 @@
 {
   "type": "enum",
   "title": {
-    "en": "Operating Until"
+    "en": "Operating Until",
+    "nl": "Werkend tot"
   },
   "values": [
     {
       "id": "date",
       "title": {
-        "en": "Date"
+        "en": "Date",
+        "nl": "Datum"
       }
     },
     {
       "id": "further_notice",
       "title": {
-        "en": "Further Notice"
+        "en": "Further Notice",
+        "nl": "Nadere aankondiging"
       }
     },
     {
       "id": "next_mode",
       "title": {
-        "en": "Next Mode"
+        "en": "Next Mode",
+        "nl": "Volgende modus"
       }
     }
   ],

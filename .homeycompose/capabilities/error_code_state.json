@@ -1,7 +1,8 @@
 {
   "type": "number",
   "title": {
-    "en": "Error Code State"
+    "en": "Error Code State",
+    "nl": "Foutcodestatus"
   },
   "getable": true,
   "setable": false,

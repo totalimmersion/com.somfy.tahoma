@@ -1,19 +1,22 @@
 {
   "type": "enum",
   "title": {
-    "en": "Remote State"
+    "en": "Remote State",
+    "nl": "Externe staat"
   },
   "values": [
     {
       "id": "pressed",
       "title": {
-        "en": "Pressed"
+        "en": "Pressed",
+        "nl": "ingedrukt"
       }
     },
     {
       "id": "released",
       "title": {
-        "en": "Released"
+        "en": "Released",
+        "nl": "Vrijgelaten"
       }
     },
     {

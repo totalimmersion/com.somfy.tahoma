@@ -4,14 +4,17 @@
   "setable": false,
   "uiComponent": "sensor",
   "title": {
-    "en": "Siren"
+    "en": "Siren Active",
+    "nl": "Sirene actief"
   },
   "icon": "/drivers/siren/assets/icon.svg",
   "insights": true,
   "insightsTitleTrue": {
-    "en": "Active"
+    "en": "Active",
+    "nl": "Actief"
   },
   "insightsTitleFalse": {
-    "en": "Silent"
+    "en": "Silent",
+    "nl": "Stil"
   }
 }

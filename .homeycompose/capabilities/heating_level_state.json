@@ -1,7 +1,8 @@
 {
   "type": "enum",
   "title": {
-    "en": "Heating Level"
+    "en": "Heating Level",
+    "nl": "Verwarmingsniveau"
   },
   "values": [
     {
@@ -37,19 +38,22 @@
     {
       "id": "frostprotection",
       "title": {
-        "en": "Frost Protection"
+        "en": "Frost Protection",
+        "nl": "Vorstbescherming"
       }
     },
     {
       "id": "off",
       "title": {
-        "en": "Off"
+        "en": "Off",
+        "nl": "Uit"
       }
     },
     {
       "id": "secured",
       "title": {
-        "en": "Secured"
+        "en": "Secured",
+        "nl": "Beveiligd"
       }
     }
   ],

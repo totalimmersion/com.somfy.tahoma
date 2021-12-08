@@ -4,6 +4,7 @@
   "setable": true,
   "uiComponent": "button",
   "title": {
-    "en": "Auto Heating / Cooling"
+    "en": "Automatic Heating / Cooling",
+    "nl": "Automatisch verwarmen / koelen"
   }
 }

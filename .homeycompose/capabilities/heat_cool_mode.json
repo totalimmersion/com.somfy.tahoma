@@ -1,13 +1,15 @@
 {
   "type": "enum",
   "title": {
-    "en": "Heat / Cool Mode"
+    "en": "Heat / Cool Mode",
+    "nl": "Warmte / Koel-modus"
   },
   "values": [
     {
       "id": "absence",
       "title": {
-        "en": "Absent"
+        "en": "Absent",
+        "nl": "Afwezig"
       }
     },
     {
@@ -31,19 +33,22 @@
     {
       "id": "externalScheduling",
       "title": {
-        "en": "External Scheduling"
+        "en": "External Scheduling",
+        "nl": "Externe planning"
       }
     },
     {
       "id": "internalScheduling",
       "title": {
-        "en": "Internal Scheduling"
+        "en": "Internal Scheduling",
+        "nl": "Interne planning"
       }
     },
     {
       "id": "manu",
       "title": {
-        "en": "Manual"
+        "en": "Manual",
+        "nl": "Handmatig"
       }
     },
     {
