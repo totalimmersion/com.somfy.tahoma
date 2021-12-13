@@ -6,7 +6,7 @@
                 "en": "Set the Eco temperature"
             },
             "titleFormatted": {
-                "en": "Set the Eco Temperature to [[target_temperature]]"
+                "en": "Set the Eco temperature to [[target_temperature]]"
             },
             "args": [
                 {
@@ -29,7 +29,7 @@
                 "en": "Set the Comfort temperature"
             },
             "titleFormatted": {
-                "en": "Set the Comfort Temperature to [[target_temperature]]"
+                "en": "Set the comfort temperature to [[target_temperature]]"
             },
             "args": [
                 {
@@ -49,10 +49,10 @@
         {
             "id": "boiler_mode_set",
             "title": {
-                "en": "Set the Boiler Mode"
+                "en": "Set the boiler mode"
             },
             "titleFormatted": {
-                "en": "Set the Boiler Mode to [[state]]"
+                "en": "Set the boiler mode to [[state]]"
             },
             "args": [
                 {
@@ -117,18 +117,18 @@
         {
             "id": "boost_on_off",
             "title": {
-                "en": "Switch Boost On / Off",
+                "en": "Turn boost On / Off",
                 "nl": "Zet aan / uit"
             },
             "titleFormatted": {
-                "en": "Switch Boost [[state]]"
+                "en": "Turn boost [[state]]"
             },
             "args": [
                 {
                     "name": "state",
                     "type": "dropdown",
                     "title": {
-                        "en": "Boost State"
+                        "en": "State"
                     },
                     "values": [
                         {

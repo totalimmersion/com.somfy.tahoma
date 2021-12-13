@@ -56,17 +56,17 @@
         {
             "id": "set_auto_heat_cool",
             "title": {
-                "en": "Switch Auto Heat Cool On / Off"
+                "en": "Turn Auto Heat Cool On / Off"
             },
             "titleFormatted": {
-                "en": "Switch [[state]] Auto Heat Cool"
+                "en": "Turn [[state]] auto heat / cool"
             },
             "args": [
                 {
                     "name": "state",
                     "type": "dropdown",
                     "title": {
-                        "en": "Auto State"
+                        "en": "State"
                     },
                     "values": [
                         {

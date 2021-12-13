@@ -13,7 +13,7 @@
   "description": {
     "en": "Bring the richness of Homey to your Somfy world"
   },
-  "version": "3.0.6",
+  "version": "3.0.7",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Adrian Rockall",
@@ -239,7 +239,7 @@
       {
         "id": "windowcoverings_tilt_changed",
         "title": {
-          "en": "the tilt changed"
+          "en": "The tilt changed"
         },
         "tokens": [
           {
@@ -1423,6 +1423,9 @@
           "es": "Configurar estado",
           "da": "Indstil status"
         },
+        "titleFormatted": {
+          "en": "Set state to [[state]]"
+        },
         "args": [
           {
             "name": "device",
@@ -1431,6 +1434,9 @@
           },
           {
             "name": "state",
+            "title": {
+              "en": "State"
+            },
             "type": "dropdown",
             "values": [
               {
@@ -7380,15 +7386,18 @@
       "setable": false,
       "uiComponent": "sensor",
       "title": {
-        "en": "Sensor Dirty"
+        "en": "Sensor Dirty",
+        "nl": "Sensor vuil"
       },
       "icon": "/assets/dirty.svg",
       "insights": true,
       "insightsTitleTrue": {
-        "en": "clean"
+        "en": "clean",
+        "nl": "Schoon"
       },
       "insightsTitleFalse": {
-        "en": "dirty"
+        "en": "dirty",
+        "nl": "Vies"
       }
     },
     "alarm_siren": {
@@ -7397,15 +7406,18 @@
       "setable": false,
       "uiComponent": "sensor",
       "title": {
-        "en": "Siren"
+        "en": "Siren Active",
+        "nl": "Sirene actief"
       },
       "icon": "/drivers/siren/assets/icon.svg",
       "insights": true,
       "insightsTitleTrue": {
-        "en": "Active"
+        "en": "Active",
+        "nl": "Actief"
       },
       "insightsTitleFalse": {
-        "en": "Silent"
+        "en": "Silent",
+        "nl": "Stil"
       }
     },
     "boiler_mode": {
@@ -7484,7 +7496,8 @@
       "uiComponent": "button",
       "icon": "/assets/calendar_off.svg",
       "title": {
-        "en": "Deactivate Agenda / Timer"
+        "en": "Deactivate Agenda / Timer",
+        "nl": "Agenda / Timer deactiveren"
       }
     },
     "calendar_state_on": {
@@ -7494,7 +7507,8 @@
       "uiComponent": "button",
       "icon": "/assets/calendar.svg",
       "title": {
-        "en": "Activate Agenda / Timer"
+        "en": "Activate Agenda / Timer",
+        "nl": "Activeer Agenda / Timer"
       }
     },
     "cancel_absence": {
@@ -7503,7 +7517,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Cancel Absence"
+        "en": "Cancel Absence",
+        "nl": "Afwezigheid annuleren"
       }
     },
     "cancel_heating": {
@@ -7512,7 +7527,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Cancel Heating level"
+        "en": "Cancel Heating level",
+        "nl": "Annuleren Verwarmingsniveau"
       }
     },
     "close_button": {
@@ -7531,44 +7547,51 @@
       "setable": false,
       "uiComponent": "sensor",
       "title": {
-        "en": "Sensor Defect State"
+        "en": "Sensor Defect State",
+        "nl": "Status sensor defect"
       },
       "icon": "/assets/wrench.svg"
     },
     "derogation_mode": {
       "type": "enum",
       "title": {
-        "en": "Operating Mode"
+        "en": "Operating Mode",
+        "nl": "Bedrijfsmodus"
       },
       "values": [
         {
           "id": "comfort",
           "title": {
-            "en": "At home"
+            "en": "At home",
+            "nl": "Thuis"
           }
         },
         {
           "id": "away",
           "title": {
-            "en": "Away"
+            "en": "Away",
+            "nl": "Weg"
           }
         },
         {
           "id": "eco",
           "title": {
-            "en": "Night"
+            "en": "Night",
+            "nl": "Nacht"
           }
         },
         {
           "id": "manual",
           "title": {
-            "en": "Manual"
+            "en": "Manual",
+            "nl": "Handmatig"
           }
         },
         {
           "id": "frostprotection",
           "title": {
-            "en": "Frost protection"
+            "en": "Frost protection",
+            "nl": "Vorstbescherming"
           }
         }
       ],
@@ -7578,25 +7601,29 @@
     "derogation_type": {
       "type": "enum",
       "title": {
-        "en": "Operating Until"
+        "en": "Operating Until",
+        "nl": "Werkend tot"
       },
       "values": [
         {
           "id": "date",
           "title": {
-            "en": "Date"
+            "en": "Date",
+            "nl": "Datum"
           }
         },
         {
           "id": "further_notice",
           "title": {
-            "en": "Further Notice"
+            "en": "Further Notice",
+            "nl": "Nadere aankondiging"
           }
         },
         {
           "id": "next_mode",
           "title": {
-            "en": "Next Mode"
+            "en": "Next Mode",
+            "nl": "Volgende modus"
           }
         }
       ],
@@ -7606,13 +7633,15 @@
     "eh_operating_mode": {
       "type": "enum",
       "title": {
-        "en": "Operating Mode"
+        "en": "Operating Mode",
+        "nl": "Bedrijfsmodus:"
       },
       "values": [
         {
           "id": "antifreeze",
           "title": {
-            "en": "Antifreeze"
+            "en": "Antifreeze",
+            "nl": "Antivries"
           }
         },
         {
@@ -7624,7 +7653,8 @@
         {
           "id": "away",
           "title": {
-            "en": "Away"
+            "en": "Away",
+            "nl": "Weg"
           }
         },
         {
@@ -7642,37 +7672,43 @@
         {
           "id": "frostprotection",
           "title": {
-            "en": "Frost Protection"
+            "en": "Frost Protection",
+            "nl": "Vorstbescherming"
           }
         },
         {
           "id": "manual",
           "title": {
-            "en": "Manual"
+            "en": "Manual",
+            "nl": "Handmatig"
           }
         },
         {
           "id": "max",
           "title": {
-            "en": "Maximum"
+            "en": "Maximum",
+            "nl": "Maximaal"
           }
         },
         {
           "id": "normal",
           "title": {
-            "en": "Normal"
+            "en": "Normal",
+            "nl": "Normaal"
           }
         },
         {
           "id": "off",
           "title": {
-            "en": "Off"
+            "en": "Off",
+            "nl": "Uit"
           }
         },
         {
           "id": "on",
           "title": {
-            "en": "On"
+            "en": "On",
+            "nl": "Op"
           }
         },
         {
@@ -7684,7 +7720,8 @@
         {
           "id": "program",
           "title": {
-            "en": "Program"
+            "en": "Program",
+            "nl": "Programma"
           }
         }
       ],
@@ -7694,7 +7731,8 @@
     "error_code_state": {
       "type": "number",
       "title": {
-        "en": "Error Code State"
+        "en": "Error Code State",
+        "nl": "Foutcodestatus"
       },
       "getable": true,
       "setable": false,
@@ -7703,13 +7741,15 @@
     "heat_cool_mode": {
       "type": "enum",
       "title": {
-        "en": "Heat / Cool Mode"
+        "en": "Heat / Cool Mode",
+        "nl": "Warmte / Koel-modus"
       },
       "values": [
         {
           "id": "absence",
           "title": {
-            "en": "Absent"
+            "en": "Absent",
+            "nl": "Afwezig"
           }
         },
         {
@@ -7733,19 +7773,22 @@
         {
           "id": "externalScheduling",
           "title": {
-            "en": "External Scheduling"
+            "en": "External Scheduling",
+            "nl": "Externe planning"
           }
         },
         {
           "id": "internalScheduling",
           "title": {
-            "en": "Internal Scheduling"
+            "en": "Internal Scheduling",
+            "nl": "Interne planning"
           }
         },
         {
           "id": "manu",
           "title": {
-            "en": "Manual"
+            "en": "Manual",
+            "nl": "Handmatig"
           }
         },
         {
@@ -7764,13 +7807,15 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Auto Heating / Cooling"
+        "en": "Automatic Heating / Cooling",
+        "nl": "Automatisch verwarmen / koelen"
       }
     },
     "heating_derogation_availability_state": {
       "type": "string",
       "title": {
-        "en": "Heating Derogation Availability"
+        "en": "Heating Derogation Availability",
+        "nl": "Beschikbaarheid van afwijking verwarming"
       },
       "getable": true,
       "setable": false
@@ -7778,7 +7823,8 @@
     "heating_level_state": {
       "type": "enum",
       "title": {
-        "en": "Heating Level"
+        "en": "Heating Level",
+        "nl": "Verwarmingsniveau"
       },
       "values": [
         {
@@ -7814,19 +7860,22 @@
         {
           "id": "frostprotection",
           "title": {
-            "en": "Frost Protection"
+            "en": "Frost Protection",
+            "nl": "Vorstbescherming"
           }
         },
         {
           "id": "off",
           "title": {
-            "en": "Off"
+            "en": "Off",
+            "nl": "Uit"
           }
         },
         {
           "id": "secured",
           "title": {
-            "en": "Secured"
+            "en": "Secured",
+            "nl": "Beveiligd"
           }
         }
       ],
@@ -7836,7 +7885,8 @@
     "heating_mode": {
       "type": "enum",
       "title": {
-        "en": "Heating Mode"
+        "en": "Heating Mode",
+        "nl": "Verwarmingsmodus"
       },
       "getable": true,
       "setable": true,
@@ -7845,7 +7895,8 @@
         {
           "id": "auto",
           "title": {
-            "en": "Auto"
+            "en": "Automatic",
+            "nl": "Automatisch"
           }
         },
         {
@@ -7863,7 +7914,8 @@
         {
           "id": "free",
           "title": {
-            "en": "Free"
+            "en": "Free",
+            "nl": "Vrij"
           }
         },
         {
@@ -7877,19 +7929,22 @@
     "key_go_remote_state": {
       "type": "enum",
       "title": {
-        "en": "Remote State"
+        "en": "Remote State",
+        "nl": "Externe staat"
       },
       "values": [
         {
           "id": "pressed",
           "title": {
-            "en": "Pressed"
+            "en": "Pressed",
+            "nl": "ingedrukt"
           }
         },
         {
           "id": "released",
           "title": {
-            "en": "Released"
+            "en": "Released",
+            "nl": "Vrijgelaten"
           }
         },
         {
@@ -7923,7 +7978,8 @@
     "maximum_heating_level_state": {
       "type": "enum",
       "title": {
-        "en": "Maximum Heating Level"
+        "en": "Maximum Heating Level",
+        "nl": "Maximaal verwarmingsniveau"
       },
       "values": [
         {
@@ -7959,19 +8015,22 @@
         {
           "id": "frostprotection",
           "title": {
-            "en": "Frost Protection"
+            "en": "Frost Protection",
+            "nl": "Vorstbescherming"
           }
         },
         {
           "id": "off",
           "title": {
-            "en": "Off"
+            "en": "Off",
+            "nl": "Uit"
           }
         },
         {
           "id": "secured",
           "title": {
-            "en": "Secured"
+            "en": "Secured",
+            "nl": "Beveiligd"
           }
         }
       ],

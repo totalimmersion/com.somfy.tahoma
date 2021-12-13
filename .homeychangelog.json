@@ -442,5 +442,8 @@
     },
     "3.0.6": {
         "en": "Fixed Heat On / Off command. Added rts:SwingingShutterRTSComponent and rts:OnOffRTSComponent"
+    },
+    "3.0.7": {
+        "en": "Updated images for new publising."
     }
 }

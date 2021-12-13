@@ -1,19 +1,19 @@
 {
     "id": "set_polling_mode",
     "title": {
-        "en": "Poll for status updates",
-        "nl": "Status updates"
+        "en": "Turn polling on / off",
+        "nl": "Polling aan/uit zetten"
     },
     "titleFormatted": {
-        "en": "Poll for status updates [[newPollingMode]]",
-        "nl": "Status updates [[newPollingMode]]"
+        "en": "Turn polling [[newPollingMode]]",
+        "nl": "Zet polling [[newPollingMode]]"
     },
     "args": [
         {
             "name": "newPollingMode",
             "type": "dropdown",
             "title": {
-                "en": "Polling Mode"
+                "en": "Mode"
             },
             "values": [
                 {

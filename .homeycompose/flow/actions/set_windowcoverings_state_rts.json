@@ -11,6 +11,9 @@
         "es": "Configurar estado",
         "da": "Indstil status"
     },
+    "titleFormatted": {
+      "en": "Set state to [[state]]"
+    },
     "args": [
         {
             "name": "device",
@@ -19,6 +22,9 @@
         },
         {
             "name": "state",
+            "title": {
+              "en": "State"
+            },
             "type": "dropdown",
             "values": [
                 {
