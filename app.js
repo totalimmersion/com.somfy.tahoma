@@ -533,7 +533,6 @@ class myApp extends Homey.App
         try
         {
             // Allow a short delay before logging back in
-            await new Promise(resolve => this.homey.setTimeout(resolve, 1000));
             await this.tahoma.login(username, password, linkurl, loginMethod, ignoreBlock);
             this.loggedIn = true;
         }

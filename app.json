@@ -13,7 +13,7 @@
   "description": {
     "en": "Bring the richness of Homey to your Somfy world"
   },
-  "version": "3.0.7",
+  "version": "3.0.8",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Adrian Rockall",
@@ -1345,19 +1345,19 @@
       {
         "id": "set_polling_mode",
         "title": {
-          "en": "Poll for status updates",
-          "nl": "Status updates"
+          "en": "Turn polling on / off",
+          "nl": "Polling aan/uit zetten"
         },
         "titleFormatted": {
-          "en": "Poll for status updates [[newPollingMode]]",
-          "nl": "Status updates [[newPollingMode]]"
+          "en": "Turn polling [[newPollingMode]]",
+          "nl": "Zet polling [[newPollingMode]]"
         },
         "args": [
           {
             "name": "newPollingMode",
             "type": "dropdown",
             "title": {
-              "en": "Polling Mode"
+              "en": "Mode"
             },
             "values": [
               {
@@ -1392,7 +1392,7 @@
           "nl": "Stel de update frequentie in"
         },
         "titleFormatted": {
-          "en": "Polling Interval to [[syncSpeed]]",
+          "en": "Set Polling Interval to [[syncSpeed]]",
           "nl": "Update frequentie naar [[syncSpeed]]"
         },
         "args": [
@@ -1400,7 +1400,7 @@
             "name": "syncSpeed",
             "type": "number",
             "title": {
-              "en": "Polling Interval"
+              "en": "Interval"
             },
             "min": 30,
             "placeholder": {
@@ -1517,7 +1517,7 @@
           "en": "Set the Eco temperature"
         },
         "titleFormatted": {
-          "en": "Set the Eco Temperature to [[target_temperature]]"
+          "en": "Set the Eco temperature to [[target_temperature]]"
         },
         "args": [
           {
@@ -1545,7 +1545,7 @@
           "en": "Set the Comfort temperature"
         },
         "titleFormatted": {
-          "en": "Set the Comfort Temperature to [[target_temperature]]"
+          "en": "Set the comfort temperature to [[target_temperature]]"
         },
         "args": [
           {
@@ -1570,10 +1570,10 @@
       {
         "id": "boiler_mode_set",
         "title": {
-          "en": "Set the Boiler Mode"
+          "en": "Set the boiler mode"
         },
         "titleFormatted": {
-          "en": "Set the Boiler Mode to [[state]]"
+          "en": "Set the boiler mode to [[state]]"
         },
         "args": [
           {
@@ -1643,11 +1643,11 @@
       {
         "id": "boost_on_off",
         "title": {
-          "en": "Switch Boost On / Off",
+          "en": "Turn boost On / Off",
           "nl": "Zet aan / uit"
         },
         "titleFormatted": {
-          "en": "Switch Boost [[state]]"
+          "en": "Turn boost [[state]]"
         },
         "args": [
           {
@@ -1659,7 +1659,7 @@
             "name": "state",
             "type": "dropdown",
             "title": {
-              "en": "Boost State"
+              "en": "State"
             },
             "values": [
               {
@@ -1752,10 +1752,10 @@
       {
         "id": "set_auto_heat_cool",
         "title": {
-          "en": "Switch Auto Heat Cool On / Off"
+          "en": "Turn Auto Heat Cool On / Off"
         },
         "titleFormatted": {
-          "en": "Switch [[state]] Auto Heat Cool"
+          "en": "Turn [[state]] auto heat / cool"
         },
         "args": [
           {
@@ -1767,7 +1767,7 @@
             "name": "state",
             "type": "dropdown",
             "title": {
-              "en": "Auto State"
+              "en": "State"
             },
             "values": [
               {
