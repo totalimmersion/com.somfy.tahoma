@@ -557,6 +557,9 @@ class myApp extends Homey.App
             this.homey.settings.set('linkurl', linkurl);
             this.homey.settings.set('loginMethod', loginMethod);
 
+            const setupInfo = await this.tahoma.getSetupOID();
+            this.somfySetupOID = setupInfo.result;
+
             this.startSync();
         }
         return this.loggedIn;
@@ -799,13 +802,13 @@ class myApp extends Homey.App
             this.logInformation('initSync', 'Error');
 
             let timeout = 5000;
-            if (error === 'Far Too many login attempts (blocked for 5 minutes)')
+            if (error === 'Far Too many login attempts (blocked for 15 minutes)')
             {
-                timeout = 300000;
+                timeout = 900000;
             }
-            else if (error === 'Too many login attempts (blocked for 20 seconds)')
+            else if (error === 'Too many login attempts (blocked for 60 seconds)')
             {
-                timeout = 20000;
+                timeout = 60000;
             }
 
             // Try again later
