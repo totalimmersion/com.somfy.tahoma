@@ -448,5 +448,8 @@
   },
   "3.0.8": {
     "en": "Enhanced login failure message"
+  },
+  "3.0.9": {
+    "en": "Fixed Invert setting on covers"
   }
 }

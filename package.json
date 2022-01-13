@@ -1,6 +1,6 @@
 {
   "name": "com.somfy.tahoma",
-  "version": "3.0.7",
+  "version": "3.0.9",
   "description": "Somfy TaHoma app for Homey",
   "main": "app.js",
   "repository": {
@@ -18,14 +18,14 @@
     "axios": "^0.21.0",
     "axios-cookiejar-support": "^1.0.1",
     "form-data": "^3.0.0",
-    "nodemailer": "^6.4.16",
+    "nodemailer": "^6.7.2",
     "tough-cookie": "^4.0.0"
   },
   "devDependencies": {
     "@types/homey": "npm:homey-apps-sdk-v3-types@^0.2.2",
-    "eslint": "^8.2.0",
+    "eslint": "^8.6.0",
     "eslint-config-athom": "^3.0.1",
-    "homey": "^2.23.4"
+    "homey": "^2.25.1"
   },
   "engines": {
     "node": ">=12.16.1"

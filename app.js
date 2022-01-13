@@ -508,7 +508,7 @@ class myApp extends Homey.App
     // Throws an exception if the login fails
     async newLogin(args)
     {
-        await this.newLogin_2(args.username, args.password, args.linkurl, true);
+        await this.newLogin_2(args.username, args.password, args.linkurl, false);
     }
 
     // Throws an exception if the login fails
@@ -527,7 +527,7 @@ class myApp extends Homey.App
         // Get the last login method to use again
         // var loginMethod = this.homey.settings.get('loginMethod');
 
-        let loginMethod = false; // Start with old method
+        let loginMethod = true; // Start with new method
 
         // Login with supplied credentials. An error is thrown if the login fails
         try

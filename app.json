@@ -13,7 +13,7 @@
   "description": {
     "en": "Bring the richness of Homey to your Somfy world"
   },
-  "version": "3.0.8",
+  "version": "3.0.9",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Adrian Rockall",

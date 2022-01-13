@@ -93,11 +93,11 @@ class WindowCoveringsDevice extends Device
         this.sync();
     }
 
-    async onSettings(oldSettingsObj, newSettingsObj, changedKeysArr)
+    async onSettings({ oldSettings, newSettings, changedKeys })
     {
-        if (changedKeysArr.indexOf('invertUpDown') >= 0)
+        if (changedKeys.indexOf('invertUpDown') >= 0)
         {
-            this.invertUpDown = newSettingsObj.invertUpDown;
+            this.invertUpDown = newSettings.invertUpDown;
 
             if (this.invertUpDown)
             {
@@ -129,14 +129,14 @@ class WindowCoveringsDevice extends Device
             }
         }
 
-        if (changedKeysArr.indexOf('invertTile') >= 0)
+        if (changedKeys.indexOf('invertTile') >= 0)
         {
-            this.invertTile = newSettingsObj.invertTile;
+            this.invertTile = newSettings.invertTile;
         }
 
-        if (changedKeysArr.indexOf('invertPosition') >= 0)
+        if (changedKeys.indexOf('invertPosition') >= 0)
         {
-            this.invertPosition = newSettingsObj.invertPosition;
+            this.invertPosition = newSettings.invertPosition;
         }
     }
 
