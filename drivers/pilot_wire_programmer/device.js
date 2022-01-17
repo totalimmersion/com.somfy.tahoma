@@ -182,24 +182,24 @@ class PilotWireProgrammerDevice extends SensorDevice
             const states = await super.getStates();
             if (states)
             {
-                const onOffState = states.find(state => state.name === 'core:OnOffState');
+                const onOffState = states.find(state => (state && (state.name === 'core:OnOffState')));
                 if (onOffState)
                 {
                     this.homey.app.logStates(`${this.getName()}: core:OnOffState = ${onOffState.value}`);
                     this.triggerCapabilityListener('onoff', (onOffState.value === 'on'),
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
-                const heatingMode = states.find(state => state.name === 'ovp:HeatingTemperatureInterfaceActiveModeState');
+                const heatingMode = states.find(state => (state && (state.name === 'ovp:HeatingTemperatureInterfaceActiveModeState')));
                 if (heatingMode)
                 {
                     this.homey.app.logStates(`${this.getName()}: ovp:HeatingTemperatureInterfaceActiveModeState = ${heatingMode.value}`);
                     this.triggerCapabilityListener('heatingMode', heatingMode.value,
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
             }
         }
@@ -252,7 +252,7 @@ class PilotWireProgrammerDevice extends SensorDevice
                             const newState = (deviceState.value === 'on');
                             if (oldState !== newState)
                             {
-                                this.triggerCapabilityListener('onoff', deviceState.value);
+                                this.triggerCapabilityListener('onoff', deviceState.value).catch(this.error);
                             }
                         }
                         else if (deviceState.name === 'ovp:HeatingTemperatureInterfaceActiveModeState')
@@ -265,7 +265,7 @@ class PilotWireProgrammerDevice extends SensorDevice
                                 this.triggerCapabilityListener('heatingMode', newState,
                                 {
                                     fromCloudSync: true,
-                                });
+                                }).catch(this.error);
                             }
                         }
                     }

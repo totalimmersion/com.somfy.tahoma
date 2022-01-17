@@ -279,29 +279,29 @@ class LightControllerDevice extends Device
             if (states)
             {
                 // On / Off
-                const OnOffState = states.find(state => state.name === 'core:OnOffState');
+                const OnOffState = states.find(state => (state && (state.name === 'core:OnOffState')));
                 if (OnOffState)
                 {
                     this.homey.app.logStates(`${this.getName()}: core:OnOffState = ${OnOffState.value}`);
                     this.triggerCapabilityListener('onoff', (OnOffState.value === 'on'),
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
                 // Dim level
-                const dimState = states.find(state => state.name === 'core:LightIntensityState');
+                const dimState = states.find(state => (state && (state.name === 'core:LightIntensityState')));
                 if (dimState)
                 {
                     this.homey.app.logStates(`${this.getName()}: core:dimState = ${dimState.value}`);
                     this.triggerCapabilityListener('dim', (dimState.value / 100),
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
                 // Color level
-                const colorState = states.find(state => state.name === 'core:ColorTemperatureState');
+                const colorState = states.find(state => (state && (state.name === 'core:ColorTemperatureState')));
                 if (colorState)
                 {
                     const minTemperature = this.getSetting('minTemperature');
@@ -311,7 +311,7 @@ class LightControllerDevice extends Device
                     this.triggerCapabilityListener('light_temperature', ((colorState.value - minTemperature) / (maxTemperature - minTemperature)),
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
             }
 
@@ -419,7 +419,7 @@ class LightControllerDevice extends Device
                 this.triggerCapabilityListener('onoff', newSate,
                 {
                     fromCloudSync: true,
-                });
+                }).catch(this.error);
             }
             return true;
         }
@@ -434,7 +434,7 @@ class LightControllerDevice extends Device
                 this.triggerCapabilityListener('dim', newSate,
                 {
                     fromCloudSync: true,
-                });
+                }).catch(this.error);
             }
             return true;
         }
@@ -452,7 +452,7 @@ class LightControllerDevice extends Device
                 this.triggerCapabilityListener('light_temperature', newSate,
                 {
                     fromCloudSync: true,
-                });
+                }).catch(this.error);
             }
             return true;
         }

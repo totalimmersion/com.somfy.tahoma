@@ -95,14 +95,14 @@ class WaterTankDevice extends SensorDevice
             const states = await super.getStates();
             if (states)
             {
-                const onOffState = states.find(state => state.name === 'core:ForceHeatingState');
+                const onOffState = states.find(state => (state && (state.name === 'core:ForceHeatingState')));
                 if (onOffState)
                 {
                     this.homey.app.logStates(`${this.getName()}: core:ForceHeatingState = ${onOffState.value}`);
                     this.triggerCapabilityListener('onoff', (onOffState.value === 'on'),
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
             }
         }
@@ -155,7 +155,7 @@ class WaterTankDevice extends SensorDevice
                             const newState = (deviceState.value === 'on');
                             if (oldState !== newState)
                             {
-                                this.triggerCapabilityListener('onoff', deviceState.value);
+                                this.triggerCapabilityListener('onoff', deviceState.value).catch(this.error);
                             }
                         }
                     }

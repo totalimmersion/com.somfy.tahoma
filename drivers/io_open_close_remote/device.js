@@ -53,11 +53,11 @@ class io_open_close_remoteDevice extends Device
             const states = await super.getStates();
             if (states)
             {
-                const remoteState = states.find(state => state.name === 'io:OneWayControllerButtonState');
+                const remoteState = states.find(state => (state && (state.name === 'io:OneWayControllerButtonState')));
                 if (remoteState)
                 {
                     this.homey.app.logStates(`${this.getName()}: io:OneWayControllerButtonState = ${remoteState.value}`);
-                    this.triggerCapabilityListener('remote_state', remoteState.value);
+                    this.triggerCapabilityListener('remote_state', remoteState.value).catch(this.error);
                 }
             }
         }
@@ -110,7 +110,7 @@ class io_open_close_remoteDevice extends Device
                             const newSate = deviceState.value;
                             if (oldState !== newSate)
                             {
-                                this.triggerCapabilityListener('remote_state', newSate);
+                                this.triggerCapabilityListener('remote_state', newSate).catch(this.error);
                             }
                         }
                     }

@@ -65,7 +65,7 @@ class HorizontalAwningDevice extends WindowCoveringsDevice
         if (states)
         {
             // Look for each of the required capabilities
-            const lockState = states.find(state => state.name === 'io:PriorityLockOriginatorState');
+            const lockState = states.find(state => (state && (state.name === 'io:PriorityLockOriginatorState')));
             if (lockState)
             {
                 this.setCapabilityValue('lock_state', lockState.value).catch(this.error);
@@ -74,7 +74,7 @@ class HorizontalAwningDevice extends WindowCoveringsDevice
             }
             else
             {
-                const lockStateTimer = states.find(state => state.name === 'core:PriorityLockTimerState');
+                const lockStateTimer = states.find(state => (state && (state.name === 'core:PriorityLockTimerState')));
                 if (lockStateTimer)
                 {
                     if (lockStateTimer.value === 0)

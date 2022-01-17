@@ -310,44 +310,44 @@ class WaterBoilerDevice extends SensorDevice
             const states = await super.getStates();
             if (states)
             {
-                const onOffState = states.find(state => state.name === 'core:OnOffState');
+                const onOffState = states.find(state => (state && (state.name === 'core:OnOffState')));
                 if (onOffState)
                 {
                     this.homey.app.logStates(`${this.getName()}: core:OnOffState = ${onOffState.value}`);
                     this.triggerCapabilityListener('onoff', (onOffState.value === 'on'),
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
-                const boilerMode = states.find(state => state.name === 'io:PassAPCDHWModeState');
+                const boilerMode = states.find(state => (state && (state.name === 'io:PassAPCDHWModeState')));
                 if (boilerMode)
                 {
                     this.homey.app.logStates(`${this.getName()}: io:PassAPCDHWModeState = ${boilerMode.value}`);
                     this.triggerCapabilityListener('boiler_mode', boilerMode.value,
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
-                const boost = states.find(state => state.name === 'core:BoostOnOffState');
+                const boost = states.find(state => (state && (state.name === 'core:BoostOnOffState')));
                 if (boost)
                 {
                     this.homey.app.logStates(`${this.getName()}: core:BoostOnOffState = ${boost.value}`);
                     this.triggerCapabilityListener('boost', boost.value === 'on',
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
-                const comfortTemp = states.find(state => state.name === 'core:ComfortTargetDHWTemperatureState');
+                const comfortTemp = states.find(state => (state && (state.name === 'core:ComfortTargetDHWTemperatureState')));
                 if (comfortTemp)
                 {
                     this.homey.app.logStates(`${this.getName()}: core:ComfortTargetDHWTemperatureState = ${comfortTemp.value}`);
                     this.triggerCapabilityListener('target_temperature.comfort', comfortTemp.value,
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
                 const ecoTemp = states.find(state => state.name === 'core:EcoTargetDHWTemperatureState');
@@ -357,7 +357,7 @@ class WaterBoilerDevice extends SensorDevice
                     this.triggerCapabilityListener('target_temperature.eco', ecoTemp.value,
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
             }
         }
@@ -410,7 +410,7 @@ class WaterBoilerDevice extends SensorDevice
                             const newState = (deviceState.value === 'on');
                             if (oldState !== newState)
                             {
-                                this.triggerCapabilityListener('onoff', deviceState.value);
+                                this.triggerCapabilityListener('onoff', deviceState.value).catch(this.error);
                             }
                         }
                         else if (deviceState.name === 'core:BoostOnOffState')
@@ -423,7 +423,7 @@ class WaterBoilerDevice extends SensorDevice
                                 this.triggerCapabilityListener('boost', newState,
                                 {
                                     fromCloudSync: true,
-                                });
+                                }).catch(this.error);
                             }
                         }
                         else if (deviceState.name === 'io:PassAPCDHWModeState')
@@ -436,7 +436,7 @@ class WaterBoilerDevice extends SensorDevice
                                 this.triggerCapabilityListener('boiler_mode', newState,
                                 {
                                     fromCloudSync: true,
-                                });
+                                }).catch(this.error);
                             }
                         }
                         else if (deviceState.name === 'core:ComfortTargetDHWTemperatureState')
@@ -449,7 +449,7 @@ class WaterBoilerDevice extends SensorDevice
                                 this.triggerCapabilityListener('target_temperature.comfort', newState,
                                 {
                                     fromCloudSync: true,
-                                });
+                                }).catch(this.error);
                             }
                         }
                         else if (deviceState.name === 'core:EcoTargetDHWTemperatureState')
@@ -462,7 +462,7 @@ class WaterBoilerDevice extends SensorDevice
                                 this.triggerCapabilityListener('target_temperature.eco', newState,
                                 {
                                     fromCloudSync: true,
-                                });
+                                }).catch(this.error);
                             }
                         }
                     }

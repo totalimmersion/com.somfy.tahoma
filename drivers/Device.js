@@ -169,7 +169,7 @@ class Device extends Homey.Device
                 const otherCapabilityIdx = capabilityXRef.somfyNameSet[cmdIdx];
                 const capabilityName = capabilityXRef.otherCapability[otherCapabilityIdx];
                 value = this.getCapabilityValue(capabilityName);
-                this.triggerCapabilityListener(capabilityName, value);
+                this.triggerCapabilityListener(capabilityName, value).catch(this.error);
                 return;
             }
 
@@ -284,7 +284,7 @@ class Device extends Homey.Device
                         }
 
                         // Find the tahoma device state for the table entry
-                        const tahomaState = tahomaStates.find(state => state.name === xRefEntry.somfyNameGet);
+                        const tahomaState = tahomaStates.find(state => (state && (state.name === xRefEntry.somfyNameGet)));
                         if (tahomaState)
                         {
                             if (typeof tahomaState.value === 'string')
@@ -322,7 +322,7 @@ class Device extends Homey.Device
                             await this.triggerCapabilityListener(xRefEntry.homeyName,
                                 // eslint-disable-next-line no-nested-ternary
                                 (xRefEntry.compare ? (tahomaState.value === xRefEntry.compare[1]) : (xRefEntry.scale ? (tahomaState.value / xRefEntry.scale) : tahomaState.value)),
-                                { fromCloudSync: true });
+                                { fromCloudSync: true }).catch(this.error);
                         }
                     }
                     catch (error)
@@ -470,7 +470,7 @@ class Device extends Homey.Device
                                             stack: { capability: xRefEntry.homeyName, state: newState },
                                         });
                                     }
-                                    this.triggerCapabilityListener(xRefEntry.homeyName, newState, { fromCloudSync: true });
+                                    this.triggerCapabilityListener(xRefEntry.homeyName, newState, { fromCloudSync: true }).catch(this.error);
                                 }
                                 else
                                 if (this.homey.app.infoLogEnabled)

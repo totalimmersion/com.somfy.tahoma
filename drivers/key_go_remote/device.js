@@ -53,11 +53,11 @@ class key_go_remoteDevice extends Device
             const states = await super.getStates();
             if (states)
             {
-                const remoteState = states.find(state => state.name === 'io:OneWayStoppableButtonState');
+                const remoteState = states.find(state => (state && (state.name === 'io:OneWayStoppableButtonState')));
                 if (remoteState)
                 {
                     this.homey.app.logStates(`${this.getName()}: io:OneWayStoppableButtonState = ${remoteState.value}`);
-                    this.triggerCapabilityListener('key_go_remote_state', remoteState.value);
+                    this.triggerCapabilityListener('key_go_remote_state', remoteState.value).catch(this.error);
                 }
             }
         }
@@ -110,7 +110,7 @@ class key_go_remoteDevice extends Device
                             const newSate = deviceState.value;
                             if (oldState !== newSate)
                             {
-                                this.triggerCapabilityListener('key_go_remote_state', newSate);
+                                this.triggerCapabilityListener('key_go_remote_state', newSate).catch(this.error);
                             }
                         }
                     }

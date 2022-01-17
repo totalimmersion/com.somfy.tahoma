@@ -628,7 +628,7 @@ class WindowCoveringsDevice extends Device
             {
                 if (this.hasCapability('lock_state'))
                 {
-                    const lockState = states.find(state => state.name === 'io:PriorityLockOriginatorState');
+                    const lockState = states.find(state => (state && (state.name === 'io:PriorityLockOriginatorState')));
                     if (lockState)
                     {
                         this.homey.app.logStates(`${this.getName()}: io:PriorityLockOriginatorState = ${lockState.value}`);
@@ -642,7 +642,7 @@ class WindowCoveringsDevice extends Device
                     }
                     else
                     {
-                        const lockStateTimer = states.find(state => state.name === 'core:PriorityLockTimerState');
+                        const lockStateTimer = states.find(state => (state && (state.name === 'core:PriorityLockTimerState')));
                         if (lockStateTimer)
                         {
                             this.homey.app.logStates(`${this.getName()}: core:PriorityLockTimerState = ${lockStateTimer.value}`);
@@ -654,7 +654,7 @@ class WindowCoveringsDevice extends Device
                     }
                 }
 
-                const myPosition = states.find(state => state.name === 'core:Memorized1PositionState');
+                const myPosition = states.find(state => (state && (state.name === 'core:Memorized1PositionState')));
                 if (myPosition)
                 {
                     if (!this.hasCapability('my_value'))
@@ -667,9 +667,9 @@ class WindowCoveringsDevice extends Device
                 }
 
                 // device exists -> let's sync the state of the device
-                const closureState = states.find(state => state.name === this.positionStateName);
-                const openClosedState = states.find(state => state.name === this.openClosedStateName);
-                const tiltState = states.find(state => state.name === 'core:SlateOrientationState');
+                const closureState = states.find(state => (state && (state.name === this.positionStateName)));
+                const openClosedState = states.find(state => (state && (state.name === this.openClosedStateName)));
+                const tiltState = states.find(state => (state && (state.name === 'core:SlateOrientationState')));
 
                 if (this.unavailable)
                 {
@@ -695,7 +695,7 @@ class WindowCoveringsDevice extends Device
                             this.triggerCapabilityListener('pedestrian', (openClosedState.value === 'pedestrian'),
                             {
                                 fromCloudSync: true,
-                            });
+                            }).catch(this.error);
                         }
 
                         openClosedState.value = this.windowcoveringsStatesMap[openClosedState.value];
@@ -704,7 +704,7 @@ class WindowCoveringsDevice extends Device
                     this.triggerCapabilityListener('windowcoverings_state', openClosedState.value,
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
                 if (closureState)
@@ -718,7 +718,7 @@ class WindowCoveringsDevice extends Device
                     this.triggerCapabilityListener('windowcoverings_set', 1 - (closureState.value / 100),
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
                 if (tiltState)
@@ -728,7 +728,7 @@ class WindowCoveringsDevice extends Device
                     this.triggerCapabilityListener('windowcoverings_tilt_set', 1 - (tiltState.value / 100),
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
             }
             else if (this.hasCapability('windowcoverings_state.rts'))
@@ -833,7 +833,7 @@ class WindowCoveringsDevice extends Device
                                     this.triggerCapabilityListener('windowcoverings_set', 1 - (closureStateValue / 100),
                                     {
                                         fromCloudSync: true,
-                                    });
+                                    }).catch(this.error);
 
                                     if ((closureStateValue !== 0) && (closureStateValue !== 100))
                                     {
@@ -841,7 +841,7 @@ class WindowCoveringsDevice extends Device
                                         this.triggerCapabilityListener('windowcoverings_state', 'idle',
                                         {
                                             fromCloudSync: true,
-                                        });
+                                        }).catch(this.error);
 
                                         lastPosition = closureStateValue;
                                     }
@@ -868,7 +868,7 @@ class WindowCoveringsDevice extends Device
                                         this.triggerCapabilityListener('windowcoverings_state', openClosedStateValue,
                                         {
                                             fromCloudSync: true,
-                                        });
+                                        }).catch(this.error);
                                     }
 
                                     lastPosition = null;
@@ -886,7 +886,7 @@ class WindowCoveringsDevice extends Device
                                     this.triggerCapabilityListener('windowcoverings_tilt_set', 1 - (tiltStateValue / 100),
                                     {
                                         fromCloudSync: true,
-                                    });
+                                    }).catch(this.error);
                                 }
                             }
                         }

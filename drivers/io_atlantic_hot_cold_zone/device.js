@@ -258,109 +258,109 @@ class HotColdZoneDevice extends SensorDevice
             const states = await super.getStates();
             if (states)
             {
-                const onOffStateCooling = states.find(state => state.name === 'core:CoolingOnOffState');
+                const onOffStateCooling = states.find(state => (state && (state.name === 'core:CoolingOnOffState')));
                 if (onOffStateCooling)
                 {
                     this.homey.app.logStates(`${this.getName()}: core:CoolingOnOffState = ${onOffStateCooling.value}`);
                     this.triggerCapabilityListener('boost.cooling', (onOffStateCooling.value === 'on'),
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
-                const onOffStateHating = states.find(state => state.name === 'core:HeatingOnOffState');
-                if (onOffStateHating)
+                const onOffStateHeating = states.find(state => (state && (state.name === 'core:HeatingOnOffState')));
+                if (onOffStateHeating)
                 {
-                    this.homey.app.logStates(`${this.getName()}: core:HeatingOnOffState = ${onOffStateHating.value}`);
-                    this.triggerCapabilityListener('boost.heating', (onOffStateHating.value === 'on'),
+                    this.homey.app.logStates(`${this.getName()}: core:HeatingOnOffState = ${onOffStateHeating.value}`);
+                    this.triggerCapabilityListener('boost.heating', (onOffStateHeating.value === 'on'),
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
-                const onOffStateDerogated = states.find(state => state.name === 'core:DerogationOnOffState');
+                const onOffStateDerogated = states.find(state => (state && (state.name === 'core:DerogationOnOffState')));
                 if (onOffStateDerogated)
                 {
                     this.homey.app.logStates(`${this.getName()}: core:DerogationOnOffState = ${onOffStateDerogated.value}`);
                     this.triggerCapabilityListener('boost.derogated', (onOffStateDerogated.value === 'on'),
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
-                const coolingMode = states.find(state => state.name === 'io:PassAPCCoolingModeState');
+                const coolingMode = states.find(state => (state && (state.name === 'io:PassAPCCoolingModeState')));
                 if (coolingMode)
                 {
                     this.homey.app.logStates(`${this.getName()}: io:PassAPCCoolingModeState = ${coolingMode.value}`);
                     this.triggerCapabilityListener('heat_cool_mode.cool', coolingMode.value,
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
-                const heatingMode = states.find(state => state.name === 'io:PassAPCHeatingModeState');
+                const heatingMode = states.find(state => (state && (state.name === 'io:PassAPCHeatingModeState')));
                 if (heatingMode)
                 {
                     this.homey.app.logStates(`${this.getName()}: io:PassAPCHeatingModeState = ${heatingMode.value}`);
                     this.triggerCapabilityListener('heat_cool_mode.heat', heatingMode.value,
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
-                const comfortCoolingTemp = states.find(state => state.name === 'core:ComfortCoolingTargetTemperatureState');
+                const comfortCoolingTemp = states.find(state => (state && (state.name === 'core:ComfortCoolingTargetTemperatureState')));
                 if (comfortCoolingTemp)
                 {
                     this.homey.app.logStates(`${this.getName()}: core:ComfortCoolingTargetTemperatureState = ${comfortCoolingTemp.value}`);
                     this.triggerCapabilityListener('target_temperature.comfort_cooling', comfortCoolingTemp.value,
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
-                const comfortHeatingTemp = states.find(state => state.name === 'core:ComfortHeatingTargetTemperatureState');
+                const comfortHeatingTemp = states.find(state => (state && (state.name === 'core:ComfortHeatingTargetTemperatureState')));
                 if (comfortHeatingTemp)
                 {
                     this.homey.app.logStates(`${this.getName()}: core:ComfortHeatingTargetTemperatureState = ${comfortHeatingTemp.value}`);
                     this.triggerCapabilityListener('target_temperature.comfort_heating', comfortHeatingTemp.value,
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
-                const ecoCoolingTemp = states.find(state => state.name === 'core:EcoCoolingTargetTemperatureState');
+                const ecoCoolingTemp = states.find(state => (state && (state.name === 'core:EcoCoolingTargetTemperatureState')));
                 if (ecoCoolingTemp)
                 {
                     this.homey.app.logStates(`${this.getName()}: core:ComfortCoolingTargetTemperatureState = ${ecoCoolingTemp.value}`);
                     this.triggerCapabilityListener('target_temperature.eco_cooling', ecoCoolingTemp.value,
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
-                const ecoHeatingTemp = states.find(state => state.name === 'core:EcoHeatingTargetTemperatureState');
+                const ecoHeatingTemp = states.find(state => (state && (state.name === 'core:EcoHeatingTargetTemperatureState')));
                 if (ecoHeatingTemp)
                 {
                     this.homey.app.logStates(`${this.getName()}: core:EcoHeatingTargetTemperatureState = ${ecoHeatingTemp.value}`);
                     this.triggerCapabilityListener('target_temperature.eco_heating', ecoHeatingTemp.value,
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
-                const DerogatedHeatingTemp = states.find(state => state.name === 'core:DerogatedHeatingTargetTemperatureState');
+                const DerogatedHeatingTemp = states.find(state => (state && (state.name === 'core:DerogatedHeatingTargetTemperatureState')));
                 if (DerogatedHeatingTemp)
                 {
                     this.homey.app.logStates(`${this.getName()}: core:DerogatedHeatingTargetTemperatureState = ${DerogatedHeatingTemp.value}`);
                     this.triggerCapabilityListener('target_temperature.derogated', DerogatedHeatingTemp.value,
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
             }
         }
         catch (error)
         {
-            this.setUnavailable(error.message).catch(this.error);
+            // this.setUnavailable(error.message).catch(this.error);
             this.homey.app.logInformation(this.getName(),
             {
                 message: error.message,
@@ -410,7 +410,7 @@ class HotColdZoneDevice extends SensorDevice
                                 this.triggerCapabilityListener('boost.cooling', deviceState.value,
                                 {
                                     fromCloudSync: true,
-                                });
+                                }).catch(this.error);
                             }
                         }
                         else if (deviceState.name === 'core:HeatingOnOffState')
@@ -423,7 +423,7 @@ class HotColdZoneDevice extends SensorDevice
                                 this.triggerCapabilityListener('boost.heating', deviceState.value,
                                 {
                                     fromCloudSync: true,
-                                });
+                                }).catch(this.error);
                             }
                         }
                         else if (deviceState.name === 'core:DerogationOnOffState')
@@ -436,7 +436,7 @@ class HotColdZoneDevice extends SensorDevice
                                 this.triggerCapabilityListener('boost.derogated', deviceState.value,
                                 {
                                     fromCloudSync: true,
-                                });
+                                }).catch(this.error);
                             }
                         }
                         else if (deviceState.name === 'io:PassAPCCoolingModeState')
@@ -449,7 +449,7 @@ class HotColdZoneDevice extends SensorDevice
                                 this.triggerCapabilityListener('heat_cool_mode.cool', newState,
                                 {
                                     fromCloudSync: true,
-                                });
+                                }).catch(this.error);
                             }
                         }
                         else if (deviceState.name === 'io:PassAPCHeatingModeState')
@@ -462,7 +462,7 @@ class HotColdZoneDevice extends SensorDevice
                                 this.triggerCapabilityListener('heat_cool_mode.heat', newState,
                                 {
                                     fromCloudSync: true,
-                                });
+                                }).catch(this.error);
                             }
                         }
                         else if (deviceState.name === 'core:ComfortCoolingTargetTemperatureState')
@@ -475,7 +475,7 @@ class HotColdZoneDevice extends SensorDevice
                                 this.triggerCapabilityListener('target_temperature.comfort_cooling', newState,
                                 {
                                     fromCloudSync: true,
-                                });
+                                }).catch(this.error);
                             }
                         }
                         else if (deviceState.name === 'core:ComfortHeatingTargetTemperatureState')
@@ -488,7 +488,7 @@ class HotColdZoneDevice extends SensorDevice
                                 this.triggerCapabilityListener('target_temperature.comfort_heating', newState,
                                 {
                                     fromCloudSync: true,
-                                });
+                                }).catch(this.error);
                             }
                         }
                         else if (deviceState.name === 'core:EcoCoolingTargetTemperatureState')
@@ -501,7 +501,7 @@ class HotColdZoneDevice extends SensorDevice
                                 this.triggerCapabilityListener('target_temperature.eco_cooling', newState,
                                 {
                                     fromCloudSync: true,
-                                });
+                                }).catch(this.error);
                             }
                         }
                         else if (deviceState.name === 'core:EcoHeatingTargetTemperatureState')
@@ -514,7 +514,7 @@ class HotColdZoneDevice extends SensorDevice
                                 this.triggerCapabilityListener('target_temperature.eco_heating', newState,
                                 {
                                     fromCloudSync: true,
-                                });
+                                }).catch(this.error);
                             }
                         }
                         else if (deviceState.name === 'core:DerogatedHeatingTargetTemperatureState')
@@ -527,7 +527,7 @@ class HotColdZoneDevice extends SensorDevice
                                 this.triggerCapabilityListener('target_temperature.derogated', newState,
                                 {
                                     fromCloudSync: true,
-                                });
+                                }).catch(this.error);
                             }
                         }
                     }

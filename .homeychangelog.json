@@ -451,5 +451,8 @@
   },
   "3.0.9": {
     "en": "Fixed Invert setting on covers"
+  },
+  "3.0.10": {
+    "en": "Added extra parameter validation and error handling"
   }
 }

@@ -195,25 +195,25 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
             if (states)
             {
                 // Hue level
-                const hueState = states.find(state => state.name === 'core:ColorHueState');
+                const hueState = states.find(state => (state && (state.name === 'core:ColorHueState')));
                 if (hueState)
                 {
                     this.homey.app.logStates(`${this.getName()}: core:ColorHueState = ${hueState.value}`);
                     this.triggerCapabilityListener('light_hue', (hueState.value / 360),
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
 
                 // Saturation level
-                const saturationState = states.find(state => state.name === 'core:ColorSaturationState');
+                const saturationState = states.find(state => (state && (state.name === 'core:ColorSaturationState')));
                 if (saturationState)
                 {
                     this.homey.app.logStates(`${this.getName()}: core:ColorSaturationState = ${saturationState.value}`);
                     this.triggerCapabilityListener('light_hue', (saturationState.value / 100),
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
             }
         }
@@ -245,7 +245,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
                 this.triggerCapabilityListener('light_hue', newSate,
                 {
                     fromCloudSync: true,
-                });
+                }).catch(this.error);
             }
             return true;
         }
@@ -260,7 +260,7 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
                 this.triggerCapabilityListener('light_saturation', newSate,
                 {
                     fromCloudSync: true,
-                });
+                }).catch(this.error);
             }
             return true;
         }

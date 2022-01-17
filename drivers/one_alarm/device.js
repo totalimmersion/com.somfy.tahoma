@@ -125,21 +125,21 @@ class OneAlarmDevice extends SensorDevice
             const states = await super.getStates();
             if (states)
             {
-                const intrusionState = states.find(state => state.name === 'core:IntrusionState');
+                const intrusionState = states.find(state => (state && (state.name === 'core:IntrusionState')));
                 if (intrusionState)
                 {
                     this.homey.app.logStates(`${this.getName()}: core:IntrusionState = ${intrusionState.value}`);
-                    this.triggerCapabilityListener('alarm_generic', intrusionState.value === 'detected');
+                    this.triggerCapabilityListener('alarm_generic', intrusionState.value === 'detected').catch(this.error);
                 }
 
-                const alarmStatusState = states.find(state => state.name === 'myfox:AlarmStatusState');
+                const alarmStatusState = states.find(state => (state && (state.name === 'myfox:AlarmStatusState')));
                 if (alarmStatusState)
                 {
                     this.homey.app.logStates(`${this.getName()}: myfox:AlarmStatusState = ${alarmStatusState.value}`);
                     this.triggerCapabilityListener('homealarm_state', this.alarmArmedState[alarmStatusState.value],
                     {
                         fromCloudSync: true,
-                    });
+                    }).catch(this.error);
                 }
             }
         }
@@ -192,7 +192,7 @@ class OneAlarmDevice extends SensorDevice
                             const newState = (deviceState.value === 'detected');
                             if (oldState !== newState)
                             {
-                                this.triggerCapabilityListener('alarm_generic', newState);
+                                this.triggerCapabilityListener('alarm_generic', newState).catch(this.error);
                             }
                         }
                         else if (deviceState.name === 'myfox:AlarmStatusState')
@@ -205,7 +205,7 @@ class OneAlarmDevice extends SensorDevice
                                 this.triggerCapabilityListener('homealarm_state', newState,
                                 {
                                     fromCloudSync: true,
-                                });
+                                }).catch(this.error);
                             }
                         }
                     }
