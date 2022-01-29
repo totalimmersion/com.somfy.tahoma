@@ -139,9 +139,11 @@ class Device extends Homey.Device
             }
 
             const deviceData = this.getData();
+            // Check if this command is already being executed
             const idx = this.executionCommands.findIndex(element => capabilityXRef.somfyNameSet.indexOf(element.name) >= 0);
             if (idx >= 0)
             {
+                // Found it so cancel the current command first
                 try
                 {
                     await this.homey.app.tahoma.cancelExecution(this.executionCommands[idx].id);
@@ -154,6 +156,7 @@ class Device extends Homey.Device
                         stack: err.stack,
                     });
                 }
+                // Remove from the command from the array
                 this.executionCommands.splice(idx, 1);
             }
 
@@ -184,11 +187,13 @@ class Device extends Homey.Device
                 action2 = capabilityXRef.secondaryCommand[somfyValue];
             }
 
+            // Send the command
             const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action, action2);
             if (result)
             {
                 if (result.errorCode)
                 {
+                    // Report the error
                     this.homey.app.logInformation(this.getName(),
                     {
                         message: result.error,
@@ -206,10 +211,12 @@ class Device extends Homey.Device
                     const idx = this.executionCommands.findIndex(element => capabilityXRef.somfyNameSet.indexOf(element.name) >= 0);
                     if (idx < 0)
                     {
+                        // Add the command reference to the executing array
                         this.executionCommands.push({ id: result.execId, name: action.name });
                     }
                     else
                     {
+                        // The command must have been added by the event handler so cancel this boost request so we don't have two
                         await this.homey.app.unBoostSync();
                     }
                 }
@@ -278,11 +285,6 @@ class Device extends Homey.Device
                 {
                     try
                     {
-                        if (xRefEntry.somfyNameGet === 'core:OperatingModeState')
-                        {
-                            this.log('core:OperatingModeState');
-                        }
-
                         // Find the tahoma device state for the table entry
                         const tahomaState = tahomaStates.find(state => (state && (state.name === xRefEntry.somfyNameGet)));
                         if (tahomaState)
@@ -488,14 +490,16 @@ class Device extends Homey.Device
             }
             else if (event.name === 'ExecutionRegisteredEvent')
             {
-//                for (let x = 0; x < event.actions.length; x++)
+                // A command is being executed so check if we already know about it
                 for (const eventAction of event.actions)
                 {
                     if (myURL === eventAction.deviceURL)
                     {
+                        // Check if this command is already in the execution array
                         const idx = this.executionCommands.findIndex(element2 => element2.name === eventAction.commands[0].name);
                         if (idx < 0)
                         {
+                            // Not known so record it and boost the events interval
                             this.executionCommands.push({ id: event.execId, name: eventAction.commands[0].name });
                             if (this.boostSync)
                             {
@@ -509,9 +513,11 @@ class Device extends Homey.Device
             {
                 if ((event.newState === 'COMPLETED') || (event.newState === 'FAILED'))
                 {
+                    // Check if we know about this command
                     const idx = this.executionCommands.findIndex(element2 => element2.id === event.execId);
                     if (idx >= 0)
                     {
+                        // We did know so unreference our event boost
                         await this.homey.app.unBoostSync();
                         this.executionCommands.splice(idx, 1);
 

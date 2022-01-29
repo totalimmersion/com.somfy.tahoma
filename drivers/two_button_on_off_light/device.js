@@ -229,11 +229,14 @@ class two_button_on_offDevice extends Device
                 {
                     if (myURL === element.actions[x].deviceURL)
                     {
-                        this.executionId = element.execId;
-                        this.executionCmd = element.actions[x].commands[0].name;
-                        if (this.boostSync)
+                        if (this.executionId !== element.execId)
                         {
-                            await this.homey.app.boostSync();
+                            this.executionId = element.execId;
+                            this.executionCmd = element.actions[x].commands[0].name;
+                            if (this.boostSync)
+                            {
+                                await this.homey.app.boostSync();
+                            }
                         }
                     }
                 }

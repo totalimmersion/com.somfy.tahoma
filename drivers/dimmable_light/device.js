@@ -15,6 +15,20 @@ class DimmableLightControllerDevice extends LightControllerDevice
     async onInit()
     {
         await super.onInit();
+        const dd = this.getData();
+        let controllableName = '';
+        if (dd.controllableName)
+        {
+            controllableName = dd.controllableName.toString().toLowerCase();
+        }
+
+        if (controllableName === 'ogp:Light')
+        {
+            if (this.hasCapability('onoff'))
+            {
+                this.removeCapability('onoff');
+            }
+        }
     }
 
 }

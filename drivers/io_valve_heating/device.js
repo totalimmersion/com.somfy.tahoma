@@ -108,11 +108,14 @@ class ValveHeatingDevice extends SensorDevice
 
     async onCapability(capabilityXRef, value, opts)
     {
-        this.homey.app.logInformation(this.getName(),
+        if (this.infoLogEnabled)
         {
-            message: 'onCapability',
-            stack: { capabilityXRef, value, opts },
-        });
+            this.homey.app.logInformation(this.getName(),
+            {
+                message: 'onCapability',
+                stack: { capabilityXRef, value, opts },
+            });
+        }
 
         if (!opts || !opts.fromCloudSync)
         {

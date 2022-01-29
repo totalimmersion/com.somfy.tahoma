@@ -528,6 +528,7 @@ class myApp extends Homey.App
         // var loginMethod = this.homey.settings.get('loginMethod');
 
         let loginMethod = true; // Start with new method
+//        let loginMethod = false; // Start with old method
 
         // Login with supplied credentials. An error is thrown if the login fails
         try
@@ -627,6 +628,7 @@ class myApp extends Homey.App
     logInformation(source, error)
     {
         this.log(source, this.varToString(error));
+        this.error(error);
 
         try
         {
@@ -637,8 +639,7 @@ class myApp extends Homey.App
                 {
                     data = error;
                 }
-                else
-                if (error.stack)
+                else if (error.stack)
                 {
                     data = {
                         message: error.message,
@@ -851,7 +852,14 @@ class myApp extends Homey.App
             if (!this.tahoma.eventsRegistered())
             {
                 // The events are not currently registered so do that now
-                await this.tahoma.getEvents();
+                try
+                {
+                    await this.tahoma.getEvents();
+                }
+                catch (error)
+                {
+                    this.logInformation('Boost Sync register events', error.message);
+                }
             }
 
             this.nextInterval = 3000;
@@ -1118,20 +1126,11 @@ class myApp extends Homey.App
             })
             .getArgument('scenario').registerAutocompleteListener(query =>
             {
-                return this.tahoma.getActionGroups().then(data => data.map((
-                {
-                    oid,
-                    label,
-                },
-) => (
+                return this.tahoma.getActionGroups().then(data => data.map(({ oid, label }) => (
                 {
                     oid,
                     name: label,
-                })).filter((
-                {
-                    name,
-                },
-) => name.toLowerCase().indexOf(query.toLowerCase()) > -1)).catch(error =>
+                })).filter(({ name }) => name.toLowerCase().indexOf(query.toLowerCase()) > -1)).catch(error =>
                 {
                     this.logInformation('addScenarioActionListeners', error.message);
                 });
