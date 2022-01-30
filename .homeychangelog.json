@@ -456,6 +456,9 @@
     "en": "Added extra parameter validation and error handling"
   },
   "3.0.11": {
-    "en": "Added suppport for Velux products: ogp:window, ogp:shutter and ogp:light"
+    "en": "Added support for Velux products: ogp:window, ogp:shutter and ogp:light"
+  },
+  "3.0.12": {
+    "en": "Update some store images"
   }
 }
