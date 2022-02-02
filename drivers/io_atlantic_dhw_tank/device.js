@@ -27,7 +27,10 @@ class WaterTankDevice extends SensorDevice
         {
             if (this.boostSync)
             {
-                await this.homey.app.boostSync();
+                if (!await this.homey.app.boostSync())
+                {
+                    throw (new Error('Failed to Boost Sync'));
+                }
             }
 
             const deviceData = this.getData();

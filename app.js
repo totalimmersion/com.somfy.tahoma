@@ -803,11 +803,11 @@ class myApp extends Homey.App
             this.logInformation('initSync', 'Error');
 
             let timeout = 5000;
-            if (error === 'Far Too many login attempts (blocked for 15 minutes)')
+            if (error.message === 'Far Too many login attempts (blocked for 15 minutes)')
             {
                 timeout = 900000;
             }
-            else if (error === 'Too many login attempts (blocked for 60 seconds)')
+            else if (error.message === 'Too many login attempts (blocked for 60 seconds)')
             {
                 timeout = 60000;
             }
@@ -858,7 +858,9 @@ class myApp extends Homey.App
                 }
                 catch (error)
                 {
-                    this.logInformation('Boost Sync register events', error.message);
+                    this.logInformation('Boost Sync register events: ', error.message);
+                    this.commandsQueued = 0;
+                    return false;
                 }
             }
 
@@ -869,6 +871,22 @@ class myApp extends Homey.App
                 this.timerId = this.homey.setTimeout(() => this.syncLoop(3000), 1000);
             }
         }
+        else
+        {
+            let maxDelay = 6;
+            while ((maxDelay > 0) && (this.commandsQueued > 0) && (!this.tahoma.eventsRegistered()))
+            {
+                await this.asyncDelay(500);
+                maxDelay--;
+            }
+
+            if ((!this.tahoma.eventsRegistered()))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     async unBoostSync(immediate = false)

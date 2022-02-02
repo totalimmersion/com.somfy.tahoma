@@ -99,7 +99,11 @@ class OneAlarmDevice extends SensorDevice
                     this.executionId = result.execId;
                     if (this.boostSync)
                     {
-                        await this.homey.app.boostSync();
+                        if (!await this.homey.app.boostSync())
+                        {
+                            this.executionCmd = '';
+                            this.executionId = null;
+                        }
                     }
                 }
             }

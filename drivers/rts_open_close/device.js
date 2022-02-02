@@ -49,7 +49,11 @@ class OpenCloseDevice extends Device
                 this.executionCmd = action.name;
                 if (this.boostSync)
                 {
-                    await this.homey.app.boostSync();
+                    if (!await this.homey.app.boostSync())
+                    {
+                        this.executionCmd = '';
+                        this.executionId = null;
+                    }
                 }
             }
         }
@@ -95,7 +99,11 @@ class OpenCloseDevice extends Device
                                 this.executionCmd = element.actions[x].commands[0].name;
                                 if (this.boostSync)
                                 {
-                                    await this.homey.app.boostSync();
+                                    if (!await this.homey.app.boostSync())
+                                    {
+                                        this.executionCmd = '';
+                                        this.executionId = null;
+                                    }
                                 }
                             }
                         }

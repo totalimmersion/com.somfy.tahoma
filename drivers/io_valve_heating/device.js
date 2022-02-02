@@ -128,7 +128,10 @@ class ValveHeatingDevice extends SensorDevice
 
             if (this.boostSync)
             {
-                await this.homey.app.boostSync();
+                if (!await this.homey.app.boostSync())
+                {
+                    throw (new Error('Failed to Boost Sync'));
+                }
             }
 
             const applicableEntries = CapabilitiesXRef.filter(entry => entry.somfyNameSet[0] === capabilityXRef.somfyNameSet[0]).sort((a, b) => a.somfyArray - b.somfyArray);

@@ -98,7 +98,10 @@ class Device extends Homey.Device
         {
             if (this.boostSync)
             {
-                await this.homey.app.boostSync();
+                if (!await this.homey.app.boostSync())
+                {
+                    throw (new Error('Failed to Boost Sync'));
+                }
             }
 
             let somfyValue = value;
@@ -188,7 +191,21 @@ class Device extends Homey.Device
             }
 
             // Send the command
-            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action, action2);
+            let result = null;
+            try
+            {
+                result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action, action2);
+            }
+            catch (err)
+            {
+                this.homey.app.logInformation(`${this.getName()}: onCapability ${capabilityXRef.somfyNameSet[cmdIdx]}`, `Failed to send command: ${err.message}`);
+                if (this.boostSync)
+                {
+                    await this.homey.app.unBoostSync();
+                }
+                throw (err);
+            }
+
             if (result)
             {
                 if (result.errorCode)
@@ -500,10 +517,13 @@ class Device extends Homey.Device
                         if (idx < 0)
                         {
                             // Not known so record it and boost the events interval
-                            this.executionCommands.push({ id: event.execId, name: eventAction.commands[0].name });
+                            const newIdx = this.executionCommands.push({ id: event.execId, name: eventAction.commands[0].name });
                             if (this.boostSync)
                             {
-                                await this.homey.app.boostSync();
+                                if (!await this.homey.app.boostSync())
+                                {
+                                    this.executionCommands.splice(newIdx, 1);
+                                }
                             }
                         }
                     }

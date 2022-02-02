@@ -56,7 +56,10 @@ class two_button_on_offDevice extends Device
 
         if (this.boostSync)
         {
-            await this.homey.app.boostSync();
+            if (!await this.homey.app.boostSync())
+            {
+                throw (new Error('Failed to Boost Sync'));
+            }
         }
 
         const deviceData = this.getData();
@@ -135,7 +138,10 @@ class two_button_on_offDevice extends Device
 
         if (this.boostSync)
         {
-            await this.homey.app.boostSync();
+            if (!await this.homey.app.boostSync())
+            {
+                throw (new Error('Failed to Boost Sync'));
+            }
         }
 
         const deviceData = this.getData();
@@ -235,7 +241,11 @@ class two_button_on_offDevice extends Device
                             this.executionCmd = element.actions[x].commands[0].name;
                             if (this.boostSync)
                             {
-                                await this.homey.app.boostSync();
+                                if (!await this.homey.app.boostSync())
+                                {
+                                    this.executionCmd = '';
+                                    this.executionId = null;
+                                }
                             }
                         }
                     }

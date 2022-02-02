@@ -42,7 +42,10 @@ class LightControllerDevice extends Device
 
             if (this.boostSync)
             {
-                await this.homey.app.boostSync();
+                if (!await this.homey.app.boostSync())
+                {
+                    throw (new Error('Failed to Boost Sync'));
+                }
             }
 
             const deviceData = this.getData();
@@ -125,7 +128,10 @@ class LightControllerDevice extends Device
 
             if (this.boostSync)
             {
-                await this.homey.app.boostSync();
+                if (!await this.homey.app.boostSync())
+                {
+                    throw (new Error('Failed to Boost Sync'));
+                }
             }
 
             const deviceData = this.getData();
@@ -202,7 +208,10 @@ class LightControllerDevice extends Device
 
             if (this.boostSync)
             {
-                await this.homey.app.boostSync();
+                if (!await this.homey.app.boostSync())
+                {
+                    throw (new Error('Failed to Boost Sync'));
+                }
             }
 
             const deviceData = this.getData();
@@ -379,6 +388,9 @@ class LightControllerDevice extends Device
                         if (this.boostSync)
                         {
                             await this.homey.app.boostSync();
+                            this.commandExecuting = '';
+                            this.executionId = null;
+                            this.executionCmd = '';
                         }
                     }
                 }

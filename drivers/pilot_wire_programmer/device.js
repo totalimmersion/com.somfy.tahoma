@@ -28,7 +28,10 @@ class PilotWireProgrammerDevice extends SensorDevice
         {
             if (this.boostSync)
             {
-                await this.homey.app.boostSync();
+                if (!await this.homey.app.boostSync())
+                {
+                    throw (new Error('Failed to Boost Sync'));
+                }
             }
 
             const deviceData = this.getData();
@@ -156,7 +159,11 @@ class PilotWireProgrammerDevice extends SensorDevice
                     this.executionId = result.execId;
                     if (this.boostSync)
                     {
-                        await this.homey.app.boostSync();
+                        if (!await this.homey.app.boostSync())
+                        {
+                            this.executionCmd = '';
+                            this.executionId = null;
+                        }
                     }
                 }
             }
