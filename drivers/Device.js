@@ -113,7 +113,7 @@ class Device extends Homey.Device
             {
                 if (capabilityXRef.parameters !== undefined)
                 {
-                    if (capabilityXRef.parameters.length > 1)
+                    if (Array.isArray(capabilityXRef.parameters) && capabilityXRef.parameters.length > 1)
                     {
                         somfyValue = capabilityXRef.parameters[(value ? 1 : 0)];
                     }

@@ -119,14 +119,22 @@ class myApp extends Homey.App
 
                 this.log('Polling option changed to: ', this.pollingEnabled);
 
-                if (this.pollingEnabled)
-                {
-                    this.startSync();
-                }
-                else
                 if (this.commandsQueued === 0)
                 {
-                    this.stopSync();
+                    // No commands are queued so make the changes now
+                    if (this.pollingEnabled)
+                    {
+                        // Check if polling timer already running
+                        if (this.timerId === null)
+                        {
+                            // It's not so start it now
+                            this.startSync();
+                        }
+                    }
+                    else
+                    {
+                        this.stopSync();
+                    }
                 }
             }
             else if (setting === 'syncInterval')
@@ -1194,29 +1202,21 @@ class myApp extends Homey.App
                     return true;
                 }
 
-                if (args.newPollingMode === 'on')
+                if (args.newPollingMode === 'once')
                 {
-                    this.startSync();
-                }
-                else if (args.newPollingMode === 'once')
-                {
-                    this.nextInterval = 0;
-
                     if (this.timerId)
                     {
-                        clearTimeout(this.timerId);
-                        this.timerId = null;
+                        // Already polling
+                        return true;
                     }
 
                     if (!this.syncing)
                     {
+                        this.nextInterval = 0;
+
+                        // Not currently in the sync routine so start a sync in 3 seconds
                         this.timerId = this.homey.setTimeout(() => this.syncLoop(), 3000);
                     }
-                }
-                else
-                if (this.commandsQueued === 0)
-                {
-                    return this.stopSync();
                 }
                 return true;
             });
