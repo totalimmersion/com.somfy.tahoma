@@ -469,5 +469,8 @@
   },
   "3.0.15": {
     "en": "Added variable heater io:SimpleExteriorHeatingIOComponent"
+  },
+  "3.0.16": {
+    "en": "Added more lights hue:BloomHUEComponent, hue:HueSpotHUEComponent, hue:HueLampHUEComponent. Added Event log page to show Tahoma events."
   }
 }
