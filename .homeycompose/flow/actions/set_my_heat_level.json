@@ -1,0 +1,13 @@
+{
+  "id": "set_my_heat_level",
+  "title": {
+    "en": "Set the heat to MY level"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=heater_variable"
+    }
+  ]
+}

@@ -343,6 +343,34 @@ class myApp extends Homey.App
                 return args.device.onCapabilityMyPosition(true, null);
             });
 
+        this.homey.flow.getActionCard('set_my_heat_level')
+            .registerRunListener(async (args, state) =>
+            {
+                this.log('set_my_heat_level');
+                return args.device.triggerCapabilityListener('my_heat_level', true, null);
+            });
+
+        this.homey.flow.getActionCard('set_heat_level')
+            .registerRunListener(async (args, state) =>
+            {
+                this.log('set_heat_level');
+                return args.device.triggerCapabilityListener('heat_level', args.heat_level, null);
+            });
+
+        this.homey.flow.getActionCard('set_on')
+            .registerRunListener(async (args, state) =>
+            {
+                this.log('set_on');
+                return args.device.triggerCapabilityListener('on_button', true, null);
+            });
+
+        this.homey.flow.getActionCard('set_off')
+            .registerRunListener(async (args, state) =>
+            {
+                this.log('set_off');
+                return args.device.triggerCapabilityListener('off_button', true, null);
+            });
+
         this.homey.flow.getActionCard('set_open_window_activation')
             .registerRunListener(async (args, state) =>
             {
@@ -702,15 +730,18 @@ class myApp extends Homey.App
 
     logEvents(txt)
     {
-        // let log = this.homey.settings.get('stateLog') + txt + "\n";
-        // if (log.length > 30000)
-        // {
-        //     this.homey.settings.set('stateLogEnabled', false);
-        // }
-        // else
-        // {
-        //     this.homey.settings.set('stateLog', log);
-        // }
+        let log = this.homey.settings.get('eventLog') + txt + "\r\n";
+        if (log.length > 30000)
+        {
+            log = log.substring(log.length - 1000);
+            let n = log.indexOf("\n");
+            if (n >= 0)
+            {
+                // Remove up to and including the first \n so the log starts on a whole line
+                log = log.substring(n + 1);
+            }
+        }
+        this.homey.settings.set('eventLog', log);
     }
 
     async sendLog(logType)
@@ -725,13 +756,18 @@ class myApp extends Homey.App
                 let text = '';
                 if (logType === 'infoLog')
                 {
-                    subject = 'Tahoma Information log';
-                    text = JSON.stringify(this.homey.settings.get('infoLog'), null, 2).replace(/\\n/g, ' \n           ');
+                    subject = `Tahoma Information log`;
+                    text = this.varToString(this.homey.settings.get('infoLog'), null, 2);
                 }
-                else
+                else if (logType === 'deviceLog')
                 {
                     subject = 'Tahoma device log';
-                    text = JSON.stringify(this.homey.settings.get('deviceLog'), null, 2).replace(/\\n/g, '\n            ');
+                    text = this.varToString(this.homey.settings.get('deviceLog'), null, 2);
+                }
+                else if (logType === 'eventLog')
+                {
+                    subject = 'Tahoma event log';
+                    text = this.varToString(this.homey.settings.get('eventLog'), null, 2);
                 }
 
                 subject += `(${this.homeyHash} : ${Homey.manifest.version})`;
@@ -950,7 +986,10 @@ class myApp extends Homey.App
             clearTimeout(this.timerId);
             this.timerId = null;
 
-            this.log('Stop sync requested');
+            if (this.infoLogEnabled)
+            {
+                this.logInformation('Stop sync requested');
+            }
 
             await this.tahoma.eventsClearRegistered();
             if (this.infoLogEnabled)
@@ -979,7 +1018,10 @@ class myApp extends Homey.App
         this.pollingEnabled = this.homey.settings.get('pollingEnabled');
         if (this.pollingEnabled)
         {
-            this.log('Start sync requested');
+            if (this.infoLogEnabled)
+            {
+                this.logInformation('Start sync requested');
+            }
 
             let interval = 0.1;
 
@@ -994,7 +1036,11 @@ class myApp extends Homey.App
                 interval = minSeconds;
             }
 
-            this.log('Restart sync in: ', interval);
+            if (this.infoLogEnabled)
+            {
+                this.logInformation('Restart sync in: ', interval);
+            }
+
             this.nextInterval = this.interval * 1000;
             if (!this.syncing)
             {
@@ -1033,7 +1079,10 @@ class myApp extends Homey.App
                     if ((events === null && this.boostTimerId === null) || (events && events.length > 0))
                     {
                         // If events === null and boostTimer === null then refresh all the devices, but don't do that if the boost is on
-                        this.log(this.varToString(events));
+                        if (events !== null)
+                        {
+                            this.logEvents(this.varToString(events));
+                        }
                         await this.syncEvents(events);
                     }
                 }
@@ -1044,7 +1093,10 @@ class myApp extends Homey.App
             }
             else
             {
-                this.log('Skipping sync: too soon');
+                if (this.infoLogEnabled)
+                {
+                    this.logInformation('Skipping sync: too soon');
+                }
             }
 
             if (this.nextInterval > 0)
@@ -1054,20 +1106,28 @@ class myApp extends Homey.App
             }
             else
             {
-                this.log('Not renewing sync');
+                if (this.infoLogEnabled)
+                {
+                    this.logInformation('Not renewing sync');
+                }
             }
 
             // Signal that the sync has completed
             this.syncing = false;
         }
-        else
-        if (!this.loggedIn)
+        else if (!this.loggedIn)
         {
-            this.log('Skipping sync: Not logged in');
+            if (this.infoLogEnabled)
+            {
+                this.logInformation('Skipping sync: Not logged in');
+            }   
         }
         else
         {
-            this.log('Skipping sync: Previous sync active');
+            if (this.infoLogEnabled)
+            {
+                this.logInformation('Skipping sync: Previous sync active');
+            }
         }
     }
 
@@ -1123,7 +1183,7 @@ class myApp extends Homey.App
         }
         catch (error)
         {
-            this.log(error.message, error.stack);
+            this.logInformation(error.message, error.stack);
         }
     }
 

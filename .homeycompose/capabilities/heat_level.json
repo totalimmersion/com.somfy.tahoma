@@ -1,0 +1,12 @@
+{
+    "type": "number",
+    "uiComponent": "slider",
+    "title": {
+        "en": "Heat Level"
+    },
+    "min": 0,
+    "max": 100,
+    "getable": true,
+    "setable": true,
+    "icon": "/assets/power.svg"
+}

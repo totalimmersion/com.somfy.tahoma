@@ -1,0 +1,13 @@
+{
+  "name": {
+    "en": "Heater - Variable"
+  },
+  "class": "heater",
+  "capabilities": [
+    "on_button",
+    "off_button",
+    "my_heat_level",
+    "heat_level"
+  ],
+  "$extends": ["cloudDriver"]
+}

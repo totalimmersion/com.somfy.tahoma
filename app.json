@@ -13,7 +13,7 @@
   "description": {
     "en": "Bring the richness of Homey to your Somfy world"
   },
-  "version": "3.0.14",
+  "version": "3.0.15",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Adrian Rockall",
@@ -112,6 +112,11 @@
     "SendInfoLog": {
       "method": "post",
       "path": "/SendInfoLog/"
+    },
+    "SendEventLog": {
+      "method": "post",
+      "path": "/SendEventLog/",
+      "public": true
     }
   },
   "flow": {
@@ -1329,6 +1334,50 @@
         ]
       },
       {
+        "id": "set_heat_level",
+        "title": {
+          "en": "Set the heat level"
+        },
+        "titleFormatted": {
+          "en": "Set the heat level to [[heat_level]]%"
+        },
+        "hint": {
+          "en": "Sets the heat output level to the specified value"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=heater_variable"
+          },
+          {
+            "name": "heat_level",
+            "type": "number",
+            "title": {
+              "en": "Heat Level"
+            },
+            "min": 0,
+            "max": 100,
+            "placeholder": {
+              "en": "%"
+            }
+          }
+        ]
+      },
+      {
+        "id": "set_my_heat_level",
+        "title": {
+          "en": "Set the heat to MY level"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=heater_variable"
+          }
+        ]
+      },
+      {
         "id": "set_my_position",
         "title": {
           "en": "Move to MY position",
@@ -1339,6 +1388,32 @@
             "name": "device",
             "type": "device",
             "filter": "driver_id=rts_interior_venetian_blind|io_roller_shutter_quiet|io_garage_door_partial|io_roller_shutter"
+          }
+        ]
+      },
+      {
+        "id": "set_off",
+        "title": {
+          "en": "Turn off the device"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=heater_variable"
+          }
+        ]
+      },
+      {
+        "id": "set_on",
+        "title": {
+          "en": "Turn on the device"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=heater_variable"
           }
         ]
       },
@@ -3189,6 +3264,85 @@
         "onoff"
       ],
       "id": "heater_on_off"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices",
+            "prev": "login_credentials"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/heater_variable/assets/icon.svg",
+      "images": {
+        "large": "/drivers/heater_variable/assets/images/large.png",
+        "small": "/drivers/heater_variable/assets/images/small.png"
+      },
+      "name": {
+        "en": "Heater - Variable"
+      },
+      "class": "heater",
+      "capabilities": [
+        "on_button",
+        "off_button",
+        "my_heat_level",
+        "heat_level"
+      ],
+      "id": "heater_variable"
     },
     {
       "platforms": [
@@ -7801,6 +7955,18 @@
       "getable": true,
       "setable": true
     },
+    "heat_level": {
+      "type": "number",
+      "uiComponent": "slider",
+      "title": {
+        "en": "Heat Level"
+      },
+      "min": 0,
+      "max": 100,
+      "getable": true,
+      "setable": true,
+      "icon": "/assets/power.svg"
+    },
     "heating_cooling_auto_switch": {
       "type": "boolean",
       "getable": true,
@@ -8036,6 +8202,15 @@
       ],
       "getable": true,
       "setable": true
+    },
+    "my_heat_level": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "title": {
+        "en": "MY heat level"
+      }
     },
     "my_position": {
       "type": "boolean",

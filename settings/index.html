@@ -38,6 +38,7 @@
         <button class="tablinks" onclick="setPage(event, 'infoLog')"><span data-i18n="settings.information_log"></span></button>
         <button class="tablinks" onclick="setPage(event, 'deviceLogTab')"><span data-i18n="settings.device_log"></span></button>
         <button class="tablinks" onclick="setPage(event, 'stateLog')"><span data-i18n="settings.state_log"></span></button>
+        <button class="tablinks" onclick="setPage(event, 'eventLog')"><span data-i18n="settings.event_log"></span></button>
         <button class="tablinks" onclick="setPage(event, 'simulator')" id="simLogTab" style="visibility:hidden">Simulation Data</button>
     </div>
 
@@ -99,6 +100,7 @@
     <!-- Information LOG PAGE -->
     <div id="infoLog" class="tabcontent">
         <fieldset>
+            <p data-i18n="settings.intro4"></p>
             <div class="field row">
                 <label for="InfoLogEnabled" data-i18n="settings.log_enabled"></label>
                 <input id="InfoLogEnabled" type="checkbox" value="logEnabled" />
@@ -154,6 +156,22 @@
         </fieldset>
     </div>
 
+    <!--EVENT LOG PAGE -->
+    <div id="eventLog" class="tabcontent">
+        <fieldset>
+            <p data-i18n="settings.intro4"></p>
+            <div class="field row">
+                <label for="eventLogEnabled" data-i18n="settings.log_enabled"></label>
+                <input id="eventLogEnabled" type="checkbox" value="logEnabled" />
+            </div>
+            <button id="clearEventLog" style="background-color:#a5510d;color:white;margin:10px 20px 5px 5px;" data-i18n="settings.clear"></button>
+            <button id="sendEventLog" style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;" data-i18n="settings.send"></button>
+            <div class="field row">
+                <textarea id="eventLogData"></textarea>
+            </div>
+        </fieldset>
+    </div>
+
     <script type="text/javascript">
         // Create the busy indicator
         var busyi;
@@ -193,6 +211,12 @@
         var stateLogElement = document.getElementById('stateLogData');
         var stateLogEnabledElement = document.getElementById('stateLogEnabled');
         var clearStateLogElement = document.getElementById('clearStateLog');
+
+        // Event log tab
+        var eventLogElement = document.getElementById('eventLogData');
+        var eventLogEnabledElement = document.getElementById('eventLogEnabled');
+        var clearEventLogElement = document.getElementById('clearEventLog');
+        var sendEventLogElement = document.getElementById('sendEventLog');
 
         // a method named 'onHomeyReady' must be present in your code
         function onHomeyReady(Homey)
@@ -350,6 +374,14 @@
                         stateLogElement.value = stateLogData;
                     });
                 }
+                else if (param === 'eventLog')
+                {
+                    Homey.get('eventLog', function(err, eventLogData)
+                    {
+                        if (err) return Homey.alert(err);
+                        eventLogElement.value = eventLogData;
+                    });
+                }
                 else if (param === 'pollingEnabled')
                 {
                     Homey.get('pollingEnabled', function(err, pollingEnabled)
@@ -396,6 +428,15 @@
                     if (err) return Homey.alert(err);
                 });
                 stateLogElement.value = "";
+            });
+
+            clearEventLogElement.addEventListener('click', function(e)
+            {
+                Homey.set('eventLog', "", function(err)
+                {
+                    if (err) return Homey.alert(err);
+                });
+                eventLogElement.value = "";
             });
 
             clearDeviceLogElement.addEventListener('click', function(e)
@@ -468,6 +509,37 @@
                 });
             });
 
+            sendEventLogElement.addEventListener('click', function(e)
+            {
+                if (eventLogElement.value.length < 15)
+                {
+                    return Homey.alert("No Data to send");
+                }
+                Homey.confirm("Send the event log contents to the developer?", null, function(e, ok)
+                {
+                    if (ok)
+                    {
+                        waitCursor(true);
+                        Homey.api('POST', '/SendEventLog/',
+                        {
+                            notify: true
+                        }, function(err, result)
+                        {
+                            if (err)
+                            {
+                                Homey.alert(err);
+                            }
+                            else
+                            {
+                                Homey.alert("Log sent successfully");
+                            }
+                            waitCursor(false);
+                        });
+                    }
+                });
+            });
+
+
             useSimElement.addEventListener('click', function(e)
             {
                 try
@@ -508,6 +580,14 @@
             stateLogEnabledElement.addEventListener('click', function(e)
             {
                 Homey.set('stateLogEnabled', stateLogEnabledElement.checked, function(err)
+                {
+                    if (err) return Homey.alert(err);
+                });
+            });
+
+            eventLogEnabledElement.addEventListener('click', function(e)
+            {
+                Homey.set('eventLogEnabled', eventLogEnabledElement.checked, function(err)
                 {
                     if (err) return Homey.alert(err);
                 });
@@ -604,6 +684,23 @@
                 // Make the simulator text box fill the page
                 stateLogElement.setAttribute('cols', stateLogElement.parentElement.clientWidth / 8);
                 stateLogElement.style.height = (window.innerHeight - stateLogElement.offsetTop - 40) + 'px';
+            }
+
+            if (tabPage == 'eventLog')
+            {
+                Homey.get('eventLog', function(err, eventLogData)
+                {
+                    if (err) return Homey.alert(err);
+                    eventLogElement.value = eventLogData;
+                });
+                Homey.get('eventLogEnabled', function(err, enable)
+                {
+                    if (err) return Homey.alert(err);
+                    eventLogEnabledElement.checked = enable;
+                });
+                // Make the simulator text box fill the page
+                eventLogElement.setAttribute('cols', eventLogElement.parentElement.clientWidth / 8);
+                eventLogElement.style.height = (window.innerHeight - eventLogElement.offsetTop - 40) + 'px';
             }
         }
 

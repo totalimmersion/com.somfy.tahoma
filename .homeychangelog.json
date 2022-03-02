@@ -462,9 +462,12 @@
     "en": "Update some store images"
   },
   "3.0.13": {
-    "en": "Improved error handleing"
+    "en": "Improved error handling"
   },
   "3.0.14": {
     "en": "Fixed an issue with sending some commands (including smoke alarm test)"
+  },
+  "3.0.15": {
+    "en": "Added variable heater io:SimpleExteriorHeatingIOComponent"
   }
 }

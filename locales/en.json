@@ -39,7 +39,8 @@
         "show_password": "Show Password",
         "pref_intro1": "The app can poll for updates to keep Homey synchronised to the devices.",
         "pref_intro2": "This puts a load on the Somfy servers so keep switched off if possible.",
-        "pref_intro3": "If you need updates for sensors then keep the interval as high as you can."
+        "pref_intro3": "If you need updates for sensors then keep the interval as high as you can.",
+        "event_log": "Event Log"
     },
     "errors":
     {
