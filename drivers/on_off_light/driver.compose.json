@@ -1,0 +1,10 @@
+{
+  "name": {
+    "en": "On/Off Light"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff"
+  ],
+  "$extends": ["cloudDriver"]
+}

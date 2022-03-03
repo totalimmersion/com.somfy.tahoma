@@ -4,8 +4,16 @@
     "nl": "Thermis WireFree sensor (io)"
   },
   "class": "sensor",
+  "energy": {
+    "batteries": [
+      "AA",
+      "AA"
+    ]
+  },
   "capabilities": [
-    "measure_temperature"
+    "measure_temperature",
+    "defect_state",
+    "alarm_battery"
   ],
   "$extends": ["cloudDriver"]
 }

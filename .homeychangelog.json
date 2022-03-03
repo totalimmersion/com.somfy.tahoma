@@ -472,5 +472,8 @@
   },
   "3.0.16": {
     "en": "Added more lights hue:BloomHUEComponent, hue:HueSpotHUEComponent, hue:HueLampHUEComponent. Added Event log page to show Tahoma events."
+  },
+  "3.0.17": {
+    "en": "Added more lights zwave:OnOffLightZWaveComponent, zwave:OnOffZWaveComponent. Add Hitachi AC. Added battery alarm to SunIo, Opening Detector (io) and Temperature Sensor (io)."
   }
 }

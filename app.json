@@ -13,7 +13,7 @@
   "description": {
     "en": "Bring the richness of Homey to your Somfy world"
   },
-  "version": "3.0.16",
+  "version": "3.0.17",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Adrian Rockall",
@@ -4837,8 +4837,16 @@
         "nl": "Sunis zonsensor (io)"
       },
       "class": "sensor",
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA"
+        ]
+      },
       "capabilities": [
-        "measure_luminance"
+        "measure_luminance",
+        "defect_state",
+        "alarm_battery"
       ],
       "id": "io_light_sensor"
     },
@@ -5066,8 +5074,16 @@
         "nl": "Openingsmelder (io)"
       },
       "class": "sensor",
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA"
+        ]
+      },
       "capabilities": [
-        "alarm_contact"
+        "alarm_contact",
+        "defect_state",
+        "alarm_battery"
       ],
       "id": "io_opening_detector"
     },
@@ -5552,8 +5568,16 @@
         "nl": "Thermis WireFree sensor (io)"
       },
       "class": "sensor",
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA"
+        ]
+      },
       "capabilities": [
-        "measure_temperature"
+        "measure_temperature",
+        "defect_state",
+        "alarm_battery"
       ],
       "id": "io_temperature_sensor"
     },
@@ -6395,6 +6419,82 @@
         "onoff"
       ],
       "id": "myfox_light_controller"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices",
+            "prev": "login_credentials"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
+      "icon": "/drivers/on_off_light/assets/icon.svg",
+      "images": {
+        "large": "/drivers/on_off_light/assets/images/large.png",
+        "small": "/drivers/on_off_light/assets/images/small.png"
+      },
+      "name": {
+        "en": "On/Off Light"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff"
+      ],
+      "id": "on_off_light"
     },
     {
       "platforms": [

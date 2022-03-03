@@ -4,8 +4,16 @@
     "nl": "Openingsmelder (io)"
   },
   "class": "sensor",
+  "energy": {
+    "batteries": [
+      "AA",
+      "AA"
+    ]
+  },
   "capabilities": [
-    "alarm_contact"
+    "alarm_contact",
+    "defect_state",
+    "alarm_battery"
   ],
   "$extends": ["cloudDriver"]
 }
