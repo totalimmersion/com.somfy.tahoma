@@ -20,10 +20,22 @@ class Device extends Homey.Device
 
         if (CapabilitiesXRef)
         {
-            CapabilitiesXRef.forEach(element =>
+            for (let element of CapabilitiesXRef)
             {
+                if (!this.hasCapability(element.homeyName))
+                {
+                    try
+                    {
+                        await this.addCapability(element.homeyName);
+                    }
+                    catch (err)
+                    {
+                        this.error(err);
+                    }
+                }
+
                 this.registerCapabilityListener(element.homeyName, this.onCapability.bind(this, element));
-            });
+            }
 
             this.syncEventsList(null, CapabilitiesXRef);
         }
@@ -54,13 +66,19 @@ class Device extends Homey.Device
      */
     getDeviceUrl(hashIndex)
     {
+        const deviceURL = this.getData().deviceURL;
+        if (!deviceURL)
+        {
+            return null;
+        }
+
         if ((hashIndex === undefined) || (hashIndex === 1))
         {
             // Return the original url
-            return this.getData().deviceURL;
+            return deviceURL;
         }
 
-        let subUrl = this.getData().deviceURL.split('#');
+        let subUrl = deviceURL.split('#');
         if (hashIndex === 0)
         {
             // Return the original url without the #1
@@ -306,28 +324,29 @@ class Device extends Homey.Device
                         const tahomaState = tahomaStates.find(state => (state && (state.name === xRefEntry.somfyNameGet)));
                         if (tahomaState)
                         {
-                            if (typeof tahomaState.value === 'string')
+                            let value = tahomaState.value;
+                            if (typeof value === 'string')
                             {
-                                tahomaState.value = tahomaState.value.toLowerCase();
+                                value = value.toLowerCase();
                             }
 
                             // Check if Somfy is returning an alternative state name
-                            if (xRefEntry.conversions && xRefEntry.conversions[tahomaState.value])
+                            if (xRefEntry.conversions && xRefEntry.conversions[value])
                             {
                                 // Yep, so convert to the published one
-                                tahomaState.value = xRefEntry.conversions[tahomaState.value];
+                                value = xRefEntry.conversions[value];
                             }
 
-                            if (typeof tahomaState.value === 'string')
+                            if (typeof value === 'string')
                             {
                                 try
                                 {
                                     // Find the translation for this capability with the Somfy enum id
-                                    const translateName = `${xRefEntry.homeyName}.${tahomaState.value}`;
+                                    const translateName = `${xRefEntry.homeyName}.${value}`;
                                     const translatedState = this.homey.__(translateName);
-                                    if (translatedState !== translateName)
+                                    if (translatedState && (translatedState !== translateName))
                                     {
-                                        tahomaState.value = translatedState;
+                                        value = translatedState;
                                     }
                                 }
                                 catch (err)
@@ -337,11 +356,36 @@ class Device extends Homey.Device
                             }
 
                             // Found the entry
-                            this.homey.app.logStates(`${this.getName()}: ${xRefEntry.somfyNameGet}= ${tahomaState.value}`);
-                            await this.triggerCapabilityListener(xRefEntry.homeyName,
-                                // eslint-disable-next-line no-nested-ternary
-                                (xRefEntry.compare ? (tahomaState.value === xRefEntry.compare[1]) : (xRefEntry.scale ? (tahomaState.value / xRefEntry.scale) : tahomaState.value)),
-                                { fromCloudSync: true }).catch(this.error);
+                            this.homey.app.logStates(`${this.getName()}: ${xRefEntry.somfyNameGet}= ${value}`);
+                            if (xRefEntry.compare)
+                            {
+                                if (xRefEntry.compare[1].charAt(0) === '!')
+                                {
+                                    value = (value != xRefEntry.compare[1]);
+                                }
+                                else
+                                {
+                                    value = (value === xRefEntry.compare[1]);
+                                }
+                            }
+                            else if (xRefEntry.scale)
+                            {
+                                value = (value / xRefEntry.scale);
+                            }
+
+                            await this.triggerCapabilityListener(xRefEntry.homeyName, value, { fromCloudSync: true }).catch(this.error);
+                        }
+                        else
+                        {
+                            // Information not found for this parameter
+                            if (xRefEntry.homeyName === 'alarm_battery')
+                            {
+                                await this.triggerCapabilityListener(xRefEntry.homeyName, false, { fromCloudSync: true }).catch(this.error);
+                            }
+                            else if (xRefEntry.homeyName === 'defect_state')
+                            {
+                                await this.triggerCapabilityListener(xRefEntry.homeyName, null, { fromCloudSync: true }).catch(this.error);
+                            }
                         }
                     }
                     catch (error)
@@ -436,13 +480,28 @@ class Device extends Homey.Device
                                 if (xRefEntry.conversions && xRefEntry.conversions[tahomaState.value])
                                 {
                                     // Yep, so convert to the published one
-                                    tahomaState.value = xRefEntry.conversions[tahomaState.value];
+                                    deviceValue = xRefEntry.conversions[tahomaState.value];
                                 }
 
                                 this.homey.app.logStates(`${this.getName()}: ${xRefEntry.somfyNameGet}= ${deviceValue}`);
                                 const oldState = oldCapabilityStates[xRefEntry.homeyName];
-                                let newState = (xRefEntry.compare ? (deviceValue === xRefEntry.compare[1]) : (deviceValue));
-
+                                let newState = deviceValue;
+                                if (xRefEntry.compare)
+                                {
+                                    if (xRefEntry.compare[1].charAt(0) === '!')
+                                    {
+                                        newState = (deviceValue != xRefEntry.compare[1]);
+                                    }
+                                    else
+                                    {
+                                        newState = (deviceValue === xRefEntry.compare[1]);
+                                    }
+                                }
+                                else if (xRefEntry.scale)
+                                {
+                                    newState = deviceValue ? (deviceValue / xRefEntry.scale) : 0;
+                                }
+    
                                 if (typeof oldState === 'number')
                                 {
                                     newState = Number(newState);
@@ -466,7 +525,7 @@ class Device extends Homey.Device
                                             // Find the translation for this capability with the Somfy enum id
                                             const translateName = `${xRefEntry.homeyName}.${newState}`;
                                             const translatedState = this.homey.__(translateName);
-                                            if (translatedState !== translateName)
+                                            if (translatedState && (translatedState !== translateName))
                                             {
                                                 newState = translatedState;
                                             }
@@ -493,13 +552,13 @@ class Device extends Homey.Device
                                 }
                                 else
                                 if (this.homey.app.infoLogEnabled)
+                                {
+                                    this.homey.app.logInformation(this.getName(),
                                     {
-                                        this.homey.app.logInformation(this.getName(),
-                                        {
-                                            message: 'Same as existing state',
-                                            stack: { capability: xRefEntry.homeyName, state: newState },
-                                        });
-                                    }
+                                        message: 'Same as existing state',
+                                        stack: { capability: xRefEntry.homeyName, state: newState },
+                                    });
+                                }
                             }
                         }
                     }

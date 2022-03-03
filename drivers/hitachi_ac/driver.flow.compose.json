@@ -1,0 +1,68 @@
+{
+    "actions": [
+        {
+            "id": "ac_operating_mode_set",
+            "title": {
+                "en": "Set the Heat / Cool mode"
+            },
+            "titleFormatted": {
+                "en": "Set the Mode to [[state]]"
+            },
+            "args": [
+                {
+                    "name": "state",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Heat / Cool Mode"
+                    },
+                    "values": [
+                        {
+                            "id": "heating",
+                            "label": {
+                                "en": "Heating"
+                            }
+                        },
+                        {
+                            "id": "cooling",
+                            "label": {
+                                "en": "Cooling"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ac_auto_manual_set",
+            "title": {
+                "en": "Set the Auto / Manual Mode"
+            },
+            "titleFormatted": {
+                "en": "Set the Mode to [[state]]"
+            },
+            "args": [
+                {
+                    "name": "state",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Auto / Manual Mode"
+                    },
+                    "values": [
+                        {
+                            "id": "auto",
+                            "label": {
+                                "en": "Automatic"
+                            }
+                        },
+                        {
+                            "id": "manu",
+                            "label": {
+                                "en": "Manual"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

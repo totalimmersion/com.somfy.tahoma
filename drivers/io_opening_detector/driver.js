@@ -21,10 +21,13 @@ class OpeningDetectorDriver extends Driver
 
     triggerFlows(device, capability, value)
     {
-        const tokens = {
-            isOpen: value,
-        };
-        this.triggerFlow(this._triggerContactChange, device, tokens);
+        if (capability === 'alarm_contact')
+        {
+            const tokens = {
+                isOpen: value,
+            };
+            this.triggerFlow(this._triggerContactChange, device, tokens);
+        }
     }
 
 }

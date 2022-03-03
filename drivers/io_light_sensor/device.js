@@ -5,12 +5,24 @@
 const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
-    {
-        homeyName: 'measure_luminance',
-        somfyNameGet: 'core:LuminanceState',
-        somfyNameSet: [],
-    },
-];
+{
+    homeyName: 'defect_state',
+    somfyNameGet: 'core:SensorDefectState',
+    somfyNameSet: [],
+    allowNull: true,
+},
+{
+    homeyName: 'alarm_battery',
+    somfyNameGet: 'core:SensorDefectState',
+    somfyNameSet: [],
+    allowNull: true,
+    compare: ['nodefect', 'lowbattery']
+},
+{
+    homeyName: 'measure_luminance',
+    somfyNameGet: 'core:LuminanceState',
+    somfyNameSet: [],
+}, ];
 
 class LightSensorDevice extends SensorDevice
 {
