@@ -741,7 +741,8 @@ class myApp extends Homey.App
 
     logEvents(txt)
     {
-        let log = this.homey.settings.get('eventLog') + txt + "\r\n";
+        const nowTime = new Date(Date.now());
+        let log = this.homey.settings.get('eventLog') + nowTime.toJSON()+ "\r\n" + txt + "\r\n";
         if (log.length > 30000)
         {
             log = log.substring(log.length - 1000);

@@ -14,14 +14,17 @@ class HitachiACDevice extends SensorDevice
 
     async onInit()
     {
-        this.boostSync = true;
-
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
         this.registerCapabilityListener('ac_holiday_mode', this.onCapabilityHolidayMode.bind(this));
         this.registerMultipleCapabilityListener(['target_temperature', 'ac_fan_speed', 'ac_operating_mode','ac_auto_manual'], this.onCapabilityChange.bind(this), 500);
 
         await super.onInit();
+        this.boostSync = true;
+    }
 
+    onAdded()
+    {
+        this.log('device added');
         this.sync();
     }
 
