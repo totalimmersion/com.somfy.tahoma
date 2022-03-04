@@ -21,6 +21,8 @@ class HitachiACDevice extends SensorDevice
         this.registerMultipleCapabilityListener(['target_temperature', 'ac_fan_speed', 'ac_operating_mode','ac_auto_manual'], this.onCapabilityChange.bind(this), 500);
 
         await super.onInit();
+
+        this.sync();
     }
 
     async onCapabilityOnOff(value, opts)

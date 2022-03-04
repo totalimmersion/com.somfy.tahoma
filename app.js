@@ -63,6 +63,13 @@ class myApp extends Homey.App
             this.homey.settings.set('infoLogEnabled', this.infoLogEnabled);
         }
 
+        this.eventLogEnabled = this.homey.settings.get('eventLogEnabled');
+        if (this.eventLogEnabled === null)
+        {
+            this.eventLogEnabled = false;
+            this.homey.settings.set('eventLogEnabled', this.eventLogEnabled);
+        }
+
         this.pollingEnabled = this.homey.settings.get('pollingEnabled');
         if (this.pollingEnabled === null)
         {
@@ -154,6 +161,10 @@ class myApp extends Homey.App
             else if (setting === 'infoLogEnabled')
             {
                 this.infoLogEnabled = this.homey.settings.get('infoLogEnabled');
+            }
+            else if (setting === 'eventLogEnabled')
+            {
+                this.eventLogEnabled = this.homey.settings.get('eventLogEnabled');
             }
             else if (setting === 'simData')
             {
@@ -1079,7 +1090,7 @@ class myApp extends Homey.App
                     if ((events === null && this.boostTimerId === null) || (events && events.length > 0))
                     {
                         // If events === null and boostTimer === null then refresh all the devices, but don't do that if the boost is on
-                        if (events !== null)
+                        if (events !== null && this.eventLogEnabled)
                         {
                             this.logEvents(this.varToString(events));
                         }

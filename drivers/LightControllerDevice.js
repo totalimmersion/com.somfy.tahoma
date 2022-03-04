@@ -239,14 +239,11 @@ class LightControllerDevice extends Device
             {
                 if (result.errorCode)
                 {
-                    if (this.homey.app.infoLogEnabled)
+                    this.homey.app.logInformation(this.getName(),
                     {
-                        this.homey.app.logInformation(this.getName(),
-                        {
-                            message: result.error,
-                            stack: result.errorCode,
-                        });
-                    }
+                        message: result.error,
+                        stack: result.errorCode,
+                    });
 
                     if (this.boostSync)
                     {
