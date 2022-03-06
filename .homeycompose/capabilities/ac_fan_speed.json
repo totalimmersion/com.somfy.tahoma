@@ -15,13 +15,13 @@
       }
     },
     {
-      "id": "high",
+      "id": "hi",
       "title": {
         "en": "Hi Speed"
       }
     },
     {
-      "id": "low",
+      "id": "lo",
       "title": {
         "en": "Low Speed"
       }

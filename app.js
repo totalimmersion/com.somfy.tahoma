@@ -674,7 +674,7 @@ class myApp extends Homey.App
 
     logInformation(source, error)
     {
-        this.log(source, this.varToString(error));
+//        this.log(source, this.varToString(error));
         this.error(error);
 
         try
