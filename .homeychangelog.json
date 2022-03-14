@@ -478,5 +478,8 @@
   },
   "3.0.18": {
     "en": "Fix for AC so it fetches the current status when added or when the app starts up. Fix the fan speed command value to be 'hi' and 'lo'"
+  },
+  "3.0.19": {
+    "en": "Various fixes for the AC device"
   }
 }

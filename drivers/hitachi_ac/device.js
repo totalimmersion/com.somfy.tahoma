@@ -5,18 +5,27 @@
 const SensorDevice = require('../SensorDevice');
 
 /**
- * Device class for the opening detector with the io:AtlanticPassAPCHeatingAndCoolingZoneComponent, io:AtlanticPassAPCZoneControlZoneComponent controllable name in TaHoma
+ * Device class for the opening detector with the ovp:HLinkMainController controllable name in TaHoma
  * @extends {SensorDevice}
  */
 
+const fanSpeedAlternatives = {'high': 'hi', 'low': 'lo'};
 class HitachiACDevice extends SensorDevice
 {
 
     async onInit()
     {
+        this.executionId = null;
+        this.executionCmd = '';
+        this.executionCommands = [];
+        if (this.hasCapability('ac_auto_manual'))
+        {
+            this.removeCapability('ac_auto_manual').catch(this.error);
+        }
+
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
         this.registerCapabilityListener('ac_holiday_mode', this.onCapabilityHolidayMode.bind(this));
-        this.registerMultipleCapabilityListener(['target_temperature', 'ac_fan_speed', 'ac_operating_mode','ac_auto_manual'], this.onCapabilityChange.bind(this), 500);
+        this.registerMultipleCapabilityListener(['target_temperature', 'ac_fan_speed', 'ac_operating_mode'], this.onCapabilityChange.bind(this), 5000);
 
         await super.onInit();
         this.boostSync = true;
@@ -33,12 +42,47 @@ class HitachiACDevice extends SensorDevice
         if (!opts || !opts.fromCloudSync)
         {
             const deviceData = this.getData();
+
+            // Cancel the current command
+            const idx = this.executionCommands.findIndex(element => element.name === 'setMainOperation');
+            if (idx >= 0)
+            {
+                try
+                {
+                    await this.homey.app.tahoma.cancelExecution(this.executionCommands[idx].id);
+                }
+                catch (err)
+                {
+                    this.homey.app.logInformation(this.getName(),
+                    {
+                        message: err.message,
+                        stack: err.stack,
+                    });
+                }
+                // Remove from the command from the array
+                this.executionCommands.splice(idx, 1);
+            }
+
             const action = {
                 name: 'setMainOperation',
                 parameters: [value ? 'on' : 'off'],
             };
 
-            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = null;
+            try
+            {
+                result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            }
+            catch (err)
+            {
+                this.homey.app.logInformation(`${this.getName()}: onCapability setMainOperation`, `Failed to send command: ${err.message}`);
+                if (this.boostSync)
+                {
+                    await this.homey.app.unBoostSync();
+                }
+                throw (err);
+            }
+
             if (result)
             {
                 if (result.errorCode)
@@ -57,8 +101,17 @@ class HitachiACDevice extends SensorDevice
                 }
                 else
                 {
-                    this.executionCmd = action.name;
-                    this.executionId = result.execId;
+                    const idx = this.executionCommands.findIndex(element => element.name === 'setMainOperation');
+                    if (idx < 0)
+                    {
+                        // Add the command reference to the executing array
+                        this.executionCommands.push({ id: result.execId, name: action.name });
+                    }
+                    else
+                    {
+                        // The command must have been added by the event handler so cancel this boost request so we don't have two
+                        await this.homey.app.unBoostSync();
+                    }
                 }
             }
             else
@@ -83,12 +136,47 @@ class HitachiACDevice extends SensorDevice
         if (!opts || !opts.fromCloudSync)
         {
             const deviceData = this.getData();
+
+            // Cancel the current command
+            const idx = this.executionCommands.findIndex(element => element.name === 'setHolidays');
+            if (idx >= 0)
+            {
+                try
+                {
+                    await this.homey.app.tahoma.cancelExecution(this.executionCommands[idx].id);
+                }
+                catch (err)
+                {
+                    this.homey.app.logInformation(this.getName(),
+                    {
+                        message: err.message,
+                        stack: err.stack,
+                    });
+                }
+                // Remove from the command from the array
+                this.executionCommands.splice(idx, 1);
+            }
+
             const action = {
                 name: 'setHolidays',
                 parameters: [value ? 'on' : 'off'],
             };
 
-            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            let result = null;
+            try
+            {
+                result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+            }
+            catch (err)
+            {
+                this.homey.app.logInformation(`${this.getName()}: onCapability setHolidays`, `Failed to send command: ${err.message}`);
+                if (this.boostSync)
+                {
+                    await this.homey.app.unBoostSync();
+                }
+                throw (err);
+            }
+
             if (result)
             {
                 if (result.errorCode)
@@ -107,8 +195,17 @@ class HitachiACDevice extends SensorDevice
                 }
                 else
                 {
-                    this.executionCmd = action.name;
-                    this.executionId = result.execId;
+                    const idx = this.executionCommands.findIndex(element => element.name === 'setHolidays');
+                    if (idx < 0)
+                    {
+                        // Add the command reference to the executing array
+                        this.executionCommands.push({ id: result.execId, name: action.name });
+                    }
+                    else
+                    {
+                        // The command must have been added by the event handler so cancel this boost request so we don't have two
+                        await this.homey.app.unBoostSync();
+                    }
                 }
             }
             else
@@ -130,7 +227,7 @@ class HitachiACDevice extends SensorDevice
     async onCapabilityChange(valueOj, optsObj)
     {
         let temp;
-        let mode;
+        let mode = 'manu';
         let fan;
         let heatMode;
 
@@ -141,22 +238,31 @@ class HitachiACDevice extends SensorDevice
         else
         {
             temp = this.getCapabilityValue('target_temperature');
-            if (temp === null)
-            {
-                temp = 22;
-            }
+        }
+        if (!temp)
+        {
+            temp = 22;
         }
 
         if (valueOj.ac_operating_mode)
         {
-            heatMode = valueOj.aircon_mode;
+            heatMode = valueOj.ac_operating_mode;
         }
         else
         {
             heatMode = this.getCapabilityValue('ac_operating_mode');
-            if (heatMode === null)
+        }
+        if (!heatMode)
+        {
+            heatMode = 'cooling';
+        }
+        else
+        {
+            const baseHeatMode = heatMode.replace( 'auto ', '');
+            if (baseHeatMode != heatMode)
             {
-                heatMode = 'cooling';
+                heatMode = baseHeatMode;
+                mode = 'auto';
             }
         }
 
@@ -167,34 +273,54 @@ class HitachiACDevice extends SensorDevice
         else
         {
             fan = this.getCapabilityValue('ac_fan_speed');
-            if (fan === null)
-            {
-                fan = 'auto';
-            }
+        }
+        if (!fan)
+        {
+            fan = 'auto';
         }
 
-        if (valueOj.ac_auto_manual)
+        // Cancel the current command
+        const idx = this.executionCommands.findIndex(element => element.name === 'globalControl');
+        if (idx >= 0)
         {
-            mode = valueOj.ac_auto_manual;
-        }
-        else
-        {
-            mode = this.getCapabilityValue('ac_auto_manual');
-            if (mode === null)
+            try
             {
-                mode = 'auto';
+                await this.homey.app.tahoma.cancelExecution(this.executionCommands[idx].id);
             }
+            catch (err)
+            {
+                this.homey.app.logInformation(this.getName(),
+                {
+                    message: err.message,
+                    stack: err.stack,
+                });
+            }
+            // Remove from the command from the array
+            this.executionCommands.splice(idx, 1);
         }
 
         // Send the command
-
         const deviceData = this.getData();
         const action = {
             name: 'globalControl',
             parameters: ['on', temp, fan, heatMode, mode],
         };
 
-        const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+        let result = null;
+        try
+        {
+            result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+        }
+        catch (err)
+        {
+            this.homey.app.logInformation(`${this.getName()}: onCapability globalControl`, `Failed to send command: ${err.message}`);
+            if (this.boostSync)
+            {
+                await this.homey.app.unBoostSync();
+            }
+            throw (err);
+        }
+
         if (result)
         {
             if (result.errorCode)
@@ -213,8 +339,17 @@ class HitachiACDevice extends SensorDevice
             }
             else
             {
-                this.executionCmd = action.name;
-                this.executionId = result.execId;
+                const idx = this.executionCommands.findIndex(element => element.name === 'globalControl');
+                if (idx < 0)
+                {
+                    // Add the command reference to the executing array
+                    this.executionCommands.push({ id: result.execId, name: action.name });
+                }
+                else
+                {
+                    // The command must have been added by the event handler so cancel this boost request so we don't have two
+                    await this.homey.app.unBoostSync();
+                }
             }
         }
         else
@@ -238,12 +373,12 @@ class HitachiACDevice extends SensorDevice
             const states = await super.getStates();
             if (states)
             {
-                const coolHeatingState = states.find(state => (state && (state.name === 'core:AutoManuModeState')));
-                if (coolHeatingState)
-                {
-                    this.homey.app.logStates(`${this.getName()}: core:AutoManuModeState = ${coolHeatingState.value}`);
-                    this.setCapabilityValue('ac_auto_manual', coolHeatingState.value).catch(this.error);
-                }
+                // const coolHeatingState = states.find(state => (state && (state.name === 'core:AutoManuModeState')));
+                // if (coolHeatingState)
+                // {
+                //     this.homey.app.logStates(`${this.getName()}: core:AutoManuModeState = ${coolHeatingState.value}`);
+                //     this.setCapabilityValue('ac_auto_manual', coolHeatingState.value).catch(this.error);
+                // }
 
                 const targetTemperatureState = states.find(state => (state && (state.name === 'core:TargetTemperatureState')));
                 if (targetTemperatureState)
@@ -255,8 +390,9 @@ class HitachiACDevice extends SensorDevice
                 const fanSpeedState = states.find(state => (state && (state.name === 'ovp:FanSpeedState')));
                 if (fanSpeedState)
                 {
+                    const fanState = fanSpeedAlternatives[fanSpeedState.value] ? fanSpeedAlternatives[fanSpeedState.value] : fanSpeedState.value;
                     this.homey.app.logStates(`${this.getName()}: ovp:FanSpeedState = ${fanSpeedState.value}`);
-                    this.setCapabilityValue('ac_fan_speed', fanSpeedState.value).catch(this.error);
+                    this.setCapabilityValue('ac_fan_speed', fanState).catch(this.error);
                 }
 
                 const onOffMode = states.find(state => (state && (state.name === 'ovp:MainOperationState')));
@@ -344,12 +480,12 @@ class HitachiACDevice extends SensorDevice
                     for (let x = 0; x < element.deviceStates.length; x++)
                     {
                         const deviceState = element.deviceStates[x];
-                        if (deviceState.name === 'core:AutoManuModeState')
-                        {
-                            this.homey.app.logStates(`${this.getName()}: core:AutoManuModeState = ${deviceState.value}`);
-                            this.setCapabilityValue('ac_auto_manual', deviceState.value).catch(this.error);
-                        }
-                        else if (deviceState.name === 'core:TargetTemperatureState')
+                        // if (deviceState.name === 'core:AutoManuModeState')
+                        // {
+                        //     this.homey.app.logStates(`${this.getName()}: core:AutoManuModeState = ${deviceState.value}`);
+                        //     this.setCapabilityValue('ac_auto_manual', deviceState.value).catch(this.error);
+                        // }
+                        if (deviceState.name === 'core:TargetTemperatureState')
                         {
                             this.homey.app.logStates(`${this.getName()}: core:TargetTemperatureState = ${deviceState.value}`);
                             this.setCapabilityValue('target_temperature', deviceState.value).catch(this.error);
@@ -389,6 +525,65 @@ class HitachiACDevice extends SensorDevice
                             this.homey.app.logStates(`${this.getName()}: ovp:FilterConditionState = ${deviceState.value}`);
                             this.setCapabilityValue('alarm_generic', deviceState.toLowerCase() === 'alert').catch(this.error);
                         }
+                    }
+                }
+            }
+            else if (element.name === 'ExecutionRegisteredEvent')
+            {
+                // A command is being executed so check if we already know about it
+                for (const eventAction of element.actions)
+                {
+                    if (myURL === eventAction.deviceURL)
+                    {
+                        // Check if this command is already in the execution array
+                        const idx = this.executionCommands.findIndex(element2 => element2.name === eventAction.commands[0].name);
+                        if (idx < 0)
+                        {
+                            // Not known so record it and boost the events interval
+                            const newIdx = this.executionCommands.push({ id: element.execId, name: eventAction.commands[0].name });
+                            if (this.boostSync)
+                            {
+                                if (!await this.homey.app.boostSync())
+                                {
+                                    this.executionCommands.splice(newIdx, 1);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (element.name === 'ExecutionStateChangedEvent')
+            {
+                if ((element.newState === 'COMPLETED') || (element.newState === 'FAILED'))
+                {
+                    // Check if we know about this command
+                    const idx = this.executionCommands.findIndex(element2 => element2.id === element.execId);
+                    if (idx >= 0)
+                    {
+                        // We did know so unreference our event boost
+                        await this.homey.app.unBoostSync();
+                        this.executionCommands.splice(idx, 1);
+
+                        this.homey.app.triggerCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
+                        this.driver.triggerDeviceCommandComplete(this, this.executionCmd, (element.newState === 'COMPLETED'));
+                        this.commandExecuting = '';
+
+                        if (element.newState === 'COMPLETED')
+                        {
+                            this.setWarning(null).catch(this.error);
+                        }
+                        else
+                        {
+                            this.setWarning(this.homey.__('command_failed')).catch(this.error);
+                        }
+                    }
+                }
+                else if (element.newState === 'QUEUED_GATEWAY_SIDE')
+                {
+                    const idx = this.executionCommands.findIndex(element2 => element2.id === element.execId);
+                    if (idx >= 0)
+                    {
+                        this.setWarning(this.homey.__('command_queued')).catch(this.error);
                     }
                 }
             }

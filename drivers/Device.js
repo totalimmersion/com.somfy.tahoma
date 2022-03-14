@@ -643,14 +643,26 @@ class Device extends Homey.Device
                 if (deviceURL)
                 {
                     let states = await this.homey.app.tahoma.getDeviceStates(deviceURL);
-
-                    // Get the next sub url if the original url ended with #1
-                    const url2 = this.getDeviceUrl(2);
-                    if (url2)
+                    if (!states)
                     {
-                        // We have a sub url to check
-                        const states2 = await this.homey.app.tahoma.getDeviceStates(url2);
-                        states = states.concat(states2);
+                        const url0 = this.getDeviceUrl(0);
+                        if (url0 && (deviceURL != url0))
+                        {
+                            // We have a sub url to check
+                            states = await this.homey.app.tahoma.getDeviceStates(url0);
+                        }
+                    }
+
+                    if (states)
+                    {
+                        // Get the next sub url if the original url ended with #1
+                        const url2 = this.getDeviceUrl(2);
+                        if (url2)
+                        {
+                            // We have a sub url to check
+                            const states2 = await this.homey.app.tahoma.getDeviceStates(url2);
+                            states = states.concat(states2);
+                        }
                     }
                     return states;
                 }
