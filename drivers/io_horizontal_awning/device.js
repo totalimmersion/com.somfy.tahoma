@@ -3,11 +3,6 @@
 'use strict';
 
 const WindowCoveringsDevice = require('../WindowCoveringsDevice');
-
-/**
- * Device class for horizontal awnings with the io:HorizontalAwningIOComponent, io:AwningReceiverUnoIOComponent controllable name in TaHoma
- * @extends {WindowCoveringsDevice}
- */
 class HorizontalAwningDevice extends WindowCoveringsDevice
 {
 
@@ -16,9 +11,27 @@ class HorizontalAwningDevice extends WindowCoveringsDevice
         this.checkLockStateTimer = null;
         this.checkLockSate = this.checkLockSate.bind(this);
 
-        if (!this.hasCapability('lock_state'))
+        const dd = this.getData();
+
+        this.controllableName = '';
+        if (dd.controllableName)
         {
-            this.addCapability('lock_state').catch(this.error);
+            this.controllableName = dd.controllableName.toString().toLowerCase();
+        }
+
+        if (this.controllableName !== 'ogp:awning')
+        {
+            if (!this.hasCapability('lock_state'))
+            {
+                this.addCapability('lock_state').catch(this.error);
+            }
+        }
+        else
+        {
+            if (this.hasCapability('lock_state'))
+            {
+                this.removeCapability('lock_state').catch(this.error);
+            }
         }
 
         await super.onInit();
@@ -28,20 +41,46 @@ class HorizontalAwningDevice extends WindowCoveringsDevice
             this.addCapability('quick_open').catch(this.error);
         }
 
-        const dd = this.getData();
-
-        let controllableName = '';
-        if (dd.controllableName)
+        if (this.controllableName === 'ogp:awning')
         {
-            controllableName = dd.controllableName.toString().toLowerCase();
-        }
+            this.openClosedStateName = 'core:DeployedUndeployedState'; // Name of the state to get open / closed state
 
-        if (controllableName !== 'io:awningvalanceiocomponent')
+            if (this.invertUpDown)
+            {
+                // Homey capability to Somfy command map
+                this.windowcoveringsActions = {
+                    up: 'undeploy',
+                    idle: 'stop',
+                    down: 'deploy',
+                };
+        
+                // Somfy state to Homey capability map
+                this.windowcoveringsStatesMap = {
+                    deployed: 'down',
+                    undeployed: 'up',
+                };
+            }
+            else
+            {
+                this.windowcoveringsActions = {
+                    up: 'deploy',
+                    idle: 'stop',
+                    down: 'undeploy',
+                };
+        
+                this.windowcoveringsStatesMap = {
+                    deployed: 'up',
+                    undeployed: 'down',
+                };
+            }
+        }
+        
+        if (this.controllableName !== 'io:awningvalanceiocomponent')
         {
             // From Anders pull request
             this.setPositionActionName = 'setDeployment';
 
-            if (controllableName === 'io:awningreceiverunoiocomponent')
+            if (this.controllableName === 'io:awningreceiverunoiocomponent')
             {
                 // No feedback from this device
                 this.positionStateName = '';
@@ -52,6 +91,89 @@ class HorizontalAwningDevice extends WindowCoveringsDevice
                 this.positionStateName = 'core:DeploymentState';
             }
         }
+    }
+
+    async onSettings({ oldSettings, newSettings, changedKeys })
+    {
+        if (changedKeys.indexOf('invertUpDown') >= 0)
+        {
+            if (this.controllableName === 'ogp:awning')
+            {
+                if (this.invertUpDown)
+                {
+                    // Homey capability to Somfy command map
+                    this.windowcoveringsActions = {
+                        up: 'undeploy',
+                        idle: 'stop',
+                        down: 'deploy',
+                    };
+            
+                    // Somfy state to Homey capability map
+                    this.windowcoveringsStatesMap = {
+                        deployed: 'down',
+                        undeployed: 'up',
+                    };
+                }
+                else
+                {
+                    this.windowcoveringsActions = {
+                        up: 'deploy',
+                        idle: 'stop',
+                        down: 'undeploy',
+                    };
+            
+                    this.windowcoveringsStatesMap = {
+                        deployed: 'up',
+                        undeployed: 'down',
+                    };
+                }    
+            }
+            else
+            {
+                this.invertUpDown = newSettings.invertUpDown;
+
+                if (this.invertUpDown)
+                {
+                    this.windowcoveringsActions = {
+                        up: 'close',
+                        idle: 'stop',
+                        down: 'open',
+                    };
+
+                    this.windowcoveringsStatesMap = {
+                        open: 'down',
+                        closed: 'up',
+                        unknown: 'idle',
+                    };
+                }
+                else
+                {
+                    this.windowcoveringsActions = {
+                        up: 'open',
+                        idle: 'stop',
+                        down: 'close',
+                    };
+
+                    this.windowcoveringsStatesMap = {
+                        open: 'up',
+                        closed: 'down',
+                        unknown: 'idle',
+                    };
+                }
+            }
+        }
+
+        if (changedKeys.indexOf('invertTile') >= 0)
+        {
+            this.invertTile = newSettings.invertTile;
+        }
+
+        if (changedKeys.indexOf('invertPosition') >= 0)
+        {
+            this.invertPosition = newSettings.invertPosition;
+        }
+
+        setImmediate(() => this.sync());
     }
 
     checkLockSate()
