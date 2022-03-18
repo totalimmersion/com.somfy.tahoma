@@ -484,5 +484,8 @@
   },
   "3.0.20": {
     "en": "Added Horizontal Awning ogp:Awning"
+  },
+  "3.0.21": {
+    "en": "Added Velux blind ogp:Blind"
   }
 }
