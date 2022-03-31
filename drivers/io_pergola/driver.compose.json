@@ -1,8 +1,8 @@
 {
   "name": {
-    "en": "Pergola (io)"
+    "en": "Slated Pergola (io)"
   },
-  "class": "blinds",
+  "class": "sunshade",
   "capabilities": [
     "windowcoverings_state",
     "windowcoverings_set"
@@ -12,22 +12,26 @@
       "id": "invertUpDown",
       "type": "checkbox",
       "label": {
-        "en": "Invert Up / Down"
+        "en": "Invert Up / Down",
+        "nl": "Omkeren omhoog / omlaag"
       },
       "value": false,
       "hint": {
-        "en": "Reverse the Up / Down direction controls"
+        "en": "Reverse the Up / Down direction controls",
+        "nl": "Draai de bedieningselementen omhoog/omlaag om"
       }
     },
     {
       "id": "invertPosition",
       "type": "checkbox",
       "label": {
-        "en": "Invert Position"
+        "en": "Invert Position",
+        "nl": "Positie omkeren"
       },
       "value": false,
       "hint": {
-        "en": "Reverse the position control."
+        "en": "Reverse the position control.",
+        "nl": "Draai de positieregeling om."
       }
     }
   ],

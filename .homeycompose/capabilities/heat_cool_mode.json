@@ -15,7 +15,8 @@
     {
       "id": "auto",
       "title": {
-        "en": "Auto"
+        "en": "Automatic",
+        "nl": "Automatisch"
       }
     },
     {
@@ -54,7 +55,8 @@
     {
       "id": "stop",
       "title": {
-        "en": "Stop"
+        "en": "Stop",
+        "nl": "Hou op"
       }
     }
   ],

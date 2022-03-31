@@ -4,14 +4,17 @@
   "setable": false,
   "uiComponent": "sensor",
   "title": {
-    "en": "Window Open"
+    "en": "Window Open",
+    "nl": "Venster open"
   },
   "insights": true,
   "insightsTitleTrue": {
-    "en": "Windows openned"
+    "en": "Window openned",
+    "nl": "Venster geopend"
   },
   "insightsTitleFalse": {
-    "en": "Windows closed"
+    "en": "Window closed",
+    "nl": "Venster gesloten"
   },
   "icon": "/assets/open_windows.svg"
 }

@@ -1,6 +1,7 @@
 {
   "name": {
-    "en": "Venetian blind (RTS)"
+    "en": "Venetian blind (RTS)",
+    "nl": "Jaloezie (RTS)"
   },
   "class": "blinds",
   "capabilities": [
@@ -19,11 +20,13 @@
       "id": "invertUpDown",
       "type": "checkbox",
       "label": {
-        "en": "Invert Up / Down"
+        "en": "Invert Up / Down",
+        "nl": "Omkeren omhoog / omlaag"
       },
       "value": false,
       "hint": {
-        "en": "Reverse the Up / Down direction controls"
+        "en": "Reverse the Up / Down direction controls",
+        "nl": "Draai de bedieningselementen omhoog/omlaag om"
       }
     }
   ],

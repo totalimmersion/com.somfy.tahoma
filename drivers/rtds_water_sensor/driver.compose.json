@@ -1,6 +1,7 @@
 {
   "name": {
-    "en": "Water Sensor"
+    "en": "Water Sensor",
+    "nl": "Watersensor"
   },
   "class": "sensor",
   "capabilities": [

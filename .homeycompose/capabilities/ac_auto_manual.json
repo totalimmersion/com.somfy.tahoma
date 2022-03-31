@@ -10,13 +10,15 @@
     {
       "id": "auto",
       "title": {
-        "en": "Automatic"
+        "en": "Automatic",
+        "nl": "Automatisch"
       }
     },
     {
       "id": "manu",
       "title": {
-        "en": "Manual"
+        "en": "Manual",
+        "nl": "Handmatig"
       }
     }
   ]

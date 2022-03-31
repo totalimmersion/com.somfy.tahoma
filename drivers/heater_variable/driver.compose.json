@@ -1,6 +1,7 @@
 {
   "name": {
-    "en": "Heater - Variable"
+    "en": "Heater - Variable Power",
+    "nl": "Verwarming - variabel vermogen"
   },
   "class": "heater",
   "capabilities": [

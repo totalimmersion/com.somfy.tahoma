@@ -1,6 +1,7 @@
 {
   "name": {
-    "en": "KeyGo Remote Control"
+    "en": "KeyGo Remote Control",
+    "nl": "KeyGo-afstandsbediening"
   },
   "class": "remote",
   "capabilities": [

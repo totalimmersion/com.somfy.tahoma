@@ -51,13 +51,15 @@
                         {
                             "id": "auto",
                             "label": {
-                                "en": "Automatic"
+                                "en": "Automatic",
+                                "nl": "Automatisch"
                             }
                         },
                         {
                             "id": "manu",
                             "label": {
-                                "en": "Manual"
+                                "en": "Manual",
+                                "nl": "Handmatig"
                             }
                         }
                     ]

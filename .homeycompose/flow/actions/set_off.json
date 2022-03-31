@@ -1,7 +1,8 @@
 {
   "id": "set_off",
   "title": {
-    "en": "Turn off the device"
+    "en": "Turn off the device",
+    "nl": "Zet het apparaat uit"
   },
   "args": [
     {

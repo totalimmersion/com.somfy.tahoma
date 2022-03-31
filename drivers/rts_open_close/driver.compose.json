@@ -1,6 +1,7 @@
 {
   "name": {
-    "en": "Open / Close Remote (RTS)"
+    "en": "Open / Close Remote (RTS)",
+    "nl": "Afstandsbediening openen / sluiten (RTS)"
   },
   "class": "button",
   "capabilities": [

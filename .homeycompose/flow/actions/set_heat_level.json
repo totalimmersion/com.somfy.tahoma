@@ -1,13 +1,16 @@
 {
   "id": "set_heat_level",
   "title": {
-    "en": "Set the heat level"
+    "en": "Set the heat level",
+    "nl": "Stel het warmteniveau in"
   },
   "titleFormatted": {
-    "en": "Set the heat level to [[heat_level]]%"
+    "en": "Set the heat level to [[heat_level]]%",
+    "nl": "Stel het warmteniveau in op [[heat_level]]%"
   },
   "hint": {
-    "en": "Sets the heat output level to the specified value"
+    "en": "Sets the heat output level to the specified value",
+    "nl": "Stelt het warmtevermogensniveau in op de opgegeven waarde"
   },
   "args": [
     {
@@ -19,7 +22,8 @@
         "name": "heat_level",
         "type": "number",
         "title": {
-            "en": "Heat Level"
+            "en": "Heat Level",
+            "nl": "Warmteniveau"
         },
         "min": 0,
         "max": 100,

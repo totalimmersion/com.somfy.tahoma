@@ -21,37 +21,43 @@
     {
       "id": "externalScheduling",
       "title": {
-        "en": "External Scheduling"
+        "en": "External Scheduling",
+        "nl": "Externe planning"
       }
     },
     {
       "id": "internalScheduling",
       "title": {
-        "en": "Internal Scheduling"
+        "en": "Internal Scheduling",
+        "nl": "Interne planning"
       }
     },
     {
       "id": "manu",
       "title": {
-        "en": "Manual"
+        "en": "Manual",
+        "nl": "Handmatig"
       }
     },
     {
       "id": "peakAndOffPeakScheduling",
       "title": {
-        "en": "Peak And Off Peak Scheduling"
+        "en": "Peak And Off Peak Scheduling",
+        "nl": "Piek- en dalurenplanning"
       }
     },
     {
       "id": "peakAndOffPeakTimes",
       "title": {
-        "en": "Peak And Off Peak Times"
+        "en": "Peak And Off Peak Times",
+        "nl": "Piek- en daluren"
       }
     },
     {
       "id": "stop",
       "title": {
-        "en": "Stop"
+        "en": "Stop",
+        "nl": "Hou op"
       }
     }
   ],

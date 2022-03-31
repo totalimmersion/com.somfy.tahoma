@@ -2,7 +2,8 @@
     "type": "number",
     "uiComponent": "slider",
     "title": {
-        "en": "Heat Level"
+        "en": "Heat Level",
+        "nl": "Warmteniveau"
     },
     "min": 0,
     "max": 100,

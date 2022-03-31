@@ -1,7 +1,8 @@
 {
   "type": "number",
   "title": {
-    "en": "Signal Strength"
+    "en": "Signal Strength",
+    "nl": "De signaalsterkte"
   },
   "getable": true,
   "setable": false,

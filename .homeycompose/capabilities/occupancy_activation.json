@@ -4,7 +4,8 @@
   "setable": true,
   "uiComponent": "button",
   "title": {
-    "en": "Occupancy Activation"
+    "en": "Occupancy Activation",
+    "nl": "Bezettingsactivering"
   },
   "icon": "/assets/occupancy.svg"
 }

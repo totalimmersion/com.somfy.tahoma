@@ -1,7 +1,8 @@
 {
   "type": "string",
   "title": {
-    "en": "Heating Mode"
+    "en": "Heating Mode",
+    "nl": "Verwarmingsmodus:"
   },
   "getable": true,
   "setable": false,

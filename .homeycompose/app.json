@@ -10,9 +10,9 @@
     "en": "Somfy TaHoma & Connexoon"
   },
   "description": {
-    "en": "Bring the richness of Homey to your Somfy world"
+    "en": "The heart of your Smart Home"
   },
-  "version": "3.0.21",
+  "version": "3.0.22",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Adrian Rockall",
@@ -71,7 +71,8 @@
       "Velux",
       "roof window",
       "One Alarm",
-      "Outdoor Camera"
+      "Outdoor Camera",
+      "enocean"
     ],
     "nl": [
       "Somfy TaHoma",

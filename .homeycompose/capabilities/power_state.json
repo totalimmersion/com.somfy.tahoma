@@ -1,7 +1,8 @@
 {
   "type": "number",
   "title": {
-    "en": "Power State"
+    "en": "Power State",
+    "nl": "Vermogensstatus"
   },
   "getable": true,
   "setable": false,

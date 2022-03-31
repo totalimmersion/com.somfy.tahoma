@@ -1,7 +1,8 @@
 {
   "id": "set_on",
   "title": {
-    "en": "Turn on the device"
+    "en": "Turn on the device",
+    "nl": "Zet het apparaat aan"
   },
   "args": [
     {

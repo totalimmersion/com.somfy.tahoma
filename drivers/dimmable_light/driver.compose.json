@@ -1,6 +1,7 @@
 {
   "name": {
-    "en": "Dimmable light"
+    "en": "Dimmable light",
+    "nl": "Dimbaar licht"
   },
   "class": "light",
   "capabilities": [

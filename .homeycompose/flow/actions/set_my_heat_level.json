@@ -1,7 +1,8 @@
 {
   "id": "set_my_heat_level",
   "title": {
-    "en": "Set the heat to MY level"
+    "en": "Set the heat to MY level",
+    "nl": "Zet de verwarming op MY niveau"
   },
   "args": [
     {

@@ -4,6 +4,7 @@
   "setable": true,
   "uiComponent": "button",
   "title": {
-    "en": "Test Alarm"
+    "en": "Test Alarm",
+    "nl": "Testalarm:"
   }
 }

@@ -1,7 +1,8 @@
 {
   "type": "string",
   "title": {
-    "en": "Operating Mode"
+    "en": "Operating Mode",
+    "nl": "Bedrijfsmodus"
   },
   "getable": true,
   "setable": false,

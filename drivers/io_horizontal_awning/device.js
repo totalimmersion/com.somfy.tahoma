@@ -91,6 +91,14 @@ class HorizontalAwningDevice extends WindowCoveringsDevice
                 this.positionStateName = 'core:DeploymentState';
             }
         }
+
+        if (this.controllableName !== 'io:pergolarailguidedawningiocomponent')
+        {
+            if (this.hasCapability('my_position'))
+            {
+                this.removeCapability('my_position').catch(this.error);
+            }    
+        }
     }
 
     async onSettings({ oldSettings, newSettings, changedKeys })

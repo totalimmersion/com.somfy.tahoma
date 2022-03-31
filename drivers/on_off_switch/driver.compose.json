@@ -1,6 +1,7 @@
 {
   "name": {
-    "en": "Switch (RTS & io)"
+    "en": "Switch (RTS & io)",
+    "nl": "Schakelaar (RTS & io)"
   },
   "class": "light",
   "capabilities": [

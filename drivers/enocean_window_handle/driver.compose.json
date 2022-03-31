@@ -1,6 +1,7 @@
 {
   "name": {
-    "en": "Window Handle (SecuSignal)"
+    "en": "Window Handle (SecuSignal)",
+    "nl": "Raamkruk (SecuSignal)"
   },
   "class": "sensor",
   "capabilities": [

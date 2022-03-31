@@ -1,6 +1,7 @@
 {
   "name": {
-    "en": "Security Camera Light Controller"
+    "en": "Security Camera Light Controller",
+    "nl": "Beveiligingscamera Lichtcontroller"
   },
   "class": "light",
   "capabilities": [

@@ -11,9 +11,9 @@
     "en": "Somfy TaHoma & Connexoon"
   },
   "description": {
-    "en": "Bring the richness of Homey to your Somfy world"
+    "en": "The heart of your Smart Home"
   },
-  "version": "3.0.21",
+  "version": "3.0.22",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Adrian Rockall",
@@ -72,7 +72,8 @@
       "Velux",
       "roof window",
       "One Alarm",
-      "Outdoor Camera"
+      "Outdoor Camera",
+      "enocean"
     ],
     "nl": [
       "Somfy TaHoma",
@@ -125,10 +126,12 @@
         "id": "command_complete",
         "deprecated": true,
         "title": {
-          "en": "A command completed"
+          "en": "A command completed",
+          "nl": "Een opdracht voltooid"
         },
         "titleFormatted": {
-          "en": "A command completed on device [[device]]"
+          "en": "A command completed on device [[device]]",
+          "nl": "Een opdracht voltooid op apparaat [[device]]"
         },
         "platforms": [
           "local",
@@ -142,7 +145,8 @@
             "name": "state",
             "type": "boolean",
             "title": {
-              "en": "Successful"
+              "en": "Successful",
+              "nl": "Succesvol"
             },
             "example": "true"
           },
@@ -150,7 +154,8 @@
             "name": "name",
             "type": "string",
             "title": {
-              "en": "Command Name"
+              "en": "Command Name",
+              "nl": "Opdrachtnaam"
             }
           }
         ],
@@ -159,7 +164,8 @@
             "name": "device",
             "type": "device",
             "title": {
-              "en": "Device"
+              "en": "Device",
+              "nl": "Apparaat"
             }
           }
         ]
@@ -175,7 +181,8 @@
             "name": "isOpen",
             "type": "boolean",
             "title": {
-              "en": "is open?"
+              "en": "is open?",
+              "nl": "is geopend?"
             },
             "example": "open"
           }
@@ -191,14 +198,16 @@
       {
         "id": "device_command_complete",
         "title": {
-          "en": "A command completed"
+          "en": "A command completed",
+          "nl": "Een opdracht voltooid"
         },
         "tokens": [
           {
             "name": "state",
             "type": "boolean",
             "title": {
-              "en": "Successful"
+              "en": "Successful",
+              "nl": "Succesvol"
             },
             "example": "true"
           },
@@ -206,7 +215,8 @@
             "name": "name",
             "type": "string",
             "title": {
-              "en": "Command Name"
+              "en": "Command Name",
+              "nl": "Opdrachtnaam"
             }
           }
         ],
@@ -221,14 +231,16 @@
       {
         "id": "lock_state_changed",
         "title": {
-          "en": "The lock state changed"
+          "en": "The lock state changed",
+          "nl": "De vergrendelingsstatus is gewijzigd"
         },
         "tokens": [
           {
             "name": "lock_state",
             "type": "string",
             "title": {
-              "en": "Lock state"
+              "en": "Lock state",
+              "nl": "Staat vergrendelen"
             },
             "example": "wind"
           }
@@ -422,25 +434,29 @@
             "type": "dropdown",
             "name": "expected_state",
             "title": {
-              "en": "Expected State"
+              "en": "Expected State",
+              "nl": "Verwachte staat"
             },
             "values": [
               {
                 "id": "up",
                 "label": {
-                  "en": "Up"
+                  "en": "Up",
+                  "nl": "Omhoog"
                 }
               },
               {
                 "id": "down",
                 "label": {
-                  "en": "Down"
+                  "en": "Down",
+                  "nl": "Omlaag"
                 }
               },
               {
                 "id": "stop",
                 "label": {
-                  "en": "Stop"
+                  "en": "Stop",
+                  "nl": "Hou op"
                 }
               },
               {
@@ -651,25 +667,29 @@
               {
                 "id": "away",
                 "title": {
-                  "en": "Away"
+                  "en": "Away",
+                  "nl": "Weg"
                 }
               },
               {
                 "id": "eco",
                 "title": {
-                  "en": "Night"
+                  "en": "Night",
+                  "nl": "Nacht"
                 }
               },
               {
                 "id": "manual",
                 "title": {
-                  "en": "Manual"
+                  "en": "Manual",
+                  "nl": "Handmatig"
                 }
               },
               {
                 "id": "frostprotection",
                 "title": {
-                  "en": "Frost Protection"
+                  "en": "Frost Protection",
+                  "nl": "Vorstbescherming"
                 }
               }
             ]
@@ -706,25 +726,29 @@
               {
                 "id": "awayMode",
                 "title": {
-                  "en": "Away"
+                  "en": "Away",
+                  "nl": "Weg"
                 }
               },
               {
                 "id": "eco",
                 "title": {
-                  "en": "Night"
+                  "en": "Night",
+                  "nl": "Nacht"
                 }
               },
               {
                 "id": "manual",
                 "title": {
-                  "en": "Manual"
+                  "en": "Manual",
+                  "nl": "Handmatig"
                 }
               },
               {
                 "id": "frostprotection",
                 "title": {
-                  "en": "Frost Protection"
+                  "en": "Frost Protection",
+                  "nl": "Vorstbescherming"
                 }
               },
               {
@@ -800,7 +824,8 @@
             "type": "dropdown",
             "name": "expected_state",
             "title": {
-              "en": "Expected State"
+              "en": "Expected State",
+              "nl": "Verwachte staat"
             },
             "values": [
               {
@@ -818,7 +843,8 @@
               {
                 "id": "stop",
                 "label": {
-                  "en": "Stop"
+                  "en": "Stop",
+                  "nl": "Hou op"
                 }
               }
             ]
@@ -971,7 +997,8 @@
             "name": "state",
             "type": "dropdown",
             "title": {
-              "en": "Expected State"
+              "en": "Expected State",
+              "nl": "Verwachte staat"
             },
             "values": [
               {
@@ -1242,7 +1269,8 @@
             "name": "state",
             "type": "dropdown",
             "title": {
-              "en": "Expected State"
+              "en": "Expected State",
+              "nl": "Verwachte staat"
             },
             "values": [
               {
@@ -1326,7 +1354,8 @@
         "args": [
           {
             "title": {
-              "en": "Scenario Name"
+              "en": "Scenario Name",
+              "nl": "Scenarionaam"
             },
             "name": "scenario",
             "type": "autocomplete"
@@ -1336,13 +1365,16 @@
       {
         "id": "set_heat_level",
         "title": {
-          "en": "Set the heat level"
+          "en": "Set the heat level",
+          "nl": "Stel het warmteniveau in"
         },
         "titleFormatted": {
-          "en": "Set the heat level to [[heat_level]]%"
+          "en": "Set the heat level to [[heat_level]]%",
+          "nl": "Stel het warmteniveau in op [[heat_level]]%"
         },
         "hint": {
-          "en": "Sets the heat output level to the specified value"
+          "en": "Sets the heat output level to the specified value",
+          "nl": "Stelt het warmtevermogensniveau in op de opgegeven waarde"
         },
         "args": [
           {
@@ -1354,7 +1386,8 @@
             "name": "heat_level",
             "type": "number",
             "title": {
-              "en": "Heat Level"
+              "en": "Heat Level",
+              "nl": "Warmteniveau"
             },
             "min": 0,
             "max": 100,
@@ -1367,7 +1400,8 @@
       {
         "id": "set_my_heat_level",
         "title": {
-          "en": "Set the heat to MY level"
+          "en": "Set the heat to MY level",
+          "nl": "Zet de verwarming op MY niveau"
         },
         "args": [
           {
@@ -1394,7 +1428,8 @@
       {
         "id": "set_off",
         "title": {
-          "en": "Turn off the device"
+          "en": "Turn off the device",
+          "nl": "Zet het apparaat uit"
         },
         "args": [
           {
@@ -1407,7 +1442,8 @@
       {
         "id": "set_on",
         "title": {
-          "en": "Turn on the device"
+          "en": "Turn on the device",
+          "nl": "Zet het apparaat aan"
         },
         "args": [
           {
@@ -1621,13 +1657,15 @@
               {
                 "id": "auto",
                 "label": {
-                  "en": "Automatic"
+                  "en": "Automatic",
+                  "nl": "Automatisch"
                 }
               },
               {
                 "id": "manu",
                 "label": {
-                  "en": "Manual"
+                  "en": "Manual",
+                  "nl": "Handmatig"
                 }
               }
             ]
@@ -1764,7 +1802,8 @@
               {
                 "id": "manu",
                 "label": {
-                  "en": "Manual"
+                  "en": "Manual",
+                  "nl": "Handmatig"
                 }
               },
               {
@@ -1782,7 +1821,8 @@
               {
                 "id": "stop",
                 "label": {
-                  "en": "Stop"
+                  "en": "Stop",
+                  "nl": "Hou op"
                 }
               }
             ]
@@ -1979,7 +2019,8 @@
               {
                 "id": "stop",
                 "label": {
-                  "en": "Stop"
+                  "en": "Stop",
+                  "nl": "Hou op"
                 }
               }
             ]
@@ -2016,7 +2057,8 @@
               {
                 "id": "auto",
                 "label": {
-                  "en": "Auto"
+                  "en": "Automatic",
+                  "nl": "Automatisch"
                 }
               },
               {
@@ -2046,13 +2088,15 @@
               {
                 "id": "manu",
                 "label": {
-                  "en": "Manual"
+                  "en": "Manual",
+                  "nl": "Handmatig"
                 }
               },
               {
                 "id": "stop",
                 "label": {
-                  "en": "Stop"
+                  "en": "Stop",
+                  "nl": "Hou op"
                 }
               }
             ]
@@ -2089,7 +2133,8 @@
               {
                 "id": "auto",
                 "label": {
-                  "en": "Auto"
+                  "en": "Automatic",
+                  "nl": "Automatisch"
                 }
               },
               {
@@ -2119,13 +2164,15 @@
               {
                 "id": "manu",
                 "label": {
-                  "en": "Manual"
+                  "en": "Manual",
+                  "nl": "Handmatig"
                 }
               },
               {
                 "id": "stop",
                 "label": {
-                  "en": "Stop"
+                  "en": "Stop",
+                  "nl": "Hou op"
                 }
               }
             ]
@@ -2505,7 +2552,7 @@
       {
         "id": "set_valve_auto_mode",
         "title": {
-          "en": "Set the Auto (Schedual) mode"
+          "en": "Set the Auto (Schedule) mode"
         },
         "titleFormatted": {
           "en": "Set the auto mode to [[set_valve_auto]]"
@@ -2571,25 +2618,29 @@
               {
                 "id": "away",
                 "title": {
-                  "en": "Away"
+                  "en": "Away",
+                  "nl": "Weg"
                 }
               },
               {
                 "id": "eco",
                 "title": {
-                  "en": "Night"
+                  "en": "Night",
+                  "nl": "Nacht"
                 }
               },
               {
                 "id": "manual",
                 "title": {
-                  "en": "Manual"
+                  "en": "Manual",
+                  "nl": "Handmatig"
                 }
               },
               {
                 "id": "frostprotection",
                 "title": {
-                  "en": "Frost Protection"
+                  "en": "Frost Protection",
+                  "nl": "Vorstbescherming"
                 }
               }
             ]
@@ -2604,19 +2655,22 @@
               {
                 "id": "date",
                 "title": {
-                  "en": "Date"
+                  "en": "Date",
+                  "nl": "Datum"
                 }
               },
               {
                 "id": "further_notice",
                 "title": {
-                  "en": "Further notice"
+                  "en": "Further notice",
+                  "nl": "Nadere aankondiging"
                 }
               },
               {
                 "id": "next_mode",
                 "title": {
-                  "en": "Next mode"
+                  "en": "Next mode change",
+                  "nl": "Volgende modus"
                 }
               }
             ]
@@ -3063,7 +3117,8 @@
         "small": "/drivers/color_temperature_light/assets/images/small.png"
       },
       "name": {
-        "en": "RGBW Light"
+        "en": "RGBW Light",
+        "nl": "RGBW-licht"
       },
       "class": "light",
       "capabilities": [
@@ -3084,22 +3139,26 @@
           "id": "minTemperature",
           "type": "number",
           "label": {
-            "en": "Min Colour Temperature (K)"
+            "en": "Min Colour Temperature (K)",
+            "nl": "Minimale kleurtemperatuur (K)"
           },
           "value": 2200,
           "hint": {
-            "en": "Min colour temperature of the light"
+            "en": "Min colour temperature of the light",
+            "nl": "Min kleurtemperatuur van het licht"
           }
         },
         {
           "id": "maxTemperature",
           "type": "number",
           "label": {
-            "en": "Max Colour Temperature (K)"
+            "en": "Max Colour Temperature (K)",
+            "nl": "Maximale kleurtemperatuur (K)"
           },
           "value": 6500,
           "hint": {
-            "en": "Max colour temperature of the light"
+            "en": "Max colour temperature of the light",
+            "nl": "Max kleurtemperatuur van het licht"
           }
         }
       ],
@@ -3173,7 +3232,8 @@
         "small": "/drivers/dimmable_light/assets/images/small.png"
       },
       "name": {
-        "en": "Dimmable light"
+        "en": "Dimmable light",
+        "nl": "Dimbaar licht"
       },
       "class": "light",
       "capabilities": [
@@ -3255,7 +3315,8 @@
         "small": "/drivers/enocean_window_handle/assets/images/small.png"
       },
       "name": {
-        "en": "Window Handle (SecuSignal)"
+        "en": "Window Handle (SecuSignal)",
+        "nl": "Raamkruk (SecuSignal)"
       },
       "class": "sensor",
       "capabilities": [
@@ -3331,7 +3392,8 @@
         "small": "/drivers/heater_on_off/assets/images/small.png"
       },
       "name": {
-        "en": "Heater"
+        "en": "Heater - On / Off",
+        "nl": "Verwarming - Aan / Uit"
       },
       "class": "heater",
       "capabilities": [
@@ -3407,7 +3469,8 @@
         "small": "/drivers/heater_variable/assets/images/small.png"
       },
       "name": {
-        "en": "Heater - Variable"
+        "en": "Heater - Variable Power",
+        "nl": "Verwarming - variabel vermogen"
       },
       "class": "heater",
       "capabilities": [
@@ -3682,11 +3745,17 @@
       ],
       "capabilitiesOptions": {
         "target_temperature.absence_cooling": {
-          "title": "Absence Cooling Temperature",
+          "title": {
+            "en": "Absence Cooling Temperature",
+            "nl": "Afwezigheid Koeltemperatuur"
+          },
           "min": 0
         },
         "target_temperature.absence_heating": {
-          "title": "Absence Heating Temperature",
+          "title": {
+            "en": "Absence Heating Temperature",
+            "nl": "Afwezigheid Verwarmingstemperatuur"
+          },
           "min": 0
         }
       },
@@ -3774,12 +3843,18 @@
         "target_temperature.comfort": {
           "min": 30,
           "max": 60,
-          "title": "Comfort Temperature"
+          "title": {
+            "en": "Comfort Temperature",
+            "nl": "Comforttemperatuur"
+          }
         },
         "target_temperature.eco": {
           "min": 30,
           "max": 60,
-          "title": "Eco Temperature"
+          "title": {
+            "en": "Eco Temperature",
+            "nl": "Ecotemperatuur"
+          }
         }
       },
       "id": "io_atlantic_dhw_boiler"
@@ -3939,7 +4014,7 @@
         "small": "/drivers/io_atlantic_dhw_tank/assets/images/small.png"
       },
       "name": {
-        "en": "Atlantic Water Tank"
+        "en": "Atlantic Water Tank Heater"
       },
       "class": "heater",
       "capabilities": [
@@ -4427,33 +4502,39 @@
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
-            "en": "Invert Up / Down"
+            "en": "Invert Up / Down",
+            "nl": "Omkeren omhoog / omlaag"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Up / Down direction controls"
+            "en": "Reverse the Up / Down direction controls",
+            "nl": "Draai de bedieningselementen omhoog/omlaag om"
           }
         },
         {
           "id": "invertTile",
           "type": "checkbox",
           "label": {
-            "en": "Invert Tile Action"
+            "en": "Invert Tile Action",
+            "nl": "Tegelactie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Open / Close state of the Tile"
+            "en": "Reverse the Open / Close state of the Tile",
+            "nl": "Keer de Open / Sluit-status van de tegel om"
           }
         },
         {
           "id": "invertPosition",
           "type": "checkbox",
           "label": {
-            "en": "Invert Position"
+            "en": "Invert Position",
+            "nl": "Positie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the position control."
+            "en": "Reverse the position control.",
+            "nl": "Draai de positieregeling om."
           }
         }
       ],
@@ -4539,22 +4620,26 @@
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
-            "en": "Invert Up / Down"
+            "en": "Invert Up / Down",
+            "nl": "Omkeren omhoog / omlaag"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Up / Down direction controls"
+            "en": "Reverse the Up / Down direction controls",
+            "nl": "Draai de bedieningselementen omhoog/omlaag om"
           }
         },
         {
           "id": "invertPosition",
           "type": "checkbox",
           "label": {
-            "en": "Invert Position"
+            "en": "Invert Position",
+            "nl": "Positie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the position control."
+            "en": "Reverse the position control.",
+            "nl": "Draai de positieregeling om."
           }
         }
       ],
@@ -4628,7 +4713,7 @@
         "small": "/drivers/io_garage_door_partial/assets/images/small.png"
       },
       "name": {
-        "en": "Garage Door Open and Close (io)"
+        "en": "Garage Door - Open and Close (io)"
       },
       "class": "blinds",
       "capabilities": [
@@ -4640,11 +4725,13 @@
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
-            "en": "Invert Up / Down"
+            "en": "Invert Up / Down",
+            "nl": "Omkeren omhoog / omlaag"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Up / Down direction controls"
+            "en": "Reverse the Up / Down direction controls",
+            "nl": "Draai de bedieningselementen omhoog/omlaag om"
           }
         }
       ],
@@ -4718,13 +4805,14 @@
         "small": "/drivers/io_horizontal_awning/assets/images/small.png"
       },
       "name": {
-        "en": "Horizontal Awning (io)",
-        "nl": "Horizontale buitenzonwering (io)"
+        "en": "Awning / Pergola (io)",
+        "nl": "Buitenzonwering / Pergola (io)"
       },
       "class": "sunshade",
       "capabilities": [
         "windowcoverings_state",
         "windowcoverings_set",
+        "my_position",
         "quick_open",
         "lock_state"
       ],
@@ -4733,33 +4821,39 @@
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
-            "en": "Invert Up / Down"
+            "en": "Invert Up / Down",
+            "nl": "Omkeren omhoog / omlaag"
           },
           "value": true,
           "hint": {
-            "en": "Reverse the Up / Down direction controls"
+            "en": "Reverse the Up / Down direction controls",
+            "nl": "Draai de bedieningselementen omhoog/omlaag om"
           }
         },
         {
           "id": "invertTile",
           "type": "checkbox",
           "label": {
-            "en": "Invert Tile Action"
+            "en": "Invert Tile Action",
+            "nl": "Tegelactie omkeren"
           },
           "value": true,
           "hint": {
-            "en": "Reverse the Open / Close state of the Tile"
+            "en": "Reverse the Open / Close state of the Tile",
+            "nl": "Keer de Open / Sluit-status van de tegel om"
           }
         },
         {
           "id": "invertPosition",
           "type": "checkbox",
           "label": {
-            "en": "Invert Position"
+            "en": "Invert Position",
+            "nl": "Positie omkeren"
           },
           "value": true,
           "hint": {
-            "en": "Reverse the position control."
+            "en": "Reverse the position control.",
+            "nl": "Draai de positieregeling om."
           }
         }
       ],
@@ -5155,9 +5249,9 @@
         "small": "/drivers/io_pergola/assets/images/small.png"
       },
       "name": {
-        "en": "Pergola (io)"
+        "en": "Slated Pergola (io)"
       },
-      "class": "blinds",
+      "class": "sunshade",
       "capabilities": [
         "windowcoverings_state",
         "windowcoverings_set"
@@ -5167,22 +5261,26 @@
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
-            "en": "Invert Up / Down"
+            "en": "Invert Up / Down",
+            "nl": "Omkeren omhoog / omlaag"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Up / Down direction controls"
+            "en": "Reverse the Up / Down direction controls",
+            "nl": "Draai de bedieningselementen omhoog/omlaag om"
           }
         },
         {
           "id": "invertPosition",
           "type": "checkbox",
           "label": {
-            "en": "Invert Position"
+            "en": "Invert Position",
+            "nl": "Positie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the position control."
+            "en": "Reverse the position control.",
+            "nl": "Draai de positieregeling om."
           }
         }
       ],
@@ -5271,33 +5369,39 @@
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
-            "en": "Invert Up / Down"
+            "en": "Invert Up / Down",
+            "nl": "Omkeren omhoog / omlaag"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Up / Down direction controls"
+            "en": "Reverse the Up / Down direction controls",
+            "nl": "Draai de bedieningselementen omhoog/omlaag om"
           }
         },
         {
           "id": "invertTile",
           "type": "checkbox",
           "label": {
-            "en": "Invert Tile Action"
+            "en": "Invert Tile Action",
+            "nl": "Tegelactie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Open / Close state of the Tile"
+            "en": "Reverse the Open / Close state of the Tile",
+            "nl": "Keer de Open / Sluit-status van de tegel om"
           }
         },
         {
           "id": "invertPosition",
           "type": "checkbox",
           "label": {
-            "en": "Invert Position"
+            "en": "Invert Position",
+            "nl": "Positie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the position control."
+            "en": "Reverse the position control.",
+            "nl": "Draai de positieregeling om."
           }
         }
       ],
@@ -5387,33 +5491,39 @@
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
-            "en": "Invert Up / Down"
+            "en": "Invert Up / Down",
+            "nl": "Omkeren omhoog / omlaag"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Up / Down direction controls"
+            "en": "Reverse the Up / Down direction controls",
+            "nl": "Draai de bedieningselementen omhoog/omlaag om"
           }
         },
         {
           "id": "invertTile",
           "type": "checkbox",
           "label": {
-            "en": "Invert Tile Action"
+            "en": "Invert Tile Action",
+            "nl": "Tegelactie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Open / Close state of the Tile"
+            "en": "Reverse the Open / Close state of the Tile",
+            "nl": "Keer de Open / Sluit-status van de tegel om"
           }
         },
         {
           "id": "invertPosition",
           "type": "checkbox",
           "label": {
-            "en": "Invert Position"
+            "en": "Invert Position",
+            "nl": "Positie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the position control."
+            "en": "Reverse the position control.",
+            "nl": "Draai de positieregeling om."
           }
         }
       ],
@@ -5781,33 +5891,39 @@
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
-            "en": "Invert Up / Down"
+            "en": "Invert Up / Down",
+            "nl": "Omkeren omhoog / omlaag"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Up / Down direction controls"
+            "en": "Reverse the Up / Down direction controls",
+            "nl": "Draai de bedieningselementen omhoog/omlaag om"
           }
         },
         {
           "id": "invertTile",
           "type": "checkbox",
           "label": {
-            "en": "Invert Tile Action"
+            "en": "Invert Tile Action",
+            "nl": "Tegelactie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Open / Close state of the Tile"
+            "en": "Reverse the Open / Close state of the Tile",
+            "nl": "Keer de Open / Sluit-status van de tegel om"
           }
         },
         {
           "id": "invertPosition",
           "type": "checkbox",
           "label": {
-            "en": "Invert Position"
+            "en": "Invert Position",
+            "nl": "Positie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the position control."
+            "en": "Reverse the position control.",
+            "nl": "Draai de positieregeling om."
           }
         }
       ],
@@ -5895,33 +6011,39 @@
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
-            "en": "Invert Up / Down"
+            "en": "Invert Up / Down",
+            "nl": "Omkeren omhoog / omlaag"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Up / Down direction controls"
+            "en": "Reverse the Up / Down direction controls",
+            "nl": "Draai de bedieningselementen omhoog/omlaag om"
           }
         },
         {
           "id": "invertTile",
           "type": "checkbox",
           "label": {
-            "en": "Invert Tile Action"
+            "en": "Invert Tile Action",
+            "nl": "Tegelactie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Open / Close state of the Tile"
+            "en": "Reverse the Open / Close state of the Tile",
+            "nl": "Keer de Open / Sluit-status van de tegel om"
           }
         },
         {
           "id": "invertPosition",
           "type": "checkbox",
           "label": {
-            "en": "Invert Position"
+            "en": "Invert Position",
+            "nl": "Positie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the position control."
+            "en": "Reverse the position control.",
+            "nl": "Draai de positieregeling om."
           }
         }
       ],
@@ -6009,33 +6131,39 @@
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
-            "en": "Invert Up / Down"
+            "en": "Invert Up / Down",
+            "nl": "Omkeren omhoog / omlaag"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Up / Down direction controls"
+            "en": "Reverse the Up / Down direction controls",
+            "nl": "Draai de bedieningselementen omhoog/omlaag om"
           }
         },
         {
           "id": "invertTile",
           "type": "checkbox",
           "label": {
-            "en": "Invert Tile Action"
+            "en": "Invert Tile Action",
+            "nl": "Tegelactie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Open / Close state of the Tile"
+            "en": "Reverse the Open / Close state of the Tile",
+            "nl": "Keer de Open / Sluit-status van de tegel om"
           }
         },
         {
           "id": "invertPosition",
           "type": "checkbox",
           "label": {
-            "en": "Invert Position"
+            "en": "Invert Position",
+            "nl": "Positie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the position control."
+            "en": "Reverse the position control.",
+            "nl": "Draai de positieregeling om."
           }
         }
       ],
@@ -6123,33 +6251,39 @@
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
-            "en": "Invert Up / Down"
+            "en": "Invert Up / Down",
+            "nl": "Omkeren omhoog / omlaag"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Up / Down direction controls"
+            "en": "Reverse the Up / Down direction controls",
+            "nl": "Draai de bedieningselementen omhoog/omlaag om"
           }
         },
         {
           "id": "invertTile",
           "type": "checkbox",
           "label": {
-            "en": "Invert Tile Action"
+            "en": "Invert Tile Action",
+            "nl": "Tegelactie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Open / Close state of the Tile"
+            "en": "Reverse the Open / Close state of the Tile",
+            "nl": "Keer de Open / Sluit-status van de tegel om"
           }
         },
         {
           "id": "invertPosition",
           "type": "checkbox",
           "label": {
-            "en": "Invert Position"
+            "en": "Invert Position",
+            "nl": "Positie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the position control."
+            "en": "Reverse the position control.",
+            "nl": "Draai de positieregeling om."
           }
         }
       ],
@@ -6236,33 +6370,39 @@
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
-            "en": "Invert Up / Down"
+            "en": "Invert Up / Down",
+            "nl": "Omkeren omhoog / omlaag"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Up / Down direction controls"
+            "en": "Reverse the Up / Down direction controls",
+            "nl": "Draai de bedieningselementen omhoog/omlaag om"
           }
         },
         {
           "id": "invertTile",
           "type": "checkbox",
           "label": {
-            "en": "Invert Tile Action"
+            "en": "Invert Tile Action",
+            "nl": "Tegelactie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Open / Close state of the Tile"
+            "en": "Reverse the Open / Close state of the Tile",
+            "nl": "Keer de Open / Sluit-status van de tegel om"
           }
         },
         {
           "id": "invertPosition",
           "type": "checkbox",
           "label": {
-            "en": "Invert Position"
+            "en": "Invert Position",
+            "nl": "Positie omkeren"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the position control."
+            "en": "Reverse the position control.",
+            "nl": "Draai de positieregeling om."
           }
         }
       ],
@@ -6336,7 +6476,8 @@
         "small": "/drivers/key_go_remote/assets/images/small.png"
       },
       "name": {
-        "en": "KeyGo Remote Control"
+        "en": "KeyGo Remote Control",
+        "nl": "KeyGo-afstandsbediening"
       },
       "class": "remote",
       "capabilities": [
@@ -6412,7 +6553,8 @@
         "small": "/drivers/myfox_light_controller/assets/images/small.png"
       },
       "name": {
-        "en": "Security Camera Light Controller"
+        "en": "Security Camera Light Controller",
+        "nl": "Beveiligingscamera Lichtcontroller"
       },
       "class": "light",
       "capabilities": [
@@ -6488,7 +6630,8 @@
         "small": "/drivers/on_off_light/assets/images/small.png"
       },
       "name": {
-        "en": "On/Off Light"
+        "en": "On/Off Light",
+        "nl": "Aan/Uit Licht"
       },
       "class": "light",
       "capabilities": [
@@ -6564,7 +6707,8 @@
         "small": "/drivers/on_off_switch/assets/images/small.png"
       },
       "name": {
-        "en": "Switch (RTS & io)"
+        "en": "Switch (RTS & io)",
+        "nl": "Schakelaar (RTS & io)"
       },
       "class": "light",
       "capabilities": [
@@ -6794,7 +6938,8 @@
         "small": "/drivers/rtds_water_sensor/assets/images/small.png"
       },
       "name": {
-        "en": "Water Sensor"
+        "en": "Water Sensor",
+        "nl": "Watersensor"
       },
       "class": "sensor",
       "capabilities": [
@@ -6902,7 +7047,8 @@
             {
               "id": "up",
               "label": {
-                "en": "Up"
+                "en": "Up",
+                "nl": "Omhoog"
               }
             },
             {
@@ -6984,7 +7130,8 @@
         "small": "/drivers/rts_horizontal_awning/assets/images/small.png"
       },
       "name": {
-        "en": "Horizontal Awning (RTS)"
+        "en": "Awning (RTS)",
+        "nl": "Buitenzonwering (RTS)"
       },
       "class": "sunshade",
       "capabilities": [
@@ -6996,11 +7143,13 @@
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
-            "en": "Invert Up / Down"
+            "en": "Invert Up / Down",
+            "nl": "Omkeren omhoog / omlaag"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Up / Down direction controls"
+            "en": "Reverse the Up / Down direction controls",
+            "nl": "Draai de bedieningselementen omhoog/omlaag om"
           }
         }
       ],
@@ -7074,7 +7223,7 @@
         "small": "/drivers/rts_interior_blind/assets/images/small.png"
       },
       "name": {
-        "en": "Blind & Shutter (RTS)"
+        "en": "Blind or Shutter (RTS)"
       },
       "class": "blinds",
       "capabilities": [
@@ -7086,11 +7235,13 @@
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
-            "en": "Invert Up / Down"
+            "en": "Invert Up / Down",
+            "nl": "Omkeren omhoog / omlaag"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Up / Down direction controls"
+            "en": "Reverse the Up / Down direction controls",
+            "nl": "Draai de bedieningselementen omhoog/omlaag om"
           }
         }
       ],
@@ -7164,7 +7315,8 @@
         "small": "/drivers/rts_interior_curtain/assets/images/small.png"
       },
       "name": {
-        "en": "Interior Curtain (RTS)"
+        "en": "Interior Curtain (RTS)",
+        "nl": "Binnengordijn (RTS)"
       },
       "class": "curtain",
       "capabilities": [
@@ -7176,11 +7328,13 @@
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
-            "en": "Invert Up / Down"
+            "en": "Invert Up / Down",
+            "nl": "Omkeren omhoog / omlaag"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Up / Down direction controls"
+            "en": "Reverse the Up / Down direction controls",
+            "nl": "Draai de bedieningselementen omhoog/omlaag om"
           }
         }
       ],
@@ -7254,7 +7408,8 @@
         "small": "/drivers/rts_interior_venetian_blind/assets/images/small.png"
       },
       "name": {
-        "en": "Venetian blind (RTS)"
+        "en": "Venetian blind (RTS)",
+        "nl": "Jaloezie (RTS)"
       },
       "class": "blinds",
       "capabilities": [
@@ -7273,11 +7428,13 @@
           "id": "invertUpDown",
           "type": "checkbox",
           "label": {
-            "en": "Invert Up / Down"
+            "en": "Invert Up / Down",
+            "nl": "Omkeren omhoog / omlaag"
           },
           "value": false,
           "hint": {
-            "en": "Reverse the Up / Down direction controls"
+            "en": "Reverse the Up / Down direction controls",
+            "nl": "Draai de bedieningselementen omhoog/omlaag om"
           }
         }
       ],
@@ -7351,7 +7508,8 @@
         "small": "/drivers/rts_open_close/assets/images/small.png"
       },
       "name": {
-        "en": "Open / Close Remote (RTS)"
+        "en": "Open / Close Remote (RTS)",
+        "nl": "Afstandsbediening openen / sluiten (RTS)"
       },
       "class": "button",
       "capabilities": [
@@ -7427,7 +7585,8 @@
         "small": "/drivers/siren/assets/images/small.png"
       },
       "name": {
-        "en": "Siren (io)"
+        "en": "Siren (io)",
+        "nl": "Sirene (io)"
       },
       "class": "homealarm",
       "energy": {
@@ -7526,10 +7685,16 @@
       ],
       "capabilitiesOptions": {
         "alarm_battery.radio": {
-          "title": "Radio Battery"
+          "title": {
+            "en": "Radio Battery",
+            "nl": "Radiobatterij"
+          }
         },
         "alarm_battery.sensor": {
-          "title": "Sensor Battery"
+          "title": {
+            "en": "Sensor Battery",
+            "nl": "Sensorbatterij"
+          }
         }
       },
       "energy": {
@@ -7685,7 +7850,8 @@
         "small": "/drivers/two_button_on_off_light/assets/images/small.png"
       },
       "name": {
-        "en": "Light with Timer (RTS)"
+        "en": "Light with Timer (RTS)",
+        "nl": "Licht met timer (RTS)"
       },
       "class": "button",
       "capabilities": [
@@ -7763,7 +7929,8 @@
         "small": "/drivers/white_temperature_light/assets/images/small.png"
       },
       "name": {
-        "en": "Tunable White light"
+        "en": "Tunable White light",
+        "nl": "Afstembaar wit licht"
       },
       "class": "light",
       "capabilities": [
@@ -7781,22 +7948,26 @@
           "id": "minTemperature",
           "type": "number",
           "label": {
-            "en": "Min Colour Temperature (K)"
+            "en": "Min Colour Temperature (K)",
+            "nl": "Minimale kleurtemperatuur (K)"
           },
           "value": 2200,
           "hint": {
-            "en": "Min colour temperature of the light"
+            "en": "Min colour temperature of the light",
+            "nl": "Min kleurtemperatuur van het licht"
           }
         },
         {
           "id": "maxTemperature",
           "type": "number",
           "label": {
-            "en": "Max Colour Temperature (K)"
+            "en": "Max Colour Temperature (K)",
+            "nl": "Maximale kleurtemperatuur (K)"
           },
           "value": 6500,
           "hint": {
-            "en": "Max colour temperature of the light"
+            "en": "Max colour temperature of the light",
+            "nl": "Max kleurtemperatuur van het licht"
           }
         }
       ],
@@ -7816,13 +7987,15 @@
         {
           "id": "auto",
           "title": {
-            "en": "Automatic"
+            "en": "Automatic",
+            "nl": "Automatisch"
           }
         },
         {
           "id": "manu",
           "title": {
-            "en": "Manual"
+            "en": "Manual",
+            "nl": "Handmatig"
           }
         }
       ]
@@ -7914,7 +8087,7 @@
         {
           "id": "fan",
           "title": {
-            "en": "fan"
+            "en": "Fan"
           }
         },
         {
@@ -7994,37 +8167,43 @@
         {
           "id": "externalScheduling",
           "title": {
-            "en": "External Scheduling"
+            "en": "External Scheduling",
+            "nl": "Externe planning"
           }
         },
         {
           "id": "internalScheduling",
           "title": {
-            "en": "Internal Scheduling"
+            "en": "Internal Scheduling",
+            "nl": "Interne planning"
           }
         },
         {
           "id": "manu",
           "title": {
-            "en": "Manual"
+            "en": "Manual",
+            "nl": "Handmatig"
           }
         },
         {
           "id": "peakAndOffPeakScheduling",
           "title": {
-            "en": "Peak And Off Peak Scheduling"
+            "en": "Peak And Off Peak Scheduling",
+            "nl": "Piek- en dalurenplanning"
           }
         },
         {
           "id": "peakAndOffPeakTimes",
           "title": {
-            "en": "Peak And Off Peak Times"
+            "en": "Peak And Off Peak Times",
+            "nl": "Piek- en daluren"
           }
         },
         {
           "id": "stop",
           "title": {
-            "en": "Stop"
+            "en": "Stop",
+            "nl": "Hou op"
           }
         }
       ],
@@ -8173,7 +8352,7 @@
         {
           "id": "next_mode",
           "title": {
-            "en": "Next Mode",
+            "en": "Next Mode Change",
             "nl": "Volgende modus"
           }
         }
@@ -8198,7 +8377,8 @@
         {
           "id": "auto",
           "title": {
-            "en": "Auto"
+            "en": "Automatic",
+            "nl": "Automatisch"
           }
         },
         {
@@ -8306,7 +8486,8 @@
         {
           "id": "auto",
           "title": {
-            "en": "Auto"
+            "en": "Automatic",
+            "nl": "Automatisch"
           }
         },
         {
@@ -8345,7 +8526,8 @@
         {
           "id": "stop",
           "title": {
-            "en": "Stop"
+            "en": "Stop",
+            "nl": "Hou op"
           }
         }
       ],
@@ -8356,7 +8538,8 @@
       "type": "number",
       "uiComponent": "slider",
       "title": {
-        "en": "Heat Level"
+        "en": "Heat Level",
+        "nl": "Warmteniveau"
       },
       "min": 0,
       "max": 100,
@@ -8513,7 +8696,8 @@
         {
           "id": "stop",
           "title": {
-            "en": "Stop"
+            "en": "Stop",
+            "nl": "Hou op"
           }
         }
       ],
@@ -8523,7 +8707,8 @@
     "last_pass_apc_operating_mode_state": {
       "type": "string",
       "title": {
-        "en": "Last Pass Operating Mode"
+        "en": "Last Pass Operating Mode",
+        "nl": "Laatste doorgang bedrijfsmodus"
       },
       "getable": true,
       "setable": false
@@ -8606,7 +8791,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "MY heat level"
+        "en": "MY heat level",
+        "nl": "MY warmteniveau"
       }
     },
     "my_position": {
@@ -8667,7 +8853,8 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Occupancy Activation"
+        "en": "Occupancy Activation",
+        "nl": "Bezettingsactivering"
       },
       "icon": "/assets/occupancy.svg"
     },
@@ -8716,8 +8903,7 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Open",
-        "nl": "MY Positie"
+        "en": "Open"
       }
     },
     "open_window_activation": {
@@ -8726,14 +8912,17 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Open Window Activation"
+        "en": "Open Window Activation",
+        "nl": "Open Venster Activering"
       },
       "insights": true,
       "insightsTitleTrue": {
-        "en": "Open Windows detection turned on"
+        "en": "Open Windows detection turned on",
+        "nl": "Open Windows-detectie ingeschakeld"
       },
       "insightsTitleFalse": {
-        "en": "Open Windows detection turned off"
+        "en": "Open Windows detection turned off",
+        "nl": "Open Windows-detectie uitgeschakeld"
       },
       "icon": "/assets/open_windows.svg"
     },
@@ -8743,45 +8932,53 @@
       "setable": false,
       "uiComponent": "sensor",
       "title": {
-        "en": "Window Open"
+        "en": "Window Open",
+        "nl": "Venster open"
       },
       "insights": true,
       "insightsTitleTrue": {
-        "en": "Windows openned"
+        "en": "Window openned",
+        "nl": "Venster geopend"
       },
       "insightsTitleFalse": {
-        "en": "Windows closed"
+        "en": "Window closed",
+        "nl": "Venster gesloten"
       },
       "icon": "/assets/open_windows.svg"
     },
     "pass_apc_operating_mode": {
       "type": "enum",
       "title": {
-        "en": "Operating Mode"
+        "en": "Operating Mode",
+        "nl": "Bedrijfsmodus"
       },
       "values": [
         {
           "id": "cooling",
           "title": {
-            "en": "cooling"
+            "en": "Cooling",
+            "nl": "Koeling"
           }
         },
         {
           "id": "drying",
           "title": {
-            "en": "drying"
+            "en": "Drying",
+            "nl": "Drogen"
           }
         },
         {
           "id": "heating",
           "title": {
-            "en": "heating"
+            "en": "Heating",
+            "nl": "Verwarming"
           }
         },
         {
           "id": "stop",
           "title": {
-            "en": "Stop"
+            "en": "Stop",
+            "nl": "Hou op"
           }
         }
       ],
@@ -8802,13 +8999,15 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Pedestrian"
+        "en": "Pedestrian",
+        "nl": "Voetganger"
       }
     },
     "power_state": {
       "type": "number",
       "title": {
-        "en": "Power State"
+        "en": "Power State",
+        "nl": "Vermogensstatus"
       },
       "getable": true,
       "setable": false,
@@ -8837,25 +9036,29 @@
     "regulation_mode_state": {
       "type": "enum",
       "title": {
-        "en": "Regulation Mode"
+        "en": "Regulation Mode",
+        "nl": "Regelmodus"
       },
       "values": [
         {
           "id": "increase",
           "title": {
-            "en": "Increase"
+            "en": "Increase",
+            "nl": "Toenemen"
           }
         },
         {
           "id": "none",
           "title": {
-            "en": "None"
+            "en": "None",
+            "nl": "Geen"
           }
         },
         {
           "id": "standby",
           "title": {
-            "en": "Standby"
+            "en": "Standby",
+            "nl": "Stand-by"
           }
         }
       ],
@@ -8865,25 +9068,29 @@
     "remote_state": {
       "type": "enum",
       "title": {
-        "en": "Remote State"
+        "en": "Remote State",
+        "nl": "Externe staat:"
       },
       "values": [
         {
           "id": "up",
           "title": {
-            "en": "Up"
+            "en": "Up",
+            "nl": "Omhoog"
           }
         },
         {
           "id": "down",
           "title": {
-            "en": "Down"
+            "en": "Down",
+            "nl": "Omlaag"
           }
         },
         {
           "id": "stop",
           "title": {
-            "en": "Stop"
+            "en": "Stop",
+            "nl": "Hou op"
           }
         },
         {
@@ -8909,7 +9116,8 @@
     "rssi": {
       "type": "number",
       "title": {
-        "en": "Signal Strength"
+        "en": "Signal Strength",
+        "nl": "De signaalsterkte"
       },
       "getable": true,
       "setable": false,
@@ -9022,13 +9230,15 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Test Alarm"
+        "en": "Test Alarm",
+        "nl": "Testalarm:"
       }
     },
     "thermal_scheduling_mode_state": {
       "type": "string",
       "title": {
-        "en": "Thermal Scheduling Mode"
+        "en": "Thermal Scheduling Mode",
+        "nl": "Thermische planningsmodus"
       },
       "getable": true,
       "setable": false
@@ -9039,13 +9249,15 @@
       "setable": true,
       "uiComponent": "button",
       "title": {
-        "en": "Auto (Schedule Mode)"
+        "en": "Auto (Schedule Mode)",
+        "nl": "Auto (Schemamodus)"
       }
     },
     "valve_heating_mode_state": {
       "type": "string",
       "title": {
-        "en": "Heating Mode"
+        "en": "Heating Mode",
+        "nl": "Verwarmingsmodus:"
       },
       "getable": true,
       "setable": false,
@@ -9055,7 +9267,8 @@
     "valve_operating_mode_state": {
       "type": "string",
       "title": {
-        "en": "Operating Mode"
+        "en": "Operating Mode",
+        "nl": "Bedrijfsmodus"
       },
       "getable": true,
       "setable": false,
@@ -9068,15 +9281,18 @@
       "setable": true,
       "uiComponent": "sensor",
       "title": {
-        "en": "Valve Open"
+        "en": "Valve Open",
+        "nl": "Klep open"
       },
       "icon": "/assets/valve.svg",
       "insights": true,
       "insightsTitleTrue": {
-        "en": "Valve Open"
+        "en": "Valve Opened",
+        "nl": "Klep geopend"
       },
       "insightsTitleFalse": {
-        "en": "Valve Closed"
+        "en": "Valve Closed",
+        "nl": "Klep gesloten"
       }
     }
   }

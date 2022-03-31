@@ -151,75 +151,91 @@ class WindowCoveringsDevice extends Device
                 return;
             }
 
-            if (this.boostSync)
+            try
             {
-                if (!await this.homey.app.boostSync())
+                if (this.boostSync)
                 {
-                    throw (new Error('Failed to Boost Sync'));
+                    if (!await this.homey.app.boostSync())
+                    {
+                        throw (new Error('Failed to Boost Sync'));
+                    }
                 }
-            }
 
-            const deviceData = this.getData();
+                const deviceData = this.getData();
 
-            if (value === 'idle' && (this.executionId !== null))
-            {
-                await this.homey.app.tahoma.cancelExecution(this.executionId);
-                this.executionCmd = '';
-                this.executionId = null;
-            }
-            else
-            {
-                if (this.executionId !== null)
+                if (value === 'idle' && (this.executionId !== null))
                 {
                     await this.homey.app.tahoma.cancelExecution(this.executionId);
                     this.executionCmd = '';
                     this.executionId = null;
                 }
-
-                const action = {
-                    name: this.windowcoveringsActions[value],
-                    parameters: [],
-                };
-                const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-                if (result)
+                else
                 {
-                    if (result.errorCode)
+                    if (this.executionId !== null)
                     {
-                        this.setWarning(result.errorCode + result.error).catch(this.error);
-                        this.homey.app.logInformation(this.getName(),
+                        await this.homey.app.tahoma.cancelExecution(this.executionId);
+                        this.executionCmd = '';
+                        this.executionId = null;
+                    }
+
+                    const action = {
+                        name: this.windowcoveringsActions[value],
+                        parameters: [],
+                    };
+                    const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+                    if (result)
+                    {
+                        if (result.errorCode)
                         {
-                            message: result.error,
-                            stack: result.errorCode,
-                        });
+                            this.setWarning(result.errorCode + result.error).catch(this.error);
+                            this.homey.app.logInformation(this.getName(),
+                            {
+                                message: result.error,
+                                stack: result.errorCode,
+                            });
+                            if (this.boostSync)
+                            {
+                                await this.homey.app.unBoostSync();
+                            }
+                            throw (new Error(result.error));
+                        }
+                        else
+                        {
+                            this.executionCmd = action.name;
+                            this.executionId = result.execId;
+                        }
+                    }
+                    else
+                    {
+                        this.homey.app.logInformation(`${this.getName()}: onCapabilityWindowcoveringsState`, 'Failed to send command');
                         if (this.boostSync)
                         {
                             await this.homey.app.unBoostSync();
                         }
-                        throw (new Error(result.error));
+                        throw (new Error('Failed to send command'));
                     }
-                    else
-                    {
-                        this.executionCmd = action.name;
-                        this.executionId = result.execId;
-                    }
-                }
-                else
-                {
-                    this.homey.app.logInformation(`${this.getName()}: onCapabilityWindowcoveringsState`, 'Failed to send command');
-                    if (this.boostSync)
-                    {
-                        await this.homey.app.unBoostSync();
-                    }
-                    throw (new Error('Failed to send command'));
                 }
             }
-
-            if (!this.openClosedStateName)
+            catch (err)
             {
-                this.homey.setTimeout(() =>
+                this.setWarning(err.message).catch(this.error);
+                this.homey.app.logInformation(this.getName(), err.message);
+
+                if (this.boostSync)
                 {
-                    this.setCapabilityValue('windowcoverings_state.rts', null).catch(this.error);
-                }, 500);
+                    await this.homey.app.unBoostSync();
+                }
+                throw (err);
+            }
+            finally
+            {
+                if (!this.openClosedStateName)
+                {
+                    this.homey.setTimeout(() =>
+                    {
+                        this.setCapabilityValue('windowcoverings_state.rts', null).catch(this.error);
+                    }, 500);
+                }
             }
         }
         else
@@ -254,59 +270,73 @@ class WindowCoveringsDevice extends Device
 
             const deviceData = this.getData();
 
-            if (this.executionId !== null)
+            try
             {
-                await this.homey.app.tahoma.cancelExecution(this.executionId);
-                this.executionCmd = '';
-                this.executionId = null;
-            }
-
-            if (this.invertPosition)
-            {
-                value = 1 - value;
-            }
-            const action = {
-                name: this.setPositionActionName, // Anders pull request
-                parameters: [Math.round((1 - value) * 100)],
-            };
-
-            if (this.setPositionActionName === 'setPositionAndLinearSpeed')
-            {
-                // Add low speed option if quiet mode is selected
-                action.parameters.push('lowspeed');
-            }
-
-            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result)
-            {
-                if (result.errorCode)
+                if (this.executionId !== null)
                 {
-                    this.setWarning(result.errorCode + result.error).catch(this.error);
-                    this.homey.app.logInformation(this.getName(),
+                    await this.homey.app.tahoma.cancelExecution(this.executionId);
+                    this.executionCmd = '';
+                    this.executionId = null;
+                }
+
+                if (this.invertPosition)
+                {
+                    value = 1 - value;
+                }
+                const action = {
+                    name: this.setPositionActionName, // Anders pull request
+                    parameters: [Math.round((1 - value) * 100)],
+                };
+
+                if (this.setPositionActionName === 'setPositionAndLinearSpeed')
+                {
+                    // Add low speed option if quiet mode is selected
+                    action.parameters.push('lowspeed');
+                }
+
+                const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+                if (result)
+                {
+                    if (result.errorCode)
                     {
-                        message: result.error,
-                        stack: result.errorCode,
-                    });
+                        this.setWarning(result.errorCode + result.error).catch(this.error);
+                        this.homey.app.logInformation(this.getName(),
+                        {
+                            message: result.error,
+                            stack: result.errorCode,
+                        });
+                        if (this.boostSync)
+                        {
+                            await this.homey.app.unBoostSync();
+                        }
+                        throw (new Error(result.error));
+                    }
+                    else
+                    {
+                        this.executionCmd = action.name;
+                        this.executionId = result.execId;
+                    }
+                }
+                else
+                {
+                    this.homey.app.logInformation(`${this.getName()}: onCapabilityWindowcoveringsSet`, 'Failed to send command');
                     if (this.boostSync)
                     {
                         await this.homey.app.unBoostSync();
                     }
-                    throw (new Error(result.error));
-                }
-                else
-                {
-                    this.executionCmd = action.name;
-                    this.executionId = result.execId;
+                    throw (new Error('Failed to send command'));
                 }
             }
-            else
+            catch (err)
             {
-                this.homey.app.logInformation(`${this.getName()}: onCapabilityWindowcoveringsSet`, 'Failed to send command');
+                this.setWarning(err.message).catch(this.error);
+                this.homey.app.logInformation(this.getName(), err.message);
+
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error('Failed to send command'));
+                throw (err);
             }
         }
         else
@@ -329,49 +359,63 @@ class WindowCoveringsDevice extends Device
             }
 
             const deviceData = this.getData();
-            if (this.executionId !== null)
+            try
             {
-                await this.homey.app.tahoma.cancelExecution(this.executionId);
-                this.executionCmd = '';
-                this.executionId = null;
-            }
-
-            const action = {
-                name: 'setOrientation',
-                parameters: [Math.round((1 - value) * 100)],
-            };
-
-            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result)
-            {
-                if (result.errorCode)
+                if (this.executionId !== null)
                 {
-                    this.setWarning(result.errorCode + result.error).catch(this.error);
-                    this.homey.app.logInformation(this.getName(),
+                    await this.homey.app.tahoma.cancelExecution(this.executionId);
+                    this.executionCmd = '';
+                    this.executionId = null;
+                }
+
+                const action = {
+                    name: 'setOrientation',
+                    parameters: [Math.round((1 - value) * 100)],
+                };
+
+                const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+                if (result)
+                {
+                    if (result.errorCode)
                     {
-                        message: result.error,
-                        stack: result.errorCode,
-                    });
+                        this.setWarning(result.errorCode + result.error).catch(this.error);
+                        this.homey.app.logInformation(this.getName(),
+                        {
+                            message: result.error,
+                            stack: result.errorCode,
+                        });
+                        if (this.boostSync)
+                        {
+                            await this.homey.app.unBoostSync();
+                        }
+                        throw (new Error(result.error));
+                    }
+                    else
+                    {
+                        this.executionCmd = action.name;
+                        this.executionId = result.execId;
+                    }
+                }
+                else
+                {
+                    this.homey.app.logInformation(`${this.getName()}: onCapabilityWindowcoveringsTiltSet`, 'Failed to send command');
                     if (this.boostSync)
                     {
                         await this.homey.app.unBoostSync();
                     }
-                    throw (new Error(result.error));
-                }
-                else
-                {
-                    this.executionCmd = action.name;
-                    this.executionId = result.execId;
+                    throw (new Error('Failed to send command'));
                 }
             }
-            else
+            catch (err)
             {
-                this.homey.app.logInformation(`${this.getName()}: onCapabilityWindowcoveringsTiltSet`, 'Failed to send command');
+                this.setWarning(err.message).catch(this.error);
+                this.homey.app.logInformation(this.getName(), err.message);
+
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error('Failed to send command'));
+                throw (err);
             }
         }
         else
@@ -400,48 +444,62 @@ class WindowCoveringsDevice extends Device
             }
 
             const deviceData = this.getData();
-            if (this.executionId !== null)
+            try
             {
-                await this.homey.app.tahoma.cancelExecution(this.executionId);
-                this.executionCmd = '';
-                this.executionId = null;
-            }
-
-            const action = {
-                name: 'tiltPositive',
-                parameters: [3, 1],
-            };
-            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result)
-            {
-                if (result.errorCode)
+                if (this.executionId !== null)
                 {
-                    this.setWarning(result.errorCode + result.error).catch(this.error);
-                    this.homey.app.logInformation(this.getName(),
+                    await this.homey.app.tahoma.cancelExecution(this.executionId);
+                    this.executionCmd = '';
+                    this.executionId = null;
+                }
+
+                const action = {
+                    name: 'tiltPositive',
+                    parameters: [3, 1],
+                };
+                const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+                if (result)
+                {
+                    if (result.errorCode)
                     {
-                        message: result.error,
-                        stack: result.errorCode,
-                    });
+                        this.setWarning(result.errorCode + result.error).catch(this.error);
+                        this.homey.app.logInformation(this.getName(),
+                        {
+                            message: result.error,
+                            stack: result.errorCode,
+                        });
+                        if (this.boostSync)
+                        {
+                            await this.homey.app.unBoostSync();
+                        }
+                        throw (new Error(result.error));
+                    }
+                    else
+                    {
+                        this.executionCmd = action.name;
+                        this.executionId = result.execId;
+                    }
+                }
+                else
+                {
+                    this.homey.app.logInformation(`${this.getName()}: onCapabilityWindowcoveringsTiltUp`, 'Failed to send command');
                     if (this.boostSync)
                     {
                         await this.homey.app.unBoostSync();
                     }
-                    throw (new Error(result.error));
-                }
-                else
-                {
-                    this.executionCmd = action.name;
-                    this.executionId = result.execId;
+                    throw (new Error('Failed to send command'));
                 }
             }
-            else
+            catch (err)
             {
-                this.homey.app.logInformation(`${this.getName()}: onCapabilityWindowcoveringsTiltUp`, 'Failed to send command');
+                this.setWarning(err.message).catch(this.error);
+                this.homey.app.logInformation(this.getName(), err.message);
+
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error('Failed to send command'));
+                throw (err);
             }
         }
     }
@@ -459,47 +517,61 @@ class WindowCoveringsDevice extends Device
             }
 
             const deviceData = this.getData();
-            if (this.executionId !== null)
+            try
             {
-                await this.homey.app.tahoma.cancelExecution(this.executionId);
-                this.executionCmd = '';
-                this.executionId = null;
-            }
-
-            const action = {
-                name: 'tiltNegative',
-                parameters: [3, 1],
-            };
-            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result)
-            {
-                if (result.errorCode)
+                if (this.executionId !== null)
                 {
-                    this.homey.app.logInformation(this.getName(),
+                    await this.homey.app.tahoma.cancelExecution(this.executionId);
+                    this.executionCmd = '';
+                    this.executionId = null;
+                }
+
+                const action = {
+                    name: 'tiltNegative',
+                    parameters: [3, 1],
+                };
+                const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+                if (result)
+                {
+                    if (result.errorCode)
                     {
-                        message: result.error,
-                        stack: result.errorCode,
-                    });
+                        this.homey.app.logInformation(this.getName(),
+                        {
+                            message: result.error,
+                            stack: result.errorCode,
+                        });
+                        if (this.boostSync)
+                        {
+                            await this.homey.app.unBoostSync();
+                        }
+                        throw (new Error(result.error));
+                    }
+                    else
+                    {
+                        this.executionCmd = action.name;
+                        this.executionId = result.execId;
+                    }
+                }
+                else
+                {
+                    this.homey.app.logInformation(`${this.getName()}: onCapabilityWindowcoveringsTiltDown`, 'Failed to send command');
                     if (this.boostSync)
                     {
                         await this.homey.app.unBoostSync();
                     }
-                    throw (new Error(result.error));
-                }
-                else
-                {
-                    this.executionCmd = action.name;
-                    this.executionId = result.execId;
+                    throw (new Error('Failed to send command'));
                 }
             }
-            else
+            catch (err)
             {
-                this.homey.app.logInformation(`${this.getName()}: onCapabilityWindowcoveringsTiltDown`, 'Failed to send command');
+                this.setWarning(err.message).catch(this.error);
+                this.homey.app.logInformation(this.getName(), err.message);
+
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error('Failed to send command'));
+                throw (err);
             }
         }
     }
@@ -517,45 +589,59 @@ class WindowCoveringsDevice extends Device
             }
 
             const deviceData = this.getData();
-            if (this.executionId !== null)
+            try
             {
-                await this.homey.app.tahoma.cancelExecution(this.executionId);
-            }
-
-            const action = {
-                name: this.myCommand,
-                parameters: [],
-            };
-            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result)
-            {
-                if (result.errorCode)
+                if (this.executionId !== null)
                 {
-                    this.homey.app.logInformation(this.getName(),
+                    await this.homey.app.tahoma.cancelExecution(this.executionId);
+                }
+
+                const action = {
+                    name: this.myCommand,
+                    parameters: [],
+                };
+                const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+                if (result)
+                {
+                    if (result.errorCode)
                     {
-                        message: result.error,
-                        stack: result.errorCode,
-                    });
+                        this.homey.app.logInformation(this.getName(),
+                        {
+                            message: result.error,
+                            stack: result.errorCode,
+                        });
+                        if (this.boostSync)
+                        {
+                            await this.homey.app.unBoostSync();
+                        }
+                        throw (new Error(result.error));
+                    }
+                    else
+                    {
+                        this.executionCmd = action.name;
+                        this.executionId = result.execId;
+                    }
+                }
+                else
+                {
+                    this.homey.app.logInformation(`${this.getName()}: onCapabilityMyPosition`, 'Failed to send command');
                     if (this.boostSync)
                     {
                         await this.homey.app.unBoostSync();
                     }
-                    throw (new Error(result.error));
-                }
-                else
-                {
-                    this.executionCmd = action.name;
-                    this.executionId = result.execId;
+                    throw (new Error('Failed to send command'));
                 }
             }
-            else
+            catch (err)
             {
-                this.homey.app.logInformation(`${this.getName()}: onCapabilityMyPosition`, 'Failed to send command');
+                this.setWarning(err.message).catch(this.error);
+                this.homey.app.logInformation(this.getName(), err.message);
+
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error('Failed to send command'));
+                throw (err);
             }
         }
     }
@@ -573,45 +659,59 @@ class WindowCoveringsDevice extends Device
             }
 
             const deviceData = this.getData();
-            if (this.executionId !== null)
+            try
             {
-                await this.homey.app.tahoma.cancelExecution(this.executionId);
-            }
-
-            const action = {
-                name: 'setPedestrianPosition',
-                parameters: [],
-            };
-            const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
-            if (result)
-            {
-                if (result.errorCode)
+                if (this.executionId !== null)
                 {
-                    this.homey.app.logInformation(this.getName(),
+                    await this.homey.app.tahoma.cancelExecution(this.executionId);
+                }
+
+                const action = {
+                    name: 'setPedestrianPosition',
+                    parameters: [],
+                };
+                const result = await this.homey.app.tahoma.executeDeviceAction(deviceData.label, deviceData.deviceURL, action);
+                if (result)
+                {
+                    if (result.errorCode)
                     {
-                        message: result.error,
-                        stack: result.errorCode,
-                    });
+                        this.homey.app.logInformation(this.getName(),
+                        {
+                            message: result.error,
+                            stack: result.errorCode,
+                        });
+                        if (this.boostSync)
+                        {
+                            await this.homey.app.unBoostSync();
+                        }
+                        throw (new Error(result.error));
+                    }
+                    else
+                    {
+                        this.executionCmd = action.name;
+                        this.executionId = result.execId;
+                    }
+                }
+                else
+                {
+                    this.homey.app.logInformation(`${this.getName()}: onCapabilityPedestrian`, 'Failed to send command');
                     if (this.boostSync)
                     {
                         await this.homey.app.unBoostSync();
                     }
-                    throw (new Error(result.error));
-                }
-                else
-                {
-                    this.executionCmd = action.name;
-                    this.executionId = result.execId;
+                    throw (new Error('Failed to send command'));
                 }
             }
-            else
+            catch (err)
             {
-                this.homey.app.logInformation(`${this.getName()}: onCapabilityPedestrian`, 'Failed to send command');
+                this.setWarning(err.message).catch(this.error);
+                this.homey.app.logInformation(this.getName(), err.message);
+
                 if (this.boostSync)
                 {
                     await this.homey.app.unBoostSync();
                 }
-                throw (new Error('Failed to send command'));
+                throw (err);
             }
         }
         else

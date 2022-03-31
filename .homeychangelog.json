@@ -487,5 +487,8 @@
   },
   "3.0.21": {
     "en": "Added Velux blind ogp:Blind"
+  },
+  "3.0.22": {
+    "en": "Added sliding Pergola io:PergolaRailGuidedAwningIOComponent and the Homekit hub."
   }
 }

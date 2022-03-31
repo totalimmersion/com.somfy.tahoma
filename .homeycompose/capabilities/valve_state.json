@@ -4,14 +4,17 @@
   "setable": true,
   "uiComponent": "sensor",
   "title": {
-    "en": "Valve Open"
+    "en": "Valve Open",
+    "nl": "Klep open"
   },
   "icon": "/assets/valve.svg",
   "insights": true,
   "insightsTitleTrue": {
-    "en": "Valve Open"
+    "en": "Valve Opened",
+    "nl": "Klep geopend"
   },
   "insightsTitleFalse": {
-    "en": "Valve Closed"
+    "en": "Valve Closed",
+    "nl": "Klep gesloten"
   }
 }

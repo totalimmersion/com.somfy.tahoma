@@ -1,6 +1,7 @@
 {
   "name": {
-    "en": "Heater"
+    "en": "Heater - On / Off",
+    "nl": "Verwarming - Aan / Uit"
   },
   "class": "heater",
   "capabilities": [

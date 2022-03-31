@@ -4,6 +4,7 @@
   "setable": true,
   "uiComponent": "button",
   "title": {
-    "en": "Auto (Schedule Mode)"
+    "en": "Auto (Schedule Mode)",
+    "nl": "Auto (Schemamodus)"
   }
 }

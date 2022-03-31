@@ -1,6 +1,7 @@
 {
   "name": {
-    "en": "Horizontal Awning (RTS)"
+    "en": "Awning (RTS)",
+    "nl": "Buitenzonwering (RTS)"
   },
   "class": "sunshade",
   "capabilities": [
@@ -12,11 +13,13 @@
       "id": "invertUpDown",
       "type": "checkbox",
       "label": {
-        "en": "Invert Up / Down"
+        "en": "Invert Up / Down",
+        "nl": "Omkeren omhoog / omlaag"
       },
       "value": false,
       "hint": {
-        "en": "Reverse the Up / Down direction controls"
+        "en": "Reverse the Up / Down direction controls",
+        "nl": "Draai de bedieningselementen omhoog/omlaag om"
       }
     }
   ],

@@ -1,6 +1,7 @@
 {
   "name": {
-    "en": "Light with Timer (RTS)"
+    "en": "Light with Timer (RTS)",
+    "nl": "Licht met timer (RTS)"
   },
   "class": "button",
   "capabilities": [

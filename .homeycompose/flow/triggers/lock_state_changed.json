@@ -1,14 +1,16 @@
 {
   "id": "lock_state_changed",
   "title": {
-    "en": "The lock state changed"
+    "en": "The lock state changed",
+    "nl": "De vergrendelingsstatus is gewijzigd"
   },
   "tokens": [
     {
       "name": "lock_state",
       "type": "string",
       "title": {
-        "en": "Lock state"
+        "en": "Lock state",
+        "nl": "Staat vergrendelen"
       },
       "example": "wind"
     }

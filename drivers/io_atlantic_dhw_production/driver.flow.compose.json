@@ -124,7 +124,8 @@
                         {
                             "id": "stop",
                             "label": {
-                                "en": "Stop"
+                                "en": "Stop",
+                                "nl": "Hou op"
                             }
                         }
                     ]

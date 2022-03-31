@@ -1,6 +1,7 @@
 {
   "name": {
-    "en": "Siren (io)"
+    "en": "Siren (io)",
+    "nl": "Sirene (io)"
   },
   "class": "homealarm",
   "energy": {

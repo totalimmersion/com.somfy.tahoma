@@ -17,11 +17,17 @@
   ],
   "capabilitiesOptions": {
     "target_temperature.absence_cooling": {
-      "title": "Absence Cooling Temperature",
+      "title": {
+          "en": "Absence Cooling Temperature",
+          "nl": "Afwezigheid Koeltemperatuur"
+      },
       "min": 0
     },
     "target_temperature.absence_heating": {
-      "title": "Absence Heating Temperature",
+      "title": {
+        "en": "Absence Heating Temperature",
+        "nl": "Afwezigheid Verwarmingstemperatuur"
+    },
       "min": 0
     }
   },

@@ -674,30 +674,35 @@ class myApp extends Homey.App
 
     logInformation(source, error)
     {
-//        this.log(source, this.varToString(error));
-        this.error(error);
+        let data = '';
+        if (error)
+        {
+            data = this.varToString(error);
+        }
+
+        this.error(`${source}, ${data}`);
 
         try
         {
-            let data;
             if (error)
             {
-                if (typeof (error) === 'string')
-                {
-                    data = error;
-                }
-                else if (error.stack)
+                if (error.stack)
                 {
                     data = {
                         message: error.message,
                         stack: error.stack,
                     };
                 }
-                else
+                else if (error.message)
                 {
                     data = error.message;
                 }
+                else
+                {
+                    data = error;
+                }
             }
+
             let logData = this.homey.settings.get('infoLog');
             if (!Array.isArray(logData))
             {
@@ -769,17 +774,17 @@ class myApp extends Homey.App
                 if (logType === 'infoLog')
                 {
                     subject = `Tahoma Information log`;
-                    text = this.varToString(this.homey.settings.get('infoLog'), null, 2);
+                    text = this.varToString(this.homey.settings.get('infoLog'));
                 }
                 else if (logType === 'deviceLog')
                 {
                     subject = 'Tahoma device log';
-                    text = this.varToString(this.homey.settings.get('deviceLog'), null, 2);
+                    text = this.varToString(this.homey.settings.get('deviceLog'));
                 }
                 else if (logType === 'eventLog')
                 {
                     subject = 'Tahoma event log';
-                    text = this.varToString(this.homey.settings.get('eventLog'), null, 2);
+                    text = this.varToString(this.homey.settings.get('eventLog'));
                 }
 
                 subject += `(${this.homeyHash} : ${Homey.manifest.version})`;
@@ -801,8 +806,8 @@ class myApp extends Homey.App
                         // do not fail on invalid certs
                         rejectUnauthorized: false,
                     },
-                },
-);
+                },);
+
                 // send mail with defined transport object
                 const response = await transporter.sendMail(
                 {
@@ -810,8 +815,8 @@ class myApp extends Homey.App
                     to: Homey.env.MAIL_RECIPIENT, // list of receivers
                     subject, // Subject line
                     text, // plain text body
-                },
-);
+                },);
+
                 return {
                     error: response.err,
                     message: response.err ? null : 'OK',
@@ -858,13 +863,17 @@ class myApp extends Homey.App
         {
             this.logInformation('initSync', 'Error');
 
-            let timeout = 5000;
+            let timeout = 15000;
             if (error.message === 'Far Too many login attempts (blocked for 15 minutes)')
             {
+                clearTimeout(this.boostTimerId);
+                this.commandsQueued = 0;
                 timeout = 900000;
             }
             else if (error.message === 'Too many login attempts (blocked for 60 seconds)')
             {
+                clearTimeout(this.boostTimerId);
+                this.commandsQueued = 0;
                 timeout = 60000;
             }
 
@@ -1080,6 +1089,8 @@ class myApp extends Homey.App
                 this.timerId = null;
             }
 
+            let nextInterval = this.nextInterval;
+
             // Make sure it has been about 30 seconds since last sync unless boost is on
             if (this.boostTimerId || (Date.now() - this.lastSync) > 28000)
             {
@@ -1101,6 +1112,18 @@ class myApp extends Homey.App
                 catch (error)
                 {
                     this.logInformation('syncLoop', error.message);
+                    if (error.message === 'Far Too many login attempts (blocked for 15 minutes)')
+                    {
+                        clearTimeout(this.boostTimerId);
+                        this.commandsQueued = 0;
+                        nextInterval = 900000;
+                    }
+                    else if (error.message === 'Too many login attempts (blocked for 60 seconds)')
+                    {
+                        clearTimeout(this.boostTimerId);
+                        this.commandsQueued = 0;
+                        nextInterval = 60000;
+                    }
                 }
             }
             else
@@ -1114,7 +1137,7 @@ class myApp extends Homey.App
             if (this.nextInterval > 0)
             {
                 // Setup timer for next sync
-                this.timerId = this.homey.setTimeout(() => this.syncLoop(), this.nextInterval);
+                this.timerId = this.homey.setTimeout(() => this.syncLoop(), nextInterval);
             }
             else
             {

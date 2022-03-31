@@ -14,12 +14,18 @@
     "target_temperature.comfort": {
       "min": 30,
       "max": 60,
-      "title": "Comfort Temperature"
+      "title": {
+          "en": "Comfort Temperature",
+          "nl": "Comforttemperatuur"
+      }
     },
     "target_temperature.eco": {
       "min": 30,
       "max": 60,
-      "title": "Eco Temperature"
+      "title": {
+          "en": "Eco Temperature",
+          "nl": "Ecotemperatuur"
+      }
     }
   },
   "$extends": ["cloudDriver"]

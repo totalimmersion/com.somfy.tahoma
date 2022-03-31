@@ -30,25 +30,29 @@
                     "type": "dropdown",
                     "name": "expected_state",
                     "title": {
-                        "en": "Expected State"
+                        "en": "Expected State",
+                        "nl": "Verwachte staat"
                     },
                     "values": [
                         {
                             "id": "up",
                             "label": {
-                                "en": "Up"
+                                "en": "Up",
+                                "nl": "Omhoog"
                             }
                         },
                         {
                             "id": "down",
                             "label": {
-                                "en": "Down"
+                                "en": "Down",
+                                "nl": "Omlaag"
                             }
                         },
                         {
                             "id": "stop",
                             "label": {
-                                "en": "Stop"
+                                "en": "Stop",
+                                "nl": "Hou op"
                             }
                         },
                         {

@@ -14,7 +14,8 @@
                     "name": "state",
                     "type": "dropdown",
                     "title": {
-                        "en": "Expected State"
+                        "en": "Expected State",
+                        "nl": "Verwachte staat"
                     },
                     "values": [
                         {
@@ -78,7 +79,8 @@
                     "name": "state",
                     "type": "dropdown",
                     "title": {
-                        "en": "Expected State"
+                        "en": "Expected State",
+                        "nl": "Verwachte staat"
                     },
                     "values": [
                         {

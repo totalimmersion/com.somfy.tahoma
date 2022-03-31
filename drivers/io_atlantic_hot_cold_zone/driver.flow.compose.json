@@ -25,7 +25,8 @@
                         {
                             "id": "auto",
                             "label": {
-                                "en": "Auto"
+                                "en": "Automatic",
+                                "nl": "Automatisch"
                             }
                         },
                         {
@@ -55,13 +56,15 @@
                         {
                             "id": "manu",
                             "label": {
-                                "en": "Manual"
+                                "en": "Manual",
+                                "nl": "Handmatig"
                             }
                         },
                         {
                             "id": "stop",
                             "label": {
-                                "en": "Stop"
+                                "en": "Stop",
+                                "nl": "Hou op"
                             }
                         }
                     ]
@@ -93,7 +96,8 @@
                         {
                             "id": "auto",
                             "label": {
-                                "en": "Auto"
+                                "en": "Automatic",
+                                "nl": "Automatisch"
                             }
                         },
                         {
@@ -123,13 +127,15 @@
                         {
                             "id": "manu",
                             "label": {
-                                "en": "Manual"
+                                "en": "Manual",
+                                "nl": "Handmatig"
                             }
                         },
                         {
                             "id": "stop",
                             "label": {
-                                "en": "Stop"
+                                "en": "Stop",
+                                "nl": "Hou op"
                             }
                         }
                     ]

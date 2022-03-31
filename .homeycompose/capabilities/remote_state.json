@@ -1,25 +1,29 @@
 {
   "type": "enum",
   "title": {
-    "en": "Remote State"
+    "en": "Remote State",
+    "nl": "Externe staat:"
   },
   "values": [
     {
       "id": "up",
       "title": {
-        "en": "Up"
+        "en": "Up",
+        "nl": "Omhoog"
       }
     },
     {
       "id": "down",
       "title": {
-        "en": "Down"
+        "en": "Down",
+        "nl": "Omlaag"
       }
     },
     {
       "id": "stop",
       "title": {
-        "en": "Stop"
+        "en": "Stop",
+        "nl": "Hou op"
       }
     },
     {

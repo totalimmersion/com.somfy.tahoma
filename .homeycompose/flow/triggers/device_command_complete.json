@@ -1,14 +1,16 @@
 {
   "id": "device_command_complete",
   "title": {
-    "en": "A command completed"
+    "en": "A command completed",
+    "nl": "Een opdracht voltooid"
   },
   "tokens": [
     {
       "name": "state",
       "type": "boolean",
       "title": {
-        "en": "Successful"
+        "en": "Successful",
+        "nl": "Succesvol"
       },
       "example": "true"
     },
@@ -16,7 +18,8 @@
       "name": "name",
       "type": "string",
       "title": {
-        "en": "Command Name"
+        "en": "Command Name",
+        "nl": "Opdrachtnaam"
       }
     }
   ],

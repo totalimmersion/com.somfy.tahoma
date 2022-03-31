@@ -89,7 +89,8 @@
                         {
                             "id": "manu",
                             "label": {
-                                "en": "Manual"
+                                "en": "Manual",
+                                "nl": "Handmatig"
                             }
                         },
                         {
@@ -107,7 +108,8 @@
                         {
                             "id": "stop",
                             "label": {
-                                "en": "Stop"
+                                "en": "Stop",
+                                "nl": "Hou op"
                             }
                         }
                     ]

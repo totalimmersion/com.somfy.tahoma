@@ -1,6 +1,7 @@
 {
   "name": {
-    "en": "RGBW Light"
+    "en": "RGBW Light",
+    "nl": "RGBW-licht"
   },
   "class": "light",
   "capabilities": [
@@ -21,22 +22,26 @@
       "id": "minTemperature",
       "type": "number",
       "label": {
-        "en": "Min Colour Temperature (K)"
+        "en": "Min Colour Temperature (K)",
+        "nl": "Minimale kleurtemperatuur (K)"
       },
       "value": 2200,
       "hint": {
-        "en": "Min colour temperature of the light"
+        "en": "Min colour temperature of the light",
+        "nl": "Min kleurtemperatuur van het licht"
       }
     },
     {
       "id": "maxTemperature",
       "type": "number",
       "label": {
-        "en": "Max Colour Temperature (K)"
+        "en": "Max Colour Temperature (K)",
+        "nl": "Maximale kleurtemperatuur (K)"
       },
       "value": 6500,
       "hint": {
-        "en": "Max colour temperature of the light"
+        "en": "Max colour temperature of the light",
+        "nl": "Max kleurtemperatuur van het licht"
       }
     }
   ],

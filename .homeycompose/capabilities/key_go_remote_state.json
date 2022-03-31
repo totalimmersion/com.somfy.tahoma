@@ -22,7 +22,8 @@
     {
       "id": "stop",
       "title": {
-        "en": "Stop"
+        "en": "Stop",
+        "nl": "Hou op"
       }
     }
   ],
