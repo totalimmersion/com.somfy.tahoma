@@ -490,5 +490,8 @@
   },
   "3.0.22": {
     "en": "Added sliding Pergola io:PergolaRailGuidedAwningIOComponent and the Homekit hub."
+  },
+  "3.0.23": {
+    "en": "Fix for Un-Boost when polling not enabled."
   }
 }

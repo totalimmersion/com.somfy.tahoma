@@ -27,6 +27,8 @@ class myApp extends Homey.App
         this.syncing = false;
         this.timerId = null;
         this.boostTimerId = null;
+        this.unBoostTimerID = null;
+        this.unBoosting = false;
         this.commandsQueued = 0;
         this.lastSync = 0;
 
@@ -885,6 +887,18 @@ class myApp extends Homey.App
     // Boost the sync speed when a command is executed that has status feedback
     async boostSync()
     {
+        if (this.unBoostTimerID)
+        {
+            clearTimeout(this.unBoostTimerID);
+            this.unBoostTimerID = null;
+        }
+
+        let maxLoops = 50;
+        while (this.unBoosting && (maxLoops-- > 0))
+        {
+            await this.homey.app.asyncDelay(1000);
+        }
+
         this.commandsQueued++;
 
         if (this.boostTimerId)
@@ -956,6 +970,31 @@ class myApp extends Homey.App
 
     async unBoostSync(immediate = false)
     {
+        this.unBoosting = true;
+        this.pollingEnabled = this.homey.settings.get('pollingEnabled');
+
+        if (immediate)
+        {
+            clearTimeout(this.unBoostTimerID);
+            this.unBoostTimerID = null;
+            this.commandsQueued = 0;
+        }
+        else
+        {
+            if (!this.pollingEnabled)
+            {
+                // Polling is not enabled so delay by 10 seconds to ensure all the new states a=have come through
+                if (this.infoLogEnabled)
+                {
+                    this.logInformation('Stop sync requested delayed by 16 seconds');
+                }
+                
+                this.unBoostTimerID = this.homey.setTimeout(() => this.unBoostSync(true), 16000);
+                this.unBoosting = false;
+                return;
+            }
+        }
+
         if (this.infoLogEnabled)
         {
             this.logInformation('UnBoost Sync',
@@ -971,11 +1010,6 @@ class myApp extends Homey.App
             });
         }
 
-        if (immediate)
-        {
-            this.commandsQueued = 0;
-        }
-
         if (this.commandsQueued > 0)
         {
             this.commandsQueued--;
@@ -985,12 +1019,25 @@ class myApp extends Homey.App
         {
             clearTimeout(this.boostTimerId);
             this.boostTimerId = null;
-            this.startSync();
+            if (this.pollingEnabled)
+            {
+                this.startSync();
+            }
+            else
+            {
+                await this.stopSync();  
+            }
         }
+        this.unBoosting = false;
     }
 
     async stopSync()
     {
+        if (this.infoLogEnabled)
+        {
+            this.logInformation('Stop sync requested');
+        }
+        
         this.pollingEnabled = false;
 
         if (this.commandsQueued > 0)
@@ -1006,18 +1053,13 @@ class myApp extends Homey.App
         {
             clearTimeout(this.timerId);
             this.timerId = null;
-
-            if (this.infoLogEnabled)
-            {
-                this.logInformation('Stop sync requested');
-            }
-
-            await this.tahoma.eventsClearRegistered();
-            if (this.infoLogEnabled)
-            {
-                this.logInformation('stopSync', 'Stopping Event Polling');
-            }
         }
+
+        if (this.infoLogEnabled)
+        {
+            this.logInformation('stopSync', 'Stopping Event Polling');
+        }
+        await this.tahoma.eventsClearRegistered();
     }
 
     async startSync()
