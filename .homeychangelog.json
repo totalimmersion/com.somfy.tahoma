@@ -493,5 +493,8 @@
   },
   "3.0.23": {
     "en": "Fix for Un-Boost when polling not enabled."
+  },
+  "3.0.24": {
+    "en": "Fix for some devices not boosting polling."
   }
 }

@@ -73,7 +73,6 @@ class WindowCoveringsDevice extends Device
         this.myCommand = 'my'; // Name of the command to set the My position
 
         this.quietMode = false;
-        this.boostSync = true;
 
         this.registerCapabilityListener('windowcoverings_state', this.onCapabilityWindowcoveringsState.bind(this));
         this.registerCapabilityListener('windowcoverings_state.rts', this.onCapabilityWindowcoveringsState.bind(this));
@@ -85,6 +84,8 @@ class WindowCoveringsDevice extends Device
         this.registerCapabilityListener('windowcoverings_tilt_set', this.onCapabilityWindowcoveringsTiltSet.bind(this));
 
         await super.onInit();
+
+        this.boostSync = true;
     }
 
     onAdded()

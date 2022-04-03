@@ -986,7 +986,7 @@ class myApp extends Homey.App
                 // Polling is not enabled so delay by 10 seconds to ensure all the new states a=have come through
                 if (this.infoLogEnabled)
                 {
-                    this.logInformation('Stop sync requested delayed by 16 seconds');
+                    this.logInformation('UnBoost delayed by 16 seconds');
                 }
                 
                 this.unBoostTimerID = this.homey.setTimeout(() => this.unBoostSync(true), 16000);

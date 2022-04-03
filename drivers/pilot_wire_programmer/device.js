@@ -14,12 +14,11 @@ class PilotWireProgrammerDevice extends SensorDevice
 
     async onInit()
     {
-        this.boostSync = true;
-
         this.registerCapabilityListener('onoff', this.onCapabilityOnOff.bind(this));
         this.registerCapabilityListener('heating_mode', this.onCapabilityHeatingModeState.bind(this));
 
         await super.onInit();
+        this.boostSync = true;
     }
 
     async onCapabilityOnOff(value, opts)

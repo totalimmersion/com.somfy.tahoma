@@ -80,9 +80,8 @@ class ElectricHeaterDevice extends SensorDevice
 
     async onInit()
     {
-        this.boostSync = true;
-
         await super.onInit(CapabilitiesXRef);
+        this.boostSync = true;
     }
 
     // Update the capabilities

@@ -14,8 +14,6 @@ class OneAlarmDevice extends SensorDevice
 
     async onInit()
     {
-        this.boostSync = true;
-
         this.alarmArmedState = {
             armed: 'armed',
             disarmed: 'disarmed',
@@ -31,6 +29,7 @@ class OneAlarmDevice extends SensorDevice
         this.registerCapabilityListener('alarm_generic', this.onCapabilityAlarmTriggeredState.bind(this));
 
         await super.onInit();
+        this.boostSync = true;
     }
 
     async onCapabilityAlarmTriggeredState(value)
