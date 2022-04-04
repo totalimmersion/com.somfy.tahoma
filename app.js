@@ -255,6 +255,12 @@ class myApp extends Homey.App
         this.log(`${Homey.manifest.id} Initialised`);
     }
 
+    onUninit()
+    {
+        // Log out but don't clear the credentials
+        this.logOut( false );
+    }
+
     registerActionFlowCards()
     {
         this.homey.flow.getActionCard('absence_heating_temperature_set')
@@ -618,7 +624,20 @@ class myApp extends Homey.App
     async logOut(ClearCredentials = true)
     {
         this.loggedIn = false;
-        await this.homey.app.stopSync();
+        
+        if (this.unBoostTimerID)
+        {
+            this.homey.clearTimeout(this.unBoostTimerID);
+            this.unBoostTimerID = null;
+        }
+        
+        let maxLoops = 50;
+        while (this.unBoosting && (maxLoops-- > 0))
+        {
+            await this.homey.app.asyncDelay(1000);
+        }
+
+        await this.stopSync();
         await this.tahoma.logout();
         if (ClearCredentials)
         {
@@ -868,13 +887,13 @@ class myApp extends Homey.App
             let timeout = 15000;
             if (error.message === 'Far Too many login attempts (blocked for 15 minutes)')
             {
-                clearTimeout(this.boostTimerId);
+                this.homey.clearTimeout(this.boostTimerId);
                 this.commandsQueued = 0;
                 timeout = 900000;
             }
             else if (error.message === 'Too many login attempts (blocked for 60 seconds)')
             {
-                clearTimeout(this.boostTimerId);
+                this.homey.clearTimeout(this.boostTimerId);
                 this.commandsQueued = 0;
                 timeout = 60000;
             }
@@ -889,7 +908,7 @@ class myApp extends Homey.App
     {
         if (this.unBoostTimerID)
         {
-            clearTimeout(this.unBoostTimerID);
+            this.homey.clearTimeout(this.unBoostTimerID);
             this.unBoostTimerID = null;
         }
 
@@ -903,7 +922,7 @@ class myApp extends Homey.App
 
         if (this.boostTimerId)
         {
-            clearTimeout(this.boostTimerId);
+            this.homey.clearTimeout(this.boostTimerId);
             this.boostTimerId = null;
         }
 
@@ -924,7 +943,7 @@ class myApp extends Homey.App
             this.nextInterval = 0;
             if (this.timerId)
             {
-                clearTimeout(this.timerId);
+                this.homey.clearTimeout(this.timerId);
                 this.timerId = null;
             }
 
@@ -975,8 +994,11 @@ class myApp extends Homey.App
 
         if (immediate)
         {
-            clearTimeout(this.unBoostTimerID);
-            this.unBoostTimerID = null;
+            if (this.unBoostTimerID)
+            {
+                this.homey.clearTimeout(this.unBoostTimerID);
+                this.unBoostTimerID = null;
+            }
             this.commandsQueued = 0;
         }
         else
@@ -1017,7 +1039,7 @@ class myApp extends Homey.App
 
         if (this.commandsQueued === 0)
         {
-            clearTimeout(this.boostTimerId);
+            this.homey.clearTimeout(this.boostTimerId);
             this.boostTimerId = null;
             if (this.pollingEnabled)
             {
@@ -1037,13 +1059,13 @@ class myApp extends Homey.App
         {
             this.logInformation('Stop sync requested');
         }
-        
+
         this.pollingEnabled = false;
 
         if (this.commandsQueued > 0)
         {
             this.commandsQueued = 0;
-            clearTimeout(this.boostTimerId);
+            this.homey.clearTimeout(this.boostTimerId);
             this.boostTimerId = null;
         }
 
@@ -1051,7 +1073,7 @@ class myApp extends Homey.App
 
         if (this.timerId)
         {
-            clearTimeout(this.timerId);
+            this.homey.clearTimeout(this.timerId);
             this.timerId = null;
         }
 
@@ -1074,7 +1096,7 @@ class myApp extends Homey.App
 
         if (this.timerId)
         {
-            clearTimeout(this.timerId);
+            this.homey.clearTimeout(this.timerId);
             this.timerId = null;
         }
 
@@ -1127,7 +1149,7 @@ class myApp extends Homey.App
             if (this.timerId)
             {
                 // make sure any existing timer is canceled
-                clearTimeout(this.timerId);
+                this.homey.clearTimeout(this.timerId);
                 this.timerId = null;
             }
 
@@ -1156,13 +1178,13 @@ class myApp extends Homey.App
                     this.logInformation('syncLoop', error.message);
                     if (error.message === 'Far Too many login attempts (blocked for 15 minutes)')
                     {
-                        clearTimeout(this.boostTimerId);
+                        this.homey.clearTimeout(this.boostTimerId);
                         this.commandsQueued = 0;
                         nextInterval = 900000;
                     }
                     else if (error.message === 'Too many login attempts (blocked for 60 seconds)')
                     {
-                        clearTimeout(this.boostTimerId);
+                        this.homey.clearTimeout(this.boostTimerId);
                         this.commandsQueued = 0;
                         nextInterval = 60000;
                     }
