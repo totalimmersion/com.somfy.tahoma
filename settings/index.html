@@ -221,6 +221,82 @@
         // a method named 'onHomeyReady' must be present in your code
         function onHomeyReady(Homey)
         {
+            Homey.on('settings.set', function(param)
+            {
+                if (param === 'infoLog')
+                {
+                    Homey.get('infoLog', function(err, infoLog)
+                    {
+                        if (err) return Homey.alert(err);
+                        infoLogElement.value = JSON.stringify(infoLog, null, 2).replace(/\\n/g, '\n            ');
+                    });
+                }
+                else if (param === 'infoLogEnabled')
+                {
+                    Homey.get('infoLogEnabled', function(err, enable)
+                    {
+                        if (err) return Homey.alert(err);
+                        infoLogEnabledElement.checked = enable;
+                    });
+                }
+                else if (param === 'deviceLog')
+                {
+                    Homey.get('deviceLog', function(err, deviceLog)
+                    {
+                        if (err) return Homey.alert(err);
+                        deviceLogElement.value = JSON.stringify(deviceLog, null, 2);
+                    });
+                }
+                else if (param === 'stateLog')
+                {
+                    Homey.get('stateLog', function(err, stateLogData)
+                    {
+                        if (err) return Homey.alert(err);
+                        stateLogElement.value = stateLogData;
+                    });
+                }
+                else if (param === 'stateLogEnabled')
+                {
+                    Homey.get('stateLogEnabled', function(err, enable)
+                    {
+                        if (err) return Homey.alert(err);
+                        stateLogEnabledElement.checked = enable;
+                    });
+                }
+                else if (param === 'eventLog')
+                {
+                    Homey.get('eventLog', function(err, eventLogData)
+                    {
+                        if (err) return Homey.alert(err);
+                        eventLogElement.value = eventLogData;
+                    });
+                }
+                else if (param === 'eventLogEnabled')
+                {
+                    Homey.get('eventLogEnabled', function(err, enable)
+                    {
+                        if (err) return Homey.alert(err);
+                        eventLogEnabledElement.checked = enable;
+                    });
+                }
+                else if (param === 'pollingEnabled')
+                {
+                    Homey.get('pollingEnabled', function(err, pollingEnabled)
+                    {
+                        if (err) return Homey.alert(err);
+                        pollingEnabledEl.checked = pollingEnabled;
+                    });
+                }
+                else if (param === 'syncInterval')
+                {
+                    Homey.get('syncInterval', function(err, syncInterval)
+                    {
+                        if (err) return Homey.alert(err);
+                        syncSpeedEl.value = syncInterval;
+                    });
+                }
+            });
+
             Homey.get('debugMode', function(err, debugMode)
             {
                 if (err) return Homey.alert(err);
@@ -346,58 +422,6 @@
                     if (err) return Homey.alert(err);
                 });
                 return Homey.alert(__('settings.pref_saved'));
-            });
-
-            Homey.on('settings.set', function(param)
-            {
-                if (param === 'infoLog')
-                {
-                    Homey.get('infoLog', function(err, infoLog)
-                    {
-                        if (err) return Homey.alert(err);
-                        infoLogElement.value = JSON.stringify(infoLog, null, 2).replace(/\\n/g, '\n            ');
-                    });
-                }
-                else if (param === 'deviceLog')
-                {
-                    Homey.get('deviceLog', function(err, deviceLog)
-                    {
-                        if (err) return Homey.alert(err);
-                        deviceLogElement.value = JSON.stringify(deviceLog, null, 2);
-                    });
-                }
-                else if (param === 'stateLog')
-                {
-                    Homey.get('stateLog', function(err, stateLogData)
-                    {
-                        if (err) return Homey.alert(err);
-                        stateLogElement.value = stateLogData;
-                    });
-                }
-                else if (param === 'eventLog')
-                {
-                    Homey.get('eventLog', function(err, eventLogData)
-                    {
-                        if (err) return Homey.alert(err);
-                        eventLogElement.value = eventLogData;
-                    });
-                }
-                else if (param === 'pollingEnabled')
-                {
-                    Homey.get('pollingEnabled', function(err, pollingEnabled)
-                    {
-                        if (err) return Homey.alert(err);
-                        pollingEnabledEl.checked = pollingEnabled;
-                    });
-                }
-                else if (param === 'syncInterval')
-                {
-                    Homey.get('syncInterval', function(err, syncInterval)
-                    {
-                        if (err) return Homey.alert(err);
-                        syncSpeedEl.value = syncInterval;
-                    });
-                }
             });
 
             getDeviceLogElement.addEventListener('click', function(e)
