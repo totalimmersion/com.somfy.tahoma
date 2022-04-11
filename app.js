@@ -541,13 +541,6 @@ class myApp extends Homey.App
                 await args.device.onCapabilityHeatCoolModeHeat(args.state, null);
                 return args.device.setCapabilityValue('heat_cool_mode.heat', args.state);
             });
-
-        this.homey.flow.getActionCard('set_windowcoverings_state')
-            .registerRunListener(async (args, state) =>
-            {
-                this.log('set_windowcoverings_state_rts');
-                return args.device.onCapabilityWindowcoveringsState(args.state, null);
-            });
     }
 
     hashCode(s)

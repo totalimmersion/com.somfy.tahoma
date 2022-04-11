@@ -496,5 +496,8 @@
   },
   "3.0.24": {
     "en": "Fix for some devices not boosting polling."
+  },
+  "3.0.25": {
+    "en": "Changed back to standard capability for RTS curtains and blinds so they are compatible with Google Home."
   }
 }

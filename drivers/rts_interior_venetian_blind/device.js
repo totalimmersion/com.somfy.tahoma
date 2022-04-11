@@ -18,10 +18,10 @@ class InteriorVenetianBlindDevice extends WindowCoveringsDevice
             this.removeCapability('lock_state').catch(this.error);
         }
 
-        if (this.hasCapability('windowcoverings_state'))
+        if (this.hasCapability('windowcoverings_state.rts'))
         {
-            this.removeCapability('windowcoverings_state').catch(this.error);
-            this.addCapability('windowcoverings_state.rts').catch(this.error);
+            this.removeCapability('windowcoverings_state.rts').catch(this.error);
+            this.addCapability('windowcoverings_state').catch(this.error);
         }
 
         await super.onInit();

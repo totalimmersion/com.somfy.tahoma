@@ -13,7 +13,7 @@
   "description": {
     "en": "The heart of your Smart Home"
   },
-  "version": "3.0.24",
+  "version": "3.0.25",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Adrian Rockall",
@@ -1518,81 +1518,6 @@
               "en": "Seconds",
               "nl": "Seconden"
             }
-          }
-        ]
-      },
-      {
-        "id": "set_windowcoverings_state",
-        "title": {
-          "en": "Set state",
-          "nl": "Zet de status",
-          "de": "Status setzen",
-          "fr": "Définir l'état",
-          "it": "Imposta lo stato",
-          "sv": "Ställ in status",
-          "no": "Innstill status",
-          "es": "Configurar estado",
-          "da": "Indstil status"
-        },
-        "titleFormatted": {
-          "en": "Set state to [[state]]"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=rts_horizontal_awning|rts_interior_blind|rts_interior_curtain|rts_interior_venetian_blind"
-          },
-          {
-            "name": "state",
-            "title": {
-              "en": "State"
-            },
-            "type": "dropdown",
-            "values": [
-              {
-                "id": "up",
-                "title": {
-                  "en": "Up",
-                  "nl": "Omhoog",
-                  "de": "Oben",
-                  "fr": "Haut",
-                  "it": "Alzate",
-                  "sv": "Upp",
-                  "no": "Opp",
-                  "es": "Arriba",
-                  "da": "Oppe"
-                }
-              },
-              {
-                "id": "idle",
-                "title": {
-                  "en": "Idle",
-                  "nl": "Stil",
-                  "de": "Inaktiv",
-                  "fr": "Inactif",
-                  "it": "Socchiuse",
-                  "sv": "Inaktiv",
-                  "no": "Ikke aktiv",
-                  "es": "Inactivos",
-                  "da": "Inaktiv"
-                }
-              },
-              {
-                "id": "down",
-                "title": {
-                  "en": "Down",
-                  "nl": "Omlaag",
-                  "de": "Unten",
-                  "fr": "Bas",
-                  "it": "Abbassate",
-                  "sv": "Ned",
-                  "no": "Ned",
-                  "es": "Abajo",
-                  "da": "Nede"
-                }
-              }
-            ]
           }
         ]
       },
@@ -7135,7 +7060,7 @@
       },
       "class": "sunshade",
       "capabilities": [
-        "windowcoverings_state.rts",
+        "windowcoverings_state",
         "my_position"
       ],
       "settings": [
@@ -7227,7 +7152,7 @@
       },
       "class": "blinds",
       "capabilities": [
-        "windowcoverings_state.rts",
+        "windowcoverings_state",
         "my_position"
       ],
       "settings": [
@@ -7320,7 +7245,7 @@
       },
       "class": "curtain",
       "capabilities": [
-        "windowcoverings_state.rts",
+        "windowcoverings_state",
         "my_position"
       ],
       "settings": [
@@ -7413,16 +7338,11 @@
       },
       "class": "blinds",
       "capabilities": [
-        "windowcoverings_state.rts",
+        "windowcoverings_state",
         "windowcoverings_tilt_up",
         "windowcoverings_tilt_down",
         "my_position"
       ],
-      "capabilitiesOptions": {
-        "windowcoverings_state.rts": {
-          "setable": false
-        }
-      },
       "settings": [
         {
           "id": "invertUpDown",
