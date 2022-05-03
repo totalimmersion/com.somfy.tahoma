@@ -27,7 +27,7 @@ class RollerShutterDevice extends WindowCoveringsDevice
             controllableName = dd.controllableName.toString().toLowerCase();
         }
 
-        if ((controllableName === 'io:rollershuttergenericiocomponent') || (controllableName === 'io:rollershutterunoiocomponent') || (controllableName === 'io:screenreceiverunoiocomponent'))
+        if ((controllableName === 'io:rollershuttergenericiocomponent') || (controllableName === 'io:rollershutterunoiocomponent') || (controllableName === 'io:screenreceiverunoiocomponent') || (controllableName === 'io:rollershutterwithbatterysomfyiocomponent'))
         {
             if (!this.hasCapability('my_position'))
             {
@@ -37,6 +37,14 @@ class RollerShutterDevice extends WindowCoveringsDevice
         else if (this.hasCapability('my_position'))
         {
             this.removeCapability('my_position').catch(this.error);
+        }
+
+        if (controllableName === 'io:rollershutterwithbatterysomfyiocomponent')
+        {
+            if (!this.hasCapability('measure_battery'))
+            {
+                this.addCapability('measure_battery').catch(this.error);
+            }
         }
 
         await super.onInit();

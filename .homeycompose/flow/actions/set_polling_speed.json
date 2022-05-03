@@ -8,6 +8,10 @@
         "en": "Set Polling Interval to [[syncSpeed]]",
         "nl": "Update frequentie naar [[syncSpeed]]"
     },
+    "hint": {
+      "en": "Sets interval between polling the API for updates (minimum and recommended setting is 30 seconds, maximum is 90 seconds)",
+      "nl": "Stelt het interval in tussen het pollen van de API voor updates (minimale en aanbevolen instelling is 30 seconden, maximum is 90 seconden)"
+    },
     "args": [
         {
             "name": "syncSpeed",
@@ -16,6 +20,7 @@
                 "en": "Interval"
             },
             "min": 30,
+            "max": 90,
             "placeholder": {
                 "en": "Seconds",
                 "nl": "Seconden"

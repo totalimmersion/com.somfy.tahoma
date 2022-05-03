@@ -91,6 +91,11 @@ class myApp extends Homey.App
                 this.interval = MIN_SYNC_INTERVAL;
                 this.homey.settings.set('syncInterval', this.interval);
             }
+            if (this.interval > 90)
+            {
+                this.interval = 90;
+                this.homey.settings.set('syncInterval', this.interval);
+            }
         }
         catch (e)
         {

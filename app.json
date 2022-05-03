@@ -13,7 +13,7 @@
   "description": {
     "en": "The heart of your Smart Home"
   },
-  "version": "3.0.27",
+  "version": "3.0.28",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Adrian Rockall",
@@ -1463,6 +1463,10 @@
           "en": "Turn polling [[newPollingMode]]",
           "nl": "Zet polling [[newPollingMode]]"
         },
+        "hint": {
+          "en": "Switch the API polling on / off, or poll once to get the latest status",
+          "nl": "Schakel de API-polling aan / uit, of poll één keer om de laatste status te krijgen"
+        },
         "args": [
           {
             "name": "newPollingMode",
@@ -1506,6 +1510,10 @@
           "en": "Set Polling Interval to [[syncSpeed]]",
           "nl": "Update frequentie naar [[syncSpeed]]"
         },
+        "hint": {
+          "en": "Sets interval between polling the API for updates (minimum and recommended setting is 30 seconds, maximum is 90 seconds)",
+          "nl": "Stelt het interval in tussen het pollen van de API voor updates (minimale en aanbevolen instelling is 30 seconden, maximum is 90 seconden)"
+        },
         "args": [
           {
             "name": "syncSpeed",
@@ -1514,6 +1522,7 @@
               "en": "Interval"
             },
             "min": 30,
+            "max": 90,
             "placeholder": {
               "en": "Seconds",
               "nl": "Seconden"
@@ -6940,7 +6949,7 @@
         "small": "/drivers/rts_gate_opener/assets/images/small.png"
       },
       "name": {
-        "en": "Gate Opener (RTS)"
+        "en": "Gate / Garage Door Opener (RTS)"
       },
       "class": "other",
       "capabilities": [
@@ -7428,8 +7437,8 @@
         "small": "/drivers/rts_open_close/assets/images/small.png"
       },
       "name": {
-        "en": "Open / Close Remote (RTS)",
-        "nl": "Afstandsbediening openen / sluiten (RTS)"
+        "en": "Open / Close Remote",
+        "nl": "Afstandsbediening openen / sluiten"
       },
       "class": "button",
       "capabilities": [

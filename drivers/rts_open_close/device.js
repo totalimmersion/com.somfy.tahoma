@@ -5,7 +5,7 @@
 const Device = require('../Device');
 
 /**
- * Device class for the opening detector with the rts:GarageDoor4TRTSComponent, rts:SlidingGateOpener4TRTSComponent controllable name in TaHoma
+ * Device class for the opening detector with the rts:GarageDoor4TRTSComponent, rts:SlidingGateOpener4TRTSComponent, io:CyclicGarageOpenerIOComponent, io:CyclicSlidingGateOpenerIOComponent controllable name in TaHoma
  * @extends {SensorDevice}
  */
 class OpenCloseDevice extends Device

@@ -8,6 +8,10 @@
         "en": "Turn polling [[newPollingMode]]",
         "nl": "Zet polling [[newPollingMode]]"
     },
+    "hint": {
+      "en": "Switch the API polling on / off, or poll once to get the latest status",
+      "nl": "Schakel de API-polling aan / uit, of poll één keer om de laatste status te krijgen"
+    },
     "args": [
         {
             "name": "newPollingMode",

@@ -851,6 +851,20 @@ class WindowCoveringsDevice extends Device
                         fromCloudSync: true,
                     }).catch(this.error);
                 }
+
+                if (this.hasCapability('measure_battery'))
+                {
+                    const batteryState = states.find(state => (state && (state.name === 'core:BatteryState')));
+                    if (batteryState)
+                    {
+                        const batteryStates = ['verylow', 'low', 'normal', 'full'];
+                        const batteryLevel = batteryStates.findIndex(state => state === batteryState.value);
+                        if (batteryLevel >= 0)
+                        {
+                            this.setCapabilityValue('measure_battery', batteryLevel * 100 / 3).catch(this.error);
+                        }
+                    }
+                }
             }
             else if (this.openClosedStateName === '')
             {
@@ -1008,6 +1022,25 @@ class WindowCoveringsDevice extends Device
                                     {
                                         fromCloudSync: true,
                                     }).catch(this.error);
+                                }
+                            }
+                            else if (deviceState.name === 'core:BatteryState')
+                            {
+                                // Device tilt position
+                                // Check for more message that are the same
+                                if (!this.checkForDuplicatesEvents(events, i, x + 1, myURL, 'core:BatteryState'))
+                                {
+                                    const batteryStateValue = deviceState.value;
+                                    this.homey.app.logStates(`${this.getName()}: core:BatteryState = ${batteryStateValue}`);
+                                    const batteryStates = ['verylow', 'low', 'normal', 'full'];
+                                    const batteryLevel = batteryStates.findIndex(state => state === batteryStateValue);
+                                    if (batteryLevel >= 0)
+                                    {
+                                        this.triggerCapabilityListener('measure_battery', (batteryLevel * 100 / 3),
+                                        {
+                                            fromCloudSync: true,
+                                        }).catch(this.error);
+                                    }
                                 }
                             }
                         }
