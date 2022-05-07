@@ -5,7 +5,7 @@
 const Driver = require('../Driver');
 
 /**
- * Driver class for the remote controller with the "io:IORemoteController" controllable name in TaHoma
+ * Driver class for the remote controller with the "io:IORemoteController" or "io:IzymoController" controllable name in TaHoma
  * @extends {Driver}
  */
 // eslint-disable-next-line camelcase
@@ -14,7 +14,7 @@ class key_go_remoteDriver extends Driver
 
     async onInit()
     {
-        this.deviceType = ['io:KeygoController'];
+        this.deviceType = ['io:KeygoController', 'io:IzymoController'];
         await super.onInit();
 
         this._remoteSateChangedTrigger = this.homey.flow.getDeviceTriggerCard('key_go_remote_state_changed');
@@ -26,7 +26,7 @@ class key_go_remoteDriver extends Driver
             });
     }
 
-    async onReceiveSetupData(callback)
+    async onReceiveSetupData()
     {
         try
         {
@@ -45,13 +45,13 @@ class key_go_remoteDriver extends Driver
                         controllableName: device.controllableName,
                     },
                 }));
-                callback(null, homeyDevices);
+                return homeyDevices;
             }
         }
         catch (error)
         {
             this.homey.app.logInformation('OnReceiveSetupData', error);
-            callback(error);
+            throw new Error(error.message);
         }
     }
 

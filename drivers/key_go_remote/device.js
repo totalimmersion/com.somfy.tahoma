@@ -5,7 +5,7 @@
 const Device = require('../Device');
 
 /**
- * Device class for the remote controller with the "io:IORemoteController" controllable name in TaHoma
+ * Device class for the remote controller with the "io:IORemoteController" or "io:IzymoController" controllable name in TaHoma
  * @extends {Device}
  */
 

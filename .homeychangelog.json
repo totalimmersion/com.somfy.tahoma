@@ -508,5 +508,11 @@
   },
   "3.0.28": {
     "en": "Added support for 'io:CyclicGarageOpenerIOComponent', 'io:CyclicSlidingGateOpenerIOComponent', 'rts:GarageDoorRTSComponent' and 'io:RollerShutterWithBatterySomfyIOComponent'. Added upper limit on polling interval of 90 seconds to prevent timeouts"
+  },
+  "3.0.29": {
+    "en": "Added support for 'io:IzymoController' and 'io:DimmableLightMicroModuleSomfyIOComponent'"
+  },
+  "3.0.30": {
+    "en": "Clean up settings and set maximum polling limit. Improved recovery from event fetch error."
   }
 }

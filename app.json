@@ -13,7 +13,7 @@
   "description": {
     "en": "The heart of your Smart Home"
   },
-  "version": "3.0.28",
+  "version": "3.0.30",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Adrian Rockall",
@@ -3172,7 +3172,8 @@
       "class": "light",
       "capabilities": [
         "onoff",
-        "dim"
+        "dim",
+        "on_with_timer"
       ],
       "capabilitiesOptions": {
         "onoff": {

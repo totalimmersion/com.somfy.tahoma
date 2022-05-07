@@ -5,7 +5,7 @@
 const Driver = require('../Driver');
 
 /**
- * Driver class for the opening detector with the io:DimmableLightIOComponent or hue:GenericDimmableLightHUEComponent controllable name in TaHoma
+ * Driver class for the opening detector with the io:DimmableLightIOComponent, hue:GenericDimmableLightHUEComponent or io:DimmableLightMicroModuleSomfyIOComponent controllable name in TaHoma
  * @extends {Driver}
  */
 class DimmableLightControllerDriver extends Driver
@@ -13,7 +13,7 @@ class DimmableLightControllerDriver extends Driver
 
     async onInit()
     {
-        this.deviceType = ['io:DimmableLightIOComponent', 'hue:HueLuxHUEComponent', 'hue:GenericDimmableLightHUEComponent', 'ogp:Light'];
+        this.deviceType = ['io:DimmableLightIOComponent', 'hue:HueLuxHUEComponent', 'hue:GenericDimmableLightHUEComponent', 'ogp:Light', 'io:DimmableLightMicroModuleSomfyIOComponent'];
         await super.onInit();
     }
 

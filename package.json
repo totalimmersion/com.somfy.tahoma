@@ -1,6 +1,6 @@
 {
   "name": "com.somfy.tahoma",
-  "version": "3.0.28",
+  "version": "3.0.30",
   "description": "Somfy TaHoma app for Homey",
   "main": "app.js",
   "repository": {
@@ -18,7 +18,7 @@
     "axios": "^0.21.0",
     "axios-cookiejar-support": "^1.0.1",
     "form-data": "^3.0.0",
-    "nodemailer": "^6.7.4",
+    "nodemailer": "^6.7.5",
     "tough-cookie": "^4.0.0"
   },
   "devDependencies": {

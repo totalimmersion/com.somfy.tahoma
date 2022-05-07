@@ -586,7 +586,6 @@ class myApp extends Homey.App
         // Login with supplied credentials. An error is thrown if the login fails
         try
         {
-            // Allow a short delay before logging back in
             await this.tahoma.login(username, password, linkurl, loginMethod, ignoreBlock);
             this.loggedIn = true;
         }
