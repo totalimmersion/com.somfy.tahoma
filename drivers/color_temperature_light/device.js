@@ -19,6 +19,8 @@ class ColorTemperatureLightControllerDevice extends LightControllerDevice
         this.registerCapabilityListener('light_hue', this.onCapabilityLight_hue.bind(this));
         this.registerCapabilityListener('light_saturation', this.onCapabilityLight_saturation.bind(this));
         this.registerCapabilityListener('light_mode', this.onCapabilityLight_mode.bind(this));
+
+        await super.onInit();
     }
 
     async onCapabilityLight_hue(value, opts)

@@ -514,5 +514,8 @@
   },
   "3.0.30": {
     "en": "Clean up settings and set maximum polling limit. Improved recovery from event fetch error."
+  },
+  "3.0.31": {
+    "en": "Added Danfoss Icon Thermostat. Added 'eliot:OnOffSwitchEliotComponent', 'eliot:OnOffLightEliotComponent', 'eliot:DimmerLightEliotComponent', 'eliot:ElectricVehicleChargerComponent', io:AtlanticElectricalHeaterIOComponent"
   }
 }

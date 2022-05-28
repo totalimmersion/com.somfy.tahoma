@@ -29,6 +29,7 @@ class onOffLightControllerDevice extends LightControllerDevice
                 this.setClass('socket');
             }
         }
+
         await super.onInit();
     }
 

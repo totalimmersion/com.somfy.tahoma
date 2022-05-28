@@ -13,7 +13,7 @@ class ColorTemperatureLightControllerDriver extends Driver
 
     async onInit()
     {
-        this.deviceType = ['hue:GenericExtendedColorLightHUEComponent', 'hue:ExtendedColorLightCandleHUEComponent', 'hue:LightStripsPlusHUEComponent', 'hue:BloomHUEComponent', 'hue:HueSpotHUEComponent', 'hue:HueLampHUEComponent'];
+        this.deviceType = ['hue:GenericExtendedColorLightHUEComponent', 'hue:ExtendedColorLightCandleHUEComponent', 'hue:LightStripsPlusHUEComponent', 'hue:BloomHUEComponent', 'hue:HueSpotHUEComponent', 'hue:HueLampHUEComponent', 'hue:GenericColorTemperatureLightHUEComponent'];
         await super.onInit();
     }
 

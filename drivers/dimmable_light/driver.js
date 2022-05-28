@@ -13,7 +13,7 @@ class DimmableLightControllerDriver extends Driver
 
     async onInit()
     {
-        this.deviceType = ['io:DimmableLightIOComponent', 'hue:HueLuxHUEComponent', 'hue:GenericDimmableLightHUEComponent', 'ogp:Light', 'io:DimmableLightMicroModuleSomfyIOComponent'];
+        this.deviceType = ['io:DimmableLightIOComponent', 'hue:HueLuxHUEComponent', 'hue:GenericDimmableLightHUEComponent', 'ogp:Light', 'io:DimmableLightMicroModuleSomfyIOComponent', 'eliot:DimmerLightEliotComponent', 'zwave:DimmableOnOffZWaveComponent'];
         await super.onInit();
     }
 

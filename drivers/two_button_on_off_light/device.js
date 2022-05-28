@@ -4,11 +4,6 @@
 
 const Device = require('../Device');
 
-/**
- * Device class for the remote controller with the "enocean:EnOceanOnOffLight" and "rts:OnOffRTSComponent" controllable name in TaHoma
- * @extends {LightControllerDevice}
- */
-
 // eslint-disable-next-line camelcase
 class two_button_on_offDevice extends Device
 {
