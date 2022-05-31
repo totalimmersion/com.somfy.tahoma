@@ -6,25 +6,19 @@ const SensorDevice = require('../SensorDevice');
 
 const CapabilitiesXRef = [
     {
-        homeyName: 'heating_level_state',
+        homeyName: 'heating_level2_state',
         somfyNameGet: 'io:TargetHeatingLevelState',
         somfyNameSet: ['setHeatingLevel'],
-    },
-    {
-        homeyName: 'onoff',
-        somfyNameGet: 'core:OnOffState',
-        somfyNameSet: ['off', ''],
-        compare: ['off', 'on'],
-        parameters: '',
-    },
+    }
 ];
-class ElectricHeaterDevice extends SensorDevice
+class IOHeaterDevice extends SensorDevice
 {
 
     async onInit()
     {
         await super.onInit(CapabilitiesXRef);
         const dd = this.getData();
+
         this.boostSync = true;
     }
 
@@ -36,4 +30,4 @@ class ElectricHeaterDevice extends SensorDevice
 
 }
 
-module.exports = ElectricHeaterDevice;
+module.exports = IOHeaterDevice;

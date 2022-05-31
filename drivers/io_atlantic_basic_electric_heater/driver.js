@@ -13,7 +13,7 @@ class ElectricHeaterDriver extends Driver
 
     async onInit()
     {
-        this.deviceType = ['io:AtlanticElectricalHeaterWithAdjustableTemperatureSetpointIOComponent', 'io:AtlanticElectricalHeaterIOComponent'];
+        this.deviceType = ['io:AtlanticElectricalHeaterWithAdjustableTemperatureSetpointIOComponent'];
     }
 
 }

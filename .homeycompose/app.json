@@ -12,7 +12,7 @@
   "description": {
     "en": "The heart of your Smart Home"
   },
-  "version": "3.0.31",
+  "version": "3.0.32",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Adrian Rockall",

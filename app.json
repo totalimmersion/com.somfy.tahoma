@@ -13,7 +13,7 @@
   "description": {
     "en": "The heart of your Smart Home"
   },
-  "version": "3.0.31",
+  "version": "3.0.32",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Adrian Rockall",
@@ -4977,6 +4977,82 @@
           }
         }
       ],
+      "icon": "/drivers/io_heating_interface/assets/icon.svg",
+      "images": {
+        "large": "/drivers/io_heating_interface/assets/images/large.png",
+        "small": "/drivers/io_heating_interface/assets/images/small.png"
+      },
+      "name": {
+        "en": "IO Heating Interface"
+      },
+      "class": "heater",
+      "capabilities": [
+        "heating_level2_state"
+      ],
+      "id": "io_heating_interface"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices",
+            "prev": "login_credentials"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
       "icon": "/drivers/io_horizontal_awning/assets/icon.svg",
       "images": {
         "large": "/drivers/io_horizontal_awning/assets/images/large.png",
@@ -8768,6 +8844,56 @@
           "id": "comfort_2",
           "title": {
             "en": "Comfort 2"
+          }
+        },
+        {
+          "id": "eco",
+          "title": {
+            "en": "Eco"
+          }
+        },
+        {
+          "id": "frostprotection",
+          "title": {
+            "en": "Frost Protection",
+            "nl": "Vorstbescherming"
+          }
+        },
+        {
+          "id": "off",
+          "title": {
+            "en": "Off",
+            "nl": "Uit"
+          }
+        },
+        {
+          "id": "secured",
+          "title": {
+            "en": "Secured",
+            "nl": "Beveiligd"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "heating_level2_state": {
+      "type": "enum",
+      "title": {
+        "en": "Heating Level",
+        "nl": "Verwarmingsniveau"
+      },
+      "values": [
+        {
+          "id": "boost",
+          "title": {
+            "en": "Boost"
+          }
+        },
+        {
+          "id": "comfort",
+          "title": {
+            "en": "Comfort"
           }
         },
         {
