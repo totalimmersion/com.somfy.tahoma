@@ -6,12 +6,6 @@
   },
   "values": [
     {
-      "id": "boost",
-      "title": {
-        "en": "Boost"
-      }
-    },
-    {
       "id": "comfort",
       "title": {
         "en": "Comfort"
@@ -35,13 +29,6 @@
       "title": {
         "en": "Off",
         "nl": "Uit"
-      }
-    },
-    {
-      "id": "secured",
-      "title": {
-        "en": "Secured",
-        "nl": "Beveiligd"
       }
     }
   ],

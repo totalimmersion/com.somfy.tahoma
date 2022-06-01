@@ -1,9 +1,9 @@
 {
   "name": {
-    "en": "Switch (RTS & io)",
-    "nl": "Schakelaar (RTS & io)"
+    "en": "Socket (RTS & io)",
+    "nl": "Stopcontact (RTS & io)"
   },
-  "class": "light",
+  "class": "socket",
   "capabilities": [
     "onoff",
     "on_with_timer"

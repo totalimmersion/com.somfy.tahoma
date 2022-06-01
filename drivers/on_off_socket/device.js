@@ -4,12 +4,7 @@
 
 const LightControllerDevice = require('../LightControllerDevice');
 
-/**
- * Device class for the light controller with the rts:LightRTSComponent, io:LightMicroModuleSomfyIOComponent and io:OnOffIOComponent controllable name in TaHoma
- * @extends {LightControllerDevice}
- */
-
-class onOffLightControllerDevice extends LightControllerDevice
+class onOffLSocketControllerDevice extends LightControllerDevice
 {
 
     async onInit()
@@ -39,4 +34,4 @@ class onOffLightControllerDevice extends LightControllerDevice
 
 }
 
-module.exports = onOffLightControllerDevice;
+module.exports = onOffLSocketControllerDevice;

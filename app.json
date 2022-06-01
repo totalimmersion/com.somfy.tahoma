@@ -13,7 +13,7 @@
   "description": {
     "en": "The heart of your Smart Home"
   },
-  "version": "3.0.32",
+  "version": "3.0.33",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Adrian Rockall",
@@ -6955,6 +6955,84 @@
           }
         }
       ],
+      "icon": "/drivers/on_off_socket/assets/icon.svg",
+      "images": {
+        "large": "/drivers/on_off_socket/assets/images/large.png",
+        "small": "/drivers/on_off_socket/assets/images/small.png"
+      },
+      "name": {
+        "en": "Socket (RTS & io)",
+        "nl": "Stopcontact (RTS & io)"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "on_with_timer"
+      ],
+      "id": "on_off_socket"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices",
+            "prev": "login_credentials"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "logo": "logo.png",
+            "usernameLabel": {
+              "en": "E-mail address"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com"
+            },
+            "passwordLabel": {
+              "en": "Password"
+            },
+            "passwordPlaceholder": {
+              "en": "Password"
+            }
+          }
+        }
+      ],
       "icon": "/drivers/on_off_switch/assets/icon.svg",
       "images": {
         "large": "/drivers/on_off_switch/assets/images/large.png",
@@ -6966,7 +7044,8 @@
       },
       "class": "light",
       "capabilities": [
-        "onoff"
+        "onoff",
+        "on_with_timer"
       ],
       "id": "on_off_switch"
     },
@@ -8885,12 +8964,6 @@
       },
       "values": [
         {
-          "id": "boost",
-          "title": {
-            "en": "Boost"
-          }
-        },
-        {
           "id": "comfort",
           "title": {
             "en": "Comfort"
@@ -8914,13 +8987,6 @@
           "title": {
             "en": "Off",
             "nl": "Uit"
-          }
-        },
-        {
-          "id": "secured",
-          "title": {
-            "en": "Secured",
-            "nl": "Beveiligd"
           }
         }
       ],

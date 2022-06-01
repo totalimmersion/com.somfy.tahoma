@@ -520,5 +520,8 @@
   },
   "3.0.32": {
     "en": "Split io:AtlanticElectricalHeaterIOComponent to new IO Heating Interface device so it has the correct levels."
+  },
+  "3.0.33": {
+    "en": "Removed invalid options from io:AtlanticElectricalHeaterIOComponent levels. Added 'io:SwitchMicroModuleSomfyIOComponent' to the Socket (RTS & io) device."
   }
 }
