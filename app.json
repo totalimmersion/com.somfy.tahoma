@@ -13,7 +13,7 @@
   "description": {
     "en": "The heart of your Smart Home"
   },
-  "version": "3.0.33",
+  "version": "3.0.34",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Adrian Rockall",
@@ -1421,7 +1421,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=rts_interior_venetian_blind|io_roller_shutter_quiet|io_garage_door_partial|io_roller_shutter"
+            "filter": "driver_id=rts_interior_venetian_blind|io_roller_shutter_quiet|io_garage_door_partial|io_roller_shutter|io_horizontal_awning|rts_interior_blind|rts_interior_curtain"
           }
         ]
       },

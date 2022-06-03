@@ -523,5 +523,8 @@
   },
   "3.0.33": {
     "en": "Removed invalid options from io:AtlanticElectricalHeaterIOComponent levels. Added 'io:SwitchMicroModuleSomfyIOComponent' to the Socket (RTS & io) device."
+  },
+  "3.0.34": {
+    "en": "Added Move to MY position flow action card to devices that were missing it."
   }
 }
