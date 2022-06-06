@@ -526,5 +526,8 @@
   },
   "3.0.34": {
     "en": "Added Move to MY position flow action card to devices that were missing it."
+  },
+  "3.0.35": {
+    "en": "Added io:ExteriorVenetianBlindUnoIOComponent."
   }
 }
