@@ -1,0 +1,44 @@
+{
+    "actions": [
+        {
+            "id": "set_open_close_stop",
+            "title": {
+                "en": "Open, Close or Stop gate"
+            },
+            "titleFormatted": {
+                "en": "[[state]] the gate"
+            },
+            "args": [
+                {
+                    "name": "state",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Open / Close state"
+                    },
+                    "values": [
+                        {
+                            "id": "open",
+                            "label": {
+                                "en": "Open"
+                            }
+                        },
+                        {
+                            "id": "close",
+                            "label": {
+                                "en": "Close",
+                                "nl": "Dichtbij"
+                            }
+                        },
+                        {
+                            "id": "stop",
+                            "label": {
+                                "en": "Stop",
+                                "nl": "Hou op"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

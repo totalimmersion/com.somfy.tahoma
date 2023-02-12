@@ -1,0 +1,10 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Error Code State",
+    "nl": "Foutcodestatus"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/security.svg"
+}

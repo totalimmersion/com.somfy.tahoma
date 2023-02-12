@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "Door Lock (io)"
+  },
+  "class": "lock",
+  "capabilities": [
+    "onoff",
+    "locked"
+  ],
+  "$extends": ["cloudDriver"]
+}

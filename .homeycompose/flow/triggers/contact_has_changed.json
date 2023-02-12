@@ -1,0 +1,25 @@
+{
+    "id": "contact_has_changed",
+    "title": {
+        "en": "The state of the opening detector has changed",
+        "nl": "De staat van de openingsmelder is veranderd"
+    },
+    "tokens": [
+        {
+            "name": "isOpen",
+            "type": "boolean",
+            "title": {
+                "en": "is open?",
+                "nl": "is geopend?"
+            },
+            "example": "open"
+        }
+    ],
+    "args": [
+        {
+          "name": "device",
+          "type": "device",
+          "filter": "driver_id=enocean_window_handle|io_opening_detector|one_alarm"
+        }
+      ]
+    }

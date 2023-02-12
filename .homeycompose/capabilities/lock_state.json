@@ -1,0 +1,10 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Lock State",
+    "nl": "Vergrendelingsstatus"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/security.svg"
+}

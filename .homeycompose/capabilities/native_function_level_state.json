@@ -1,0 +1,28 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Native Function Level"
+  },
+  "values": [
+    {
+      "id": "base",
+      "title": {
+        "en": "Base"
+      }
+    },
+    {
+      "id": "medium",
+      "title": {
+        "en": "Medium"
+      }
+    },
+    {
+      "id": "top",
+      "title": {
+        "en": "Top"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

@@ -1,0 +1,8 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Product Type"
+  },
+  "getable": true,
+  "setable": false
+}

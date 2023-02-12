@@ -1,0 +1,48 @@
+{
+    "id": "command_complete",
+    "deprecated": true,
+    "title": {
+        "en": "A command completed",
+        "nl": "Een opdracht voltooid"
+    },
+    "titleFormatted": {
+        "en": "A command completed on device [[device]]",
+        "nl": "Een opdracht voltooid op apparaat [[device]]"
+    },
+    "platforms": [
+        "local",
+        "cloud"
+    ],
+    "connectivity": [
+        "cloud"
+    ],
+    "tokens": [
+        {
+            "name": "state",
+            "type": "boolean",
+            "title": {
+                "en": "Successful",
+                "nl": "Succesvol"
+            },
+            "example": "true"
+        },
+        {
+            "name": "name",
+            "type": "string",
+            "title": {
+                "en": "Command Name",
+                "nl": "Opdrachtnaam"
+            }
+        }
+    ],
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "title": {
+                "en": "Device",
+                "nl": "Apparaat"
+            }
+        }
+    ]
+}

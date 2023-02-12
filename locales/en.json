@@ -1,23 +1,75 @@
 {
-	"settings": {
-		"title": "TaHoma Settings",
-		"intro": "To let Homey control TaHoma please authorize Homey, by filling out the TaHoma login credentials.",
-		"logintitle": "TaHoma login credentials",
-		"username": "Username",
-		"password": "Password",
-		"save": "Save credentials",
-		"login_success": "Successfully logged in.",
-		"login_failure": "Failed to log in.",
-		"logouttitle": "Revoke access for Homey",
-		"logout": "Log out",
-		"logout_success": "Successfully logged out.",
-		"logout_failure": "Failed to log out.",
-		"preferences": "Preferences",
-		"sync_speed": "Sync speed",
-		"sync_tooltip": "(seconds)",
-		"save_preferences": "Save preferences"
+    "settings":
+    {
+        "title": "TaHoma / Connexoon Settings",
+        "intro": "To let Homey control TaHoma / Connexoon please authorize Homey, by filling out the TaHoma / Connexoon login credentials.",
+        "logintitle": "TaHoma / Connexoon login credentials",
+        "username": "Username",
+        "password": "Password",
+        "save": "Save credentials",
+        "login_success": "Successfully logged in.",
+        "login_failure": "Failed to log in.",
+        "logouttitle": "Revoke access for Homey",
+        "logout": "Log out",
+        "logout_success": "Successfully logged out.",
+        "logout_failure": "Failed to log out.",
+        "preferences": "Preferences",
+        "sync_speed": "Update interval",
+        "sync_tooltip": "(seconds)",
+        "save_preferences": "Save preferences",
+        "linkurl": "Connection URL (Default is normally good for Tahoma and Connexoon)",
+        "save_verifying": "Attempting to login. Please wait...",
+        "logout_description": "This will logout from Tahoma and remove your credentials from the app.",
+        "min_sync_speed": "Minimum Sync Speed value is 30 seconds",
+        "max_sync_speed": "Maximum Sync Speed value is 90 seconds",
+        "pref_saved": "The preferences have been saved",
+        "settings": "Settings",
+        "information_log": "Information Log",
+        "device_log": "Device log",
+        "state_log": "State Log",
+        "oauth_method": "Use new OAuth login method",
+        "intro1": "Use this if you have a device that is not supported.",
+        "intro2": "Tap on Get Log and wait for the data to appear. Then send the log.",
+        "intro3": "Contact @Adrian_Rockall on the community forum to describe which device is not supported.",
+        "intro4": "No personal data is captured or sent so if you don't contact me I will not be able to respond.",
+        "get": "Get Log",
+        "clear": "Clear Log",
+        "send": "Send Log",
+        "log_enabled": "Log Enabled",
+        "polling_enabled": "Poll for status updates",
+        "show_password": "Show Password",
+        "pref_intro1": "The app can poll for updates to keep Homey synchronised to the devices.",
+        "pref_intro2": "This puts a load on the Somfy servers so keep switched off if possible.",
+        "pref_intro3": "If you need updates for sensors then keep the interval as high as you can.",
+        "event_log": "Event Log"
+    },
+    "errors":
+    {
+        "on_pair_login_failure": "Unable to login. Please go to the settings screen and provide access to TaHoma for Homey."
 	},
-  "errors": {
-    "on_pair_login_failure": "Unable to login. Please go to the settings screen and provide access to TaHoma for Homey."
-  }
+    "valve_heating_mode_state":
+    {
+        "away": "Away",
+        "comfort": "Home",
+        "eco": "Night",
+        "frostprotection": "Frost Protection",
+        "geofencingmode": "Geofencing",
+        "manual": "Manual",
+        "suddendropmode": "Open Window"
+    },
+    "defect_state":
+    {
+        "dead": "Dead",
+        "lowbattery": "Low Battery",
+        "maintenancerequired": "Maintainance Required",
+        "nodefect": "No Defect"
+    },
+    "valve_operating_mode_state":
+    {
+        "auto": "Auto (Schedule)",
+        "manual": "Manual"
+    },
+    "my_position_token": "My Position",
+    "command_queued": "Command queued wait for device to wakeup",
+    "command_failed": "Command failed"
 }

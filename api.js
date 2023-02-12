@@ -1,41 +1,30 @@
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
-const Tahoma = require('./lib/Tahoma');
-
-module.exports = [
-  {
-    description: 'Authenticate TaHoma',
-    method: 'POST',
-    path: '/login/',
-    fn: function (args, callback) {
-      Tahoma.login(args.body.username, args.body.password)
-        .then(result => {
-          Homey.ManagerSettings.set('username', args.body.username);
-          Homey.ManagerSettings.set('password', args.body.password);
-          callback(null, result);
-        })
-        .catch(error => {
-          console.log(error.message, error.stack);
-          callback(error);
-        });
-    }
-  },
-  {
-    description: 'Log out of TaHoma',
-    method: 'POST',
-    path: '/logout/',
-    fn: function (args, callback) {
-      Tahoma.logout()
-        .then(result => {
-          Homey.ManagerSettings.unset('username');
-          Homey.ManagerSettings.unset('password');
-          callback(null, result);
-        })
-        .catch(error => {
-          console.log(error.message, error.stack);
-          callback(error);
-        });
-    }
-  }
-];
+module.exports = {
+    async login({ homey, body })
+    {
+        return homey.app.newLogin(body);
+    },
+    async logout({ homey, body })
+    {
+        return homey.app.logOut();
+    },
+    async GetDeviceLog({ homey, body })
+    {
+        return homey.app.logDevices();
+    },
+    async SendDeviceLog({ homey, body })
+    {
+        return homey.app.sendLog('deviceLog');
+    },
+    async SendInfoLog({ homey, body })
+    {
+        return homey.app.sendLog('infoLog');
+    },
+    async SendEventLog({ homey, body })
+    {
+        return homey.app.sendLog('eventLog');
+    },
+};

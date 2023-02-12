@@ -1,0 +1,10 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Power State",
+    "nl": "Vermogensstatus"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/power.svg"
+}

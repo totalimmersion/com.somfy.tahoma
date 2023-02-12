@@ -1,0 +1,10 @@
+{
+  "type": "boolean",
+  "uiQuickAction": true,
+  "getable": true,
+  "setable": true,
+  "uiComponent": null,
+  "title": {
+    "en": "Open"
+  }
+}

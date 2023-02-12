@@ -1,0 +1,10 @@
+{
+  "name": {
+    "en": "IO Heating Interface"
+  },
+  "class": "heater",
+  "capabilities": [
+    "heating_level2_state"
+  ],
+  "$extends": ["cloudDriver"]
+}

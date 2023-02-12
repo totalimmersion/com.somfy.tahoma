@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "Water Sensor",
+    "nl": "Watersensor"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_water"
+  ],
+  "$extends": ["cloudDriver"]
+}

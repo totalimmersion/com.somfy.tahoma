@@ -1,0 +1,17 @@
+{
+  "name": {
+    "en": "Tahoma / Connexoon Hub"
+  },
+  "class": "other",
+  "capabilities": [
+    "calendar_state_on",
+    "calendar_state_off",
+    "dim"
+  ],
+  "capabilitiesOptions": {
+    "dim": {
+      "title": "LED"
+    }
+  },
+  "$extends": ["cloudDriver"]
+}

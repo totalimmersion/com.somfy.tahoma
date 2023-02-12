@@ -1,0 +1,30 @@
+{
+  "name": {
+    "en": "Hitachi AC unit"
+  },
+  "class": "fan",
+  "capabilities": [
+    "onoff",
+    "ac_holiday_mode",
+    "target_temperature",
+    "measure_temperature",
+    "measure_temperature.outside",
+    "ac_fan_speed",
+    "ac_operating_mode",
+    "ac_auto_manual",
+    "alarm_generic"
+  ],
+  "capabilitiesOptions": {
+    "measure_temperature.outside": {
+      "title": {
+          "en": "Outside Temperature"
+      }
+    },
+    "alarm_generic": {
+        "title":{
+            "en": "Filter Alarm"
+        }
+    }
+  },
+  "$extends": ["cloudDriver"]
+}

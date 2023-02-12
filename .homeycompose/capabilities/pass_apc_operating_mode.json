@@ -1,0 +1,39 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Operating Mode",
+    "nl": "Bedrijfsmodus"
+  },
+  "values": [
+    {
+      "id": "cooling",
+      "title": {
+        "en": "Cooling",
+        "nl": "Koeling"
+      }
+    },
+    {
+      "id": "drying",
+      "title": {
+        "en": "Drying",
+        "nl": "Drogen"
+      }
+    },
+    {
+      "id": "heating",
+      "title": {
+        "en": "Heating",
+        "nl": "Verwarming"
+      }
+    },
+    {
+      "id": "stop",
+      "title": {
+        "en": "Stop",
+        "nl": "Hou op"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

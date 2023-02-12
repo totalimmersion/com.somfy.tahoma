@@ -1,0 +1,10 @@
+{
+  "name": {
+    "en": "Occupancy Detector (io)"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_motion"
+  ],
+  "$extends": ["cloudDriver"]
+}

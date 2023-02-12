@@ -1,0 +1,12 @@
+{
+  "name": {
+    "en": "Switch (RTS & io)",
+    "nl": "Schakelaar (RTS & io)"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff",
+    "on_with_timer"
+  ],
+  "$extends": ["cloudDriver"]
+}

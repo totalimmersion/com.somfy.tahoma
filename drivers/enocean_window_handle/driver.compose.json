@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "Window Handle (SecuSignal)",
+    "nl": "Raamkruk (SecuSignal)"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_contact"
+  ],
+  "$extends": ["cloudDriver"]
+}

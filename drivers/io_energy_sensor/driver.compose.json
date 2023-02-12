@@ -1,0 +1,13 @@
+{
+  "name": {
+    "en": "Energy Meter"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "meter_power"
+  ],
+  "energy": {
+    "cumulative": true
+  },
+  "$extends": ["cloudDriver"]
+}

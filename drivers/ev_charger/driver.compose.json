@@ -1,0 +1,12 @@
+{
+  "name": {
+    "en": "EV Charger",
+    "nl": "EV-oplader"
+  },
+  "class": "socket",
+  "capabilities": [
+    "onoff",
+    "on_with_timer"
+  ],
+  "$extends": ["cloudDriver"]
+}

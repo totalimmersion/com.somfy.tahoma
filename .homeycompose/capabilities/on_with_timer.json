@@ -1,0 +1,17 @@
+{
+  "type": "number",
+  "title": {
+    "en": "On with timer",
+    "nl": "Aan met timer"
+  },
+  "uiComponent": "slider",
+  "getable": true,
+  "setable": true,
+  "units": {
+    "en": "minutes",
+    "nl": "Minuten"
+  },
+  "min": 0,
+  "max": 10,
+  "step": 1
+}

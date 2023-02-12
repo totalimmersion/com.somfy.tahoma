@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "Heater - On / Off",
+    "nl": "Verwarming - Aan / Uit"
+  },
+  "class": "heater",
+  "capabilities": [
+    "onoff"
+  ],
+  "$extends": ["cloudDriver"]
+}

@@ -1,0 +1,65 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Heat / Cool Mode",
+    "nl": "Warmte / Koel-modus"
+  },
+  "values": [
+    {
+      "id": "absence",
+      "title": {
+        "en": "Absent",
+        "nl": "Afwezig"
+      }
+    },
+    {
+      "id": "auto",
+      "title": {
+        "en": "Automatic",
+        "nl": "Automatisch"
+      }
+    },
+    {
+      "id": "comfort",
+      "title": {
+        "en": "Comfort"
+      }
+    },
+    {
+      "id": "eco",
+      "title": {
+        "en": "Eco"
+      }
+    },
+    {
+      "id": "externalScheduling",
+      "title": {
+        "en": "External Scheduling",
+        "nl": "Externe planning"
+      }
+    },
+    {
+      "id": "internalScheduling",
+      "title": {
+        "en": "Internal Scheduling",
+        "nl": "Interne planning"
+      }
+    },
+    {
+      "id": "manu",
+      "title": {
+        "en": "Manual",
+        "nl": "Handmatig"
+      }
+    },
+    {
+      "id": "stop",
+      "title": {
+        "en": "Stop",
+        "nl": "Hou op"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

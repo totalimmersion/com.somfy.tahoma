@@ -1,0 +1,21 @@
+{
+    "id": "activate_scenario",
+    "title": {
+        "en": "Play a scenario",
+        "nl": "Scenario afspelen"
+    },
+    "titleFormatted": {
+        "en": "Play scenario [[scenario]]",
+        "nl": "Scenario afspelen [[scenario]]"
+    },
+    "args": [
+        {
+            "title": {
+                "en": "Scenario Name",
+                "nl": "Scenarionaam"
+            },
+            "name": "scenario",
+            "type": "autocomplete"
+        }
+    ]
+}

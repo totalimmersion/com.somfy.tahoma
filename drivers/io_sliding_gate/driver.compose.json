@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "Sliding gate (io)"
+  },
+  "class": "other",
+  "capabilities": [
+    "pedestrian",
+    "windowcoverings_state"
+  ],
+  "$extends": ["cloudDriver"]
+}

@@ -1,0 +1,11 @@
+{
+  "type": "boolean",
+  "getable": true,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Occupancy Activation",
+    "nl": "Bezettingsactivering"
+  },
+  "icon": "/assets/occupancy.svg"
+}

@@ -1,0 +1,155 @@
+{
+    "actions": [
+        {
+            "id": "eco_temperature_set",
+            "title": {
+                "en": "Set the Eco temperature"
+            },
+            "titleFormatted": {
+                "en": "Set the Eco temperature to [[target_temperature]]"
+            },
+            "args": [
+                {
+                    "name": "target_temperature",
+                    "type": "range",
+                    "title": {
+                        "en": "Target Temperature"
+                    },
+                    "min": 30,
+                    "max": 60,
+                    "step": 1,
+                    "label": "°C",
+                    "labelDecimals": 0
+                }
+            ]
+        },
+        {
+            "id": "comfort_temperature_set",
+            "title": {
+                "en": "Set the Comfort temperature"
+            },
+            "titleFormatted": {
+                "en": "Set the comfort temperature to [[target_temperature]]"
+            },
+            "args": [
+                {
+                    "name": "target_temperature",
+                    "type": "range",
+                    "title": {
+                        "en": "Target Temperature"
+                    },
+                    "min": 30,
+                    "max": 60,
+                    "step": 1,
+                    "label": "°C",
+                    "labelDecimals": 0
+                }
+            ]
+        },
+        {
+            "id": "boiler_mode_set",
+            "title": {
+                "en": "Set the boiler mode"
+            },
+            "titleFormatted": {
+                "en": "Set the boiler mode to [[state]]"
+            },
+            "args": [
+                {
+                    "name": "state",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Mode"
+                    },
+                    "values": [
+                        {
+                            "id": "comfort",
+                            "label": {
+                                "en": "Comfort"
+                            }
+                        },
+                        {
+                            "id": "eco",
+                            "label": {
+                                "en": "Eco"
+                            }
+                        },
+                        {
+                            "id": "externalScheduling",
+                            "label": {
+                                "en": "External Scheduling"
+                            }
+                        },
+                        {
+                            "id": "internalScheduling",
+                            "label": {
+                                "en": "Internal Scheduling"
+                            }
+                        },
+                        {
+                            "id": "manu",
+                            "label": {
+                                "en": "Manual",
+                                "nl": "Handmatig"
+                            }
+                        },
+                        {
+                            "id": "peakAndOffPeakScheduling",
+                            "label": {
+                                "en": "Peak And Off Peak Scheduling"
+                            }
+                        },
+                        {
+                            "id": "peakAndOffPeakTimes",
+                            "label": {
+                                "en": "Peak And Off Peak Times"
+                            }
+                        },
+                        {
+                            "id": "stop",
+                            "label": {
+                                "en": "Stop",
+                                "nl": "Hou op"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "boost_on_off",
+            "title": {
+                "en": "Turn boost On / Off",
+                "nl": "Zet aan / uit"
+            },
+            "titleFormatted": {
+                "en": "Turn boost [[state]]"
+            },
+            "args": [
+                {
+                    "name": "state",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "State"
+                    },
+                    "values": [
+                        {
+                            "id": "on",
+                            "label": {
+                                "en": "On",
+                                "nl": "aan"
+                            }
+                        },
+                        {
+                            "id": "off",
+                            "label": {
+                                "en": "Off",
+                                "nl": "uit"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "Pilot Wire Programmer"
+  },
+  "class": "heater",
+  "capabilities": [
+    "onoff",
+    "heating_mode"
+  ],
+  "$extends": ["cloudDriver"]
+}

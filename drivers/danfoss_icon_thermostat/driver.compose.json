@@ -1,0 +1,22 @@
+{
+  "name": {
+    "en": "Danfoss Icon Thermostat"
+  },
+  "class": "heater",
+  "capabilities": [
+    "target_temperature",
+    "measure_temperature",
+    "ac_holiday_mode"
+  ],
+  "capabilitiesOptions": {
+    "target_temperature": {
+      "min": 5,
+      "max": 35
+    },
+    "measure_temperature": {
+      "min": 5,
+      "max": 35
+    }
+  },
+  "$extends": ["cloudDriver"]
+}

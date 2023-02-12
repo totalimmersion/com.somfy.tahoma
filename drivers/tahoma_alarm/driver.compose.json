@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "Tahoma Alarm"
+  },
+  "class": "homealarm",
+  "capabilities": [
+    "alarm_generic",
+    "tahoma_alarm_state"
+  ],
+  "$extends": ["cloudDriver"]
+}

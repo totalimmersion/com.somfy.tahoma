@@ -1,0 +1,21 @@
+{
+  "triggers": [
+    {
+      "id": "motion_has_changed",
+      "title": {
+        "en": "The state of the motion detector has changed"
+      },
+      "tokens": [
+        {
+          "name": "isMotion",
+          "type": "boolean",
+          "title": {
+            "en": "is motion?"
+          },
+          "example": "motion"
+        }
+      ],
+      "args": []
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": {
+    "en": "Remote Control"
+  },
+  "class": "remote",
+  "capabilities": [
+    "remote_state"
+  ],
+  "$extends": ["cloudDriver"]
+}

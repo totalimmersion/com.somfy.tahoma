@@ -1,0 +1,47 @@
+{
+    "id": "set_polling_mode",
+    "title": {
+        "en": "Turn polling on / off",
+        "nl": "Polling aan/uit zetten"
+    },
+    "titleFormatted": {
+        "en": "Turn polling [[newPollingMode]]",
+        "nl": "Zet polling [[newPollingMode]]"
+    },
+    "hint": {
+      "en": "Switch the API polling on / off, or poll once to get the latest status",
+      "nl": "Schakel de API-polling aan / uit, of poll één keer om de laatste status te krijgen"
+    },
+    "args": [
+        {
+            "name": "newPollingMode",
+            "type": "dropdown",
+            "title": {
+                "en": "Mode"
+            },
+            "values": [
+                {
+                    "id": "on",
+                    "label": {
+                        "en": "On",
+                        "nl": "aan"
+                    }
+                },
+                {
+                    "id": "off",
+                    "label": {
+                        "en": "Off",
+                        "nl": "uit"
+                    }
+                },
+                {
+                    "id": "once",
+                    "label": {
+                        "en": "Once",
+                        "nl": "eenmaal"
+                    }
+                }
+            ]
+        }
+    ]
+}

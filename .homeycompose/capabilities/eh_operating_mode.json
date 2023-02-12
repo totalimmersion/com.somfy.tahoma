@@ -1,0 +1,99 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Operating Mode",
+    "nl": "Bedrijfsmodus:"
+  },
+  "values": [
+    {
+      "id": "antifreeze",
+      "title": {
+        "en": "Antifreeze",
+        "nl": "Antivries"
+      }
+    },
+    {
+      "id": "auto",
+      "title": {
+        "en": "Automatic",
+        "nl": "Automatisch"
+      }
+    },
+    {
+      "id": "away",
+      "title": {
+        "en": "Away",
+        "nl": "Weg"
+      }
+    },
+    {
+      "id": "boost",
+      "title": {
+        "en": "Boost"
+      }
+    },
+    {
+      "id": "eco",
+      "title": {
+        "en": "Eco"
+      }
+    },
+    {
+      "id": "frostprotection",
+      "title": {
+        "en": "Frost Protection",
+        "nl": "Vorstbescherming"
+      }
+    },
+    {
+      "id": "manual",
+      "title": {
+        "en": "Manual",
+        "nl": "Handmatig"
+      }
+    },
+    {
+      "id": "max",
+      "title": {
+        "en": "Maximum",
+        "nl": "Maximaal"
+      }
+    },
+    {
+      "id": "normal",
+      "title": {
+        "en": "Normal",
+        "nl": "Normaal"
+      }
+    },
+    {
+      "id": "off",
+      "title": {
+        "en": "Off",
+        "nl": "Uit"
+      }
+    },
+    {
+      "id": "on",
+      "title": {
+        "en": "On",
+        "nl": "Op"
+      }
+    },
+    {
+      "id": "prog",
+      "title": {
+        "en": "Prog"
+      }
+    },
+    {
+      "id": "program",
+      "title": {
+        "en": "Program",
+        "nl": "Programma"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

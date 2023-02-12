@@ -1,0 +1,38 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Remote State",
+    "nl": "Externe staat:"
+  },
+  "values": [
+    {
+      "id": "up",
+      "title": {
+        "en": "Up",
+        "nl": "Omhoog"
+      }
+    },
+    {
+      "id": "down",
+      "title": {
+        "en": "Down",
+        "nl": "Omlaag"
+      }
+    },
+    {
+      "id": "stop",
+      "title": {
+        "en": "Stop",
+        "nl": "Hou op"
+      }
+    },
+    {
+      "id": "prog",
+      "title": {
+        "en": "Prog"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": false
+}

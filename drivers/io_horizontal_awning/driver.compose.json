@@ -1,0 +1,56 @@
+{
+  "name": {
+    "en": "Awning / Pergola (io)",
+    "nl": "Buitenzonwering / Pergola (io)"
+  },
+  "class": "sunshade",
+  "capabilities": [
+    "windowcoverings_state",
+    "windowcoverings_set",
+    "my_position",
+    "quick_open",
+    "lock_state"
+  ],
+  "settings": [
+    {
+      "id": "invertUpDown",
+      "type": "checkbox",
+      "label": {
+        "en": "Invert Up / Down",
+        "nl": "Omkeren omhoog / omlaag"
+      },
+      "value": true,
+      "hint": {
+        "en": "Reverse the Up / Down direction controls",
+        "nl": "Draai de bedieningselementen omhoog/omlaag om"
+      }
+    },
+    {
+      "id": "invertTile",
+      "type": "checkbox",
+      "label": {
+        "en": "Invert Tile Action",
+        "nl": "Tegelactie omkeren"
+      },
+      "value": true,
+      "hint": {
+        "en": "Reverse the Open / Close state of the Tile",
+        "nl": "Keer de Open / Sluit-status van de tegel om"
+      }
+    },
+    {
+      "id": "invertPosition",
+      "type": "checkbox",
+      "label": {
+        "en": "Invert Position",
+        "nl": "Positie omkeren"
+      },
+      "value": true,
+      "hint": {
+        "en": "Reverse the position control.",
+        "nl": "Draai de positieregeling om."
+      }
+    }
+  ],
+  "$extends": ["cloudDriver"]
+}

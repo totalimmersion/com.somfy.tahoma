@@ -1,0 +1,61 @@
+{
+    "triggers": [
+        {
+            "id": "key_go_remote_state_changed",
+            "title": {
+                "en": "The remote state changed"
+            },
+            "tokens": [
+                {
+                    "name": "remote_state",
+                    "type": "string",
+                    "title": {
+                        "en": "New State"
+                    },
+                    "example": "pressed"
+                }
+            ],
+            "args": []
+        },
+        {
+            "id": "key_go_remote_state_changed_to",
+            "title": {
+                "en": "The remote state changed to"
+            },
+            "titleFormatted": {
+                "en": "The remote state changed to [[expected_state]]"
+            },
+            "args": [
+                {
+                    "type": "dropdown",
+                    "name": "expected_state",
+                    "title": {
+                        "en": "Expected State",
+                        "nl": "Verwachte staat"
+                    },
+                    "values": [
+                        {
+                            "id": "pressed",
+                            "label": {
+                                "en": "Pressed"
+                            }
+                        },
+                        {
+                            "id": "released",
+                            "label": {
+                                "en": "Released"
+                            }
+                        },
+                        {
+                            "id": "stop",
+                            "label": {
+                                "en": "Stop",
+                                "nl": "Hou op"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Heating Mode",
+    "nl": "Verwarmingsmodus"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "values": [
+    {
+      "id": "auto",
+      "title": {
+        "en": "Automatic",
+        "nl": "Automatisch"
+      }
+    },
+    {
+      "id": "comfort",
+      "title": {
+        "en": "Comfort"
+      }
+    },
+    {
+      "id": "eco",
+      "title": {
+        "en": "Eco"
+      }
+    },
+    {
+      "id": "free",
+      "title": {
+        "en": "Free",
+        "nl": "Vrij"
+      }
+    },
+    {
+      "id": "secured",
+      "title": {
+        "en": "Secured"
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Auto / Manual"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "values": [
+    {
+      "id": "auto",
+      "title": {
+        "en": "Automatic",
+        "nl": "Automatisch"
+      }
+    },
+    {
+      "id": "manu",
+      "title": {
+        "en": "Manual",
+        "nl": "Handmatig"
+      }
+    }
+  ]
+}

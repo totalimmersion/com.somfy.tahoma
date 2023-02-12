@@ -1,0 +1,49 @@
+{
+  "name": {
+    "en": "Gate / Garage Door Opener (RTS)"
+  },
+  "class": "other",
+  "capabilities": [
+    "open_button",
+    "close_button",
+    "stop_button"
+  ],
+  "settings": [
+    {
+      "id": "open_command",
+      "type": "dropdown",
+      "value": "open",
+      "label": {
+        "en": "Open Command"
+      },
+      "values": [
+        {
+          "id": "open",
+          "label": {
+            "en": "Open"
+          }
+        },
+        {
+          "id": "rest",
+          "label": {
+            "en": "Rest"
+          }
+        },
+        {
+          "id": "up",
+          "label": {
+            "en": "Up",
+            "nl": "Omhoog"
+          }
+        },
+        {
+          "id": "openConfiguration",
+          "label": {
+            "en": "Open Configuration"
+          }
+        }
+      ]
+    }
+  ],
+  "$extends": ["cloudDriver"]
+}

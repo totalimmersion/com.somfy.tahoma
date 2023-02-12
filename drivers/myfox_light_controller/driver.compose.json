@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "Security Camera Light Controller",
+    "nl": "Beveiligingscamera Lichtcontroller"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff"
+  ],
+  "$extends": ["cloudDriver"]
+}

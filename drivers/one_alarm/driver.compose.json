@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "One Alarm & Somfy Home Keeper"
+  },
+  "class": "homealarm",
+  "capabilities": [
+    "alarm_generic",
+    "homealarm_state"
+  ],
+  "$extends": ["cloudDriver"]
+}

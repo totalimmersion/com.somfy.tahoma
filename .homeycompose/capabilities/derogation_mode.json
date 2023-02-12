@@ -1,0 +1,46 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Operating Mode",
+    "nl": "Bedrijfsmodus"
+  },
+  "values": [
+    {
+      "id": "comfort",
+      "title": {
+        "en": "At home",
+        "nl": "Thuis"
+      }
+    },
+    {
+      "id": "away",
+      "title": {
+        "en": "Away",
+        "nl": "Weg"
+      }
+    },
+    {
+      "id": "eco",
+      "title": {
+        "en": "Night",
+        "nl": "Nacht"
+      }
+    },
+    {
+      "id": "manual",
+      "title": {
+        "en": "Manual",
+        "nl": "Handmatig"
+      }
+    },
+    {
+      "id": "frostprotection",
+      "title": {
+        "en": "Frost protection",
+        "nl": "Vorstbescherming"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

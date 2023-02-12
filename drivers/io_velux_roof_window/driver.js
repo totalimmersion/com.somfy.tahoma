@@ -1,16 +1,22 @@
+/* jslint node: true */
+
 'use strict';
 
-const Driver = require('../Driver');
+const ioWindowCoveringsDriver = require('../ioWindowCoveringsDriver');
 
 /**
  * Driver class for Velux roof windows with the io:WindowOpenerVeluxIOComponent controllable name in TaHoma
- * @extends {Driver}
+ * @extends {ioWindowCoveringsDriver}
  */
-class RoofWindowDriver extends Driver {
+class RoofWindowDriver extends ioWindowCoveringsDriver
+{
 
-  onInit() {
-    this.deviceType = ['io:WindowOpenerVeluxIOComponent'];
-  }
+    async onInit()
+    {
+        this.deviceType = ['io:WindowOpenerVeluxIOComponent', 'ogp:Window'];
+
+        await super.onInit();
+    }
 
 }
 

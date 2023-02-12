@@ -1,0 +1,15 @@
+{
+  "name": {
+    "en": "Atlantic Water Tank Heater"
+  },
+  "class": "heater",
+  "capabilities": [
+    "onoff"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": "Force Heating"
+    }
+  },
+  "$extends": ["cloudDriver"]
+}

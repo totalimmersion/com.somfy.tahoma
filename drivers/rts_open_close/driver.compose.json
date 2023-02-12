@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "Open / Close Remote",
+    "nl": "Afstandsbediening openen / sluiten"
+  },
+  "class": "button",
+  "capabilities": [
+    "button"
+  ],
+  "$extends": ["cloudDriver"]
+}

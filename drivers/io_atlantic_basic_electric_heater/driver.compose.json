@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "Atlantic Basic Electric Heater"
+  },
+  "class": "heater",
+  "capabilities": [
+    "onoff",
+    "heating_level_state"
+  ],
+  "$extends": ["cloudDriver"]
+}

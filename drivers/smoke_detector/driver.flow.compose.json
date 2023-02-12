@@ -1,0 +1,63 @@
+{
+  "triggers": [
+    {
+      "id": "smoke_has_changed",
+      "title": {
+        "en": "The smoke alarm state has changed"
+      },
+      "tokens": [
+        {
+          "name": "isSmoke",
+          "type": "boolean",
+          "title": {
+            "en": "is smoke?"
+          },
+          "example": "smoke"
+        }
+      ],
+      "args": []
+    },
+    {
+      "id": "alarm_battery_radio_true",
+      "title": {
+        "en": "The radio battery alarm turned on"
+      },
+      "args": []
+    },
+    {
+      "id": "alarm_battery_radio_false",
+      "title": {
+        "en": "The radio battery alarm turned off"
+      },
+      "args": []
+    },
+    {
+      "id": "alarm_battery_sensor_true",
+      "title": {
+        "en": "The sensor battery alarm turned on"
+      },
+      "args": []
+    },
+    {
+      "id": "alarm_battery_sensor_false",
+      "title": {
+        "en": "The sensor battery alarm turned off"
+      },
+      "args": []
+    },
+    {
+      "id": "alarm_room_state_true",
+      "title": {
+        "en": "The dirty sensor alarm turned on"
+      },
+      "args": []
+    },
+    {
+      "id": "alarm_room_state_false",
+      "title": {
+        "en": "The dirty sensor alarm turned off"
+      },
+      "args": []
+    }
+  ]
+}

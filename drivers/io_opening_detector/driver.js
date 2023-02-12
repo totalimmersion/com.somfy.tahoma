@@ -1,34 +1,35 @@
+/* jslint node: true */
+
 'use strict';
 
-const Homey = require('homey');
 const Driver = require('../Driver');
 
 /**
- * Driver class for the opening detector with the io:SomfyContactIOSystemSensor controllable name in TaHoma
+ * Driver class for the opening detector with the io:SomfyContactIOSystemSensor, rtds:RTDSContactSensor and io:SomfyBasicContactIOSystemSensor controllable name in TaHoma
  * @extends {Driver}
  */
-class OpeningDetectorDriver extends Driver {
+class OpeningDetectorDriver extends Driver
+{
 
-  onInit() {
-    this.deviceType = ['io:SomfyContactIOSystemSensor'];
+    async onInit()
+    {
+        this.deviceType = ['io:SomfyContactIOSystemSensor', 'rtds:RTDSContactSensor', 'io:SomfyBasicContactIOSystemSensor'];
 
-    /*** CONTACT TRIGGERS ***/
-    this._triggerContactChange = new Homey.FlowCardTriggerDevice('contact_has_changed').register();
-    this._triggerContactChange.registerRunListener(() => {
-      return Promise.resolve(true);
-    });
-  }
+        /** * CONTACT TRIGGERS ** */
+        this._triggerContactChange = this.homey.flow.getDeviceTriggerCard('contact_has_changed');
+    }
 
-  /**
-	 * Triggers the 'contact change' flow
-	 * @param {Device} device - A Device instance
-	 * @param {Object} tokens - An object with tokens and their typed values, as defined in the app.json
-	 * @param {Object} state - An object with properties which are accessible throughout the Flow
-	 */
-  triggerContactChange(device, tokens, state) {
-    this.triggerFlow(this._triggerContactChange, device, tokens, state);
-    return this;
-  }
+    triggerFlows(device, capability, value)
+    {
+        if (capability === 'alarm_contact')
+        {
+            const tokens = {
+                isOpen: value,
+            };
+            this.triggerFlow(this._triggerContactChange, device, tokens);
+        }
+    }
+
 }
 
 module.exports = OpeningDetectorDriver;

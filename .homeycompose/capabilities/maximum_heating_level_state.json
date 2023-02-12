@@ -1,0 +1,62 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Maximum Heating Level",
+    "nl": "Maximaal verwarmingsniveau"
+  },
+  "values": [
+    {
+      "id": "boost",
+      "title": {
+        "en": "Boost"
+      }
+    },
+    {
+      "id": "comfort",
+      "title": {
+        "en": "Comfort"
+      }
+    },
+    {
+      "id": "comfort_1",
+      "title": {
+        "en": "Comfort 1"
+      }
+    },
+    {
+      "id": "comfort_2",
+      "title": {
+        "en": "Comfort 2"
+      }
+    },
+    {
+      "id": "eco",
+      "title": {
+        "en": "Eco"
+      }
+    },
+    {
+      "id": "frostprotection",
+      "title": {
+        "en": "Frost Protection",
+        "nl": "Vorstbescherming"
+      }
+    },
+    {
+      "id": "off",
+      "title": {
+        "en": "Off",
+        "nl": "Uit"
+      }
+    },
+    {
+      "id": "secured",
+      "title": {
+        "en": "Secured",
+        "nl": "Beveiligd"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

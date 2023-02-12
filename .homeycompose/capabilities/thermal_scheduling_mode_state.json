@@ -1,0 +1,9 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Thermal Scheduling Mode",
+    "nl": "Thermische planningsmodus"
+  },
+  "getable": true,
+  "setable": false
+}

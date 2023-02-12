@@ -1,0 +1,35 @@
+{
+  "name": {
+    "en": "Atlantic Main Zone Controller"
+  },
+  "class": "heater",
+  "capabilities": [
+    "target_temperature.absence_cooling",
+    "target_temperature.absence_heating",
+    "cancel_absence",
+    "error_code_state",
+    "heating_derogation_availability_state",
+    "last_pass_apc_operating_mode_state",
+    "heating_cooling_auto_switch",
+    "pass_apc_operating_mode",
+    "pass_apc_product_type_state",
+    "thermal_scheduling_mode_state"
+  ],
+  "capabilitiesOptions": {
+    "target_temperature.absence_cooling": {
+      "title": {
+          "en": "Absence Cooling Temperature",
+          "nl": "Afwezigheid Koeltemperatuur"
+      },
+      "min": 0
+    },
+    "target_temperature.absence_heating": {
+      "title": {
+        "en": "Absence Heating Temperature",
+        "nl": "Afwezigheid Verwarmingstemperatuur"
+    },
+      "min": 0
+    }
+  },
+  "$extends": ["cloudDriver"]
+}

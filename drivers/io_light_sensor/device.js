@@ -1,73 +1,42 @@
+/* jslint node: true */
+
 'use strict';
 
 const SensorDevice = require('../SensorDevice');
-const Tahoma = require('../../lib/Tahoma');
-const genericHelper = require('../../lib/helper').Generic;
-const deviceHelper = require('../../lib/helper').Device;
 
-/**
- * Device class for the light sensor with the io:LightIOSystemSensor controllable name in TaHoma
- * @extends {SensorDevice}
- */
-class LightSensorDevice extends SensorDevice {
+const CapabilitiesXRef = [
+{
+    homeyName: 'defect_state',
+    somfyNameGet: 'core:SensorDefectState',
+    somfyNameSet: [],
+    allowNull: true,
+},
+{
+    homeyName: 'alarm_battery',
+    somfyNameGet: 'core:SensorDefectState',
+    somfyNameSet: [],
+    allowNull: true,
+    compare: ['nodefect', 'lowbattery']
+},
+{
+    homeyName: 'measure_luminance',
+    somfyNameGet: 'core:LuminanceState',
+    somfyNameSet: [],
+}, ];
 
-  onInit() {
-    this.registerCapabilityListener('measure_luminance', this.onCapabilityMeasureLuminance.bind(this));
+class LightSensorDevice extends SensorDevice
+{
 
-   		super.onInit();
-  }
-
-  onCapabilityMeasureLuminance(value) {
-    const oldLuminance = this.getState().measure_luminance;
-    if (oldLuminance !== value) {
-      this.setCapabilityValue('measure_luminance', value);
-
-      const device = this;
-      const tokens = {
-        'luminance': value
-      };
-
-      const state  = {
-        'measure_luminance': value
-      };
-
-      //trigger flows
-      this.getDriver()
-        .triggerLuminanceMoreThan(device, tokens, state)
-        .triggerLuminanceLessThan(device, tokens, state)
-        .triggerLuminanceBetween(device, tokens, state);
+    async onInit()
+    {
+        await super.onInit(CapabilitiesXRef);
     }
 
-    return Promise.resolve();
-  }
-
-  /**
-	 * Gets the sensor data from the TaHoma cloud
-	 * @param {Array} data - device data from all the devices in the TaHoma cloud
-	 */
-  sync(data) {
-    const device = data.find(deviceHelper.isSameDevice(this.getData().id), this);
-    if (!device) {
-      this.setUnavailable(null);
-      return;
+    // Update the capabilities
+    async syncEvents(events)
+    {
+        this.syncEventsList(events, CapabilitiesXRef);
     }
 
-    const range = 15 * 60 * 1000; //range of 15 minutes
-    const to = Date.now();
-    const from = to - range;
-
-    Tahoma.getDeviceStateHistory(this.getDeviceUrl(), 'core:LuminanceState', from, to)
-      .then(data => {
-        //process result
-        if (data.historyValues && data.historyValues.length > 0) {
-          const { value } = genericHelper.getLastItemFrom(data.historyValues);
-          this.triggerCapabilityListener('measure_luminance', value);
-        }
-      })
-      .catch(error => {
-        console.log(error.message, error.stack);
-      });
-  }
 }
-
 module.exports = LightSensorDevice;

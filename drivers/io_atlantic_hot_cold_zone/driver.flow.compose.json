@@ -1,0 +1,363 @@
+{
+    "actions": [
+        {
+            "id": "heat_mode_set",
+            "title": {
+                "en": "Set the Heat Mode"
+            },
+            "titleFormatted": {
+                "en": "Set the Heat Mode to [[state]]"
+            },
+            "args": [
+                {
+                    "name": "state",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Heat Mode"
+                    },
+                    "values": [
+                        {
+                            "id": "absence",
+                            "label": {
+                                "en": "Absent"
+                            }
+                        },
+                        {
+                            "id": "auto",
+                            "label": {
+                                "en": "Automatic",
+                                "nl": "Automatisch"
+                            }
+                        },
+                        {
+                            "id": "comfort",
+                            "label": {
+                                "en": "Comfort"
+                            }
+                        },
+                        {
+                            "id": "eco",
+                            "label": {
+                                "en": "Eco"
+                            }
+                        },
+                        {
+                            "id": "externalScheduling",
+                            "label": {
+                                "en": "External Scheduling"
+                            }
+                        },
+                        {
+                            "id": "internalScheduling",
+                            "label": {
+                                "en": "Internal Scheduling"
+                            }
+                        },
+                        {
+                            "id": "manu",
+                            "label": {
+                                "en": "Manual",
+                                "nl": "Handmatig"
+                            }
+                        },
+                        {
+                            "id": "stop",
+                            "label": {
+                                "en": "Stop",
+                                "nl": "Hou op"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "cool_mode_set",
+            "title": {
+                "en": "Set the Cooling Mode"
+            },
+            "titleFormatted": {
+                "en": "Set the Cooling Mode to [[state]]"
+            },
+            "args": [
+                {
+                    "name": "state",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Cooling Mode"
+                    },
+                    "values": [
+                        {
+                            "id": "absence",
+                            "label": {
+                                "en": "Absent"
+                            }
+                        },
+                        {
+                            "id": "auto",
+                            "label": {
+                                "en": "Automatic",
+                                "nl": "Automatisch"
+                            }
+                        },
+                        {
+                            "id": "comfort",
+                            "label": {
+                                "en": "Comfort"
+                            }
+                        },
+                        {
+                            "id": "eco",
+                            "label": {
+                                "en": "Eco"
+                            }
+                        },
+                        {
+                            "id": "externalScheduling",
+                            "label": {
+                                "en": "External Scheduling"
+                            }
+                        },
+                        {
+                            "id": "internalScheduling",
+                            "label": {
+                                "en": "Internal Scheduling"
+                            }
+                        },
+                        {
+                            "id": "manu",
+                            "label": {
+                                "en": "Manual",
+                                "nl": "Handmatig"
+                            }
+                        },
+                        {
+                            "id": "stop",
+                            "label": {
+                                "en": "Stop",
+                                "nl": "Hou op"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "cooling_on_off",
+            "title": {
+                "en": "Switch Cooling Mode On / Off"
+            },
+            "titleFormatted": {
+                "en": "Switch Cooling Mode [[state]]"
+            },
+            "args": [
+                {
+                    "name": "state",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Cooling Mode"
+                    },
+                    "values": [
+                        {
+                            "id": "on",
+                            "label": {
+                                "en": "On",
+                                "nl": "aan"
+                            }
+                        },
+                        {
+                            "id": "off",
+                            "label": {
+                                "en": "Off",
+                                "nl": "uit"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "heating_on_off",
+            "title": {
+                "en": "Switch Heating Mode On / Off"
+            },
+            "titleFormatted": {
+                "en": "Switch Heating Mode [[state]]"
+            },
+            "args": [
+                {
+                    "name": "state",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Heating Mode"
+                    },
+                    "values": [
+                        {
+                            "id": "on",
+                            "label": {
+                                "en": "On",
+                                "nl": "aan"
+                            }
+                        },
+                        {
+                            "id": "off",
+                            "label": {
+                                "en": "Off",
+                                "nl": "uit"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "derogation_on_off",
+            "title": {
+                "en": "Switch Derogation Mode On / Off"
+            },
+            "titleFormatted": {
+                "en": "Switch Derogation Mode [[state]]"
+            },
+            "args": [
+                {
+                    "name": "state",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Derogation Mode"
+                    },
+                    "values": [
+                        {
+                            "id": "on",
+                            "label": {
+                                "en": "On",
+                                "nl": "aan"
+                            }
+                        },
+                        {
+                            "id": "off",
+                            "label": {
+                                "en": "Off",
+                                "nl": "uit"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "eco_cooling_temperature_set",
+            "title": {
+                "en": "Set the Eco Cooling temperature"
+            },
+            "titleFormatted": {
+                "en": "Set the Eco Cooling to [[target_temperature]]"
+            },
+            "args": [
+                {
+                    "name": "target_temperature",
+                    "type": "range",
+                    "title": {
+                        "en": "Target Temperature"
+                    },
+                    "min": 4,
+                    "max": 35,
+                    "step": 1,
+                    "label": "°C",
+                    "labelDecimals": 0
+                }
+            ]
+        },
+        {
+            "id": "eco_heating_temperature_set",
+            "title": {
+                "en": "Set the Eco Heating temperature"
+            },
+            "titleFormatted": {
+                "en": "Set the Eco Heating to [[target_temperature]]"
+            },
+            "args": [
+                {
+                    "name": "target_temperature",
+                    "type": "range",
+                    "title": {
+                        "en": "Target Temperature"
+                    },
+                    "min": 4,
+                    "max": 35,
+                    "step": 1,
+                    "label": "°C",
+                    "labelDecimals": 0
+                }
+            ]
+        },
+        {
+            "id": "comfort_cooling_temperature_set",
+            "title": {
+                "en": "Set the Comfort Cooling temperature"
+            },
+            "titleFormatted": {
+                "en": "Set the Comfort Cooling to [[target_temperature]]"
+            },
+            "args": [
+                {
+                    "name": "target_temperature",
+                    "type": "range",
+                    "title": {
+                        "en": "Target Temperature"
+                    },
+                    "min": 4,
+                    "max": 35,
+                    "step": 1,
+                    "label": "°C",
+                    "labelDecimals": 0
+                }
+            ]
+        },
+        {
+            "id": "comfort_heating_temperature_set",
+            "title": {
+                "en": "Set the Comfort Heating temperature"
+            },
+            "titleFormatted": {
+                "en": "Set the Comfort Heating to [[target_temperature]]"
+            },
+            "args": [
+                {
+                    "name": "target_temperature",
+                    "type": "range",
+                    "title": {
+                        "en": "Target Temperature"
+                    },
+                    "min": 4,
+                    "max": 35,
+                    "step": 1,
+                    "label": "°C",
+                    "labelDecimals": 0
+                }
+            ]
+        },
+        {
+            "id": "derogation_temperature_set",
+            "title": {
+                "en": "Set the Derogation temperature"
+            },
+            "titleFormatted": {
+                "en": "Set the Derogation to [[target_temperature]]"
+            },
+            "args": [
+                {
+                    "name": "target_temperature",
+                    "type": "range",
+                    "title": {
+                        "en": "Target Temperature"
+                    },
+                    "min": 4,
+                    "max": 35,
+                    "step": 1,
+                    "label": "°C",
+                    "labelDecimals": 0
+                }
+            ]
+        }
+    ]
+}

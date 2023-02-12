@@ -1,20 +1,30 @@
+/* jslint node: true */
+
 'use strict';
 
-const Driver = require('../Driver');
+const ioWindowCoveringsDriver = require('../ioWindowCoveringsDriver');
 
 /**
- * Driver class for roller shutters with the io:RollerShutterGenericIOComponent or io:RollerShutterWithLowSpeedManagementIOComponent controllable name in TaHoma
- * @extends {Driver}
+ * Driver class for roller shutters with the io:RollerShutterGenericIOComponent or io:Re3js3W69CrGF8kKXvvmYtT4zNGqicXRjvuAnmmbvPZXnt or
+ *  MicroModuleRollerShutterSomfyIOComponent or io:RollerShutterUnoIOComponent or io:ScreenReceiverUnoIOComponent controllable name in TaHoma
+ * @extends {ioWindowCoveringsDriver}
  */
-class RollerShutterDriver extends Driver {
+class RollerShutterDriver extends ioWindowCoveringsDriver
+{
 
-  onInit() {
-    this.deviceType = [
-      'io:RollerShutterGenericIOComponent',
-      'io:RollerShutterWithLowSpeedManagementIOComponent',
-      'io:Re3js3W69CrGF8kKXvvmYtT4zNGqicXRjvuAnmmbvPZXnt'
-    ];
-  }
+    async onInit()
+    {
+        this.deviceType = [
+            'io:RollerShutterGenericIOComponent',
+            'io:Re3js3W69CrGF8kKXvvmYtT4zNGqicXRjvuAnmmbvPZXnt',
+            'io:MicroModuleRollerShutterSomfyIOComponent',
+            'io:RollerShutterUnoIOComponent',
+            'io:ScreenReceiverUnoIOComponent',
+            'io:RollerShutterWithBatterySomfyIOComponent'
+        ];
+
+        await super.onInit();
+    }
 
 }
 

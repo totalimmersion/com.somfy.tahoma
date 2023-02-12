@@ -1,0 +1,20 @@
+{
+  "type": "boolean",
+  "getable": true,
+  "setable": true,
+  "uiComponent": "button",
+  "title": {
+    "en": "Open Window Activation",
+    "nl": "Open Venster Activering"
+  },
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Open Windows detection turned on",
+    "nl": "Open Windows-detectie ingeschakeld"
+  },
+  "insightsTitleFalse": {
+    "en": "Open Windows detection turned off",
+    "nl": "Open Windows-detectie uitgeschakeld"
+  },
+  "icon": "/assets/open_windows.svg"
+}

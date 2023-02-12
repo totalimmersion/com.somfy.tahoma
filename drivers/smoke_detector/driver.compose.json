@@ -1,0 +1,37 @@
+{
+    "name": {
+        "en": "Smoke Detector",
+        "nl": "Rookmelder"
+    },
+    "class": "sensor",
+    "capabilities": [
+        "alarm_smoke",
+        "alarm_battery.radio",
+        "alarm_battery.sensor",
+        "alarm_room_state",
+        "test_smoke"
+    ],
+    "capabilitiesOptions": {
+        "alarm_battery.radio": {
+            "title": {
+                "en": "Radio Battery",
+                "nl": "Radiobatterij"
+            }
+        },
+        "alarm_battery.sensor": {
+            "title": {
+                "en": "Sensor Battery",
+                "nl": "Sensorbatterij"
+            }
+        }
+    },
+    "energy": {
+        "batteries": [
+            "AA",
+            "AA"
+        ]
+    },
+    "$extends": [
+        "cloudDriver"
+    ]
+}

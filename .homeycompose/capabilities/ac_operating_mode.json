@@ -1,0 +1,53 @@
+{
+    "type": "enum",
+    "title": {
+        "en": "Operating Mode"
+    },
+    "getable": true,
+    "setable": true,
+    "uiComponent": "picker",
+    "values": [
+        {
+            "id": "auto cooling",
+            "title": {
+                "en": "Auto Cooling"
+            }
+        },
+        {
+            "id": "auto heating",
+            "title": {
+                "en": "Auto Heating"
+            }
+        },
+        {
+            "id": "circulator",
+            "title": {
+                "en": "Circulator"
+            }
+        },
+        {
+            "id": "dehumidify",
+            "title": {
+                "en": "Dehumidify"
+            }
+        },
+        {
+            "id": "fan",
+            "title": {
+                "en": "Fan"
+            }
+        },
+        {
+            "id": "heating",
+            "title": {
+                "en": "Heating"
+            }
+        },
+        {
+            "id": "cooling",
+            "title": {
+                "en": "Cooling"
+            }
+        }
+    ]
+}

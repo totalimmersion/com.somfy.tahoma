@@ -1,0 +1,11 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Heating Mode",
+    "nl": "Verwarmingsmodus:"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "icon": "/assets/dark_mode.svg"
+}

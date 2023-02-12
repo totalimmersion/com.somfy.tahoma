@@ -1,0 +1,69 @@
+{
+    "triggers": [
+        {
+            "id": "remote_state_changed",
+            "title": {
+                "en": "The remote state changed"
+            },
+            "tokens": [
+                {
+                    "name": "remote_state",
+                    "type": "string",
+                    "title": {
+                        "en": "New State"
+                    },
+                    "example": "up"
+                }
+            ],
+            "args": []
+        },
+        {
+            "id": "remote_state_changed_to",
+            "title": {
+                "en": "The remote state changed to"
+            },
+            "titleFormatted": {
+                "en": "The remote state changed to [[expected_state]]"
+            },
+            "args": [
+                {
+                    "type": "dropdown",
+                    "name": "expected_state",
+                    "title": {
+                        "en": "Expected State",
+                        "nl": "Verwachte staat"
+                    },
+                    "values": [
+                        {
+                            "id": "up",
+                            "label": {
+                                "en": "Up",
+                                "nl": "Omhoog"
+                            }
+                        },
+                        {
+                            "id": "down",
+                            "label": {
+                                "en": "Down",
+                                "nl": "Omlaag"
+                            }
+                        },
+                        {
+                            "id": "stop",
+                            "label": {
+                                "en": "Stop",
+                                "nl": "Hou op"
+                            }
+                        },
+                        {
+                            "id": "prog",
+                            "label": {
+                                "en": "Prog"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

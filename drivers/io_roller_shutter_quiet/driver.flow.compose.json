@@ -1,0 +1,40 @@
+{
+    "actions": [
+        {
+            "id": "set_quiet_mode",
+            "title": {
+                "en": "Set quiet mode",
+                "nl": "Stille modus instellen"
+            },
+            "titleFormatted": {
+                "en": "Set quiet mode to [[newQuietMode]]",
+                "nl": "Zet stille modus op [[newQuietMode]]"
+            },
+            "args": [
+                {
+                    "name": "newQuietMode",
+                    "type": "dropdown",
+                    "title": {
+                        "en": "Quiet Mode"
+                    },
+                    "values": [
+                        {
+                            "id": "on",
+                            "label": {
+                                "en": "On",
+                                "nl": "aan"
+                            }
+                        },
+                        {
+                            "id": "off",
+                            "label": {
+                                "en": "Off",
+                                "nl": "uit"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

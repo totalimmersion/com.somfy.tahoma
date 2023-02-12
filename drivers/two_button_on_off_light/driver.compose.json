@@ -1,0 +1,13 @@
+{
+  "name": {
+    "en": "Light with Timer (RTS)",
+    "nl": "Licht met timer (RTS)"
+  },
+  "class": "button",
+  "capabilities": [
+    "on_button",
+    "off_button",
+    "on_with_timer"
+  ],
+  "$extends": ["cloudDriver"]
+}

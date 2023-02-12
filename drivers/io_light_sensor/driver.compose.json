@@ -1,0 +1,19 @@
+{
+  "name": {
+    "en": "Sunis sun sensor (io)",
+    "nl": "Sunis zonsensor (io)"
+  },
+  "class": "sensor",
+  "energy": {
+    "batteries": [
+      "AA",
+      "AA"
+    ]
+  },
+  "capabilities": [
+    "measure_luminance",
+    "defect_state",
+    "alarm_battery"
+  ],
+  "$extends": ["cloudDriver"]
+}

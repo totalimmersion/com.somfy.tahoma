@@ -1,0 +1,32 @@
+{
+  "name": {
+    "en": "Atlantic Water Boiler"
+  },
+  "class": "heater",
+  "capabilities": [
+    "target_temperature.comfort",
+    "target_temperature.eco",
+    "boiler_mode",
+    "onoff",
+    "boost"
+  ],
+  "capabilitiesOptions": {
+    "target_temperature.comfort": {
+      "min": 30,
+      "max": 60,
+      "title": {
+          "en": "Comfort Temperature",
+          "nl": "Comforttemperatuur"
+      }
+    },
+    "target_temperature.eco": {
+      "min": 30,
+      "max": 60,
+      "title": {
+          "en": "Eco Temperature",
+          "nl": "Ecotemperatuur"
+      }
+    }
+  },
+  "$extends": ["cloudDriver"]
+}

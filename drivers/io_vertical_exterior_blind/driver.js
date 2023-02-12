@@ -1,3 +1,5 @@
+/* jslint node: true */
+
 'use strict';
 
 const Driver = require('../Driver');
@@ -8,8 +10,8 @@ const Driver = require('../Driver');
  */
 class VerticalExteriorBlindDriver extends Driver {
 
-  onInit() {
-    this.deviceType = ['io:VerticalExteriorAwningIOComponent'];
+  async onInit() {
+    this.deviceType = ['io:VerticalExteriorAwningIOComponent', 'io:VerticalExteriorAwningVeluxIOComponent'];
   }
 
 }

@@ -1,0 +1,9 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Heating Derogation Availability",
+    "nl": "Beschikbaarheid van afwijking verwarming"
+  },
+  "getable": true,
+  "setable": false
+}

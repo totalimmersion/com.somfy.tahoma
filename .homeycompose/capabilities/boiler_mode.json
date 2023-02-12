@@ -1,0 +1,66 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Hot Water Mode",
+    "nl": "Heetwatermodus",
+    "de": "Heißwassermodus"
+  },
+  "values": [
+    {
+      "id": "comfort",
+      "title": {
+        "en": "Comfort"
+      }
+    },
+    {
+      "id": "eco",
+      "title": {
+        "en": "Eco"
+      }
+    },
+    {
+      "id": "externalScheduling",
+      "title": {
+        "en": "External Scheduling",
+        "nl": "Externe planning"
+      }
+    },
+    {
+      "id": "internalScheduling",
+      "title": {
+        "en": "Internal Scheduling",
+        "nl": "Interne planning"
+      }
+    },
+    {
+      "id": "manu",
+      "title": {
+        "en": "Manual",
+        "nl": "Handmatig"
+      }
+    },
+    {
+      "id": "peakAndOffPeakScheduling",
+      "title": {
+        "en": "Peak And Off Peak Scheduling",
+        "nl": "Piek- en dalurenplanning"
+      }
+    },
+    {
+      "id": "peakAndOffPeakTimes",
+      "title": {
+        "en": "Peak And Off Peak Times",
+        "nl": "Piek- en daluren"
+      }
+    },
+    {
+      "id": "stop",
+      "title": {
+        "en": "Stop",
+        "nl": "Hou op"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}
